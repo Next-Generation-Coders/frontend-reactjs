@@ -66,6 +66,7 @@
     "recharts": "^2.4.3",
     "rtl-detect": "^1.0.4",
     "sass": "^1.57.1",
+    "socket.io-client": "^4.7.4",
     "styled-components": "^5.3.6",
     "styled-theming": "^2.2.0",
     "stylis-plugin-rtl": "^2.1.1",

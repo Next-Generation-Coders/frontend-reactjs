@@ -49,6 +49,8 @@
     import Navbar from '@layout/Navbar';
     import ShoppingCart from '@widgets/ShoppingCart';
     import ScrollToTop from '@components/ScrollToTop';
+import MatchResult from '@pages/Results/MatchResult';
+import AgentScore from '@pages/Results/AgentScore';
 
     // pages
     const ClubSummary = lazy(() => import('@pages/ClubSummary'));
@@ -176,6 +178,10 @@ const TeamList = lazy(() => import('@pages/Team/TeamList'));
                                                     <Route path="/match-list" element={<MatchList/>}/>
                                                     <Route path="/complaint" element={<Complaint/>}/>
                                                     <Route path="/test" element={<Test/>}/>
+
+                                                    //Result Routes
+                                                    <Route path="/match" element={<MatchResult/>}/>
+                                                    <Route path="/agent" element={<AgentScore/>}/>
 
                                                     // Admin Routes
                                                     <Route path="/organizer-list" element={<Organizer/>}/>
