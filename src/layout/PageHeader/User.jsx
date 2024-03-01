@@ -1,6 +1,5 @@
 // styling
 import styles from './styles.module.scss';
-import select from '../../fonts/icomoon/icomoon.svg'
 // components
 import Submenu from '@ui/Submenu';
 import SettingsPopup from '@layout/BottomNav/SettingsPopup';
@@ -13,11 +12,14 @@ import {useState} from 'react';
 import useStoreRoute from '@hooks/useStoreRoute';
 import {useShopProvider} from '@contexts/shopContext';
 import {useLogout} from '@hooks/useLogout';
+import {useEffect} from "react";
 // assets
 import user from '@assets/placeholder.webp';
 import {useNavigate} from "react-router-dom";
 
 const User = () => {
+
+
 
     const [popupOpen, setPopupOpen] = useState(false);
     const {anchorEl, open, handleClick, handleClose} = useSubmenu();
@@ -32,7 +34,7 @@ const User = () => {
         onClick: () => setPopupOpen(true)
     }
 
-    const {USER} = useAuthContext();
+    const {USER,dispatch} = useAuthContext();
 
     const {logout} = useLogout();
     const onClickChangeAccount=()=>{
@@ -42,7 +44,20 @@ const User = () => {
         logout()
     }
 
+    useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search);
+        const email = queryParams.get('email');
+        const fullname = queryParams.get('fullname');
+        const secret = queryParams.get('secret');
+        if (email && fullname && secret) {
+            const json = {fullname:fullname,email:email,secret:secret}
+            console.log(email);
+            localStorage.setItem('user', JSON.stringify(json))
 
+            dispatch({type: 'LOGIN', payload: json})
+            navigate('/')
+        }
+    });
     const submenuActions = [
         {
             label: 'Change user',
@@ -55,7 +70,6 @@ const User = () => {
             onClick: onClickLogout
         }
     ];
-    const isLoggedIn = localStorage.getItem('user');
 
     const goToLogin = ()=>{
         navigate('/login')
@@ -68,7 +82,6 @@ const User = () => {
         USER ?
         <div className="d-flex align-items-center g-16">
             <div>
-            {USER.user.verified? (<i className="fa-duotone fa-badge-check"/>) : (<i className="icon icon-xmark"/>)}
             </div>
             <div className={styles.avatar}>
                 <img className="c-pointer" src={user} alt="user" onClick={handleClick}/>
@@ -82,9 +95,9 @@ const User = () => {
             </div>
             <div className="d-flex flex-column">
                 <span className="h3" style={{letterSpacing: 0.2}}>
-                    {USER.user.fullname}
+                    {USER.fullname}
                 </span>
-                <span className="text-12">{USER.user.email}</span>
+                <span className="text-12">{USER.email}</span>
             </div>
             <Submenu open={open}
                      onClose={handleClose}

@@ -24,7 +24,8 @@ export const AuthContextProvider = ({ children }) => {
         if (USER) {
             dispatch({ type: 'LOGIN', payload: USER })
         }
-    }, [])
+    }, []
+    )
 
     console.log('AuthContext state:', state)
 

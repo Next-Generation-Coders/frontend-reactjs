@@ -79,6 +79,10 @@ const LINKS = [
                 title: 'Settings',
                 path: '/player-profile'
             },
+            {
+                title: 'Profile',
+                path: '/profile'
+            },
             
            
         ]

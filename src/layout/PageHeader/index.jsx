@@ -96,7 +96,7 @@ const PageHeader = ({title}) => {
     return (
         <>
             <Helmet>
-                <title>{title} | LinkUpTournament</title>
+                <title>{title} | Linkuptournament</title>
             </Helmet>
             {
                 width < 1280 ?

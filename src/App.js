@@ -1,7 +1,5 @@
     // GA
     import ReactGA from 'react-ga4';
-    import { DndProvider } from 'react-dnd';
-    import { HTML5Backend } from 'react-dnd-html5-backend';
     // utils
     import {lazy, Suspense} from 'react';
 
@@ -25,12 +23,12 @@
     // contexts
     import {SidebarProvider} from '@contexts/sidebarContext';
     import {ThemeProvider} from 'styled-components';
-
     // hooks
     import {useThemeProvider} from '@contexts/themeContext';
     import {useEffect, useRef} from 'react';
     import {useWindowSize} from 'react-use';
     import useAuthRoute from '@hooks/useAuthRoute';
+    import {useAuthContext} from "@hooks/useAuthContext";
 
     // utils
     import {StyleSheetManager} from 'styled-components';
@@ -41,7 +39,7 @@
     import createCache from '@emotion/cache';
 
     // components
-    import {Route, Routes} from 'react-router-dom';
+    import {Navigate, Route, Routes} from 'react-router-dom';
     import {ToastContainer} from 'react-toastify';
     import LoadingScreen from '@components/LoadingScreen';
     import Sidebar from '@layout/Sidebar';
@@ -49,6 +47,7 @@
     import Navbar from '@layout/Navbar';
     import ShoppingCart from '@widgets/ShoppingCart';
     import ScrollToTop from '@components/ScrollToTop';
+    import Profile from "@pages/User/Profile";
 
     // pages
     const ClubSummary = lazy(() => import('@pages/ClubSummary'));
@@ -94,7 +93,6 @@ const CreateTeam = lazy(() => import('@pages/Team/CreateTeam'));
 const TeamList = lazy(() => import('@pages/Team/TeamList'));
 
 
- 
 
 
 
@@ -105,6 +103,7 @@ const TeamList = lazy(() => import('@pages/Team/TeamList'));
         const {theme, direction} = useThemeProvider();
         const {width} = useWindowSize();
         const isAuthRoute = useAuthRoute();
+        const {USER} = useAuthContext();
 
         // Google Analytics init
         const gaKey = process.env.REACT_APP_PUBLIC_GA;
@@ -167,7 +166,7 @@ const TeamList = lazy(() => import('@pages/Team/TeamList'));
                                                     <Route path="/football-store" element={<FootballStore/>}/>
                                                     <Route path="/brand-store" element={<BrandStore/>}/>
                                                     <Route path="/product" element={<Product/>}/>
-                                                    <Route path="/login" element={<Login/>}/>
+                                                    <Route path="/login" element={!USER ? <Login/> : <Navigate to="/"/>}/>
                                                     <Route path="/sign-up" element={<SignUp/>}/>
                                                     <Route path="/settings" element={<Settings/>}/>
                                                     
@@ -175,7 +174,7 @@ const TeamList = lazy(() => import('@pages/Team/TeamList'));
                                                     <Route path="/realtime" element={<RealTime/>}/>
                                                     <Route path="/match-list" element={<MatchList/>}/>
                                                     <Route path="/complaint" element={<Complaint/>}/>
-                                                    <Route path="/test" element={<Test/>}/>
+                                                    <Route path="/test" element={USER ? <Test/> : <Navigate to="/login"/>}/>
 
                                                     // Admin Routes
                                                     <Route path="/organizer-list" element={<Organizer/>}/>
@@ -192,12 +191,8 @@ const TeamList = lazy(() => import('@pages/Team/TeamList'));
                                                     <Route path="/create-team" element={<CreateTeam/>}/>
                                                     <Route path="/team-list" element={<TeamList/>}/>
 
-
-
-
-
-
-
+                                                    // User routes
+                                                    <Route path="/profile" element={<Profile/>}/>
 
                                                 </Routes>
                                         </Suspense>

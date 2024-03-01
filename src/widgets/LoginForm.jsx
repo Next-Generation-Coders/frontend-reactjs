@@ -2,10 +2,10 @@
 import PasswordInput from '@components/PasswordInput';
 import BasicCheckbox from '@ui/BasicCheckbox';
 import ResetPasswordPopup from '@components/ResetPasswordPopup';
+import { FcGoogle } from "react-icons/fc";
 
 // hooks
 import {useForm, Controller} from 'react-hook-form';
-import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
 
 // utils
@@ -22,7 +22,6 @@ const LoginForm = () => {
             rememberMe: false
         }
     });
-    const navigate = useNavigate();
     const onSubmit = async (data) => {
         await login(data.email,data.password);
     };
@@ -79,7 +78,18 @@ const LoginForm = () => {
                     </button>
                 </div>
             </form>
+            <br/>
+            <br/>
+            <hr/>
+            <br/>
+            <br/>
+            <div >
+            <form className="d-flex justify-content-center align-items-end" action="http://localhost:3000/auth/google" >
+                <button className="btn">
+                    Sign in with <FcGoogle />
+                </button></form>
             <ResetPasswordPopup open={open} onClose={() => setOpen(false)}/>
+            </div>
         </>
     )
 }

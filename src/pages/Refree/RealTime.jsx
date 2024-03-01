@@ -15,17 +15,13 @@ const widgets = {
     ReviewsB: <ReviewsB standalone />,
     team_full_info: <TeamFullInfo id="bayern"/>,
     team_full_infoo: <TeamFullInfo id="bayern"/>,
-
-
-
-
 }
 
 const RealTime = () => {
     return (
         <>
              <PageHeader title=" Teams Linup" />
-            <AppGrid  id="" widgets={widgets}/>
+            <AppGrid  id="club_summary" widgets={widgets}/>
         </>
     )
 }

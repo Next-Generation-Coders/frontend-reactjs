@@ -7,12 +7,12 @@ import {NavLink} from 'react-router-dom';
 // utils
 import PropTypes from 'prop-types';
 
-const Logo = ({size = 'md'}) => {
+const Logo = ({size = 'sm'}) => {
     return (
         <NavLink className={`${styles.logo} ${styles[size]}`} to="/">
-            LinkUp
+            linkup
             <span className={styles.logo_highlight}>
-                <span>Tournament</span>
+                <span>tournament</span>
             </span>
         </NavLink>
     )
