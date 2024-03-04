@@ -16,6 +16,7 @@ import {useEffect} from "react";
 // assets
 import user from '@assets/placeholder.webp';
 import {useNavigate} from "react-router-dom";
+import {useFindUserByEmail} from "@hooks/useFindUserByEmail";
 
 const User = () => {
 
@@ -27,7 +28,7 @@ const User = () => {
     const isStoreRoute = useStoreRoute();
     const {setCartOpen} = useShopProvider();
     const navigate = useNavigate();
-
+    const {getByEmail} = useFindUserByEmail()
     const settingsPopup = {
         label: 'UI Settings',
         icon: 'gear-solid',
@@ -35,7 +36,6 @@ const User = () => {
     }
 
     const {USER,dispatch} = useAuthContext();
-
     const {logout} = useLogout();
     const onClickChangeAccount=()=>{
         console.log('Change account!')
@@ -45,19 +45,19 @@ const User = () => {
     }
 
     useEffect(() => {
-        const queryParams = new URLSearchParams(window.location.search);
-        const email = queryParams.get('email');
-        const fullname = queryParams.get('fullname');
-        const secret = queryParams.get('secret');
-        if (email && fullname && secret) {
-            const json = {fullname:fullname,email:email,secret:secret}
-            console.log(email);
-            localStorage.setItem('user', JSON.stringify(json))
-
-            dispatch({type: 'LOGIN', payload: json})
-            navigate('/')
+        if(!USER){
+            const queryParams = new URLSearchParams(window.location.search);
+            const email = queryParams.get('email');
+            if (email) {
+                async function fetchByEmail(){
+                    await getByEmail(email);
+                }
+                fetchByEmail().then(()=>{
+                    navigate('/')
+                })
+            }
         }
-    });
+    },[dispatch,USER,getByEmail]);
     const submenuActions = [
         {
             label: 'Change user',

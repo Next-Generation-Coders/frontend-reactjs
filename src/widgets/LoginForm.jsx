@@ -15,6 +15,7 @@ import {useLogin} from "@hooks/useLogin";
 const LoginForm = () => {
     const [open, setOpen] = useState(false);
     const {login,error,isLoading}= useLogin();
+
     const {register, handleSubmit, formState: {errors}, control} = useForm({
         defaultValues: {
             email: '',
@@ -24,6 +25,7 @@ const LoginForm = () => {
     });
     const onSubmit = async (data) => {
         await login(data.email,data.password);
+
     };
 
     const handleResetPassword = e => {

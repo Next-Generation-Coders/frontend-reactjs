@@ -1,3 +1,5 @@
+//TODO: Edit links based on USER auth state and roles
+
 const LINKS = [
     {
         title: 'Dashboard',

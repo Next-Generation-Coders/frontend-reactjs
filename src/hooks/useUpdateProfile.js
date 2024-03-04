@@ -1,22 +1,23 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
 
-export const useLogin = () => {
+export const useUpdateProfile = () => {
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
-    const navigate = useNavigate();
 
-    const login = async (email, password) => {
+    const update = async (user) => {
         setIsLoading(true)
         setError('')
 
-        const response = await fetch('http://localhost:3000/User/login', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ email, password })
+        const response = await fetch('http://localhost:3000/User/profile', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token').toString()}`
+            },
+            body: JSON.stringify({user})
         })
         const json = await response.json()
 
@@ -32,15 +33,17 @@ export const useLogin = () => {
             dispatch({type: 'LOGIN', payload: json.user})
 
             setIsLoading(false)
-/*            if(json.user.isVerified){
-                toast.success(`Welcome back!`)
-            }*/
+            toast.success(`Your changes have been saved!`)
+
+
+            /*            if(json.user.isVerified){
+                            toast.success(`Welcome back!`)
+                        }*/
             // else {
             //     toast.warn(`Your account is not verified yet, check your inbox!`)
             // }
-            navigate('/');
         }
     }
 
-    return { login, isLoading, error }
+    return { update, isLoading, error }
 }

@@ -12,7 +12,6 @@ import {AuthContextProvider} from "@contexts/authContext";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
-        {/*This is a test*/}
         <BrowserRouter>
             <ThemeProvider>
                 <ShopProvider>

@@ -1,22 +1,17 @@
 // components
 import PageHeader from '@layout/PageHeader';
 import AppGrid from '@layout/AppGrid';
-import ProfileAvatar from '@widgets/ProfileAvatar';
-import ProfileInfo from '@widgets/ProfileInfo';
-import ChangePassword from '@widgets/ChangePassword';
 import UserSettings from "@widgets/ProfileWidgets/UserSettings";
+import UserPassword from "@widgets/ProfileWidgets/UserPassword/UserPassword";
+import UserInfo from "@widgets/ProfileWidgets/UserInfo";
+import UserAvatar from "@widgets/ProfileWidgets/UserAvatar";
 
 
 const widgets = {
-    avatar: <ProfileAvatar/>,
-    info: <ProfileInfo/>,
-    // description: <ProfileDescription/>,
+    avatar: <UserAvatar/>,
+    info: <UserInfo/>,
     settings: <UserSettings/>,
-    // payments: <PaymentMethod/>,
-    // privacy: <PrivacyPolicy/>,
-    // notifications_settings: <NotificationsSettings/>,
-    // notifications_schedule: <NotificationsSchedule/>,
-    password: <ChangePassword/>
+    password: <UserPassword/>
 }
 
 const Profile = () => {
