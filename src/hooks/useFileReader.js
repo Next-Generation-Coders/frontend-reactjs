@@ -12,6 +12,7 @@ const useFileReader = () => {
     const handleFile = (e) => {
         // get the file object from the event
         const file = e.target.files[0];
+
         // check if a file was selected; if not, exit the function
         if (!file) return;
         // check if the file type is supported (JPEG, PNG, or WEBP); if not, show an error message and exit the function
@@ -19,6 +20,8 @@ const useFileReader = () => {
             toast.error('File type not supported.');
             return;
         }
+
+
 
         // create a new FileReader object
         const reader = new FileReader();
@@ -31,9 +34,29 @@ const useFileReader = () => {
         // set up a loading indicator while the file is being loaded
         reader.onloadstart = () => setLoading(true);
         // when the file is finished loading, set the file state and turn off the loading indicator
-        reader.onloadend = () => {
-            setFile(reader.result);
-            setLoading(false);
+        const formData = new FormData();
+        formData.append('avatar', file);
+
+        reader.onloadend = async () => {
+            try {
+                const resp = await fetch('http://localhost:3000/User/avatar', {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    },
+                    body: formData,
+                });
+                const json = resp.json();
+                if(json.error){
+                    toast.error(json.error);
+                }
+                if(!json.error){
+                    toast.success(json.message);
+                }
+                setLoading(false);
+            } catch (error) {
+                console.error('Error uploading avatar:', error);
+            }
         };
     }
 

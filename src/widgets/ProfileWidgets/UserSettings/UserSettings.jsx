@@ -30,8 +30,8 @@ const UserSettings = () => {
             phone: USER ? USER.phone : '',
             email: USER ? USER.email : '',
             age: USER ? USER.age : '',
-            country: USER ? setSelectedCountry(USER.country) : null,
-            city: USER ? setSelectedCity(USER.city) : null,
+            country: USER ? USER.country : null,
+            city: USER ? USER.city : null,
         }
     });
     const getCountriesOptions = () => {

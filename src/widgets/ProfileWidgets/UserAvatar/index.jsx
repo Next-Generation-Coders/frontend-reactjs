@@ -18,7 +18,7 @@ import {useAuthContext} from "@hooks/useAuthContext";
 
 const UserAvatar = () => {
     const {anchorEl, open, handleClick, handleClose} = useSubmenu();
-    const {file, setFile, handleFile} = useFileReader();
+    const {file, setFile, handleFile, loading} = useFileReader();
     const inputRef = useRef(null);
     const {USER} = useAuthContext()
 
@@ -37,16 +37,20 @@ const UserAvatar = () => {
         }
     ]
 
+    const handleUpload = async (e)=>{
+        await handleFile(e);
+    }
+
     return (
         <Spring className={`${styles.card} card card-padded`}>
             <h3 className={styles.title}>My Profile</h3>
             <div className={`${styles.container} d-flex align-items-center`}>
                 <div className={styles.wrapper}>
-                    <input type="file" onChange={handleFile} ref={inputRef} hidden/>
+                    <input type="file" onChange={handleUpload} ref={inputRef} hidden/>
                     <div>
                         <LazyImage className={styles.img} src={file ? file : user} alt={USER.fullname}/>
                     </div>
-                    <button className={styles.button} onClick={handleClick} aria-label="Open menu">
+                    <button className={styles.button} disabled={loading} onClick={handleClick} aria-label="Open menu">
                         <i className="icon-camera"/>
                     </button>
                     <Submenu open={open} onClose={handleClose} anchorEl={anchorEl} actions={submenuActions}/>
