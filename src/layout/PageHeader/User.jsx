@@ -80,36 +80,36 @@ const User = () => {
 
     return (
         USER ?
-        <div className="d-flex align-items-center g-16">
-            <div>
-            </div>
-            <div className={styles.avatar}>
-                <img className="c-pointer" src={user} alt="user" onClick={handleClick}/>
-                {
-                    isStoreRoute && isTablet && (
-                        <button className={styles.avatar_cart} aria-label="Shopping cart" onClick={() => setCartOpen(true)}>
-                            <i className="icon-bag-solid"/>
-                        </button>
-                    )
-                }
-            </div>
-            <div className="d-flex flex-column">
+            <div className="d-flex align-items-center g-16">
+                <div>
+                </div>
+                <div className={styles.avatar}>
+                    <img className="c-pointer" src={user} alt="user" onClick={handleClick}/>
+                    {
+                        isStoreRoute && isTablet && (
+                            <button className={styles.avatar_cart} aria-label="Shopping cart" onClick={() => setCartOpen(true)}>
+                                <i className="icon-bag-solid"/>
+                            </button>
+                        )
+                    }
+                </div>
+                <div className="d-flex flex-column">
                 <span className="h3" style={{letterSpacing: 0.2}}>
                     {USER.fullname}
                 </span>
-                <span className="text-12">{USER.email}</span>
+                    <span className="text-12">{USER.email}</span>
+                </div>
+                <Submenu open={open}
+                         onClose={handleClose}
+                         anchorEl={anchorEl}
+                         actions={isTablet ? [settingsPopup, ...submenuActions] : submenuActions}/>
+                <SettingsPopup open={popupOpen} onClose={() => setPopupOpen(false)}/>
             </div>
-            <Submenu open={open}
-                     onClose={handleClose}
-                     anchorEl={anchorEl}
-                     actions={isTablet ? [settingsPopup, ...submenuActions] : submenuActions}/>
-            <SettingsPopup open={popupOpen} onClose={() => setPopupOpen(false)}/>
-        </div>
-        :
-        <div>
+            :
+            <div>
         <span><button className='btn btn--sm' onClick={goToLogin}>Login</button>
         <button className='btn btn--outlined btn--sm' onClick={goToSignUp}>Sign up</button></span>
-        </div>
+            </div>
     )
 }
 

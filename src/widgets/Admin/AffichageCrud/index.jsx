@@ -1,10 +1,9 @@
 // styles
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
-import TabButton from '@ui/TabButton';
+import { Button } from '@mui/material';
 
 // styled components
-import {StyledEventsCalendar, Header} from './styles';
+import { Header} from './styles';
 
 // components
 import Spring from '@components/Spring';

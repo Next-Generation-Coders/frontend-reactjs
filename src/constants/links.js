@@ -1,5 +1,3 @@
-//TODO: Edit links based on USER auth state and roles
-
 const LINKS = [
     {
         title: 'Dashboard',
@@ -78,15 +76,11 @@ const LINKS = [
                 path: '/sign-up'
             },
             {
-                title: 'Settings',
-                path: '/player-profile'
-            },
-            {
                 title: 'Profile',
                 path: '/profile'
             },
-            
-           
+
+
         ]
     },
     {
@@ -111,7 +105,7 @@ const LINKS = [
     },
     {
         title: 'Payment',
-        icon: 'dollar',
+        icon: 'cart',
         pages: [
             {
                 title: 'Payment List',
@@ -148,7 +142,11 @@ const LINKS = [
             },
             {
                 title: 'Team List',
-                path: '/team--list'
+                path: '/team--ist'
+            },
+            {
+                title: 'Complaint List',
+                path: '/complaint-list'
             },
         ]
     },
@@ -165,16 +163,23 @@ const LINKS = [
                 path: '/match-list'
             },
             {
+                title: 'test',
+                path: '/test'
+            },
+        ]
+    },
+    {
+        title: 'Complaint',
+        icon: 'phone-light',
+        pages: [
+            {
                 title: 'Complaint',
                 path: '/complaint'
             },
             {
-                title: 'test',
-                path: '/test'
+                title: 'About us',
+                path: '/about-us'
             },
-           
-           
-           
         ]
     },
 ];

@@ -32,9 +32,9 @@ export const useLogin = () => {
             dispatch({type: 'LOGIN', payload: json.user})
 
             setIsLoading(false)
-/*            if(json.user.isVerified){
-                toast.success(`Welcome back!`)
-            }*/
+            /*            if(json.user.isVerified){
+                            toast.success(`Welcome back!`)
+                        }*/
             // else {
             //     toast.warn(`Your account is not verified yet, check your inbox!`)
             // }

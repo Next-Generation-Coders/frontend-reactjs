@@ -36,7 +36,7 @@ const LoginForm = () => {
     return (
         <>
             <h1>Account login</h1>
-             <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="d-flex flex-column g-10" style={{margin: '20px 0 30px'}}>
                     <div className="d-flex flex-column g-20">
                         <input className={classNames('field', {'field--error': errors.email})}
@@ -86,11 +86,11 @@ const LoginForm = () => {
             <br/>
             <br/>
             <div >
-            <form className="d-flex justify-content-center align-items-end" action="http://localhost:3000/auth/google" >
-                <button className="btn">
-                    Sign in with <FcGoogle />
-                </button></form>
-            <ResetPasswordPopup open={open} onClose={() => setOpen(false)}/>
+                <form className="d-flex justify-content-center align-items-end" action="http://localhost:3000/auth/google" >
+                    <button className="btn">
+                        Sign in with <FcGoogle />
+                    </button></form>
+                <ResetPasswordPopup open={open} onClose={() => setOpen(false)}/>
             </div>
         </>
     )

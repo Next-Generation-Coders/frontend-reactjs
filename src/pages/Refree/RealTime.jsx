@@ -2,12 +2,10 @@
 import PageHeader from '@layout/PageHeader';
 import AppGrid from '@layout/AppGrid';
 import StadiumDisplay from '@widgets/Refree/StadiumDisplay';
-import TeamStatsProgress from '@widgets/Refree/realtime/TeamStatsProgress';
 import TeamFullInfo from '@widgets/Refree/realtime/TeamFullInfo';
 
 import ReviewsA from '@widgets/Refree/realtime/ReviewsA';
 import ReviewsB from '@widgets/Refree/realtime/ReviewsB';
-import ProductRowCardList from '@widgets/ProductRowCardList';
 
 const widgets = {
     product_display: <StadiumDisplay />,
