@@ -1,7 +1,5 @@
     // GA
     import ReactGA from 'react-ga4';
-    import { DndProvider } from 'react-dnd';
-    import { HTML5Backend } from 'react-dnd-html5-backend';
     // utils
     import {lazy, Suspense} from 'react';
 
@@ -39,9 +37,10 @@
     import rtlPlugin from 'stylis-plugin-rtl';
     import {CacheProvider} from '@emotion/react';
     import createCache from '@emotion/cache';
-
+    import Profile from "@pages/User/Profile";
+    import Home from "@pages/Home/Home";
     // components
-    import {Route, Routes} from 'react-router-dom';
+    import {Navigate, Route, Routes} from 'react-router-dom';
     import {ToastContainer} from 'react-toastify';
     import LoadingScreen from '@components/LoadingScreen';
     import Sidebar from '@layout/Sidebar';
@@ -49,8 +48,9 @@
     import Navbar from '@layout/Navbar';
     import ShoppingCart from '@widgets/ShoppingCart';
     import ScrollToTop from '@components/ScrollToTop';
-import MatchResult from '@pages/Results/MatchResult';
-import AgentScore from '@pages/Results/AgentScore';
+    import MatchResult from '@pages/Results/MatchResult';
+    import AgentScore from '@pages/Results/AgentScore';
+    import {useAuthContext} from "@hooks/useAuthContext";
 
     // pages
     const ClubSummary = lazy(() => import('@pages/ClubSummary'));
@@ -74,7 +74,7 @@ import AgentScore from '@pages/Results/AgentScore';
     const Settings = lazy(() => import('@pages/Settings'));
     
 // Refree Routes
-    const Complaint = lazy(() => import('@pages/Refree/Complaint'));
+    const Complaints = lazy(() => import('@pages/Admin/Complaints'));
     const RealTime = lazy(() => import('@pages/Refree/RealTime'));
     const MatchList = lazy(() => import('@pages/Refree/MatchList'));
     const Test = lazy(() => import('@pages/Refree/Test'));
@@ -86,23 +86,32 @@ import AgentScore from '@pages/Results/AgentScore';
     const Player = lazy(() => import('@pages/Admin/Player'));
     const Team = lazy(() => import('@pages/Admin/Team'));
 
- // Payment Routes
- const PaymentAdmin = lazy(() => import('@pages/Payment/PamyentAdmin'));
- const PaymentOrganizer = lazy(() => import('@pages/Payment/PaymentOrganizer'));
+    // Payment Routes
+    const PaymentAdmin = lazy(() => import('@pages/Payment/PamyentAdmin'));
+    const PaymentOrganizer = lazy(() => import('@pages/Payment/PaymentOrganizer'));
+    const PaymentSucess = lazy(() => import('@pages/Payment/SuccessPayment'));
+    const CancelPayment = lazy(() => import('@pages/Payment/CancelPayment'));
 
-// Tean Routes
+    // Team Routes
 
-const CreateTeam = lazy(() => import('@pages/Team/CreateTeam'));
-const TeamList = lazy(() => import('@pages/Team/TeamList'));
+    const CreateTeam = lazy(() => import('@pages/Team/CreateTeam'));
+    const TeamList = lazy(() => import('@pages/Team/TeamList'));
+
+    // Complaint Routes
+
+    const Complaint = lazy(() => import('@pages/Complaint/Complaint'));
+    const AboutUs = lazy(() => import('@pages/Complaint/AboutUs'));
 
 
- 
+
 
 
 
 
 
     const App = () => {
+        const {USER} = useAuthContext();
+
         const appRef = useRef(null);
         const {theme, direction} = useThemeProvider();
         const {width} = useWindowSize();
@@ -154,7 +163,8 @@ const TeamList = lazy(() => import('@pages/Team/TeamList'));
                                             <Suspense fallback={<LoadingScreen />}>
                                                 <Routes>
                                                     <Route path="*" element={<PageNotFound/>}/>
-                                                    <Route path="/" element={<ClubSummary/>}/>
+                                                    {/*<Route path="/" element={<ClubSummary/>}/>*/}
+                                                    <Route path="/" element={<Home/>}/>
                                                     <Route path="/game-summary" element={<GameSummary/>}/>
                                                     <Route path="/championships" element={<Championships/>}/>
                                                     <Route path="/create-tournament" element={<CreateTournament/>}/>
@@ -179,7 +189,6 @@ const TeamList = lazy(() => import('@pages/Team/TeamList'));
                                                     <Route path="/complaint" element={<Complaint/>}/>
                                                     <Route path="/test" element={<Test/>}/>
 
-                                                    //Result Routes
                                                     <Route path="/match" element={<MatchResult/>}/>
                                                     <Route path="/agent" element={<AgentScore/>}/>
 
@@ -188,16 +197,26 @@ const TeamList = lazy(() => import('@pages/Team/TeamList'));
                                                     <Route path="/coach-list" element={<Coach/>}/>
                                                     <Route path="/refree-list" element={<Referee/>}/>
                                                     <Route path="/player-list" element={<Player/>}/>
-                                                    <Route path="/team--list" element={<Team/>}/>
+                                                    <Route path="/team-list" element={<Team/>}/>
+                                                    <Route path="/complaint-list" element={<Complaints/>}/>
+
 
                                                     // Payment Routes
                                                     <Route path="/payment-list" element={<PaymentAdmin/>}/>
                                                     <Route path="/payment" element={<PaymentOrganizer/>}/>
+                                                    <Route path="/payment/checkout-success" element={<PaymentSucess/>}/>
+                                                    <Route path="/payment/checkout-cancel" element={<CancelPayment/>}/>
+
 
                                                     // Team Routes
                                                     <Route path="/create-team" element={<CreateTeam/>}/>
                                                     <Route path="/team-list" element={<TeamList/>}/>
 
+                                                    // Complaint Routes
+                                                    <Route path="/complaint" element={<Complaint/>}/>
+                                                    <Route path="/about-us" element={<AboutUs/>}/>
+                                                    // User routes
+                                                    <Route path="/profile" element={USER ? <Profile/> : <Navigate to="/login"/>}/>
 
 
 

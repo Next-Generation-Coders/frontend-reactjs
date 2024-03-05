@@ -430,41 +430,6 @@ const layouts = {
             {i: 'password', x: 1, y: 6, w: 1, h: 2}
         ]
     },
-    MatchResult: {
-        xl: [
-            {i: 'teamA_lineups', x: 0, y: 0, w: 1, h: 2},
-            {i: 'teamA_stats_progress', x: 0, y: 1, w: 1, h: 2},
-            {i: 'teamB_lineups', x: 3, y: 0, w: 1, h: 2},
-            {i: 'teamB_stats_progress', x: 3, y: 1, w: 1, h: 2},
-
-            {i: 'match_events', x: 1, y: 0, w: 2, h: 1},
-            {i: 'passes_polar_chart', x: 1, y: 1, w: 2, h: 3},
-            {i: 'player_cards', x: 1, y: 0.5, w: 2, h: 1},
-
-        ],
-        lg: [
-            {i: 'teamA_lineups', x: 0, y: 4, w: 1, h: 2},
-            {i: 'teamA_stats_progress', x: 0, y: 5, w: 1, h: 2},
-            {i: 'teamB_lineups', x: 0, y: 0, w: 1, h: 2},
-            {i: 'teamB_stats_progress', x: 0, y: 1, w: 1, h: 2},
-
-            {i: 'match_events', x: 1, y: 0, w: 2, h: 1},
-            {i: 'passes_polar_chart', x: 1, y: 1, w: 2, h: 3},
-            {i: 'player_cards', x: 1, y: 0.5, w: 2, h: 1},
-
-        ],
-        md: [
-            {i: 'teamA_lineups', x: 0, y: 1, w: 1, h: 2},
-            {i: 'teamA_stats_progress', x: 0, y: 2, w: 1, h: 2},
-            {i: 'teamB_lineups', x: 1, y: 1, w: 1, h: 2},
-            {i: 'teamB_stats_progress', x: 1, y: 2, w: 1, h: 2},
-
-            {i: 'match_events', x: 0, y: 0, w: 2, h: 1},
-            {i: 'passes_polar_chart', x: 0, y: 5, w: 2, h: 3},
-            {i: 'player_cards', x: 1, y: 0.5, w: 2, h: 1},
-
-        ]
-    },
     MatchAgent: {
         xl: [
             {i: 'match_score',  x: 0, y: 0, w: 4, h: 1},
@@ -499,7 +464,55 @@ const layouts = {
             {i: 'player_cards', x: 1, y: 0.5, w: 2, h: 1},
 
         ]
-    }
+    },
+    profile: {
+        xl: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'settings', x: 1, y: 0, w: 2, h: 2},
+            {i: 'password', x: 3, y: 0, w: 1, h: 2}
+        ],
+        lg: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'settings', x: 1, y: 0, w: 2, h: 2},
+            {i: 'password', x: 1, y: 4, w: 1, h: 2}
+        ],
+        md: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'settings', x: 0, y: 2, w: 2, h: 2},
+            {i: 'password', x: 1, y: 6, w: 1, h: 2}
+        ]
+    },
+    home: {
+        xl: [
+            {i: 'live_report', x: 0, y: 2, w: 1, h: 2},
+            {i: 'matches_overview', x: 1, y: 3, w: 2, h: 3},
+            // {i: 'match_result', x: 1, y: 1, w: 1, h: 2},
+            {i: 'live_matches', x: 0, y: 0, w: 1, h: 2},
+            {i: 'calendar', x: 3, y: 2, w: 1, h: 2},
+
+        ],
+        lg: [
+            {i: 'team_stats', x: 0, y: 0, w: 1, h: 1},
+            {i: 'attendance', x: 1, y: 0, w: 1, h: 1},
+            {i: 'training_pace', x: 0, y: 1, w: 2, h: 1},
+            {i: 'live_report', x: 2, y: 0, w: 1, h: 2},
+            {i: 'team_full_info', x: 0, y: 2, w: 2, h: 2},
+            {i: 'team_results', x: 0, y: 4, w: 2, h: 2},
+            {i: 'league_standings', x: 2, y: 2, w: 1, h: 2},
+        ],
+        md: [
+            {i: 'team_stats', x: 0, y: 0, w: 1, h: 1},
+            {i: 'attendance', x: 1, y: 0, w: 1, h: 1},
+            {i: 'training_pace', x: 0, y: 1, w: 2, h: 1},
+            {i: 'live_report', x: 1, y: 6, w: 1, h: 2},
+            {i: 'team_full_info', x: 0, y: 4, w: 2, h: 2},
+            {i: 'team_results', x: 0, y: 2, w: 2, h: 2},
+            {i: 'league_standings', x: 0, y: 6, w: 1, h: 2},
+        ]
+    },
 }
 
 export default layouts
