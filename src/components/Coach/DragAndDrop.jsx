@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDragAndDrop } from "@hooks/useDragAndDrop"; 
 import ContainerCards from "./ContainerCards"; 
 import backgroundImageVS from '@assets/refree/terrain.jpeg';
-
-const typesClub = ['List Team', 'VS'];
+import {toast} from 'react-toastify';
+const typesClub = ['List Team', 'Lineup'];
 
 
 export const DragAndDrop = () => {
@@ -30,10 +30,18 @@ export const DragAndDrop = () => {
         name: player,
         status: 'List Team',
     }));
+
+    const positionOrder = {
+        'ST': 1, 'CF': 2, 'RF': 3, 'LF': 4, 'RW': 5, 'LW': 6,
+        'CM': 7, 'CDM': 8, 'CAM': 9, 'RM': 10, 'LM': 11,
+        'CB': 12, 'RB': 13, 'LB': 14, 'RWB': 15, 'LWB': 16, 'GK': 17
+    };
+
     
 
     const { isDragging, listItems, handleDragging, handleUpdateList } = useDragAndDrop(data);
 
+    
     const handleDragOver = (e) => {
         e.preventDefault();
     };
@@ -41,11 +49,19 @@ export const DragAndDrop = () => {
     const handleDrop = (e, container) => {
         e.preventDefault();
         const draggedItemId = parseInt(e.dataTransfer.getData('text/plain'), 10);
-        handleUpdateList(draggedItemId, container);
+    
+        if (container === 'Lineup' && listItems.filter(item => item.status === 'Lineup').length < 11) {
+            handleUpdateList(draggedItemId, container);
+        } else if (container === 'List Team') {
+            handleUpdateList(draggedItemId, container);
+        } else {
+            toast.warning("Only 11 players can fit in the 'Lineup' container!");
+        }
     };
+    
 
     const getContainerStyle = (container) => {
-        if (container === 'VS') {
+        if (container === 'Lineup') {
             return {
                 height: '900px', 
                 width: '600px', // Increase the width of the VS container
@@ -73,12 +89,63 @@ export const DragAndDrop = () => {
         fetchData()
     }, []);
 
+    const sortedListItems = listItems.slice().sort((a, b) => {
+        const getPositionOrder = (position) => {
+            /* const positionOrder = {
+                "GK": 1,
+                "CB": 2,
+                "RB": 3,
+                "LB": 4,
+                "RWB": 5,
+                "LWB": 6,
+                "CM": 7,
+                "CDM": 8,
+                "CAM": 9,
+                "RM": 10,
+                "LM": 11,
+                "ST": 12,
+                "CF": 13,
+                "RF": 14,
+                "LF": 15,
+                "RW": 16,
+                "LW": 17
+                // Add more positions if needed
+            }; */
+            const positionOrder = {
+                "ST": 1,
+                "CF": 2,
+                "RF": 3,
+                "LF": 4,
+                "RW": 5,
+                "LW": 6,
+                "CM": 7,
+                "CDM": 8,
+                "CAM": 9,
+                "RM": 10,
+                "LM": 11,
+                "CB": 12,
+                "RB": 13,
+                "LB": 14,
+                "RWB": 15,
+                "LWB": 16,
+                "GK": 17
+                // Add more positions if needed
+            };
+            return positionOrder[position] || Infinity; 
+        };
+
+        const positionA = a.name.match(/\((.*?)\)/)[1]; 
+        const positionB = b.name.match(/\((.*?)\)/)[1]; 
+
+        return getPositionOrder(positionA) - getPositionOrder(positionB);
+    });
+
     return (
         <div className="grid" onDragOver={handleDragOver}>
             {typesClub.map(container => (
                 <div className="layout-cards" key={container} style={getContainerStyle(container)} onDrop={(e) => handleDrop(e, container)}>
                     <ContainerCards
-                        items={listItems}
+                        items={sortedListItems}
                         status={container}
                         key={container}
                         isDragging={isDragging}

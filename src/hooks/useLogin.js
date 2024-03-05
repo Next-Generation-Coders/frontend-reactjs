@@ -31,12 +31,12 @@ export const useLogin = () => {
             dispatch({type: 'LOGIN', payload: json})
 
             setIsLoading(false)
-            if(json.user.isvVrified){
-                toast.success(`Welcome back!`)
-            }
-            else {
-                toast.warn(`Your account is not verified yet, check your inbox!`)
-            }
+            // if(json.user.isVrified){
+            //     toast.success(`Welcome back!`)
+            // }
+            // else {
+            //     toast.warn(`Your account is not verified yet, check your inbox!`)
+            // }
             navigate('/');
         }
     }

@@ -67,9 +67,9 @@ const User = () => {
     return (
         USER ?
         <div className="d-flex align-items-center g-16">
-            <div>
+            {/* <div>
             {USER.user.verified? (<i className="fa-duotone fa-badge-check"/>) : (<i className="icon icon-xmark"/>)}
-            </div>
+            </div> */}
             <div className={styles.avatar}>
                 <img className="c-pointer" src={user} alt="user" onClick={handleClick}/>
                 {
@@ -82,9 +82,13 @@ const User = () => {
             </div>
             <div className="d-flex flex-column">
                 <span className="h3" style={{letterSpacing: 0.2}}>
-                    {USER.user.fullname}
+                    {/* {USER.user.fullname} */}
+                    Youssef Gharrad
                 </span>
-                <span className="text-12">{USER.user.email}</span>
+                <span className="text-12">
+                    {/* {USER.user.email} */}
+                    youssef.gharrad@esprit.tn
+                </span>
             </div>
             <Submenu open={open}
                      onClose={handleClose}

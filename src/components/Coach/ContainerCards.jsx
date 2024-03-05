@@ -39,15 +39,10 @@ const ContainerCards: React.FC<ContainerCardsProps> = ({ items = [], status, isD
 
     return (
         <div>
-            <p className="layout-cardss">{status === 'VS' ? 'VS' : status}</p>
-            {status === 'VS' && (
+            <p className="layout-cardss">{status === 'Lineup' ? 'Lineup' : status}</p>
+            {status === 'Lineup' && (
             <>
-                  <Button onClick={handleSave} style={{ left: '470px', marginTop: '-80px', border: '1px solid black', backgroundColor: 'GREEN', borderRadius: '20%' }}>
-                    <b style={{ color: 'white' }}>SAVE</b>
-                </Button>
-                <Button onClick={handleClick} style={{ right: '55px', marginTop: '-80px', border: '1px solid black', backgroundColor: 'RED', borderRadius: '20%' }}>
-                    <b style={{ color: 'white' }}>LIVE</b>
-                </Button>
+                  
 
                 
             </>

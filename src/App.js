@@ -94,6 +94,10 @@ import AgentScore from '@pages/Results/AgentScore';
 
 const CreateTeam = lazy(() => import('@pages/Team/CreateTeam'));
 const TeamList = lazy(() => import('@pages/Team/TeamList'));
+const AddNewPlayer = lazy(() => import('@pages/Coach/AddPlayer'));
+const LineUp = lazy(() => import('@pages/Coach/LineUp'));
+const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
+
 
 
  
@@ -197,6 +201,11 @@ const TeamList = lazy(() => import('@pages/Team/TeamList'));
                                                     // Team Routes
                                                     <Route path="/create-team" element={<CreateTeam/>}/>
                                                     <Route path="/team-list" element={<TeamList/>}/>
+                                                    <Route path="/add-new-player" element={<AddNewPlayer/>}/>
+
+                                                    // Coach
+                                                    <Route path="/lineup" element={<LineUp/>}/>
+                                                    <Route path="/lineupTeam" element={<LineupTeam/>}/>
 
 
 

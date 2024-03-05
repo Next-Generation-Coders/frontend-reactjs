@@ -464,6 +464,20 @@ const layouts = {
             {i: 'player_cards', x: 1, y: 0.5, w: 2, h: 1},
 
         ]
+    },
+    Test: {
+        xl: [
+            {i: 'settings', x: 0.5, y: 0, w: 2, h: 2.5},
+            {i: 'teams_lineups', x: 0.5, y: 0, w: 2, h: 2.5},
+        ],
+        lg: [
+            {i: 'settings', x: 0.5, y: 0, w: 2, h: 2.5},
+            {i: 'teams_lineups', x: 0.5, y: 0, w: 2, h: 2.5},
+        ],
+        md: [
+            {i: 'settings', x: 0.5, y: 0, w: 2, h: 2.5},
+            {i: 'teams_lineups', x: 0.5, y: 0, w: 2, h: 2.5},
+        ]
     }
 }
 
