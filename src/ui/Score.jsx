@@ -1,12 +1,14 @@
 // utils
 import PropTypes from 'prop-types';
 
-const Score = ({team1 = 0, team2 = 0, variant = 'main'}) => {
+const Score = ({team1 = 0, team2 = 0, variant = 'main' ,changed}) => {
+
+    
     return (
         <div className={`score ${variant === 'alt' ? 'score--alt' : ''}`}>
-            <span>{team1}</span>
+            <span className={`scoreNumber ${changed==='team2' || changed ===true ? 'changed' : ''}`} >{team2}</span>
             <span>:</span>
-            <span>{team2}</span>
+            <span className={`scoreNumber ${changed==='team1' || changed ===true ? 'changed' : ''}`} >{team1}</span>
         </div>
     )
 }
