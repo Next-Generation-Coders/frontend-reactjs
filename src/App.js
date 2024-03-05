@@ -48,8 +48,8 @@
     import Navbar from '@layout/Navbar';
     import ShoppingCart from '@widgets/ShoppingCart';
     import ScrollToTop from '@components/ScrollToTop';
-    import MatchResult from '@pages/Results/MatchResult';
-    import AgentScore from '@pages/Results/AgentScore';
+    //import MatchResult from '@pages/Results/MatchResult';
+    //import AgentScore from '@pages/Results/AgentScore';
     import {useAuthContext} from "@hooks/useAuthContext";
 
     // pages
@@ -192,8 +192,8 @@ const AboutUs = lazy(() => import('@pages/Complaint/AboutUs'));
                                                     <Route path="/test" element={<Test/>}/>
 
                                                     //Result Routes
-                                                    <Route path="/match" element={<MatchResult/>}/>
-                                                    <Route path="/agent" element={<AgentScore/>}/>
+                                                    {/* <Route path="/match" element={<MatchResult/>}/>*/}
+                                                    {/*<Route path="/agent" element={<AgentScore/>}/> */}
 
                                                     // Admin Routes
                                                     <Route path="/organizer-list" element={<Organizer/>}/>

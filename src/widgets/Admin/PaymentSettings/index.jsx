@@ -5,10 +5,12 @@ import CustomSelect from '@ui/CustomSelect';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { Tabs } from '@mui/material';
+import {useAuthContext} from "@hooks/useAuthContext";
+import axios from "axios";
+import classNames from "classnames";
 
 
 const App = () => {
-  const [userId, setUserId] = useState("65da0cb23917a5e0dd33f202");
   const [tournamentId, setTournamentId] = useState("");
   const [title, setTitle] = useState("");
   const [tournaments, setTournaments] = useState([]);
@@ -21,25 +23,28 @@ const App = () => {
   const [endDay, setEndDay] = useState(0);
   const [endMonth, setEndMonth] = useState(0);
   const [endYear, setEndYear] = useState(0);
+  const { USER } = useAuthContext();
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-
-
 
   const { handleSubmit } = useForm();
 
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
-        const response = await fetch("http://localhost:3000/Tournament/getall");
+        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userId = userResponse.data._id;
+        console.log(userId);
 
-        if (!response.ok) {
-          console.error("Server error:", response.statusText);
-          return;
-        }
+        const response = await axios.get(`http://localhost:3000/Tournament/getByUserId/${userId}`);
 
-        const data = await response.json();
+        const data = response.data && response.data.tournaments ? response.data.tournaments : [];
+        console.log(data);
+
         setTournaments(data);
       } catch (error) {
         console.error("Error fetching tournaments:", error.message);
@@ -57,7 +62,7 @@ const App = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: userId,
+          userId: USER._id,
           tournamentId: tournamentId,
           items: [
             {
@@ -101,13 +106,13 @@ const App = () => {
 
       setStartDate({
         day: start.getDate(),
-        month: start.getMonth() + 1, 
+        month: start.getMonth() + 1,
         year: start.getFullYear(),
       });
 
       setEndDate({
         day: end.getDate(),
-        month: end.getMonth() + 1, 
+        month: end.getMonth() + 1,
         year: end.getFullYear(),
       });
 
@@ -130,27 +135,36 @@ const App = () => {
 
           <div>
             <label>
-              User ID:(user name organizer connected )
+              User Name
               <input
-                 style={{ width: '100%', border: '1px solid white', padding: '10px' }}
-                type="text"
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
+                  className={classNames('field text-700')}
+                  type="text"
+                  placeholder="Name"
+                  disabled={true}
+                  value={USER.fullname}
+                  onChange={(e) => setUserName(e.target.value)}
+              />
+            </label>
+            <label>
+              User Email
+              <input
+                  className={classNames('field text-700')}
+                  type="text"
+                  placeholder="Name"
+                  disabled={true}
+                  value={USER.email}
+                  onChange={(e) => setUserName(e.target.value)}
               />
             </label>
             <br />
-            
-
-           
             <hr style={{ margin: '20px 0' }} />
-
             {tournamentId ? (
               <>
                 <label>
                   Tournament Title:
                   <input
-                    style={{ width: '100%', border: '1px solid white', padding: '10px' }}
-                    type="text"
+                      className={classNames('field text-700')}
+                      type="text"
                     value={title}
                     readOnly
                   />
@@ -158,49 +172,52 @@ const App = () => {
                 <label>
                   Tournament Start Data:
                   <input
-                    style={{ width: '100%', border: '1px solid white', padding: '10px' }}
-                    type="text"
-                    value={startDate && `${startDate.day}/${startDate.month}/${startDate.year}`}
-                    readOnly
+                      className={classNames('field text-700')}
+                      type="text"
+                      value={startDate && `${startDate.day}/${startDate.month}/${startDate.year}`}
+                      readOnly
                   />
                 </label>
                 <label>
                   Tournament End Data:
                   <input
-                    style={{ width: '100%', border: '1px solid white', padding: '10px' }}
-                    type="text"
-                    value={endDate && `${endDate.day}/${endDate.month}/${endDate.year}`}
-                    readOnly
+                      className={classNames('field text-700')}
+                      type="text"
+                      value={endDate && `${endDate.day}/${endDate.month}/${endDate.year}`}
+                      readOnly
                   />
                 </label>
 
                 <label>
                   Tournament Duration:
                   <input
-                    style={{ width: '100%', border: '1px solid white', padding: '10px' }}
-                    type="text"
+                      className={classNames('field text-700')}
+                      type="text"
                     value={duration}
                     readOnly
                   />
                 </label>
               </>
             ) : (
-              <label>
-                Tournament Title:
-                <CustomSelect
-                  className="custom-select"
-                  options={tournaments.map(tournament => ({
-                    label: tournament.title,
-                    value: tournament._id,
-                  }))}
-                  value={{ label: tournamentId, value: tournamentId }}
-                  onChange={(selectedOption) => handleTournamentChange(selectedOption.value)}
-                />
-              </label>
+                <label>
+                  Tournament Title:
+                  <CustomSelect
+                      className="custom-select"
+                      options={(tournaments || []).map(tournament => ({
+                        label: tournament.title,
+                        value: tournament._id,
+                      }))}
+                      value={{ label: tournamentId, value: tournamentId }}
+                      onChange={(selectedOption) => handleTournamentChange(selectedOption.value)}
+                  />
+                </label>
+
             )}
 
-            <br /><br /><br />
-          </div>
+            <br /><br />
+            </div>
+
+
 
           <button
             className="btn"
