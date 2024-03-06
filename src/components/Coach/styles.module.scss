@@ -1,0 +1,28 @@
+.lineup {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .spot {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .attackers {
+    grid-column: 1 / span 3;
+  }
+  
+  .midfielders {
+    grid-column: 1 / span 3;
+  }
+  
+  .defenders {
+    grid-column: 1 / span 4;
+  }
+  
+  .goalkeeper {
+    grid-column: 1 / span 4;
+  }
+  
