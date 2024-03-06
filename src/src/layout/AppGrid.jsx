@@ -42,7 +42,7 @@ const AppGrid = ({widgets, id}) => {
                         isResizable={false}
                         margin={[25, 20]}
                         autoSize={true}
-                        useCSSTransforms={false}
+                        useCSSTransforms={true}
                     >
                         {
                             Object.keys(widgets).map(widget => (
