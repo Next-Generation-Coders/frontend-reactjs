@@ -13,7 +13,7 @@ export const useLogin = () => {
         setIsLoading(true)
         setError('')
 
-        const response = await fetch('http://localhost:3000/User/login', {
+        const response = await fetch('http://localhost:3001/User/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ email, password })
@@ -31,12 +31,12 @@ export const useLogin = () => {
             dispatch({type: 'LOGIN', payload: json})
 
             setIsLoading(false)
-            // if(json.user.isVrified){
-            //     toast.success(`Welcome back!`)
-            // }
-            // else {
-            //     toast.warn(`Your account is not verified yet, check your inbox!`)
-            // }
+            if(json.user.isvVrified){
+                toast.success(`Welcome back!`)
+            }
+            else {
+                toast.warn(`Your account is not verified yet, check your inbox!`)
+            }
             navigate('/');
         }
     }

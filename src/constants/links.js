@@ -37,7 +37,7 @@ const LINKS = [
             },
             {
                 title: 'Consult Tournament',
-                path: '/match-overview'
+                path: '/KnockoutTournament'
             }
         ]
     },

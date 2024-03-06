@@ -53,16 +53,18 @@ import MatchResult from '@pages/Results/MatchResult';
 import AgentScore from '@pages/Results/AgentScore';
 
     // pages
+    const AddTeams = lazy(() =>import ('@pages/Tournament/AddTeams'))
+    const TournamentCreated = lazy(() => import('@pages/Tournament/TournamentCreated')); 
     const ClubSummary = lazy(() => import('@pages/ClubSummary'));
     const GameSummary = lazy(() => import('@pages/GameSummary'));
     const Championships = lazy(() => import('@pages/Championships'));
-    const CreateTournament = lazy(() => import('@pages/CreateTournament'));
+    const CreateTournament = lazy(() => import('@pages/Tournament/CreateTournament'));
     const LeagueOverview = lazy(() => import('@pages/LeagueOverview'));
     const FansCommunity = lazy(() => import('@pages/FansCommunity'));
     const Statistics = lazy(() => import('@pages/Statistics'));
     const PageNotFound = lazy(() => import('@pages/PageNotFound'));
     const MatchSummary = lazy(() => import('@pages/MatchSummary'));
-    const MatchOverview = lazy(() => import('@pages/MatchOverview'));
+    const KnockTournamentBuild = lazy(() => import('@pages/Tournament/KnockoutTournamentBuild'));
     const PlayerProfile = lazy(() => import('@pages/PlayerProfile'));
     const Schedule = lazy(() => import('@pages/Schedule'));
     const Tickets = lazy(() => import('@pages/Tickets'));
@@ -97,8 +99,6 @@ const TeamList = lazy(() => import('@pages/Team/TeamList'));
 const AddNewPlayer = lazy(() => import('@pages/Coach/AddPlayer'));
 const LineUp = lazy(() => import('@pages/Coach/LineUp'));
 const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
-
-
 
  
 
@@ -166,7 +166,7 @@ const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
                                                     <Route path="/fans-community" element={<FansCommunity/>}/>
                                                     <Route path="/statistics" element={<Statistics/>}/>
                                                     <Route path="/match-summary" element={<MatchSummary/>}/>
-                                                    <Route path="/match-overview" element={<MatchOverview/>}/>
+                                                    <Route path="/KnockoutTournament" element={<KnockTournamentBuild/>}/>
                                                     <Route path="/player-profile" element={<PlayerProfile/>}/>
                                                     <Route path="/schedule" element={<Schedule/>}/>
                                                     <Route path="/tickets" element={<Tickets/>}/>
@@ -176,8 +176,8 @@ const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
                                                     <Route path="/login" element={<Login/>}/>
                                                     <Route path="/sign-up" element={<SignUp/>}/>
                                                     <Route path="/settings" element={<Settings/>}/>
-                                                    
-                                                    // Refree routes
+                                                    <Route path="/TournamentCreated" element={<TournamentCreated/>}/>
+                                                    <Route path="/addTeams" element={<AddTeams/>}/>
                                                     <Route path="/realtime" element={<RealTime/>}/>
                                                     <Route path="/match-list" element={<MatchList/>}/>
                                                     <Route path="/complaint" element={<Complaint/>}/>

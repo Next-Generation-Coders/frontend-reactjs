@@ -465,6 +465,42 @@ const layouts = {
 
         ]
     },
+    tournamentFormLayout: {
+        xl: [
+            
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'description', x: 3, y: 0, w: 1, h: 2},
+            {i: 'settings', x: 1, y: 0, w: 2, h: 2},
+            {i: 'payments', x: 1, y: 2, w: 1, h: 2},
+            {i: 'privacy', x: 3, y: 2, w: 1, h: 2},
+            {i: 'details', x: 0, y: 2, w: 1, h: 1.7},
+            {i: 'notifications_schedule', x: 0, y: 3, w: 1, h: 1},
+            {i: 'password', x: 2, y: 2, w: 1, h: 2}
+        ],
+        lg: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'description', x: 0, y: 2, w: 1, h: 2},
+            {i: 'settings', x: 1, y: 0, w: 2, h: 2},
+            {i: 'payments', x: 2, y: 2, w: 1, h: 2},
+            {i: 'privacy', x: 1, y: 2, w: 1, h: 2},
+            {i: 'details', x: 0, y: 4, w: 1, h: 1.7},
+            {i: 'notifications_schedule', x: 0, y: 5, w: 1, h: 1},
+            {i: 'password', x: 1, y: 4, w: 1, h: 2}
+        ],
+        md: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'description', x: 1, y: 0, w: 1, h: 2},
+            {i: 'settings', x: 0, y: 2, w: 2, h: 2},
+            {i: 'payments', x: 0, y: 4, w: 1, h: 2},
+            {i: 'privacy', x: 1, y: 4, w: 1, h: 2},
+            {i: 'details', x: 0, y: 6, w: 1, h: 1.7},
+            {i: 'notifications_schedule', x: 0, y: 7, w: 1, h: 1},
+            {i: 'password', x: 1, y: 6, w: 1, h: 2}
+        ]
+    },
     Test: {
         xl: [
             {i: 'settings', x: 0.5, y: 0, w: 2, h: 2.5},
