@@ -61,6 +61,7 @@
     const FansCommunity = lazy(() => import('@pages/FansCommunity'));
     const Statistics = lazy(() => import('@pages/Statistics'));
     const PageNotFound = lazy(() => import('@pages/PageNotFound'));
+    const Unauthorized = lazy(() => import('@pages/Unauthorized'));
     const MatchSummary = lazy(() => import('@pages/MatchSummary'));
     const MatchOverview = lazy(() => import('@pages/MatchOverview'));
     const PlayerProfile = lazy(() => import('@pages/PlayerProfile'));
@@ -165,6 +166,7 @@
                                                     <Route path="*" element={<PageNotFound/>}/>
                                                     {/*<Route path="/" element={<ClubSummary/>}/>*/}
                                                     <Route path="/" element={<Home/>}/>
+                                                    <Route path="/unauthorized" element={<Unauthorized/>}/>
                                                     <Route path="/game-summary" element={<GameSummary/>}/>
                                                     <Route path="/championships" element={<Championships/>}/>
                                                     <Route path="/create-tournament" element={<CreateTournament/>}/>

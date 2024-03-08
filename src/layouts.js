@@ -395,6 +395,41 @@ const layouts = {
             {i: 'products_list', x: 0, y: 6, w: 2, h: 1},
         ]
     },
+    MatchResult: {
+        xl: [
+            {i: 'teamA_lineups', x: 0, y: 0, w: 1, h: 2},
+            {i: 'teamA_stats_progress', x: 0, y: 1, w: 1, h: 2},
+            {i: 'teamB_lineups', x: 3, y: 0, w: 1, h: 2},
+            {i: 'teamB_stats_progress', x: 3, y: 1, w: 1, h: 2},
+
+            {i: 'match_events', x: 1, y: 0, w: 2, h: 1},
+            {i: 'passes_polar_chart', x: 1, y: 1, w: 2, h: 3},
+            {i: 'player_cards', x: 1, y: 0.5, w: 2, h: 1},
+
+        ],
+        lg: [
+            {i: 'teamA_lineups', x: 0, y: 4, w: 1, h: 2},
+            {i: 'teamA_stats_progress', x: 0, y: 5, w: 1, h: 2},
+            {i: 'teamB_lineups', x: 0, y: 0, w: 1, h: 2},
+            {i: 'teamB_stats_progress', x: 0, y: 1, w: 1, h: 2},
+
+            {i: 'match_events', x: 1, y: 0, w: 2, h: 1},
+            {i: 'passes_polar_chart', x: 1, y: 1, w: 2, h: 3},
+            {i: 'player_cards', x: 1, y: 0.5, w: 2, h: 1},
+
+        ],
+        md: [
+            {i: 'teamA_lineups', x: 0, y: 1, w: 1, h: 2},
+            {i: 'teamA_stats_progress', x: 0, y: 2, w: 1, h: 2},
+            {i: 'teamB_lineups', x: 1, y: 1, w: 1, h: 2},
+            {i: 'teamB_stats_progress', x: 1, y: 2, w: 1, h: 2},
+
+            {i: 'match_events', x: 0, y: 0, w: 2, h: 1},
+            {i: 'passes_polar_chart', x: 0, y: 5, w: 2, h: 3},
+            {i: 'player_cards', x: 1, y: 0.5, w: 2, h: 1},
+
+        ]
+    },
     settings: {
         xl: [
             {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
