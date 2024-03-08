@@ -5,12 +5,12 @@ import {toast} from "react-toastify";
 export const useUpdateProfile = () => {
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(null)
-    const { dispatch } = useAuthContext()
+    const { USER, dispatch } = useAuthContext()
 
     const update = async (user) => {
         setIsLoading(true)
         setError('')
-
+        user.email = USER.email;
         const response = await fetch('http://localhost:3000/User/profile', {
             method: 'PUT',
             headers: {

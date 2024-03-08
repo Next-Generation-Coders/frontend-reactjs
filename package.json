@@ -38,6 +38,7 @@
     "country-state-city": "^3.1.2",
     "craco": "^0.0.3",
     "dayjs": "^1.11.7",
+    "jwt-decode": "^4.0.0",
     "lottie-react": "^2.4.0",
     "moment": "^2.29.4",
     "nanoid": "^4.0.1",

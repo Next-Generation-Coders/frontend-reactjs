@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 
 // components
 import Spring from '@components/Spring';
-import {NavLink} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 // hooks
 import {useThemeProvider} from '@contexts/themeContext';
@@ -17,7 +17,10 @@ import dark403 from '@assets/403dark.webp';
 
 const Error403 = () => {
     const {theme} = useThemeProvider();
-
+    const navigate = useNavigate()
+    const goBack = ()=>{
+        navigate(-1)
+    }
     return (
         <Spring className={`${styles.container} card d-flex align-items-center flex-1`}>
             <div className={styles.media}>
@@ -35,7 +38,7 @@ const Error403 = () => {
                 <p className={styles.main_text}>
                     Please check the URL in the address bar and try again.
                 </p>
-                <NavLink className="btn" to="/">Go to Home</NavLink>
+                <button className="btn" onClick={goBack}>Go back</button>
             </div>
         </Spring>
     )

@@ -561,6 +561,34 @@ const layouts = {
             {i: 'password', x: 1, y: 6, w: 1, h: 2}
         ]
     },
+    home: {
+        xl: [
+            {i: 'live_report', x: 0, y: 2, w: 1, h: 2},
+            {i: 'matches_overview', x: 1, y: 3, w: 2, h: 3},
+            // {i: 'match_result', x: 1, y: 1, w: 1, h: 2},
+            {i: 'live_matches', x: 0, y: 0, w: 1, h: 2},
+            {i: 'calendar', x: 3, y: 2, w: 1, h: 2},
+
+        ],
+        lg: [
+            {i: 'team_stats', x: 0, y: 0, w: 1, h: 1},
+            {i: 'attendance', x: 1, y: 0, w: 1, h: 1},
+            {i: 'training_pace', x: 0, y: 1, w: 2, h: 1},
+            {i: 'live_report', x: 2, y: 0, w: 1, h: 2},
+            {i: 'team_full_info', x: 0, y: 2, w: 2, h: 2},
+            {i: 'team_results', x: 0, y: 4, w: 2, h: 2},
+            {i: 'league_standings', x: 2, y: 2, w: 1, h: 2},
+        ],
+        md: [
+            {i: 'team_stats', x: 0, y: 0, w: 1, h: 1},
+            {i: 'attendance', x: 1, y: 0, w: 1, h: 1},
+            {i: 'training_pace', x: 0, y: 1, w: 2, h: 1},
+            {i: 'live_report', x: 1, y: 6, w: 1, h: 2},
+            {i: 'team_full_info', x: 0, y: 4, w: 2, h: 2},
+            {i: 'team_results', x: 0, y: 2, w: 2, h: 2},
+            {i: 'league_standings', x: 0, y: 6, w: 1, h: 2},
+        ]
+    },
     Test: {
         xl: [
             {i: 'settings', x: 0.5, y: 0, w: 2, h: 2.5},

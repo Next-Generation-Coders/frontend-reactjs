@@ -51,11 +51,13 @@
     import MatchResult from '@pages/Results/MatchResult';
     import AgentScore from '@pages/Results/AgentScore';
     import {useAuthContext} from "@hooks/useAuthContext";
+    import RequireAuth from "@components/ProtectedRoute/RequireAuth";
+    import Role from "@utils/Role";
 
     // pages
     const AddTeams = lazy(() =>import ('@pages/Tournament/AddTeams'))
     const TournamentCreated = lazy(() => import('@pages/Tournament/TournamentCreated')); 
-    const ClubSummary = lazy(() => import('@pages/ClubSummary'));
+    // const ClubSummary = lazy(() => import('@pages/ClubSummary'));
     const GameSummary = lazy(() => import('@pages/GameSummary'));
     const Championships = lazy(() => import('@pages/Championships'));
     const CreateTournament = lazy(() => import('@pages/Tournament/CreateTournament'));
@@ -168,6 +170,7 @@ const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
                                         <div className="app_container-content d-flex flex-column flex-1">
                                             <Suspense fallback={<LoadingScreen />}>
                                                 <Routes>
+
                                                     <Route path="*" element={<PageNotFound/>}/>
                                                     {/*<Route path="/" element={<ClubSummary/>}/>*/}
                                                     <Route path="/" element={<Home/>}/>
@@ -198,7 +201,7 @@ const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
 
                                                     <Route path="/match" element={<MatchResult/>}/>
                                                     <Route path="/agent" element={<AgentScore/>}/>
-
+                                                    <Route element={<RequireAuth allowedRoles={[Role.ADMIN]} />}>
                                                     // Admin Routes
                                                     <Route path="/organizer-list" element={<Organizer/>}/>
                                                     <Route path="/coach-list" element={<Coach/>}/>
@@ -206,7 +209,7 @@ const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
                                                     <Route path="/player-list" element={<Player/>}/>
                                                     <Route path="/team-list" element={<Team/>}/>
                                                     <Route path="/complaint-list" element={<Complaints/>}/>
-
+                                                    </Route>
 
                                                     // Payment Routes
                                                     <Route path="/payment-list" element={<PaymentAdmin/>}/>
@@ -228,8 +231,9 @@ const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
                                                     <Route path="/complaint" element={<Complaint/>}/>
                                                     <Route path="/about-us" element={<AboutUs/>}/>
                                                     // User routes
-                                                    <Route path="/profile" element={USER ? <Profile/> : <Navigate to="/login"/>}/>
-
+                                                    <Route element={<RequireAuth allowedRoles={[Role.USER]}/>}>
+                                                    <Route path="/profile" element={<Profile/>}/>
+                                                    </Route>
 
 
 
