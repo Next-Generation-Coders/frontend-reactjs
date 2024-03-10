@@ -108,10 +108,6 @@ const LINKS = [
         icon: 'cart',
         pages: [
             {
-                title: 'Payment List',
-                path: '/payment-list'
-            },
-            {
                 title: 'Payment',
                 path: '/payment'
             },
@@ -143,6 +139,10 @@ const LINKS = [
             {
                 title: 'Team List',
                 path: '/team--ist'
+            },
+            {
+                title: 'Payment List',
+                path: '/payment-list'
             },
             {
                 title: 'Complaint List',

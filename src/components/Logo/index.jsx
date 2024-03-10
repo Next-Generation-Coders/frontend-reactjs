@@ -10,9 +10,9 @@ import PropTypes from 'prop-types';
 const Logo = ({size = 'md'}) => {
     return (
         <NavLink className={`${styles.logo} ${styles[size]}`} to="/">
-            link
+            LinkUp
             <span className={styles.logo_highlight}>
-                <span>tournament</span>
+                <span>Tournament</span>
             </span>
         </NavLink>
     )

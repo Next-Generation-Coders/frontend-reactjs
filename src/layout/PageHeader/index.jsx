@@ -10,7 +10,7 @@ import Search from './Search';
 import TruncatedText from '@components/TruncatedText';
 
 // hooks
-import {useWindowSize} from 'react-use';
+import  {useWindowSize} from 'react-use';
 import {useThemeProvider} from '@contexts/themeContext';
 import {useShopProvider} from '@contexts/shopContext';
 import useMeasure from 'react-use-measure';
@@ -18,8 +18,12 @@ import useStoreRoute from '@hooks/useStoreRoute';
 
 // utils
 import PropTypes from 'prop-types';
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {useAuthContext} from "@hooks/useAuthContext";
+import notificationSound from '@assets/notification/mixkit-happy-bells-notification-937.wav';
 
-const TabletHeader = ({title}) => {
+const  TabletHeader = ({title}) => {
     const [ref, {width}] = useMeasure();
 
     return (
@@ -44,6 +48,39 @@ const DesktopHeader = ({title}) => {
     const {setCartOpen} = useShopProvider();
     const [ref, {width: titleWidth}] = useMeasure();
     const isStoreRoute = useStoreRoute();
+    const [notifications, setNotifications] = useState([]);
+    const [notificationCount, setNotificationCount] = useState(0);
+    const [previousNotificationCount, setPreviousNotificationCount] = useState(0);
+
+    const { USER } = useAuthContext();
+    const [audio] = useState(new Audio(notificationSound));
+    const playNotificationSound = () => {
+        audio.play();
+    };
+
+    useEffect(() => {
+        const fetchNotifications = async () => {
+            try {
+                const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                const userId = userResponse.data._id;
+
+
+                const response = await axios.get(`http://localhost:3000/Notification/getByUserId/${userId}`);
+                setNotifications(response.data);
+
+                const countResponse = await axios.get(`http://localhost:3000/Notification/getNotificationCountByUserId/${userId}`);
+                setNotificationCount(countResponse.data.notificationCount)
+
+
+            } catch (error) {
+                console.error('Error fetching notifications:', error);
+            }
+        };
+
+        fetchNotifications();
+    }, [previousNotificationCount]);
+
+
 
     return (
         <div className={`${styles.desktop} d-flex justify-content-between align-items-center g-20`}>
@@ -74,15 +111,26 @@ const DesktopHeader = ({title}) => {
                                      max={1.06}
                                      step={0.01}/>
                     </div>
-                    {
-                        isStoreRoute &&
+
+                    <div className="d-flex g-16">
                         <button className={`${styles.control} ${styles[direction]} h5`}
-                                onClick={() => setCartOpen(true)}>
-                            <i className="icon icon-bag-solid"/>
+                                onClick={() =>{ setCartOpen(true);playNotificationSound();}}>
+                            <i className="icon icon-gear-regular"/>
                             <span className={styles.control_indicator}/>
-                            Cart (2 items)
+                            Notification ({notificationCount})
                         </button>
-                    }
+
+                    </div>
+                    <div className="d-flex g-16">
+                        <button className={`${styles.control} ${styles[direction]} h5`}
+                            // onClick={() =>{ setCartOpen(true);}}
+                        >
+                            <i className="icon icon-envelope"/>
+                            <span className={styles.control_indicator}/>
+                            Message
+                        </button>
+
+                    </div>
                 </div>
                 <User/>
             </div>
@@ -96,7 +144,7 @@ const PageHeader = ({title}) => {
     return (
         <>
             <Helmet>
-                <title>{title} | Linkuptournament</title>
+                <title>{title} | LinkUpTournament</title>
             </Helmet>
             {
                 width < 1280 ?

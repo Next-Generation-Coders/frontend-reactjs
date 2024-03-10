@@ -40,13 +40,14 @@
     import Profile from "@pages/User/Profile";
     import Home from "@pages/Home/Home";
     // components
+
     import {Navigate, Route, Routes} from 'react-router-dom';
     import {ToastContainer} from 'react-toastify';
     import LoadingScreen from '@components/LoadingScreen';
     import Sidebar from '@layout/Sidebar';
     import BottomNav from '@layout/BottomNav';
     import Navbar from '@layout/Navbar';
-    import ShoppingCart from '@widgets/ShoppingCart';
+    import ShoppingCart from '@widgets/NotificationCart';
     import ScrollToTop from '@components/ScrollToTop';
     //import MatchResult from '@pages/Results/MatchResult';
     //import AgentScore from '@pages/Results/AgentScore';

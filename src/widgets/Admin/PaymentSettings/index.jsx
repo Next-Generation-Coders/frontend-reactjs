@@ -51,18 +51,27 @@ const App = () => {
       }
     };
 
-    fetchTournaments();
-  }, []);
+    if (USER && USER.email) {
+      fetchTournaments();
+    }
+  }, [USER]);
+
+
+  console.log("email user",USER.email)
 
   const handleCheckout = async () => {
     try {
+      const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+      const userIdentif = userResponse.data._id;
+      console.log(userIdentif);
+
       const response = await fetch("http://localhost:3000/payment/create-checkout-session", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: USER._id,
+          userId: userIdentif,
           tournamentId: tournamentId,
           items: [
             {
@@ -120,116 +129,136 @@ const App = () => {
       setDuration(durationInDays);
     }
   };
-
   return (
-    <form className="d-flex flex-column g-20" onSubmit={handleSubmit(onSubmit)}>
-      <Spring className="card d-flex flex-column card-padded">
-        <div className="d-flex flex-column justify-content-between flex-1">
-          <Tabs
-            style={{ width: '100%', backgroundColor: '#FDCA40', color: 'black', justifyContent: 'center' }}
-          >
-            <h3 style={{ paddingTop: '10px', marginLeft: '320px', color: 'black' }}>Payment</h3>
-          </Tabs>
+      <form className="d-flex flex-column g-20" onSubmit={handleSubmit(onSubmit)}>
+        <Spring className="card d-flex flex-column card-padded">
+          <div className="d-flex flex-column justify-content-between flex-1">
+            <Tabs
+                style={{ width: '100%', backgroundColor: '#FDCA40', color: 'black', justifyContent: 'center' }}
+            >
+              <h3 style={{ paddingTop: '10px', marginLeft: '320px', color: 'black' }}>Payment</h3>
+            </Tabs>
 
-          <br></br>
+            <br></br>
 
-          <div>
-            <label>
-              User Name
-              <input
-                  className={classNames('field text-700')}
-                  type="text"
-                  placeholder="Name"
-                  disabled={true}
-                  value={USER.fullname}
-                  onChange={(e) => setUserName(e.target.value)}
-              />
-            </label>
-            <label>
-              User Email
-              <input
-                  className={classNames('field text-700')}
-                  type="text"
-                  placeholder="Name"
-                  disabled={true}
-                  value={USER.email}
-                  onChange={(e) => setUserName(e.target.value)}
-              />
-            </label>
-            <br />
-            <hr style={{ margin: '20px 0' }} />
-            {tournamentId ? (
-              <>
-                <label>
-                  Tournament Title:
-                  <input
-                      className={classNames('field text-700')}
-                      type="text"
-                    value={title}
-                    readOnly
-                  />
-                </label>
-                <label>
-                  Tournament Start Data:
-                  <input
-                      className={classNames('field text-700')}
-                      type="text"
-                      value={startDate && `${startDate.day}/${startDate.month}/${startDate.year}`}
-                      readOnly
-                  />
-                </label>
-                <label>
-                  Tournament End Data:
-                  <input
-                      className={classNames('field text-700')}
-                      type="text"
-                      value={endDate && `${endDate.day}/${endDate.month}/${endDate.year}`}
-                      readOnly
-                  />
-                </label>
+            <div>
+              <label>
+                User Name
+                <input
+                    className={classNames('field text-700')}
+                    type="text"
+                    placeholder="Name"
+                    disabled={true}
+                    value={USER.fullname}
+                    onChange={(e) => setUserName(e.target.value)}
+                />
+              </label>
+              <label>
+                User Email
+                <input
+                    className={classNames('field text-700')}
+                    type="text"
+                    placeholder="Name"
+                    disabled={true}
+                    value={USER.email}
+                    onChange={(e) => setUserName(e.target.value)}
+                />
+              </label>
+              <br />
+              <hr style={{ margin: '20px 0' }} />
+              {tournamentId  ? (
+                  <>
+                    <label>
+                      Tournament Title:
+                      <input
+                          className={classNames('field text-700')}
+                          type="text"
+                          value={title}
+                          readOnly
+                      />
+                    </label>
+                    <label>
+                      Tournament Start Data:
+                      <input
+                          className={classNames('field text-700')}
+                          type="text"
+                          value={startDate && `${startDate.day}/${startDate.month}/${startDate.year}`}
+                          readOnly
+                      />
+                    </label>
+                    <label>
+                      Tournament End Data:
+                      <input
+                          className={classNames('field text-700')}
+                          type="text"
+                          value={endDate && `${endDate.day}/${endDate.month}/${endDate.year}`}
+                          readOnly
+                      />
+                    </label>
 
-                <label>
-                  Tournament Duration:
-                  <input
-                      className={classNames('field text-700')}
-                      type="text"
-                    value={duration}
-                    readOnly
-                  />
-                </label>
-              </>
-            ) : (
-                <label>
-                  Tournament Title:
-                  <CustomSelect
-                      className="custom-select"
-                      options={(tournaments || []).map(tournament => ({
-                        label: tournament.title,
-                        value: tournament._id,
-                      }))}
-                      value={{ label: tournamentId, value: tournamentId }}
-                      onChange={(selectedOption) => handleTournamentChange(selectedOption.value)}
-                  />
-                </label>
+                    <label>
+                      Tournament Duration:
+                      <input
+                          className={classNames('field text-700')}
+                          type="text"
+                          value={duration}
+                          readOnly
+                      />
+                    </label>
+                  </>
+              ) : (
+                  <label>
+                    Tournament Title:
+                    <CustomSelect
+                        className="custom-select"
+                        options={(tournaments || []).map(tournament => ({
+                          label: tournament.title,
+                          value: tournament._id,
+                        }))}
+                        value={{ label: tournamentId, value: tournamentId }}
+                        onChange={(selectedOption) => handleTournamentChange(selectedOption.value)}
+                    />
 
-            )}
 
-            <br /><br />
+                    {/*
+                     <CustomSelect
+                        className="custom-select"
+                        options={(tournaments || []).map(async tournament => {
+                            // Obtenez les informations de paiement pour le tournoi
+                            const paymentResponse = await axios.get(`http://localhost:3000/payment/byTournamentId/${tournament._id}`);
+                            const paymentStatus = paymentResponse.data?.payment_status || 'unpaid';
+
+                            return {
+                                label: tournament.title,
+                                value: tournament._id,
+                                disabled: paymentStatus === 'paid',  // Désactiver si le paiement est effectué
+                            };
+                        })}
+                        value={{ label: tournamentId, value: tournamentId }}
+                        onChange={(selectedOption) => handleTournamentChange(selectedOption.value)}
+                    />
+                    */}
+
+                  </label>
+
+              )}
+
+              <br /><br />
             </div>
 
 
 
-          <button
-            className="btn"
-            type="submit"
-            style={{ marginLeft: '150px', width: '60%', backgroundColor: '#FDCA40', color: 'black' }}
-            onClick={handleCheckout}
-          >
-            Proceed to Checkout
-          </button>
-        </div>
-      </Spring>
-    </form>
+            <button
+                className="btn"
+                type="submit"
+                style={{ marginLeft: '150px', width: '60%', backgroundColor: '#FDCA40', color: 'black' }}
+                onClick={handleCheckout}
+            >
+              Proceed to Checkout
+            </button>
+          </div>
+        </Spring>
+      </form>
   );
 };
 
