@@ -9,24 +9,64 @@ import Like from '@ui/Like';
 // assets
 import tshirt from '@assets/player_tshirt.webp';
 
+import React, { useState, useEffect } from 'react';
+import { useLocation   } from 'react-router-dom';
+
 const PlayerProfileCard = () => {
+    
+    const location = useLocation();
+    console.log(location)
+  const { playerId } = location.state || {}; // Set a default value for playerId if it's undefined
+console.log(playerId)
+  if (!playerId) {
+    // Redirect to a fallback page if the playerId is not available
+    console.log("error player id ")
+  }
+    const [teamData, setTeamData] = useState([]);
+    const [userData, setUserData] = useState([]);
+
+    useEffect(() => {
+        async function fetchTeamData() {
+            try {
+                const response = await fetch(`http://localhost:3000/Team/getbyid/${userData.currentTeam}`);
+                const data = await response.json();
+                setTeamData(data);
+                console.log(data)
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        async function fetchUserData() {
+            try {
+                const response = await fetch(`http://localhost:3000/User/getbyid/${playerId}`); // team manger id 
+                const data = await response.json();
+                setUserData(data);
+                console.log(userData)
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchTeamData();
+        fetchUserData(); 
+    }, []);
+
     return (
-        <Spring className={`${styles.container} card h-1 g-30 card-padded`}>
+        <Spring className={`${styles.container} card h-1  card-padded`}>
             <div className="d-flex flex-column justify-content-between">
-                <div className={`${styles.main_info} d-flex flex-column g-14`}>
-                    <span className="player-number">8</span>
+                <div className={`d-flex flex-column g-14`}>
                     <div className="d-flex flex-column g-4">
-                        <h2 className="text-20 text-overflow">Matías Vecino</h2>
-                        <span className="text-12">Central defender</span>
+                        <br />
+                        <h1 className="text-40 text-overflow">{userData.fullname}</h1>
                     </div>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
-                    <CustomRating value={4.5} max={5} type="stars" isCompact />
-                    <Like qty={27} isLiked withText/>
+                    <Like qty={userData.rate} isLiked withText/>
                 </div>
             </div>
             <div className={styles.media}>
-                <img src={tshirt} alt="player tshirt" />
+                <img src={userData.avatar} alt="player picture" />
             </div>
         </Spring>
     )

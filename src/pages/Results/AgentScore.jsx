@@ -4,110 +4,86 @@
 import TeamScoreRow from '@components/TeamScoreRow';
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import axios from "axios";
+import PageHeader from '@layout/PageHeader';
+import { DragAndDrop } from '@components/Refree/DragAndDrop';
+import AppGrid from '@layout/AppGrid';
+import TeamsLineups from '@widgets/TeamsLineups';
+import MatchEventsLarge from '@widgets/MatchEventsLarge';
+import ScoreWidget from './resultWidgets/ScoreWidget';
 
-const socket = io('http://localhost:3001', { transports : ['websocket'] });
-
-const AgentScore = () => {
-  const [team1Score, setTeam1Score] = useState(0);
-  const [team2Score, setTeam2Score] = useState(0);
-  const [team1Red, setTeam1Red] = useState(0);
-  const [team2Red, setTeam2Red] = useState(0);
-  const [team1Yellow, setTeam1Yellow] = useState(0);
-  const [team2Yellow, setTeam2Yellow] = useState(0);
-  const [team1Corners, setTeam1Corners] = useState(0);
-  const [team2Corners, setTeam2Corners] = useState(0);
+const AgentScore = () => { 
 
 
+  const matchID = "65e742cdd620b28801ce9e8e"
+  const socket = io('http://localhost:3000', { transports : ['websocket'] });
 
-  useEffect(() => {
-    // Listen for WebSocket events and update state
-    // socket.on('scoreUpdate', ({team2Score,team1Score}) => {
-    //   setTeam1Score(team1Score);
-    //   setTeam2Score(team2Score);
-    // });
 
-    // Cleanup function
-    return () => {
-      socket.disconnect();
+    const [result, setResult] = useState([]);
+
+    const [changed, setChanged] = useState(null);
+
+    const handleGoal = (team) => {
+      // Emit goal event to the server
+      socket.emit('goal', { team });
+
+      setChanged(team);
+      setTimeout(() => {
+        setChanged(false);
+      }, 1000);
+      console.log("socket")
+
     };
-  }, []);
+    useEffect(() => {
+      // Fetch current result when component mounts
+      const fetchResult = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3000/api/result/${matchID}`); // Assuming you have an endpoint to get the current result
+          setResult(response.data);
 
-  const handleGoalUpdate = (team) => {
-   if (team === team1Score) {
-      setTeam1Score(team1Score+1)
+        } catch (error) {
+          console.error('Error fetching current result:', error);
+        }
+      };
+  
+      fetchResult();
+  
+      // Listen for scoreUpdate event from server
+      socket.on('scoreUpdate', ({ team1Goals, team2Goals }) => {
+        setResult({ team1Goals, team2Goals });
+      });
+  
+      // Cleanup function
+      return () => {
+        socket.disconnect(); // Disconnect socket when component unmounts
+      };
+    }, []); 
 
-    } else if (team === team2Score) {
-      setTeam2Score(team2Score+1)
 
+    const score ={
+      scoreTeam1 : result.team1Goals,
+      scoreTeam2:result.team2Goals
     }
 
-    // Emit a WebSocket event to update scores in the backend
-    socket.emit('updateScore', { team });
-  };
-  const handleRedUpdate = (team) => {
-    if (team === team1Red) {
-       setTeam1Red(team1Red+1)
- 
-     } else if (team === team2Red) {
-       setTeam2Red(team2Red+1)
- 
-     }
- 
-     // Emit a WebSocket event to update scores in the backend
-     socket.emit('updateRed', { team });
-   };
-   const handleYellowUpdate = (team) => {
-    if (team === team1Yellow) {
-       setTeam1Yellow(team1Yellow+1)
- 
-     } else if (team === team2Yellow) {
-       setTeam2Yellow(team2Yellow+1)
- 
-     }
- 
-     // Emit a WebSocket event to update scores in the backend
-     socket.emit('updateYellow', { team });
-   };
-   const handleCornersUpdate = (team) => {
-    if (team === team1Corners) {
-       setTeam1Corners(team1Corners+1)
- 
-     } else if (team === team2Corners) {
-       setTeam2Corners(team2Corners+1)
- 
-     }
- 
-     // Emit a WebSocket event to update scores in the backend
-     socket.emit('updateCorners', { team });
-   };
+    const widgets = {
+      match_score: <ScoreWidget score={score} handleGoal={handleGoal}  changed={changed} />,
 
+  }
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: '100vh' }}>
-    <div style={{ textAlign: 'center', flex: 1 }}>
-      <h2>Team 1</h2>
-      {/* <img src="./barcelona.webp" alt="Team 1 Logo" style={{ width: '200px', height: '200px' }} /> */}
-      <p>Score: {team1Score}</p>
-      <button onClick={() => handleGoalUpdate(team1Score)}>Goal</button>
-      <p>Corners: {team1Corners}</p>
-      <button onClick={() => handleCornersUpdate(team1Corners)}>Corner</button>
-      <p>Red Cards: {team1Red}</p>
-      <button onClick={() => handleRedUpdate(team1Red)}>Red</button>
-      <p>Yellow Cards: {team1Yellow}</p>
-      <button onClick={() => handleYellowUpdate(team1Yellow)}>Yellow</button>
-    </div>
-    <div style={{ textAlign: 'center', flex: 1 }}>
-      <h2>Team 2</h2>
-      <p>Score: {team2Score}</p>
-      <button onClick={() => handleGoalUpdate(team2Score)}>Goal</button>
-      <p>Corners: {team2Corners}</p>
-      <button onClick={() => handleCornersUpdate(team2Corners)}>Corner</button>
-      <p>Red Cards: {team2Red}</p>
-      <button onClick={() => handleRedUpdate(team2Red)}>Red </button>
-      <p>Yellow Cards: {team2Yellow}</p>
-      <button onClick={() => handleYellowUpdate(team2Yellow)}>Yellow</button>
-    </div>
-  </div>
+
+    <>            
+  <PageHeader title="Match live tracking" />
+  
+  <AppGrid id="MatchAgent" widgets={widgets}/>
+
+
+
+  <DragAndDrop />
+
+    </>
+   
   );
 };
+
 
 export default AgentScore;

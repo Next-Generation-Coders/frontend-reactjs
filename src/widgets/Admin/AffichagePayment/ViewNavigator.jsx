@@ -9,7 +9,6 @@ const ViewNavigator = ({ current, handler }) => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearch = () => {
-        // Ajoutez ici la logique pour effectuer la recherche
         console.log("Recherche effectuée :", searchTerm);
     };
 

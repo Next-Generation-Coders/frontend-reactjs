@@ -85,7 +85,7 @@ const Profile = () => {
             };
         }
     
-        await addNewPlayer("65e1126386566290fd9dd1f3", newPlayerData);
+        await addNewPlayer("65e3b04de506da5b7fdff654", newPlayerData);
         reset(); // Clear the form fields
     };
 

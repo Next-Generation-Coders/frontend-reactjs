@@ -2,10 +2,10 @@
 import PasswordInput from '@components/PasswordInput';
 import BasicCheckbox from '@ui/BasicCheckbox';
 import ResetPasswordPopup from '@components/ResetPasswordPopup';
+import { FcGoogle } from "react-icons/fc";
 
 // hooks
 import {useForm, Controller} from 'react-hook-form';
-import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
 
 // utils
@@ -15,6 +15,7 @@ import {useLogin} from "@hooks/useLogin";
 const LoginForm = () => {
     const [open, setOpen] = useState(false);
     const {login,error,isLoading}= useLogin();
+
     const {register, handleSubmit, formState: {errors}, control} = useForm({
         defaultValues: {
             email: '',
@@ -22,9 +23,9 @@ const LoginForm = () => {
             rememberMe: false
         }
     });
-    const navigate = useNavigate();
     const onSubmit = async (data) => {
         await login(data.email,data.password);
+
     };
 
     const handleResetPassword = e => {
@@ -35,7 +36,7 @@ const LoginForm = () => {
     return (
         <>
             <h1>Account login</h1>
-             <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="d-flex flex-column g-10" style={{margin: '20px 0 30px'}}>
                     <div className="d-flex flex-column g-20">
                         <input className={classNames('field', {'field--error': errors.email})}
@@ -79,7 +80,18 @@ const LoginForm = () => {
                     </button>
                 </div>
             </form>
-            <ResetPasswordPopup open={open} onClose={() => setOpen(false)}/>
+            <br/>
+            <br/>
+            <hr/>
+            <br/>
+            <br/>
+            <div >
+                <form className="d-flex justify-content-center align-items-end" action="http://localhost:3000/auth/google" >
+                    <button className="btn">
+                        Sign in with <FcGoogle />
+                    </button></form>
+                <ResetPasswordPopup open={open} onClose={() => setOpen(false)}/>
+            </div>
         </>
     )
 }
