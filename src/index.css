@@ -140,18 +140,3 @@ body {
 }
 
 
-@media screen and (max-width: 800px) {
-
-
-  .grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-  }
-
-  .layout-cards {
-    overflow-y: scroll;
-    height: 250px;
-    min-height: 150px;
-    max-height: 250px;
-  }
-}
