@@ -19,9 +19,36 @@ import {useWindowSize} from 'react-use';
 import {useEffect, useState} from 'react';
 
 // constants
-import LINKS from '@constants/links';
+import {
+    LINKS,
+    ADMIN_LINKS,
+    ORGANIZER_LINKS,
+    COACH_LINKS,
+    TM_LINKS,
+    USER_LINKS,
+    REFEREE_LINKS,
+    GUEST_LINKS
+} from '@constants/links';
+import {useAuthContext} from "@hooks/useAuthContext";
+import Role from "@utils/Role";
 
 const Sidebar = () => {
+
+    const {USER} = useAuthContext()
+    const liens = USER ? USER.roles.find(r=>[Role.ADMIN].includes(r)) ?
+        ADMIN_LINKS
+        : USER.roles.find(r=>[Role.COACH].includes(r)) ?
+             COACH_LINKS
+        : USER.roles.find(r=>[Role.REFEREE].includes(r)) ?
+            REFEREE_LINKS
+        : USER.roles.find(r=>[Role.ORGANIZER].includes(r)) ?
+            ORGANIZER_LINKS
+        : USER_LINKS
+        : GUEST_LINKS
+
+
+
+
     const {open, setOpen} = useSidebar();
 
     const [expanded, setExpanded] = useState(undefined);
@@ -57,7 +84,7 @@ const Sidebar = () => {
             </div>
             <nav className="d-flex flex-column g-8 flex-1">
                 {
-                    LINKS.map((link, index) => (
+                    liens.map((link, index) => (
                         <StyledAccordion key={link.title}
                                          expanded={expanded === `panel${index}`}
                                          onChange={handleChange(`panel${index}`)}>
