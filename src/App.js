@@ -101,6 +101,7 @@
 
     const CreateTeam = lazy(() => import('@pages/Team/CreateTeam'));
     const TeamList = lazy(() => import('@pages/Team/TeamList'));
+    const TeamLineupF = lazy(() => import('@pages/Coach/TeamLineupF'));
 
     // Complaint Routes
 
@@ -237,6 +238,7 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/>}>
                                                     <Route path="/profile" element={<Profile/>}/>
                                                     </Route>
+                                                    <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
 
 
 
