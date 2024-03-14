@@ -101,6 +101,7 @@
 
     const CreateTeam = lazy(() => import('@pages/Team/CreateTeam'));
     const TeamList = lazy(() => import('@pages/Team/TeamList'));
+    const TeamLineupF = lazy(() => import('@pages/Coach/TeamLineupF'));
 
     // Complaint Routes
 
@@ -111,6 +112,7 @@
 const AddNewPlayer = lazy(() => import('@pages/Coach/AddPlayer'));
 const LineUp = lazy(() => import('@pages/Coach/LineUp'));
 const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
+const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
 
 
 
@@ -222,6 +224,8 @@ const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
                                                     <Route path="/create-team" element={<CreateTeam/>}/>
                                                     <Route path="/team-list" element={<TeamList/>}/>
                                                     <Route path="/add-new-player" element={<AddNewPlayer/>}/>
+                                                    <Route path="/team-Profile" element={<TeamProfile/>}/>
+                                                    <Route path="/player-profile/:playerId" element={<PlayerProfile />} />
 
                                                     // Coach
                                                     <Route path="/lineup" element={<LineUp/>}/>
@@ -234,8 +238,7 @@ const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/>}>
                                                     <Route path="/profile" element={<Profile/>}/>
                                                     </Route>
-
-
+                                                    <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
 
 
 

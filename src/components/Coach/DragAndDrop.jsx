@@ -29,15 +29,7 @@ export const DragAndDrop = () => {
         id: index + 1, // Adding 1 to start IDs from 1
         name: player,
         status: 'List Team',
-    }));
-
-    const positionOrder = {
-        'ST': 1, 'CF': 2, 'RF': 3, 'LF': 4, 'RW': 5, 'LW': 6,
-        'CM': 7, 'CDM': 8, 'CAM': 9, 'RM': 10, 'LM': 11,
-        'CB': 12, 'RB': 13, 'LB': 14, 'RWB': 15, 'LWB': 16, 'GK': 17
-    };
-
-    
+    })); 
 
     const { isDragging, listItems, handleDragging, handleUpdateList } = useDragAndDrop(data);
 
@@ -91,26 +83,6 @@ export const DragAndDrop = () => {
 
     const sortedListItems = listItems.slice().sort((a, b) => {
         const getPositionOrder = (position) => {
-            /* const positionOrder = {
-                "GK": 1,
-                "CB": 2,
-                "RB": 3,
-                "LB": 4,
-                "RWB": 5,
-                "LWB": 6,
-                "CM": 7,
-                "CDM": 8,
-                "CAM": 9,
-                "RM": 10,
-                "LM": 11,
-                "ST": 12,
-                "CF": 13,
-                "RF": 14,
-                "LF": 15,
-                "RW": 16,
-                "LW": 17
-                // Add more positions if needed
-            }; */
             const positionOrder = {
                 "ST": 1,
                 "CF": 2,

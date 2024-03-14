@@ -264,3 +264,117 @@
   }
 }
 
+
+// styles.scss
+
+.container-fluid {
+display: flex;
+flex-direction: column; // Display children in a column
+}
+
+.row {
+display: flex;
+}
+
+.col-12 {
+flex: 1; // Take up all available space
+}
+
+ul {
+display: flex;
+flex-wrap: wrap; // Wrap items to the next row
+list-style-type: none;
+padding: 0;
+}
+
+li {
+margin: 0.5rem;
+}
+
+button {
+margin-left: 0.5rem;
+}
+
+
+
+// pitch 
+
+// styles.module.scss
+
+
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 20px;
+}
+
+.pitchContainer {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.pitch {
+  width: 50%;
+  position: relative;
+  //transform: rotate(90deg);   //make the pitch vertical 
+}
+
+.playersContainer {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 20px;
+}
+
+.pitchContainer {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.playersContainer {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.playersList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+} 
+
+.playerItem {
+  margin-bottom: 10px;
+}
+
+.addButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #45a049;
+}
+
+.inLineup {
+  background-color: red;
+}
+
+.removeButton {
+  background-color: rgb(253, 63, 63);
+}
+
+.removeButton:hover {
+  background-color: #e42e2b;
+}
