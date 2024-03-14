@@ -15,7 +15,7 @@ const widgets = {
 const AddPlayer = () => {
     return (
         <>
-            <PageHeader title="Add Player" />
+            <PageHeader title="Add/Modify Team" />
             <AppGrid id="Test" widgets={widgets}/>
         </>
     )

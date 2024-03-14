@@ -89,11 +89,11 @@ const LINKS = [
         pages: [
             {
                 title: 'Create Team',
-                path: '/create-team'
+                path: '/add-new-player'
             },
             {
-                title: 'Team List',
-                path: '/team-list'
+                title: 'Team Profile',
+                path: '/team-Profile'
             },
             {
                 title: 'Player profile',
@@ -179,6 +179,16 @@ const LINKS = [
             {
                 title: 'About us',
                 path: '/about-us'
+            },
+        ]
+    },
+    {
+        title: 'Coach',
+        icon: 'user',
+        pages: [
+            {
+                title: 'Linup',
+                path: '/TeamLineupF'
             },
         ]
     },

@@ -3,7 +3,7 @@ import SoccerLineup from "react-soccer-lineup";
 import { nanoid } from "nanoid";
 
 // styling
-import styles  from './styles.module.scss';
+import styles  from './styleee.module.scss';
 
 export const TeamLineupManager = () => {
   const [homeTeam, setHomeTeam] = useState({
@@ -18,6 +18,7 @@ export const TeamLineupManager = () => {
   });
 
   const [players, setPlayers] = useState([]);
+  const [playerOntheFiled, setplayerOntheFiled] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -51,24 +52,32 @@ export const TeamLineupManager = () => {
 
         setPlayers(sortedPlayers);
       }
+      
+      getLineup(); // Fetch the lineup after the team data is fetched
     }
     fetchData();
   }, []);
 
-  
-
-
-  /* useEffect(() => {
-    async function fetchData() {
-      const team = await getTeamByCoach("65e1126386566290fd9dd1f3");
-      if (team) {
-        setPlayers(team.playerNames);
+  const getLineup = async () => {
+    try {
+      const teamId = "65e7245fd82eb4076b42776a"; // Use the actual team ID
+      const response = await fetch(`http://localhost:3000/Team/getLineup/${teamId}`);
+      const lineupData = await response.json();
+      
+      console.log("Lineup Data:", lineupData); // Log the entire lineup data object
+      
+      if (lineupData && lineupData.lineup && lineupData.lineup.playerNames) {
+        const playerNames = lineupData.lineup.playerNames.map(player => player);
+        console.log("Player Names:", playerNames); // Log the player names
+        setplayerOntheFiled(playerNames);
+      } else {
+        console.log("Player names not found in lineup data");
       }
+    } catch (error) {
+      console.error('Error fetching lineup:', error);
     }
-    fetchData();
-  }, []);
- */
-
+  };
+  
 
 
   const getTeamByCoach = async (coachId) => {
@@ -83,25 +92,48 @@ export const TeamLineupManager = () => {
     }
   };
 
-  const saveLineup = async () => {
+  const saveLineup = async (players) => {
     try {
-      if (!players || !players.playerNames) {
-        console.error('Player names are undefined');
-        return;
-      }
+      // Filter out the players who are currently on the field
+      const playersOnField = players.filter(player =>
+        Object.values(homeTeam.squad).flat().some(p => p && p.name === player.fullname)
+      );
   
+      setplayerOntheFiled(playersOnField);
+  
+        // Check if the team has a lineup saved
+      const teamId = "65e7245fd82eb4076b42776a"; // Use the actual team ID
+      const response = await fetch(`http://localhost:3000/Team/getLineup/${teamId}`);
+      const existingLineup = await response.json();
+          //console.log(existingLineup+"adadaddddddddd")
+      if(existingLineup){
+        const updateResponse = await fetch(`http://localhost:3000/Team/updateLineup/${teamId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+            playerNames: playersOnField 
+          })
+        });
+        const updatedLineup = await updateResponse.json();
+        console.log('Lineup updated:', updatedLineup);
+      }
+      else{
       const response = await fetch('http://localhost:3000/Team/addLineup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          playerNames: players.playerNames
+          team : '65e7245fd82eb4076b42776a',
+          playerNames: playersOnField ,
+          //players : playerOntheFiled.id
         })
       });
       const data = await response.json();
-      console.log(data); // Assuming the response contains the saved lineup data
-      // Optionally, handle success response
+      console.log('Lineup added :',data); 
+    }
     } catch (error) {
       console.error('Error saving lineup:', error);
       // Optionally, handle error
@@ -112,17 +144,25 @@ export const TeamLineupManager = () => {
   
   
   
+  
 
   const addPlayer = (selectedPlayer) => {
     if (!selectedPlayer || !selectedPlayer.position || !selectedPlayer.fullname) return;
-
+  
+    // Check if the maximum number of players on the field (11) has been reached
+    const playersOnFieldCount = Object.values(homeTeam.squad).flat().filter(p => p !== null).length;
+    if (playersOnFieldCount >= 11) {
+      alert('Maximum number of players on the field (11) reached.');
+      return;
+    }
+  
     const player = {
       id: nanoid(),
       name: selectedPlayer.fullname,
       number: selectedPlayer.jersyNumber,
       position: selectedPlayer.position
     };
-
+  
     const isInField = Object.values(homeTeam.squad).flat().some(p => p && p.name === selectedPlayer.fullname);
     
     if (isInField) {
@@ -140,10 +180,10 @@ export const TeamLineupManager = () => {
       }
     } else {
       setPlayers((prevPlayers) => prevPlayers.filter((p) => p.name !== selectedPlayer.fullname));
-
+  
       setHomeTeam((prevHomeTeam) => {
         const updatedSquad = { ...prevHomeTeam.squad };
-
+  
         const positionMap = {
           GK: "gk",
           CB: "df",
@@ -163,14 +203,14 @@ export const TeamLineupManager = () => {
           RW: "fw",
           LW: "fw"
         };
-
+  
         const mappedPosition = positionMap[selectedPlayer.position];
         if (mappedPosition === "gk") {
           updatedSquad.gk = player;
         } else {
           updatedSquad[mappedPosition].push(player);
         }
-
+  
         return {
           ...prevHomeTeam,
           squad: updatedSquad
@@ -178,13 +218,16 @@ export const TeamLineupManager = () => {
       });
     }
   };
+  
 
   return (
     <div className={styles.container}>
       <div className={styles.pitchContainer}>
         <h2>Field</h2>
         <div className={styles.pitch}>
-          <SoccerLineup homeTeam={homeTeam} />
+          <SoccerLineup homeTeam={homeTeam} 
+          pattern="lines"
+          />
         </div>
       </div>
       <div className={styles.playersContainer}>
@@ -215,7 +258,7 @@ export const TeamLineupManager = () => {
           ))}
         </ul>
       </div>
-      <button onClick={saveLineup}>Save Lineup</button>
+      <button onClick={() => saveLineup(players)}>Save Lineup</button>
     </div>
   );
   
