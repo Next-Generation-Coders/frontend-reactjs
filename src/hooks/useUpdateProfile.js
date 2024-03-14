@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import {toast} from "react-toastify";
+import {jwtDecode} from "jwt-decode";
 
 export const useUpdateProfile = () => {
     const [error, setError] = useState('')
@@ -15,7 +16,7 @@ export const useUpdateProfile = () => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token').toString()}`
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({user})
         })
@@ -27,11 +28,11 @@ export const useUpdateProfile = () => {
             toast.error(json.error);
         }
         if (!json.error) {
-            localStorage.setItem('user', JSON.stringify(json.user))
             localStorage.setItem('token', json.accessToken)
 
-            dispatch({type: 'LOGIN', payload: json.user})
-
+            const u = jwtDecode(json.accessToken.toString());
+            const USER = u.user
+            dispatch({type: 'LOGIN', payload: USER})
             setIsLoading(false)
             toast.success(`Your changes have been saved!`)
 

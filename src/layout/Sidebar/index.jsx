@@ -20,11 +20,9 @@ import {useEffect, useState} from 'react';
 
 // constants
 import {
-    LINKS,
     ADMIN_LINKS,
     ORGANIZER_LINKS,
     COACH_LINKS,
-    TM_LINKS,
     USER_LINKS,
     REFEREE_LINKS,
     GUEST_LINKS
