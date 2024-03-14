@@ -108,16 +108,9 @@ export const LINKS = [
         icon: 'cart',
         pages: [
             {
-                title: 'Payment List',
-                path: '/payment-list'
-            },
-            {
                 title: 'Payment',
                 path: '/payment'
             },
-           
-           
-           
         ]
     },
     {
@@ -147,6 +140,10 @@ export const LINKS = [
             {
                 title: 'Complaint List',
                 path: '/complaint-list'
+            },
+            {
+                title: 'Payment List',
+                path: '/payment-list'
             },
         ]
     },
@@ -269,6 +266,10 @@ export const ADMIN_LINKS = [
             {
                 title: 'Complaint List',
                 path: '/complaint-list'
+            },
+            {
+                title: 'Payment List',
+                path: '/payment-list'
             },
         ]
     },
@@ -531,10 +532,7 @@ export const ORGANIZER_LINKS = [
         title: 'Payment',
         icon: 'cart',
         pages: [
-            {
-                title: 'Payment List',
-                path: '/payment-list'
-            },
+
             {
                 title: 'Payment',
                 path: '/payment'
