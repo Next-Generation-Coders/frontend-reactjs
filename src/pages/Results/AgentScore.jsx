@@ -14,16 +14,22 @@ import ScoreWidget from './resultWidgets/ScoreWidget';
 import WidgetGroup from '@components/WidgetGroup';
 import PlayerDiscipline1 from './resultWidgets/PlayerDiscipline1';
 import PlayerDiscipline2 from './resultWidgets/PlayerDiscipline2';
+import TimeMatch from './resultWidgets/TimeMatch';
+import { useParams } from 'react-router-dom';
 
 const AgentScore = () => { 
 
 
   const matchID = "65e742cdd620b28801ce9e8e"
+  //const {id} = useParams()
+
   const socket = io('http://localhost:3000', { transports : ['websocket'] });
 
 
     const [result, setResult] = useState([]);
     const [teams, setTeams] = useState({});
+    const team1 = teams?.team1?.team1
+  const team2=teams?.team2?.team2
 
 
     const [changed, setChanged] = useState(null);
@@ -160,10 +166,10 @@ const AgentScore = () => {
         }
     
     const widgets = {
-      match_score: <ScoreWidget score={score} handleGoal={handleGoal} red={red} yellow={yellow} 
+      match_score: <ScoreWidget team1={team1} team2={team2} score={score} handleGoal={handleGoal} red={red} yellow={yellow} 
       handleRed={handleRed} handleYellow={handleYellow} changed={changed}
       corners={corners} handleCorners={handleCorners}  offsides={offsides} handleOffsides={handleOffsides} teams={team}/>,
-      
+   
       
 
   }

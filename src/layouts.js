@@ -471,6 +471,7 @@ const layouts = {
             {i: 'teamA_stats_progress', x: 0, y: 1, w: 1, h: 2},
             {i: 'teamB_lineups', x: 3, y: 0, w: 1, h: 2},
             {i: 'teamB_stats_progress', x: 3, y: 1, w: 1, h: 2},
+            {i: 'time', x: 3, y: 1, w: 1, h: 2},
 
             {i: 'match_events', x: 1, y: 0, w: 2, h: 1},
             {i: 'passes_polar_chart', x: 1, y: 1, w: 2, h: 3},

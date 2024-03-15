@@ -10,7 +10,7 @@ import {useWindowSize} from 'react-use';
 // utils
 import {renderPolarAngleAxis} from '@utils/helpers';
 
-const PassesPolarChartt = ({score,red1,red2,yellow1,yellow2,corners,offsides}) => {
+const PassesPolarChartt = ({score,red1,red2,yellow1,yellow2,corners,offsides,team1,team2}) => {
     const {width} = useWindowSize()
     const data = [
         { value: 'goals', a: score.scoreTeam1, b: score.scoreTeam2 },
@@ -62,8 +62,8 @@ const PassesPolarChartt = ({score,red1,red2,yellow1,yellow2,corners,offsides}) =
                 </ResponsiveContainer>
             </div>
             <div className="d-flex justify-content-center g-20">
-                <LegendItem color="accent" text="Juventus"/>
-                <LegendItem color="red" text="Bayern"/>
+                <LegendItem color="accent" text={team1?.name}/>
+                <LegendItem color="red" text={team2?.name}/>
             </div>
         </Spring>
     )

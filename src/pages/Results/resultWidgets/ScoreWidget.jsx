@@ -11,6 +11,9 @@ import MatchProgress from '@ui/MatchProgress';
 
 // hooks 
 import useMeasure from 'react-use-measure';
+import ClubInfoTeam1 from './ClubInfoTeam1';
+import ClubInfoTeam2 from './ClubInfoTeam2';
+import TimeMatch from './TimeMatch';
 
 const Header = styled.div`
   .main {
@@ -23,7 +26,7 @@ const Header = styled.div`
   }
 `;
 
-const ScoreWidget = ({score , handleGoal ,changed,handleRed,handleYellow,handleCorners,handleOffsides,teams}) => {
+const ScoreWidget = ({score , handleGoal ,changed,handleRed,handleYellow,handleCorners,handleOffsides,team1,team2}) => {
     
 
     const buttonStyle = { 
@@ -36,12 +39,19 @@ const ScoreWidget = ({score , handleGoal ,changed,handleRed,handleYellow,handleC
     return (
         <div className="card  flex-column ">
             <Header className="d-flex align-items-center justify-content-between card-padded p-relative">
-                <ClubInfo id="realmadrid"/>
+                <ClubInfoTeam1 team1={team1}/>
                 
                 <Score changed={changed} team2={score.scoreTeam2} team1={score.scoreTeam1} />
-                <ClubInfo id="barcelona" wrapperClass="flex-row-reverse text-right"/>
-           
+                <ClubInfoTeam2 team2={team2} wrapperClass="flex-row-reverse text-right"/>
+
             </Header>
+
+            <div className='bg-red text-center'> 
+            <TimeMatch />
+            
+            
+            </div>
+        
 
             <Header className="d-flex align-items-center justify-content-between card-padded p-relative">
                 <button className="btn"   onClick={() => handleGoal('team2')} style={buttonStyle}type="submit">
