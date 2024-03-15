@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
+import {useNavigate,useLocation} from 'react-router-dom';
 
 export const useLogin = () => {
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     const login = async (email, password) => {
         setIsLoading(true)
         setError('')
@@ -26,18 +28,22 @@ export const useLogin = () => {
             toast.error(json.error);
         }
         if (!json.error) {
-            localStorage.setItem('user', JSON.stringify(json))
+            localStorage.setItem('token', json.accessToken)
 
-            dispatch({type: 'LOGIN', payload: json})
+            const u = jwtDecode(json.accessToken.toString());
+            const USER = u.user
+            if(!USER.isBlocked){
+                dispatch({type: 'LOGIN', payload: USER})
 
-            setIsLoading(false)
-            if(json.user.isvVrified){
-                toast.success(`Welcome back!`)
+                setIsLoading(false)
+                navigate(from,{replace:true});
             }
-            else {
-                toast.warn(`Your account is not verified yet, check your inbox!`)
+            if(USER.isBlocked){
+                setError("Your account has been suspended by an admin");
+                setIsLoading(false)
+                toast.error("Your account has been suspended by an admin");
             }
-            navigate('/');
+
         }
     }
 

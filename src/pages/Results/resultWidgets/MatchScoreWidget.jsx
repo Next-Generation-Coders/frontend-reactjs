@@ -1,4 +1,4 @@
-// styling
+    // styling
 import styled from 'styled-components/macro';
 
 import ClubInfoTeam1 from './ClubInfoTeam1';

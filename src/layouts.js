@@ -395,41 +395,6 @@ const layouts = {
             {i: 'products_list', x: 0, y: 6, w: 2, h: 1},
         ]
     },
-    settings: {
-        xl: [
-            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
-            {i: 'info', x: 0, y: 1, w: 1, h: 1},
-            {i: 'description', x: 3, y: 0, w: 1, h: 2},
-            {i: 'settings', x: 1, y: 0, w: 2, h: 2},
-            {i: 'payments', x: 1, y: 2, w: 1, h: 2},
-            {i: 'privacy', x: 3, y: 2, w: 1, h: 2},
-            {i: 'notifications_settings', x: 0, y: 2, w: 1, h: 1},
-            {i: 'notifications_schedule', x: 0, y: 3, w: 1, h: 1},
-            {i: 'password', x: 2, y: 2, w: 1, h: 2}
-        ],
-        lg: [
-            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
-            {i: 'info', x: 0, y: 1, w: 1, h: 1},
-            {i: 'description', x: 0, y: 2, w: 1, h: 2},
-            {i: 'settings', x: 1, y: 0, w: 2, h: 2},
-            {i: 'payments', x: 2, y: 2, w: 1, h: 2},
-            {i: 'privacy', x: 1, y: 2, w: 1, h: 2},
-            {i: 'notifications_settings', x: 0, y: 4, w: 1, h: 1},
-            {i: 'notifications_schedule', x: 0, y: 5, w: 1, h: 1},
-            {i: 'password', x: 1, y: 4, w: 1, h: 2}
-        ],
-        md: [
-            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
-            {i: 'info', x: 0, y: 1, w: 1, h: 1},
-            {i: 'description', x: 1, y: 0, w: 1, h: 2},
-            {i: 'settings', x: 0, y: 2, w: 2, h: 2},
-            {i: 'payments', x: 0, y: 4, w: 1, h: 2},
-            {i: 'privacy', x: 1, y: 4, w: 1, h: 2},
-            {i: 'notifications_settings', x: 0, y: 6, w: 1, h: 1},
-            {i: 'notifications_schedule', x: 0, y: 7, w: 1, h: 1},
-            {i: 'password', x: 1, y: 6, w: 1, h: 2}
-        ]
-    },
     MatchResult: {
         xl: [
             {i: 'teamA_lineups', x: 0, y: 0, w: 1, h: 2},
@@ -463,6 +428,41 @@ const layouts = {
             {i: 'passes_polar_chart', x: 0, y: 5, w: 2, h: 3},
             {i: 'player_cards', x: 1, y: 0.5, w: 2, h: 1},
 
+        ]
+    },
+    settings: {
+        xl: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'description', x: 3, y: 0, w: 1, h: 2},
+            {i: 'settings', x: 1, y: 0, w: 2, h: 2},
+            {i: 'payments', x: 1, y: 2, w: 1, h: 2},
+            {i: 'privacy', x: 3, y: 2, w: 1, h: 2},
+            {i: 'notifications_settings', x: 0, y: 2, w: 1, h: 1},
+            {i: 'notifications_schedule', x: 0, y: 3, w: 1, h: 1},
+            {i: 'password', x: 2, y: 2, w: 1, h: 2}
+        ],
+        lg: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'description', x: 0, y: 2, w: 1, h: 2},
+            {i: 'settings', x: 1, y: 0, w: 2, h: 2},
+            {i: 'payments', x: 2, y: 2, w: 1, h: 2},
+            {i: 'privacy', x: 1, y: 2, w: 1, h: 2},
+            {i: 'notifications_settings', x: 0, y: 4, w: 1, h: 1},
+            {i: 'notifications_schedule', x: 0, y: 5, w: 1, h: 1},
+            {i: 'password', x: 1, y: 4, w: 1, h: 2}
+        ],
+        md: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'description', x: 1, y: 0, w: 1, h: 2},
+            {i: 'settings', x: 0, y: 2, w: 2, h: 2},
+            {i: 'payments', x: 0, y: 4, w: 1, h: 2},
+            {i: 'privacy', x: 1, y: 4, w: 1, h: 2},
+            {i: 'notifications_settings', x: 0, y: 6, w: 1, h: 1},
+            {i: 'notifications_schedule', x: 0, y: 7, w: 1, h: 1},
+            {i: 'password', x: 1, y: 6, w: 1, h: 2}
         ]
     },
     MatchAgent: {
@@ -500,7 +500,153 @@ const layouts = {
             {i: 'player_cards', x: 1, y: 0.5, w: 2, h: 1},
 
         ]
-    }
+    },
+    tournamentFormLayout: {
+        xl: [
+            
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'description', x: 3, y: 0, w: 1, h: 2},
+            {i: 'settings', x: 1, y: 0, w: 2, h: 2},
+            {i: 'payments', x: 1, y: 2, w: 1, h: 2},
+            {i: 'privacy', x: 3, y: 2, w: 1, h: 2},
+            {i: 'details', x: 0, y: 2, w: 1, h: 1.7},
+            {i: 'notifications_schedule', x: 0, y: 3, w: 1, h: 1},
+            {i: 'password', x: 2, y: 2, w: 1, h: 2}
+        ],
+        lg: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'description', x: 0, y: 2, w: 1, h: 2},
+            {i: 'settings', x: 1, y: 0, w: 2, h: 2},
+            {i: 'payments', x: 2, y: 2, w: 1, h: 2},
+            {i: 'privacy', x: 1, y: 2, w: 1, h: 2},
+            {i: 'details', x: 0, y: 4, w: 1, h: 1.7},
+            {i: 'notifications_schedule', x: 0, y: 5, w: 1, h: 1},
+            {i: 'password', x: 1, y: 4, w: 1, h: 2}
+        ],
+        md: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'description', x: 1, y: 0, w: 1, h: 2},
+            {i: 'settings', x: 0, y: 2, w: 2, h: 2},
+            {i: 'payments', x: 0, y: 4, w: 1, h: 2},
+            {i: 'privacy', x: 1, y: 4, w: 1, h: 2},
+            {i: 'details', x: 0, y: 6, w: 1, h: 1.7},
+            {i: 'notifications_schedule', x: 0, y: 7, w: 1, h: 1},
+            {i: 'password', x: 1, y: 6, w: 1, h: 2}
+        ]
+    },
+    profile: {
+        xl: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+            {i: 'settings', x: 1, y: 0, w: 2, h: 2},
+            {i: 'password', x: 3, y: 0, w: 1, h: 2}
+],
+        lg: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+{i: 'settings', x: 1, y: 0, w: 2, h: 2},
+{i: 'password', x: 1, y: 4, w: 1, h: 2}
+        ],
+        md: [
+            {i: 'avatar', x: 0, y: 0, w: 1, h: 1},
+            {i: 'info', x: 0, y: 1, w: 1, h: 1},
+{i: 'description', x: 1, y: 0, w: 1, h: 2},
+            {i: 'settings', x: 0, y: 2, w: 2, h: 2},
+            {i: 'payments', x: 0, y: 4, w: 1, h: 2},
+            {i: 'privacy', x: 1, y: 4, w: 1, h: 2},
+            {i: 'details', x: 0, y: 6, w: 1, h: 1.7},
+            {i: 'notifications_schedule', x: 0, y: 7, w: 1, h: 1},
+            {i: 'password', x: 1, y: 6, w: 1, h: 2}
+        ]
+    },
+    home: {
+        xl: [
+            {i: 'live_report', x: 0, y: 2, w: 1, h: 2},
+            {i: 'matches_overview', x: 1, y: 3, w: 2, h: 3},
+            // {i: 'match_result', x: 1, y: 1, w: 1, h: 2},
+            {i: 'live_matches', x: 0, y: 0, w: 1, h: 2},
+            {i: 'calendar', x: 3, y: 2, w: 1, h: 2},
+
+        ],
+        lg: [
+            {i: 'team_stats', x: 0, y: 0, w: 1, h: 1},
+            {i: 'attendance', x: 1, y: 0, w: 1, h: 1},
+            {i: 'training_pace', x: 0, y: 1, w: 2, h: 1},
+            {i: 'live_report', x: 2, y: 0, w: 1, h: 2},
+            {i: 'team_full_info', x: 0, y: 2, w: 2, h: 2},
+            {i: 'team_results', x: 0, y: 4, w: 2, h: 2},
+            {i: 'league_standings', x: 2, y: 2, w: 1, h: 2},
+        ],
+        md: [
+            {i: 'team_stats', x: 0, y: 0, w: 1, h: 1},
+            {i: 'attendance', x: 1, y: 0, w: 1, h: 1},
+            {i: 'training_pace', x: 0, y: 1, w: 2, h: 1},
+            {i: 'live_report', x: 1, y: 6, w: 1, h: 2},
+            {i: 'team_full_info', x: 0, y: 4, w: 2, h: 2},
+            {i: 'team_results', x: 0, y: 2, w: 2, h: 2},
+            {i: 'league_standings', x: 0, y: 6, w: 1, h: 2},
+        ]
+    },
+    Test: {
+        xl: [
+            {i: 'settings', x: 0.5, y: 0, w: 2, h: 2.5},
+            {i: 'teams_lineups', x: 0.5, y: 0, w: 2, h: 2.5},
+        ],
+        lg: [
+            {i: 'settings', x: 0.5, y: 0, w: 2, h: 2.5},
+            {i: 'teams_lineups', x: 0.5, y: 0, w: 2, h: 2.5},
+        ],
+        md: [
+            {i: 'settings', x: 0.5, y: 0, w: 2, h: 2.5},
+            {i: 'teams_lineups', x: 0.5, y: 0, w: 2, h: 2.5},
+        ]
+    },
+    user_management: {
+        xl: [
+            {i: 'users', x: 1, y: 1, w: 2, h: 2.5},
+        ],
+        lg: [
+            {i: 'users', x: 1, y: 1, w: 1, h: 2},
+        ],
+        md: [
+            {i: 'users', x: 0, y: 0, w: 1, h: 2},
+        ]
+    },
+    Team_Managment: {
+        xl: [
+            {i: 'profile_card', x: 0, y: 0, w: 4, h: 1},
+            {i: 'training_pace', x: 1, y: 0, w: 2, h: 1},
+            {i: 'calendar', x: 3, y: 0, w: 1, h: 2},
+            {i: 'listplayers', x: 0, y: 1, w: 2, h: 2},
+            {i: 'planner', x: 1, y: 1, w: 2, h: 2},
+            {i: 'messages', x: 3, y: 2, w: 1, h: 2},
+            {i: 'field', x: 0, y: 3, w: 1, h: 1},
+            {i: 'champions', x: 1, y: 3, w: 2, h: 1},
+        ],
+        lg: [
+            {i: 'profile_card', x: 0, y: 0, w: 4, h: 1},
+            {i: 'training_pace', x: 1, y: 0, w: 2, h: 1},
+            {i: 'calendar', x: 0, y: 1, w: 1, h: 2},
+            {i: 'listplayers', x: 1, y: 1, w: 2, h: 2},
+            {i: 'planner', x: 1, y: 3, w: 2, h: 2},
+            {i: 'messages', x: 2, y: 1, w: 1, h: 2},
+            {i: 'field', x: 0, y: 3, w: 1, h: 1},
+            {i: 'champions', x: 0, y: 4, w: 1, h: 1},
+        ],
+        md: [
+            {i: 'profile_card', x: 0, y: 0, w: 4, h: 1},
+            {i: 'training_pace', x: 0, y: 2, w: 2, h: 1},
+            {i: 'calendar', x: 0, y: 3, w: 1, h: 2},
+            {i: 'listplayers', x: 1, y: 0, w: 2, h: 2},
+            {i: 'planner', x: 0, y: 6, w: 2, h: 2},
+            {i: 'messages', x: 1, y: 3, w: 1, h: 2},
+            {i: 'field', x: 0, y: 1, w: 1, h: 1},
+            {i: 'champions', x: 0, y: 5, w: 2, h: 1},
+        ]
+    },
 }
 
 export default layouts

@@ -5,6 +5,7 @@ import TabButton from '@ui/TabButton';
 
 // styled components
 import {StyledEventsCalendar, Header} from './styles';
+import { FaWindowClose } from "react-icons/fa";
 
 // components
 import Spring from '@components/Spring';
@@ -18,139 +19,161 @@ import {useState, useEffect} from 'react';
 import {useWindowSize} from 'react-use';
 import {useThemeProvider} from '@contexts/themeContext';
 
-// utils
-import moment from 'moment';
+//import CheckCircleIcon from '@mui/icons-material/CheckCircleOutline';
+//import CancelIcon from '@mui/icons-material/Cancel';
 
-// events
-import schedule from '@db/schedule';
+import { FiCheckCircle } from "react-icons/fi";
+import { GiCancel } from "react-icons/gi";
+
+
+
 
 const AffichageCrud = () => {
-    const {direction} = useThemeProvider();
-    const [currentView, setCurrentView] = useState('day');
-    const localizer = momentLocalizer(moment);
-    const [currentDate, setCurrentDate] = useState(moment().toDate());
-    const [currentTime, setCurrentTime] = useState(moment().format('HH:mm'));
-    const {width} = useWindowSize();
+    const { direction } = useThemeProvider();
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
+    const [selectedPayment, setSelectedPayment] = useState(null);
+    const [payments, setPayments] = useState([]);
+    const [tournaments, setTournaments] = useState([]);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentTime(moment().format('HH:mm'));
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [currentTime]);
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/Payment');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
 
-    const handleNavigation = (action) => {
-        switch (action) {
-            case 'NEXT':
-                setCurrentDate(moment(currentDate).add(1, currentView).toDate());
-                break;
-            case 'PREV':
-                setCurrentDate(moment(currentDate).subtract(1, currentView).toDate());
-                break;
-            default:
-                setCurrentDate(moment().toDate());
-        }
-    }
+                const data = await response.json();
+                console.log(data)
 
-    const getWeek = (date) => {
-        const start = moment(date).startOf('week');
-        const end = moment(date).endOf('week');
-        return [start, end];
-    }
+                setPayments(data);
+            } catch (error) {
+                console.error('Error fetching payments:', error);
+            }
+        };
 
-    const getTitleFormat = () => {
-        switch (currentView) {
-            case 'month':
-                return 'MMMM YYYY';
-            case 'week':
-                return width < 768 ? 'DD.MM.YY' : 'DD MMMM YYYY';
-            case 'day':
-                return 'DD MMMM YYYY';
-            default:
-                return 'MMMM YYYY';
-        }
-    }
+        fetchData();
+    }, []);
 
-    const getDayFormat = () => {
-        switch (true) {
-            case width < 768:
-                return 'D';
-            case width < 1600:
-                return 'ddd, D';
-            default:
-                return 'dddd D MMMM';
-        }
-    }
+    useEffect(() => {
+        const fetchTournaments = async () => {
+            try {
+                const response = await fetch("http://localhost:3000/Tournament/getall");
 
-    const users = [
-        { id: 1, name: 'Alice Smith', paymentStatus: 'Paid', amountPaid: '$50',nbrTournoi:'1' },
-        { id: 2, name: 'Bob Johnson', paymentStatus: 'Not Paid', amountPaid: '-',nbrTournoi:'0' },
-        { id: 3, name: 'Charlie Brown', paymentStatus: 'Paid', amountPaid: '$150',nbrTournoi:'3' },
-    ];
-    const config = {
-        as: Calendar,
-        className: currentView,
-        views: ['month', 'week', 'day'],
-        view: currentView,
-        date: currentDate,
-        localizer: localizer,
-        startAccessor: 'start',
-        endAccessor: 'end',
-        onNavigate: handleNavigation,
-        onView: setCurrentView,
-        min: moment().startOf('year').set({hour: 8, minute: 0}).toDate(),
-        max: moment().endOf('year').set({hour: 22, minute: 0}).toDate(),
-        step: 30,
-        events: schedule,
-        formats: {
-            timeGutterFormat: 'HH:mm',
-            dayFormat: getDayFormat(),
-        },
-        
-      
-    }
+                if (!response.ok) {
+                    console.error("Server error:", response.statusText);
+                    return;
+                }
+
+                const data = await response.json();
+                console.log(data)
+
+                setTournaments(data);
+            } catch (error) {
+                console.error("Error fetching tournaments:", error.message);
+            }
+        };
+
+        fetchTournaments();
+    }, []);
+
+    const openEditDialog = (payment) => {
+        setSelectedPayment(payment);
+        setEditDialogOpen(true);
+    };
+
+    const closeEditDialog = () => {
+        setEditDialogOpen(false);
+        setSelectedPayment(null);
+    };
+
+    const getTournamentTitle = (tournamentId) => {
+        const tournament = tournaments.find(t => t._id === tournamentId);
+        return tournament ? tournament.title : '';
+
+    };
 
     return (
         <Spring className="card h-fit card-padded">
-            
             <div className="card h-fit card-padded">
-               
                 <Header>
-                <h1 style={{ position: 'relative' }}></h1>
-                    <ViewNavigator /> 
-                                   
+                    <h1 style={{ position: 'relative' }}></h1>
+                    <ViewNavigator />
                 </Header>
                 <div style={{ width: '100%', overflowX: 'auto', padding: '10px' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
-                            <tr>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>ID</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Nom</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>PaymentStatus</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>AmountPaid</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Tournoi Number</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Action</th>
-                            </tr>
+                        <tr>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Name</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Email</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Payment Status</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Amount Paid</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Tournament Title</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Action</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {users.map(users => (
-                                <tr key={users.id}>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{users.id}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{users.name}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{users.paymentStatus}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{users.amountPaid}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{users.nbrTournoi}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
-                                        <Button style={{ backgroundColor: 'green' }} ><b style={{ color: 'white' }}>See more</b></Button>
-                                    </td>
-                                </tr>
-                            ))}
+                        {payments.map(payment => (
+                            <tr key={payment._id}>
+                                {/*     */}
+                                <td style={{ padding: '20px', borderBottom: '1px solid #ddd' }}>{payment.user?.fullname} </td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.user?.email || ''}</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd', color: payment.payment_status === 'paid' ? 'green' : 'red' }}>
+                                    {payment.payment_status === 'paid' ? (
+                                        <FiCheckCircle style={{ color: 'green', marginRight: '8px' }} />
+                                    ) : (
+                                        <GiCancel style={{ color: 'red', marginRight: '8px' }} />
+                                    )}
+                                    <b>{payment.payment_status}</b>
+                                </td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.amount}</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{getTournamentTitle(payment.tournament?._id)}</td>
+                                <td>
+                                    <Button onClick={() => openEditDialog(payment)} style={{   borderBottom: '1px solid #ddd',backgroundColor: 'green' }} >
+                                        <b style={{ color: 'white' }}>See more</b>
+                                    </Button>
+
+                                </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <Dialog open={editDialogOpen} onClose={closeEditDialog} maxWidth="sm" fullWidth>
+                <DialogActions>
+                    <h2 style={{ paddingRight:'150px',marginBottom: '15px', color: '#333' }}>Payment Details</h2>
+                    <Button onClick={closeEditDialog} style={{ borderBottom: '1px solid #ddd', backgroundColor: 'red' }}>
+                        <b style={{ color: 'white' }}>Close</b>
+                    </Button>
+                </DialogActions>
+                <DialogContent>
+                    {selectedPayment && (
+                        <div>
+
+                            <div style={{ marginBottom: '10px' }}>
+                                <strong>Tournament Title:</strong> {getTournamentTitle(selectedPayment.tournament?._id)}
+                            </div>
+                            <div style={{ marginBottom: '10px' }}>
+                                <strong>User Name:</strong> {selectedPayment.user?.fullname}
+                            </div>
+                            <div style={{ marginBottom: '10px' }}>
+                                <strong>User Email:</strong> {selectedPayment.user?.email}
+                            </div>
+                            <div style={{ marginBottom: '10px' }}>
+                                <strong>Amount Paid:</strong> {selectedPayment.amount}
+                            </div>
+                            <div style={{ marginBottom: '10px' }}>
+                                <strong>Payment Date:</strong> {selectedPayment.paymentDate}
+                            </div>
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
+
         </Spring>
     );
 };
 
-export default AffichageCrud
+export default AffichageCrud;
