@@ -53,6 +53,7 @@
     import {useAuthContext} from "@hooks/useAuthContext";
     import RequireAuth from "@components/ProtectedRoute/RequireAuth";
     import Role from "@utils/Role";
+    import UserManagement from "@pages/Admin/UserManagement";
 
     // pages
     const AddTeams = lazy(() =>import ('@pages/Tournament/AddTeams'))
@@ -209,6 +210,7 @@ const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
                                                     <Route path="/player-list" element={<Player/>}/>
                                                     <Route path="/team-list" element={<Team/>}/>
                                                     <Route path="/complaint-list" element={<Complaints/>}/>
+                                                    <Route path="/user-management" element={<UserManagement/>}/>
                                                     </Route>
 
                                                     // Payment Routes

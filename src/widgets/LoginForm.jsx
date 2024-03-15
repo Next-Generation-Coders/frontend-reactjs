@@ -11,6 +11,7 @@ import {useState} from 'react';
 // utils
 import classNames from 'classnames';
 import {useLogin} from "@hooks/useLogin";
+import {NavLink} from "react-router-dom";
 
 const LoginForm = () => {
     const [open, setOpen] = useState(false);
@@ -69,7 +70,12 @@ const LoginForm = () => {
                         <label htmlFor="rememberMe">Remember me</label>
                     </div>
                 </div>
-                {error && <div>{error}</div>}
+                {error && <div style={{
+                    color:"red",
+                    fontWeight:"bold",
+                    textAlign:"center",
+                    margin:"20px"
+                }}>{error}</div>}
                 <br/>
                 <div className="d-flex justify-content-between align-items-center">
                     <button disabled={isLoading} className="btn btn--sm" type="submit">
@@ -87,9 +93,23 @@ const LoginForm = () => {
             <br/>
             <div >
                 <form className="d-flex justify-content-center align-items-end" action="http://localhost:3000/auth/google" >
-                    <button className="btn">
-                        Sign in with <FcGoogle />
+                    <button className="btn justify-content-between">
+                        <p>Sign in with</p> <span><FcGoogle /></span>
                     </button></form>
+                <br/>
+                <div style={{
+                    justifyContent:"center",
+                    textAlign:"center",
+                    alignContent:"center"
+                }}>
+                    <NavLink to="/sign-up" >
+                        <button disabled={isLoading} className="text-button text-button--sm">
+                            Don't have an account?<b> Register</b>
+                        </button>
+                    </NavLink>
+                </div>
+
+
                 <ResetPasswordPopup open={open} onClose={() => setOpen(false)}/>
             </div>
         </>

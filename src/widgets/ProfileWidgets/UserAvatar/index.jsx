@@ -18,7 +18,7 @@ import {useAuthContext} from "@hooks/useAuthContext";
 
 const UserAvatar = () => {
     const {anchorEl, open, handleClick, handleClose} = useSubmenu();
-    const {file, setFile, handleFile, loading} = useFileReader();
+    const { setFile, handleFile, loading} = useFileReader();
     const inputRef = useRef(null);
     const {USER} = useAuthContext()
 
@@ -48,7 +48,7 @@ const UserAvatar = () => {
                 <div className={styles.wrapper}>
                     <input type="file" onChange={handleUpload} ref={inputRef} hidden/>
                     <div>
-                        <LazyImage className={styles.img} src={file ? file : user} alt={USER.fullname}/>
+                        <LazyImage className={styles.img} src={USER.avatar ? USER.avatar : user} alt={USER.fullname}/>
                     </div>
                     <button className={styles.button} disabled={loading} onClick={handleClick} aria-label="Open menu">
                         <i className="icon-camera"/>

@@ -602,7 +602,18 @@ const layouts = {
             {i: 'settings', x: 0.5, y: 0, w: 2, h: 2.5},
             {i: 'teams_lineups', x: 0.5, y: 0, w: 2, h: 2.5},
         ]
-    }
+    },
+    user_management: {
+        xl: [
+            {i: 'users', x: 1, y: 1, w: 2, h: 2.5},
+        ],
+        lg: [
+            {i: 'users', x: 1, y: 1, w: 1, h: 2},
+        ],
+        md: [
+            {i: 'users', x: 0, y: 0, w: 1, h: 2},
+        ]
+    },
 }
 
 export default layouts

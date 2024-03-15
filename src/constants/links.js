@@ -68,14 +68,6 @@ export const LINKS = [
         icon: 'user',
         pages: [
             {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
-            {
                 title: 'Profile',
                 path: '/profile'
             },
@@ -212,6 +204,7 @@ export const ADMIN_LINKS = [
                 path: '/statistics'
             },
 
+
         ]
     },
     {
@@ -270,20 +263,16 @@ export const ADMIN_LINKS = [
                 title: 'Complaint List',
                 path: '/complaint-list'
             },
+            {
+                title: 'Users',
+                path: '/user-management'
+            },
         ]
     },
     {
         title: 'Profile',
         icon: 'user',
         pages: [
-            {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
             {
                 title: 'Profile',
                 path: '/profile'
@@ -327,14 +316,6 @@ export const USER_LINKS = [
         title: 'Profile',
         icon: 'user',
         pages: [
-            {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
             {
                 title: 'Profile',
                 path: '/profile'
@@ -392,14 +373,6 @@ export const REFEREE_LINKS = [
         title: 'Profile',
         icon: 'user',
         pages: [
-            {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
             {
                 title: 'Profile',
                 path: '/profile'
@@ -475,14 +448,6 @@ export const ORGANIZER_LINKS = [
         title: 'Profile',
         icon: 'user',
         pages: [
-            {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
             {
                 title: 'Profile',
                 path: '/profile'
@@ -594,14 +559,6 @@ export const TM_LINKS = [
         icon: 'user',
         pages: [
             {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
-            {
                 title: 'Profile',
                 path: '/profile'
             },
@@ -679,14 +636,6 @@ export const COACH_LINKS = [
         title: 'Profile',
         icon: 'user',
         pages: [
-            {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
             {
                 title: 'Profile',
                 path: '/profile'

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import {toast} from "react-toastify";
 import {jwtDecode} from "jwt-decode";
-import {Link,useNavigate,useLocation} from 'react-router-dom';
+import {useNavigate,useLocation} from 'react-router-dom';
 
 export const useLogin = () => {
     const [error, setError] = useState('')
@@ -32,17 +32,18 @@ export const useLogin = () => {
 
             const u = jwtDecode(json.accessToken.toString());
             const USER = u.user
-            console.log(USER)
-            dispatch({type: 'LOGIN', payload: USER})
+            if(!USER.isBlocked){
+                dispatch({type: 'LOGIN', payload: USER})
 
-            setIsLoading(false)
-            /*            if(json.user.isVerified){
-                            toast.success(`Welcome back!`)
-                        }*/
-            // else {
-            //     toast.warn(`Your account is not verified yet, check your inbox!`)
-            // }
-            navigate(from,{replace:true});
+                setIsLoading(false)
+                navigate(from,{replace:true});
+            }
+            if(USER.isBlocked){
+                setError("Your account has been suspended by an admin");
+                setIsLoading(false)
+                toast.error("Your account has been suspended by an admin");
+            }
+
         }
     }
 
