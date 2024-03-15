@@ -6,8 +6,9 @@ import Progress from '@ui/Progress';
 // hooks
 import {useThemeProvider} from '@contexts/themeContext';
 import {useWindowSize} from 'react-use';
+import ClubInfoTeam1 from './ClubInfoTeam1';
 
-const TeamStatsProgress1 = ({score,corners,offsides}) => {
+const TeamStatsProgress1 = ({score,corners,offsides,team1}) => {
     const {width} = useWindowSize();
     const {theme} = useThemeProvider();
     const data = [
@@ -30,10 +31,7 @@ const TeamStatsProgress1 = ({score,corners,offsides}) => {
 
     return (
         <Spring className={`card d-flex flex-column ${width < 414 ? 'g-20' : 'g-30'}`}>
-            <ClubInfo wrapperClass="card_header"
-                      id="manunited"
-                      title="Manchester United"
-                      subtitle="First half statistics" />
+            <ClubInfoTeam1 team1={team1}/>
             <div className="d-flex flex-column justify-content-between flex-1 border-top card-padded  g-20">
                 {
                     data.map((item, index) => (

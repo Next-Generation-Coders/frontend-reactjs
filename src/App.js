@@ -206,9 +206,15 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
                                                     <Route path="/complaint" element={<Complaint/>}/>
                                                     <Route path="/test" element={<Test/>}/>
 
+                                                    //Result Routes
+                                                    <Route path="/match/:id" element={<MatchResult/>}/>
+                                                    <Route path="/agent/:id" element={<AgentScore/>}/>
+
+
                                                     <Route path="/match" element={<MatchResult/>}/>
                                                     <Route path="/agent" element={<AgentScore/>}/>
                                                     <Route element={<RequireAuth allowedRoles={[Role.ADMIN]} />}>
+
                                                     // Admin Routes
                                                     <Route path="/organizer-list" element={<Organizer/>}/>
                                                     <Route path="/coach-list" element={<Coach/>}/>
