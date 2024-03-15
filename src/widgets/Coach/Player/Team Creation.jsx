@@ -50,7 +50,7 @@ const Team = () => {
 
   const addNewTeam = async (newTeamData) => {
     try {
-      const response = await fetch("http://localhost:3000/Team/add/65e1126386566290fd9dd1f3", {
+      const response = await fetch("http://localhost:3000/Team/add/65ec9ea8b7fc6d8a3d4f3536", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -93,12 +93,12 @@ const Team = () => {
       staff: [],
       matches: [] */
     };
-    const coachExists = await checkCoach("65e1126386566290fd9dd1f3");
+    const coachExists = await checkCoach("65ec9ea8b7fc6d8a3d4f3536");
     if (coachExists) {
       const shouldCreateTeam = window.confirm('A team already exists for this coach. Do you want to create a new team?');
   
       if (shouldCreateTeam) {
-        await updateTeam("65e1126386566290fd9dd1f3");
+        await updateTeam("65ec9ea8b7fc6d8a3d4f3536");
         await addNewTeam(newTeamData);
         reset(); // Clear the form fields
         toast.success('Your team has been successfully saved!');
@@ -142,6 +142,10 @@ const Team = () => {
       <div className={styles.footer}>
         <button className="btn" type="submit">Save Team</button>
         <button className="btn btn--outlined" type="button" onClick={reset}>Cancel</button>
+        {/* <Link to={`/add-new-player/`}>    // f button clicked save team or cancel it will redirect to add new player so it can do the check of the 
+                                                  team manager if he has a team or not   
+                                            <Button style={{ backgroundColor: 'red' }} ><b style={{ color: 'white' }}>View Profile</b></Button>
+                                        </Link> */}
       </div>
     </form>
   );

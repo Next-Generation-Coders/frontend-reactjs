@@ -44,6 +44,8 @@ const AffichageCrud = () => {
                 }
 
                 const data = await response.json();
+                console.log(data)
+
                 setPayments(data);
             } catch (error) {
                 console.error('Error fetching payments:', error);
@@ -64,6 +66,8 @@ const AffichageCrud = () => {
                 }
 
                 const data = await response.json();
+                console.log(data)
+
                 setTournaments(data);
             } catch (error) {
                 console.error("Error fetching tournaments:", error.message);
@@ -86,7 +90,9 @@ const AffichageCrud = () => {
     const getTournamentTitle = (tournamentId) => {
         const tournament = tournaments.find(t => t._id === tournamentId);
         return tournament ? tournament.title : '';
+
     };
+
     return (
         <Spring className="card h-fit card-padded">
             <div className="card h-fit card-padded">
@@ -97,61 +103,75 @@ const AffichageCrud = () => {
                 <div style={{ width: '100%', overflowX: 'auto', padding: '10px' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
-                            <tr>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Name</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Email</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Payment Status</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Amount Paid</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Tournament Title</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Action</th>
-                            </tr>
+                        <tr>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Name</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Email</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Payment Status</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Amount Paid</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Tournament Title</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Action</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {payments.map(payment => (
-                                <tr key={payment._id}>
-                                    {/*     */}                              
-                                     <td style={{ padding: '20px', borderBottom: '1px solid #ddd' }}>{payment.user.fullname} </td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.user?.email || ''}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd', color: payment.payment_status === 'paid' ? 'green' : 'red' }}>
+                        {payments.map(payment => (
+                            <tr key={payment._id}>
+                                {/*     */}
+                                <td style={{ padding: '20px', borderBottom: '1px solid #ddd' }}>{payment.user?.fullname} </td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.user?.email || ''}</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd', color: payment.payment_status === 'paid' ? 'green' : 'red' }}>
                                     {payment.payment_status === 'paid' ? (
                                         <FiCheckCircle style={{ color: 'green', marginRight: '8px' }} />
                                     ) : (
                                         <GiCancel style={{ color: 'red', marginRight: '8px' }} />
                                     )}
                                     <b>{payment.payment_status}</b>
-                                    </td>                                  
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.amount}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{getTournamentTitle(payment.tournament?._id)}</td>
-                                    <td>
+                                </td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.amount}</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{getTournamentTitle(payment.tournament?._id)}</td>
+                                <td>
                                     <Button onClick={() => openEditDialog(payment)} style={{   borderBottom: '1px solid #ddd',backgroundColor: 'green' }} >
-                                            <b style={{ color: 'white' }}>See more</b>
+                                        <b style={{ color: 'white' }}>See more</b>
                                     </Button>
 
-                                    </td>
-                                </tr>
-                            ))}
+                                </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <Dialog open={editDialogOpen} onClose={closeEditDialog} >
-                 <DialogActions>
-                    <Button onClick={closeEditDialog}  style={{   borderBottom: '1px solid #ddd',backgroundColor: 'red' }}> <b style={{ color: 'white' }}>Close</b></Button>
+            <Dialog open={editDialogOpen} onClose={closeEditDialog} maxWidth="sm" fullWidth>
+                <DialogActions>
+                    <h2 style={{ paddingRight:'150px',marginBottom: '15px', color: '#333' }}>Payment Details</h2>
+                    <Button onClick={closeEditDialog} style={{ borderBottom: '1px solid #ddd', backgroundColor: 'red' }}>
+                        <b style={{ color: 'white' }}>Close</b>
+                    </Button>
                 </DialogActions>
                 <DialogContent>
-               
-
                     {selectedPayment && (
                         <div>
-                            <h2>Tournament Details</h2>
-                            <p><strong>Tournament Title:</strong> {getTournamentTitle(selectedPayment.tournament?._id)}</p>
+
+                            <div style={{ marginBottom: '10px' }}>
+                                <strong>Tournament Title:</strong> {getTournamentTitle(selectedPayment.tournament?._id)}
+                            </div>
+                            <div style={{ marginBottom: '10px' }}>
+                                <strong>User Name:</strong> {selectedPayment.user?.fullname}
+                            </div>
+                            <div style={{ marginBottom: '10px' }}>
+                                <strong>User Email:</strong> {selectedPayment.user?.email}
+                            </div>
+                            <div style={{ marginBottom: '10px' }}>
+                                <strong>Amount Paid:</strong> {selectedPayment.amount}
+                            </div>
+                            <div style={{ marginBottom: '10px' }}>
+                                <strong>Payment Date:</strong> {selectedPayment.paymentDate}
+                            </div>
                         </div>
-                        
                     )}
                 </DialogContent>
-               
             </Dialog>
+
         </Spring>
     );
 };

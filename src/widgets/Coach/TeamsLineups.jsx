@@ -6,6 +6,7 @@ import {TabsList} from '@mui/base/TabsList';
 import {TabPanel} from '@mui/base/TabPanel';
 import {Tabs} from '@mui/base/Tabs';
 import Fade from '@mui/material/Fade';
+import lineup from '@widgets/Coach/team_lineup'
 
 // hooks
 import {useState} from 'react';
@@ -32,6 +33,7 @@ const TeamsLineups = () => {
                         <Fade in={activeTab === 'realmadrid'} timeout={400}>
                             <div className="h-100" style={{marginTop: 10}}>
                                 <Lineups data={pitch}/>
+                                
                             </div>
                         </Fade>
                     </TabPanel>

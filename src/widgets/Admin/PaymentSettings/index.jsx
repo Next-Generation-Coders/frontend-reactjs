@@ -38,10 +38,12 @@ const App = () => {
       try {
         const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
+        console.log(userId);
 
         const response = await axios.get(`http://localhost:3000/Tournament/getByUserId/${userId}`);
 
         const data = response.data && response.data.tournaments ? response.data.tournaments : [];
+        console.log(data);
 
         setTournaments(data);
       } catch (error) {
@@ -49,19 +51,27 @@ const App = () => {
       }
     };
 
-    fetchTournaments();
-  }, []);
+    if (USER && USER.email) {
+      fetchTournaments();
+    }
+  }, [USER]);
+
+
+  console.log("email user",USER.email)
 
   const handleCheckout = async () => {
     try {
+      const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+      const userIdentif = userResponse.data._id;
+      console.log(userIdentif);
+
       const response = await fetch("http://localhost:3000/payment/create-checkout-session", {
         method: "POST",
         headers: {
-          "Authorization":  `Bearer ${localStorage.getItem('token')}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: null,
+          userId: userIdentif,
           tournamentId: tournamentId,
           items: [
             {
@@ -119,7 +129,6 @@ const App = () => {
       setDuration(durationInDays);
     }
   };
-
   return (
       <form className="d-flex flex-column g-20" onSubmit={handleSubmit(onSubmit)}>
         <Spring className="card d-flex flex-column card-padded">
@@ -157,7 +166,7 @@ const App = () => {
               </label>
               <br />
               <hr style={{ margin: '20px 0' }} />
-              {tournamentId ? (
+              {tournamentId  ? (
                   <>
                     <label>
                       Tournament Title:
@@ -233,3 +242,5 @@ const App = () => {
 };
 
 export default App;
+
+

@@ -21,8 +21,7 @@ import countryList from 'react-select-country-list';
 import {City} from 'country-state-city';
 
 // assets
-import user from '@assets/user.webp';
-import placeholder from '@assets/placeholder.webp';
+import PlayerListWithNoTeam from '@widgets/Team/Player_List_With_No_Team/PlayerListWithNoTeam'
 
 const Profile = () => {
     // State and refs
@@ -85,7 +84,7 @@ const Profile = () => {
             };
         }
     
-        await addNewPlayer("65e1126386566290fd9dd1f3", newPlayerData);
+        await addNewPlayer("65ec9ea8b7fc6d8a3d4f3536", newPlayerData);
         reset(); // Clear the form fields
     };
 
@@ -192,16 +191,18 @@ const Profile = () => {
                             {showBasicForm ? 'Add new player!' : 'Add excesting player!'}
                         </span>
                     </div>
-                    <div className={styles.row}>
+                    {/* <div className={styles.row}>
                         <input className={classNames('field', {'field--error': errors.email})}
                             type="text"
                             placeholder="Email"
                             {...register('email', {required: true, pattern: /^\S+@\S+$/i})} />
-                    </div>
-                    <div className={styles.footer}>
+                    </div> */}
+
+                    <PlayerListWithNoTeam/>
+                    {/* <div className={styles.footer}>
                         <button className="btn" type="submit">Send Request</button>
                         <button className="btn btn--outlined" type="reset" onClick={reset}>Cancel</button>
-                    </div>
+                    </div> */}
                 </>
             )}
             
