@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useAuthContext} from "@hooks/useAuthContext";
-import notificationSound from '@assets/notification/mixkit-happy-bells-notification-937.wav';
+//TODO: import notificationSound from '@assets/notification/mixkit-happy-bells-notification-937.wav';
 //import notificationSound from '@assets/notification/mixkit-happy-bells-notification-937.wav';
 const  TabletHeader = ({title}) => {
     const [ref, {width}] = useMeasure();
@@ -53,10 +53,12 @@ const DesktopHeader = ({title}) => {
     const [previousNotificationCount, setPreviousNotificationCount] = useState(0);
 
     const { USER } = useAuthContext();
-    const [audio] = useState(new Audio(notificationSound));
-    const playNotificationSound = () => {
-        audio.play();
-    };
+
+
+    // TODO: const [audio] = useState(new Audio(notificationSound));
+    // const playNotificationSound = () => {
+    //     audio.play();
+    // };
 
     useEffect(() => {
         const fetchNotifications = async () => {
@@ -114,7 +116,8 @@ const DesktopHeader = ({title}) => {
 
                     <div className="d-flex g-16">
                         <button className={`${styles.control} ${styles[direction]} h5`}
-                                onClick={() =>{ setCartOpen(true);playNotificationSound();}}>
+                                //TODO: onClick={() =>{ setCartOpen(true);playNotificationSound();}}>
+                                onClick={() =>{ setCartOpen(true);}}>
                             <i className="icon icon-gear-regular"/>
                             <span className={styles.control_indicator}/>
                             Notification ({notificationCount})

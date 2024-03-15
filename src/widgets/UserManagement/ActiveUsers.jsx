@@ -41,7 +41,7 @@ const ActiveUsers = () => {
             await getUsers();
         }
         fetchData()
-    },[getUsers])
+    },[])
 
     const handleBlock = async (item)=>{
         await toggleBlock(item._id)

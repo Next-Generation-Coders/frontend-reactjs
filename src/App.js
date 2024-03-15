@@ -40,15 +40,15 @@
     import Profile from "@pages/User/Profile";
     import Home from "@pages/Home/Home";
     // components
-    import {Navigate, Route, Routes} from 'react-router-dom';
+    import {Route, Routes} from 'react-router-dom';
     import {ToastContainer} from 'react-toastify';
     import LoadingScreen from '@components/LoadingScreen';
     import Sidebar from '@layout/Sidebar';
     import BottomNav from '@layout/BottomNav';
     import Navbar from '@layout/Navbar';
-    //import ShoppingCart from '@widgets/ShoppingCart';
-    //mport ShoppingCart from '@widgets/ShoppingCart';
-    import ShoppingCart from '@widgets/NotificationCart';
+    //import ShoppingCart from '@widgets/ShoppingCart';TODO:
+    import ShoppingCart from '@widgets/ShoppingCart';
+    // TODO: import ShoppingCart from '@widgets/NotificationCart';
 
     import ScrollToTop from '@components/ScrollToTop';
     import MatchResult from '@pages/Results/MatchResult';
@@ -126,7 +126,6 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
 
 
     const App = () => {
-        const {USER} = useAuthContext();
 
         const appRef = useRef(null);
         const {theme, direction} = useThemeProvider();

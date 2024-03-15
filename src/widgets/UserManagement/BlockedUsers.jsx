@@ -34,7 +34,7 @@ const BlockedUsers = () => {
             await getUsers();
             }
             fetchData();
-    },[getUsers])
+    },[])
     const { toggleBlock ,Loading ,error} = useBlockUser()
 
     const handleBlock = async (item)=>{
