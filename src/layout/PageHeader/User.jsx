@@ -37,8 +37,8 @@ const User = () => {
 
     const {USER,dispatch} = useAuthContext();
     const {logout} = useLogout();
-    const onClickChangeAccount=()=>{
-        console.log('Change account!')
+    const onClickProfile=()=>{
+        navigate('/profile')
     }
     const onClickLogout=()=>{
         logout()
@@ -57,12 +57,12 @@ const User = () => {
                 })
             }
         }
-    },[dispatch,USER,getByEmail]);
+    },[dispatch, USER, getByEmail, navigate]);
     const submenuActions = [
         {
-            label: 'Change user',
-            icon: 'users-two',
-            onClick: onClickChangeAccount
+            label: 'My Profile',
+            icon: 'user',
+            onClick: onClickProfile
         },
         {
             label: 'Logout',
@@ -84,7 +84,7 @@ const User = () => {
                 <div>
                 </div>
                 <div className={styles.avatar}>
-                    <img className="c-pointer" src={user} alt="user" onClick={handleClick}/>
+                    <img className="c-pointer" src={USER.avatar ? USER.avatar : user} alt="user" onClick={handleClick}/>
                     {
                         isStoreRoute && isTablet && (
                             <button className={styles.avatar_cart} aria-label="Shopping cart" onClick={() => setCartOpen(true)}>

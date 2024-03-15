@@ -1,0 +1,7 @@
+.scoreNumber {
+  transition: color 0.3s ease-in-out; /* Example: Transition color change over 0.3 seconds */
+}
+
+.scoreNumber.changed {
+  color: rgb(157, 255, 0); /* Example: Change color to red */
+}

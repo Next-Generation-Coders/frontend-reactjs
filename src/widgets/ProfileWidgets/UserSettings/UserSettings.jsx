@@ -20,9 +20,9 @@ const UserSettings = () => {
 
     const {USER} = useAuthContext();
     // eslint-disable-next-line no-unused-vars
-    const [setSelectedCountry] = useState();
+    const [country,setSelectedCountry] = useState();
     // eslint-disable-next-line no-unused-vars
-    const [setSelectedCity] = useState();
+    const [city,setSelectedCity] = useState();
     const [cities, setCities] = useState([]);
     const {register, handleSubmit, formState: {errors}, reset, control} = useForm({
         defaultValues: {
@@ -45,8 +45,6 @@ const UserSettings = () => {
     }
 
     const handleCountryChange = (country) => {
-        setSelectedCountry(country);
-        setSelectedCity(null);
         let options = [];
         const rawData = City.getCitiesOfCountry(country.value);
         rawData.map(item => options.push({value: item.name, label: item.name}));

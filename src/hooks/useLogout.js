@@ -6,7 +6,6 @@ export const useLogout = ()=>{
 
     const logout= () =>{
 
-        localStorage.removeItem('user');
         localStorage.removeItem('token');
         toast.dark('See you next time!');
         dispatch({type:'LOGOUT'})

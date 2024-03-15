@@ -1,8 +1,10 @@
 import { useState} from 'react'
 import { useAuthContext } from './useAuthContext'
 import {toast} from "react-toastify";
+import {jwtDecode} from "jwt-decode";
 
 export const useFindUserByEmail = () => {
+
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
@@ -23,11 +25,12 @@ export const useFindUserByEmail = () => {
             toast.error(json.error);
         }
         if (!json.error) {
-
-            localStorage.setItem('user', JSON.stringify(json.user))
             localStorage.setItem('token', json.accessToken)
 
-            dispatch({type: 'LOGIN', payload: json.user})
+            const u = jwtDecode(json.accessToken.toString());
+            const USER = u.user
+            console.log(USER)
+            dispatch({type: 'LOGIN', payload: USER})
 
             setIsLoading(false)
             /*            if(json.user.isVerified){

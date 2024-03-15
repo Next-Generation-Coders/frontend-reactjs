@@ -11,12 +11,15 @@ import {useThemeProvider} from '@contexts/themeContext';
 import {getClubInfo} from '@utils/helpers';
 import PropTypes from 'prop-types';
 
-const PlayerDiscipline = ({clubID = 'realmadrid', firstName = 'Manuel', lastName = 'Neuer', red = 1, yellow = 6}) => {
+const PlayerDiscipline = ({clubID = 'realmadrid', firstName = 'Manuel', lastName = 'Neuer', red = 2, yellow = 2}) => {
     const club = getClubInfo(clubID);
     const {direction} = useThemeProvider();
 
     const drawYellowCards = () => {
         return Array(yellow).fill(0).map((_, i) => <span key={i} className={`${styles.card} ${styles.yellow} ${styles[direction]}`}/>)
+    }
+    const drawRedCards = () => {
+        return Array(red).fill(0).map((_, b) => <span key={b} className={`${styles.card} ${styles.red} ${styles[direction]}`}/>)
     }
 
     return (
@@ -36,9 +39,15 @@ const PlayerDiscipline = ({clubID = 'realmadrid', firstName = 'Manuel', lastName
                     <span className="label h6">{yellow}</span>
                 </div>
                 <div className="d-flex align-items-center g-8">
-                    <span className={`${styles.card} ${styles.red}`}/>
+                    <div className={styles.card_wrapper}>
+                        {drawRedCards()}
+                    </div>
                     <span className="label h6">{red}</span>
                 </div>
+                {/* <div className="d-flex align-items-center g-8">
+                    <span className={`${styles.card} ${styles.red}`}/>
+                    <span className="label h6">{red}</span>
+                </div> */}
             </div>
         </div>
     )

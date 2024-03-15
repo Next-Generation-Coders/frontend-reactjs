@@ -2,14 +2,13 @@
 import PasswordInput from '@components/PasswordInput';
 import Spring from '@components/Spring';
 import {Fragment} from 'react';
-import {toast} from 'react-toastify';
 
 // hooks
 import {useForm, Controller} from 'react-hook-form';
 import {useSignup} from "@hooks/useSignUp";
 // utils
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom/dist';
+import {NavLink} from "react-router-dom";
 
 
 const SignUpForm = ({standalone = true}) => {
@@ -30,16 +29,10 @@ const SignUpForm = ({standalone = true}) => {
 
     const Wrapper = standalone ? Fragment : Spring;
     const wrapperProps = standalone ? {} : {className: 'card card-padded'};
-    const navigate = useNavigate();
 
     //Function on submit !
     const onSubmit = async (data) => {
         await signup(data.email, data.password,data.phone,data.age,data.fullname)
-    }
-
-    //Function to go to login
-    const goToLogin = () =>{
-        navigate('/login')
     }
 
     return (
@@ -98,11 +91,26 @@ const SignUpForm = ({standalone = true}) => {
                                 )}
                     />
                 </div>
-
-                    <button disabled={isLoading} type="submit" className="btn">Create account</button>
+                    <div style={{
+                        justifyContent:"center",
+                        textAlign:"center",
+                        alignContent:"center",
+                    }}>
+                        <button disabled={isLoading} type="submit" className="btn w-100">Create account</button>
+                    </div>
                     {error && <div className="__progress-bar--error" >{error}</div>}
                     <br/><br/>
-                    <span><button type="reset" onClick={goToLogin} className="btn btn--sm">Login</button></span>
+                <div style={{
+                    justifyContent:"center",
+                    textAlign:"center",
+                    alignContent:"center"
+                }}>
+                    <NavLink to="/login" >
+                        <button disabled={isLoading} className="text-button text-button--sm">
+                            Already have an account?<b> Sign in</b>
+                        </button>
+                    </NavLink>
+                </div>
 
 
             </form>

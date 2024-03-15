@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
 
 export const useSignup = () => {
     const [error, setError] = useState('')
@@ -26,13 +27,13 @@ export const useSignup = () => {
             toast.error(json.error);
         }
         if (!json.error) {
-            // save the user to local storage
-            localStorage.setItem('user', JSON.stringify(json))
+            localStorage.setItem('token', json.accessToken)
 
-            // update the auth context
-            dispatch({type: 'LOGIN', payload: json})
+            const u = jwtDecode(json.accessToken.toString());
+            const USER = u.user
+            console.log(USER)
+            dispatch({type: 'LOGIN', payload: USER})
 
-            // update loading state
             setIsLoading(false)
             toast.success(`Account created! Please check your email ${json.email} to confirm your account.`)
             navigate('/');
