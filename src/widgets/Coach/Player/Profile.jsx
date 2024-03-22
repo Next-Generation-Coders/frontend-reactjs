@@ -23,10 +23,15 @@ import {City} from 'country-state-city';
 // assets
 import PlayerListWithNoTeam from '@widgets/Team/Player_List_With_No_Team/PlayerListWithNoTeam'
 
+
+import {useAuthContext} from "@hooks/useAuthContext";
+import axios from 'axios';
+
 const Profile = () => {
     // State and refs
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const inputRef = useRef(null);
+    const {USER} = useAuthContext();
 
     // Function to add a new player
     const addNewPlayer = async (coachId, newPlayerData) => {
@@ -68,6 +73,9 @@ const Profile = () => {
     const onSubmit = async (data) => {
         let newPlayerData = {};
         
+        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userId = userResponse.data._id;
+        
         if (showBasicForm) {
             newPlayerData = {
                 fullname: data.fullname,
@@ -83,8 +91,9 @@ const Profile = () => {
                 email: data.email
             };
         }
+        
     
-        await addNewPlayer("65ec9ea8b7fc6d8a3d4f3536", newPlayerData);
+        await addNewPlayer(userId, newPlayerData);
         reset(); // Clear the form fields
     };
 

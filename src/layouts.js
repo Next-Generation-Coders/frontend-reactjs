@@ -398,9 +398,9 @@ const layouts = {
     MatchResult: {
         xl: [
             {i: 'teamA_lineups', x: 0, y: 0, w: 1, h: 2},
-            {i: 'teamA_stats_progress', x: 0, y: 1, w: 1, h: 2},
+            {i: 'teamA_stats_progress', x: 0, y: 1, w: 1, h: 1.5},
             {i: 'teamB_lineups', x: 3, y: 0, w: 1, h: 2},
-            {i: 'teamB_stats_progress', x: 3, y: 1, w: 1, h: 2},
+            {i: 'teamB_stats_progress', x: 3, y: 1, w: 1, h: 1.5},
 
             {i: 'match_events', x: 1, y: 0, w: 2, h: 1},
             {i: 'passes_polar_chart', x: 1, y: 1, w: 2, h: 3},
@@ -409,9 +409,9 @@ const layouts = {
         ],
         lg: [
             {i: 'teamA_lineups', x: 0, y: 4, w: 1, h: 2},
-            {i: 'teamA_stats_progress', x: 0, y: 5, w: 1, h: 2},
+            {i: 'teamA_stats_progress', x: 0, y: 5, w: 1, h: 1.5},
             {i: 'teamB_lineups', x: 0, y: 0, w: 1, h: 2},
-            {i: 'teamB_stats_progress', x: 0, y: 1, w: 1, h: 2},
+            {i: 'teamB_stats_progress', x: 0, y: 1, w: 1, h: 1.5},
 
             {i: 'match_events', x: 1, y: 0, w: 2, h: 1},
             {i: 'passes_polar_chart', x: 1, y: 1, w: 2, h: 3},
@@ -420,9 +420,9 @@ const layouts = {
         ],
         md: [
             {i: 'teamA_lineups', x: 0, y: 1, w: 1, h: 2},
-            {i: 'teamA_stats_progress', x: 0, y: 2, w: 1, h: 2},
+            {i: 'teamA_stats_progress', x: 0, y: 2, w: 1, h: 1.5},
             {i: 'teamB_lineups', x: 1, y: 1, w: 1, h: 2},
-            {i: 'teamB_stats_progress', x: 1, y: 2, w: 1, h: 2},
+            {i: 'teamB_stats_progress', x: 1, y: 2, w: 1, h: 1.5},
 
             {i: 'match_events', x: 0, y: 0, w: 2, h: 1},
             {i: 'passes_polar_chart', x: 0, y: 5, w: 2, h: 3},
@@ -565,7 +565,7 @@ const layouts = {
         xl: [
             {i: 'live_report', x: 0, y: 2, w: 1, h: 2},
             {i: 'matches_overview', x: 1, y: 3, w: 2, h: 3},
-             {i: 'match_result', x: 1, y: 1, w: 1, h: 2},
+            // {i: 'match_result', x: 1, y: 1, w: 1, h: 2},
             {i: 'live_matches', x: 0, y: 0, w: 1, h: 2},
             {i: 'calendar', x: 3, y: 2, w: 1, h: 2},
 

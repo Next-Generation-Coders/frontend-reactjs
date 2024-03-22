@@ -23,7 +23,7 @@ const Header = styled.div`
   }
 `;
 
-const ScoreWidget = ({score , handleGoal ,changed}) => {
+const ScoreWidget = ({score , handleGoal ,changed,handleRed,handleYellow,handleCorners,handleOffsides,teams}) => {
     
 
     const buttonStyle = { 
@@ -44,14 +44,43 @@ const ScoreWidget = ({score , handleGoal ,changed}) => {
             </Header>
 
             <Header className="d-flex align-items-center justify-content-between card-padded p-relative">
-           
-                <button className="btn"   onClick={() => handleGoal('team2')} style={buttonStyle}type="button">
-                        Goal Real madrid
+                <button className="btn"   onClick={() => handleGoal('team2')} style={buttonStyle}type="submit">
+                        Goal 
+                    </button> 
+                    <button className="btn" onClick={() => handleRed('team2')}   style={buttonStyle}type="submit">
+                        Red 
                     </button>   
+                    <button className="btn"  onClick={() => handleYellow('team2')}  style={buttonStyle}type="submit">
+                        Yellow 
+                    </button>  
+                    <button className="btn"   onClick={() => handleCorners('team2')} style={buttonStyle}type="button">
+                        Corner 
+                    </button> 
+                    <button className="btn" onClick={() => handleOffsides('team2')}   style={buttonStyle}type="button">
+                        Offside 
+                    </button> 
 
-                     <button className="btn "  onClick={() => handleGoal('team1')} style={buttonStyle} type="submit">
-                        Goal Barca
-                    </button>        
+
+                    
+                    <button className="btn "  onClick={() => handleGoal('team1')} style={buttonStyle} type="submit">
+                        Goal 
+                    </button>
+
+                     <button className="btn "  onClick={() => handleRed('team1')} style={buttonStyle} type="submit">
+                        Red 
+                    </button>     
+                    <button className="btn" onClick={() => handleYellow('team1')}   style={buttonStyle}type="submit">
+                        Yellow 
+                    </button>  
+                    <button className="btn"  onClick={() => handleCorners('team1')}   style={buttonStyle}type="submit">
+                        Corner 
+                    </button> 
+                    <button className="btn"  onClick={() => handleOffsides('team1')}  style={buttonStyle}type="button">
+                        Offside 
+                    </button> 
+
+ 
+
             </Header>
             
         </div>

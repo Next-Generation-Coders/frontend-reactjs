@@ -13,16 +13,21 @@ import {useState, useEffect} from 'react';
 import { FaSearch } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
+import {useAuthContext} from "@hooks/useAuthContext";
+import axios from 'axios';
 
 const PlayerList = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [teamData, setTeamData] = useState([]);
     const [playerData, setPlayerData] = useState([]);
+    const {USER} = useAuthContext();
 
     useEffect(() => {
         async function fetchTeamData() {
             try {
-                const response = await fetch('http://localhost:3000/Team/getTeambyTeamManger/65e3b04de506da5b7fdff654');
+                const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                const userId = userResponse.data._id;
+                const response = await fetch(`http://localhost:3000/Team/getTeambyTeamManger/${userId}`);
                 const data = await response.json();
                 setTeamData(data);
             } catch (error) {

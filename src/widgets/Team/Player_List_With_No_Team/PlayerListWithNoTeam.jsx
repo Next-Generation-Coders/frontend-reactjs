@@ -14,17 +14,22 @@ import {useState, useEffect} from 'react';
 import { FaSearch } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
+import {useAuthContext} from "@hooks/useAuthContext";
+import axios from 'axios';
 
 const PlayerListWithNoTeam = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [playerData, setPlayerData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const playersPerPage = 3;
+    const {USER} = useAuthContext();
 
     const addNewPlayer = async ( newPlayerData) => {
-        console.log(newPlayerData+"-----------")
+        //console.log(newPlayerData+"-----------")
+        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userId = userResponse.data._id;
         try {
-            const response = await fetch(`http://localhost:3000/Team/addPlayer/65ec9ea8b7fc6d8a3d4f3536`, {
+            const response = await fetch(`http://localhost:3000/Team/addPlayer/${userId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

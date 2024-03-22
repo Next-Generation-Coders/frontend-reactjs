@@ -18,56 +18,59 @@ const ProfileOverview = () => {
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
-        async function fetchTeamData() {
-            try {
-                const response = await fetch(`http://localhost:3000/Team/getbyid/${userData.currentTeam}`);
-                const data = await response.json();
-                setTeamData(data);
-                console.log(data)
-            } catch (error) {
-                console.error(error);
-            }
-        }
 
         async function fetchUserData() {
             try {
-                const response = await fetch(`http://localhost:3000/User/getbyid/${playerId}`); // team manger id 
-                const data = await response.json();
-                setUserData(data);
-                console.log(userData)
+                const userResponse =await fetch(`http://localhost:3000/User/getbyid/${playerId}`) ;
+                const userData = await userResponse.json();
+                setUserData(userData);
+
+                const teamResponse =await fetch(`http://localhost:3000/Team/getbyid/${userData.currentTeam}`) ;
+                const teamData = await teamResponse.json();
+                setTeamData(teamData);
             } catch (error) {
                 console.error(error);
             }
         }
-
-        fetchTeamData();
-        fetchUserData(); 
+        fetchUserData();         
     }, []);
  
     return (
 
-        <Spring className="card player-profile">
-                    <div className="player-profile-header">
-                        <img src={teamData.logo} alt="Team logo" className="team-logo" />
-                        <div className="player-info">
-                        <h2 className="player-name">{teamData.name}</h2>
+        <Spring className={` card card--side-shadow`}>
+                    <div className={`${styles.player_profile_header}`}>
+                        <img src="https://png.pngtree.com/png-vector/20191121/ourmid/pngtree-blue-bird-vector-or-color-illustration-png-image_2013004.jpg" alt="Team logo" className={`${styles.team_logo }`} />
+                        {/* <img src={teamData.logo} alt="Team logo" className="team-logo" /> */}
+                        <div className="team-details">
+                            <h2 className={`${styles.team_name}`}>{teamData.name}</h2>
                         </div>
                     </div>
 
-                    <div className="player-profile-body">
-                        <div className="details-section">
-                        <h3>DETAILS</h3>
-                        <p>Email : {userData.email}</p>
-                        <p>Age : {userData.age} yrs</p>
-                        <span className="player-position">Position : {userData.position}</span>
-                        <p>Nationality : </p>
-                        <p>Height : {userData.height} cm</p>
-                        <p>Preferred Foot : {userData.preferredFoot}</p>
+                    
+                    <div className={`${styles.player_profile_body}`}>
+                        <div className={`${styles.player_profile_body_item}`}>
+                            {/* <p>Email</p>
+                            <h4>{userData.email}</h4> */}
+                            <p>Age</p>
+                            <h4>{userData.age} yrs</h4>
+                            <span className="player-position">Position:</span>
+                            <h4 className="player-position">{userData.position}</h4>
                         </div>
-                        <div className="statistics-section">
-                        <h3>Value : {userData.value}</h3>
+                        <div className={`${styles.player_profile_body_item}`}>
+                            {/* <p>Nationality</p>
+                            <h4>{userData.nationality}</h4> */}
+                            <p>Height</p>
+                            <h4>{userData.height} cm</h4>
+                            <p>Preferred Foot</p>
+                            <h4>{userData.preferredFoot}R</h4>
                         </div>
+                        
                     </div>
+                    <div className={`${styles.player_profile_body_item}`}>
+                            <p>Value :</p>
+                            <h3>{userData.value}</h3>
+                        </div>
+                    
         </Spring>
     )
 }

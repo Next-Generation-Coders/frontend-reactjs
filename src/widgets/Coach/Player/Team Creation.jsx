@@ -1,26 +1,31 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Submenu from '@ui/Submenu';
-import useFileReader from '@hooks/useFileReader';
 import useSubmenu from '@hooks/useSubmenu';
 import classNames from 'classnames';
 import LazyImage from '@components/LazyImage';
 import user from '@assets/user.png';
 import styles from '../styles.module.scss';
-
+import {useAuthContext} from "@hooks/useAuthContext";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import useTeamLogo from "@hooks/useTeamLogo";
 const Team = () => {
+  const {USER} = useAuthContext();
   const { anchorEl, open, handleClick, handleClose } = useSubmenu();
-  const { file, handleFile } = useFileReader();
+  const { setFile ,file, handleFile ,formData} = useTeamLogo();
   const inputRef = useRef(null);
   const [teams, setTeams] = useState([]);
+  const [userId, setUserId] = useState([]);
+  const navigate = useNavigate();
+  
 
-  const checkCoach = async (coachId) => {
+  
+
+  const checkTeam_manager = async (coachId) => {
     try {
-      const response = await fetch(`http://localhost:3000/Team/checkCoach/${coachId}`);
-      /* if (!response.ok) {
-        throw new Error('Failed to check coach');
-      } */
+      const response = await fetch(`http://localhost:3000/Team/checkTeam_manager/${coachId}`);
       const data = await response.json();
       return data.exists;
     } catch (error) {
@@ -34,11 +39,6 @@ const Team = () => {
       const response = await fetch(`http://localhost:3000/Team/updateXTeam/${coachId}`, {
         method: 'PUT',
       });
-  
-      /* if (!response.ok) {
-        throw new Error('Failed to update team');
-      } */
-  
       return true; 
     } catch (error) {
       console.error(error);
@@ -50,16 +50,15 @@ const Team = () => {
 
   const addNewTeam = async (newTeamData) => {
     try {
-      const response = await fetch("http://localhost:3000/Team/add/65ec9ea8b7fc6d8a3d4f3536", {
+      const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+      const userId = userResponse.data._id;
+      const response = await fetch(`http://localhost:3000/Team/add/${userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(newTeamData)
       });
-      /* if (!response.ok) {
-        throw new Error('Failed to add new team');
-      } */
       const data = await response.json();
       setTeams([...teams, data]); // Add the new team to the existing teams
     } catch (error) {
@@ -78,7 +77,7 @@ const Team = () => {
     {
       label: 'Remove',
       icon: 'trash',
-      onClick: () => handleFile(null)
+      onClick: () => setFile(null)
     }
   ];
 
@@ -87,38 +86,51 @@ const Team = () => {
   const onSubmit = async (data) => {
     const newTeamData = {
       name: data.fullname,
-      logo: "",//file,     // Assuming file is a URL or path to the uploaded logo image
-      /* players: [],
-      coach: "",
-      staff: [],
-      matches: [] */
+      logo: file, // Assuming file is the selected file object
     };
-    const coachExists = await checkCoach("65ec9ea8b7fc6d8a3d4f3536");
-    if (coachExists) {
-      const shouldCreateTeam = window.confirm('A team already exists for this coach. Do you want to create a new team?');
   
-      if (shouldCreateTeam) {
-        await updateTeam("65ec9ea8b7fc6d8a3d4f3536");
-        await addNewTeam(newTeamData);
-        reset(); // Clear the form fields
+    const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+    const userId = userResponse.data._id;
+  
+    try {
+      //const formData = new FormData();
+      formData.append('name', newTeamData.name);
+      //formData.append('team', file);
+      
+      const response = await fetch(`http://localhost:3000/Team/add/${userId}`, {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (response.ok) {
+        const teamData = await response.json();
+        setTeams([...teams, teamData]);
+        reset();
         toast.success('Your team has been successfully saved!');
+        navigate.go(0);
       } else {
-        toast.info('Team creation canceled.');
+        toast.error('Failed to save team. Please try again.');
       }
-    } else {
-      // Coach does not exist or is not assigned to a team
-      await addNewTeam(newTeamData);
-        reset(); // Clear the form fields
-        toast.success('Your team has been successfully saved!');
-      toast.error('Coach does not exist or is not assigned to a team!');
+    } catch (error) {
+      console.error('Error submitting form:', error);
     }
   }
+  
+
+  useEffect(() => {
+    async function fetchData() {
+      const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+      const userId = userResponse.data._id;
+      setUserId(userId)
+    }
+    fetchData();
+  }, []);
 
   return (
     <form className={`d-flex flex-column align-items-center`} onSubmit={handleSubmit(onSubmit)}>
       <br />
       <div className={styles.wrapper} title="Click to upload a Team Logo">
-        <input type="file" onChange={handleFile} ref={inputRef} hidden />
+        <input type="file" name="team" onChange={handleFile} ref={inputRef} hidden />
         <div>
           {file ? (
             <LazyImage className={styles.img} src={file} alt="Team Logo" />

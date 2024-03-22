@@ -58,7 +58,8 @@ console.log(playerId)
                 <div className={`d-flex flex-column g-14`}>
                     <div className="d-flex flex-column g-4">
                         <br />
-                        <h1 className="text-40 text-overflow">{userData.fullname}</h1>
+                        <h1 className="text-40">{userData.fullname}</h1>
+                        <h5 className="text-overflow">{userData.email}</h5>
                     </div>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">

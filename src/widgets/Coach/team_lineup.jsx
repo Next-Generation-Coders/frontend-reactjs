@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import SoccerLineup from "react-soccer-lineup";
 import { nanoid } from "nanoid";
-
+import {useAuthContext} from "@hooks/useAuthContext";
+import axios from 'axios';
 // styling
 import styles  from './styleee.module.scss';
 
+
 export const TeamLineupManager = () => {
+  const {USER} = useAuthContext() ;
   const [homeTeam, setHomeTeam] = useState({
     squad: {
       gk: null,
-      df: [], // Initialize as an empty array
+      df: [], 
       cm: [],
       cdm: [],
       cam: [],
@@ -22,9 +25,11 @@ export const TeamLineupManager = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const team = await getTeamByCoach("65e1126386566290fd9dd1f3");
+      const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+      const userId = userResponse.data._id;
+      //console.log(userId+"-/-/-/-/-/-/-/-/")
+      const team = await getTeamByCoach(userId);// *------------change this id userId 
       if (team) {
-        // Define the custom order of positions
         const positionOrder = {
           "GK": 1,
           "CB": 2,
@@ -60,16 +65,65 @@ export const TeamLineupManager = () => {
 
   const getLineup = async () => {
     try {
-      const teamId = "65e7245fd82eb4076b42776a"; // Use the actual team ID
-      const response = await fetch(`http://localhost:3000/Team/getLineup/${teamId}`);
+      const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+      const userId = userResponse.data.currentTeam;
+      const response = await fetch(`http://localhost:3000/Team/getLineup/${userId}`);
       const lineupData = await response.json();
-      
+  
       console.log("Lineup Data:", lineupData); // Log the entire lineup data object
-      
+  
       if (lineupData && lineupData.lineup && lineupData.lineup.playerNames) {
-        const playerNames = lineupData.lineup.playerNames.map(player => player);
-        console.log("Player Names:", playerNames); // Log the player names
-        setplayerOntheFiled(playerNames);
+        const playerNames = lineupData.lineup.playerNames;
+  
+        // Initialize an empty squad object
+        const updatedSquad = {
+          gk: null,
+          df: [],
+          cm: [],
+          cdm: [],
+          cam: [],
+          fw: []
+        };
+        const positionMap = {
+          GK: "gk",
+          CB: "df",
+          RB: "df",
+          LB: "df",
+          RWB: "df",
+          LWB: "df",
+          CM: "cm",
+          CDM: "cdm",
+          CAM: "cam",
+          RM: "cm",
+          LM: "cm",
+          ST: "fw",
+          CF: "fw",
+          RF: "fw",
+          LF: "fw",
+          RW: "fw",
+          LW: "fw"
+        };
+  
+        // Map each player to their respective position in the squad
+        // Map each player to their respective position in the squad
+        playerNames.forEach(player => {
+          const position = positionMap[player.position.toUpperCase()]; // Ensure the position is uppercase
+          if (position && updatedSquad[position]) { // Check if position exists in the squad
+            const playerInfo = {
+              name: player.fullname,
+              number: player.jersyNumber,
+              position: player.position
+            };
+            updatedSquad[position].push(playerInfo);
+          } else {
+            console.log(`Position ${player.position} doesn't exist in updatedSquad`);
+            // Optionally handle this case based on your application logic
+          }
+        });
+
+  
+        // Update the homeTeam with the new squad
+        setHomeTeam({ squad: updatedSquad });
       } else {
         console.log("Player names not found in lineup data");
       }
@@ -78,13 +132,15 @@ export const TeamLineupManager = () => {
     }
   };
   
+  
+  
 
 
   const getTeamByCoach = async (coachId) => {
     try {
       const response = await fetch(`http://localhost:3000/Team/getTeambyCoach/${coachId}`);
       const data = await response.json();
-      console.log(data)
+      //console.log(data)
       return data;
     } catch (error) {
       console.error(error);
@@ -102,12 +158,12 @@ export const TeamLineupManager = () => {
       setplayerOntheFiled(playersOnField);
   
         // Check if the team has a lineup saved
-      const teamId = "65e7245fd82eb4076b42776a"; // Use the actual team ID
-      const response = await fetch(`http://localhost:3000/Team/getLineup/${teamId}`);
+      const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+      const userId = userResponse.data.currentTeam;
+      const response = await fetch(`http://localhost:3000/Team/getLineup/${userId}`);
       const existingLineup = await response.json();
-          //console.log(existingLineup+"adadaddddddddd")
-      if(existingLineup){
-        const updateResponse = await fetch(`http://localhost:3000/Team/updateLineup/${teamId}`, {
+      if(existingLineup.success==true){
+        const updateResponse = await fetch(`http://localhost:3000/Team/updateLineup/${userId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -126,7 +182,7 @@ export const TeamLineupManager = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          team : '65e7245fd82eb4076b42776a',
+          team : userId,
           playerNames: playersOnField ,
           //players : playerOntheFiled.id
         })
