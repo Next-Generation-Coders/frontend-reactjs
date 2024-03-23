@@ -34,7 +34,6 @@ export const useLogin = () => {
             const USER = u.user
             if(!USER.isBlocked){
                 dispatch({type: 'LOGIN', payload: USER})
-
                 setIsLoading(false)
                 navigate(from,{replace:true});
             }

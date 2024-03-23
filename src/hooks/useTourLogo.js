@@ -3,14 +3,12 @@ import {toast} from 'react-toastify';
 
 // hooks
 import {useState} from 'react';
-import {useAuthContext} from "@hooks/useAuthContext";
-import {jwtDecode} from "jwt-decode";
 
-const useFileReader = () => {
+const useTourLogo = () => {
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [formData] = useState(new FormData());
     const [message,setMessage] = useState('')
-    const {dispatch} = useAuthContext()
     // define a function that handles the file upload event
     const handleFile = (e) => {
         // get the file object from the event
@@ -26,6 +24,7 @@ const useFileReader = () => {
             toast.error("File type not supported")
             return;
         }
+
         // create a new FileReader object
         const reader = new FileReader();
         // read the file as a data URL
@@ -37,42 +36,21 @@ const useFileReader = () => {
         // set up a loading indicator while the file is being loaded
         reader.onloadstart = () => setLoading(true);
         // when the file is finished loading, set the file state and turn off the loading indicator
-        const formData = new FormData();
-        formData.append('avatar', file);
+
 
         reader.onloadend = async () => {
             try {
-                const resp = await fetch('http://localhost:3000/User/avatar', {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    },
-                    body: formData,
-                });
-                const json = await resp.json();
-                if(json.error){
-                    setMessage(json.error)
-                    toast.error(json.error);
-                }
-                if(!json.error){
-                    localStorage.setItem('token', json.accessToken)
-
-                    const u = jwtDecode(json.accessToken.toString());
-                    const USER = u.user
-                    dispatch({type: 'LOGIN', payload: USER})
-                    toast.success('Your avatar is successfully updated!')
-                }
+                setFile(reader.result);
+                formData.append('team', file);
                 setLoading(false);
             } catch (error) {
-                if(error.message==="Unautharized"){
-                    console.log("LOGIN AGAIN!!")
-                }
-                console.error('Error uploading avatar:', error.message);
+                setLoading(false)
+                console.error('Error uploading logo:', error.message);
             }
         };
     }
 
-    return {file, setFile, handleFile, loading,message};
+    return {file, setFile, handleFile,formData, loading,message};
 }
 
-export default useFileReader
+export default useTourLogo

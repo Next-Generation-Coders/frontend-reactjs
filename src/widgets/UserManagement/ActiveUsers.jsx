@@ -13,14 +13,14 @@ import useMeasure from 'react-use-measure';
 
 // assets
 import {useGetUsers} from "@hooks/useGetUsers";
-import {useEffect} from "react";
 import {useBlockUser} from "@hooks/useBlockUser";
+import {useEffectOnce} from "react-use";
 
 
 const ActiveUsers = () => {
 
     const [headerRef, {height: headerHeight}] = useMeasure();
-    const [ {height: footerHeight}] = useMeasure();
+    const [ footerRef, {height: footerHeight}] = useMeasure();
     const [nameRef, {width}] = useMeasure();
     // const Wrapper = isPopup ? Popup : Spring;
     // const wrapperProps = isPopup ? {
@@ -36,12 +36,12 @@ const ActiveUsers = () => {
     };
     const { getUsers, isLoading,activeUsers,setActiveUsers } = useGetUsers()
     const { toggleBlock ,Loading,error } = useBlockUser()
-    useEffect(() => {
+    useEffectOnce(() => {
         async function fetchData() {
             await getUsers();
         }
         fetchData()
-    },[])
+    })
 
     const handleBlock = async (item)=>{
         await toggleBlock(item._id)

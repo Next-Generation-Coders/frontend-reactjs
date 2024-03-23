@@ -11,9 +11,8 @@ import Fade from '@mui/material/Fade';
 import BlockedUsers from "@widgets/UserManagement/BlockedUsers";
 
 // hooks
-import {useEffect, useState} from 'react';
-import {useEffectOnce, useWindowSize} from 'react-use';
-import {useGetUsers} from "@hooks/useGetUsers";
+import { useState} from 'react';
+import { useWindowSize} from 'react-use';
 import ActiveUsers from "@widgets/UserManagement/ActiveUsers";
 
 const DisplayUsers = () => {

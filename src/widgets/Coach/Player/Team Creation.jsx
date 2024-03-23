@@ -2,25 +2,26 @@ import { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Submenu from '@ui/Submenu';
-import useFileReader from '@hooks/useFileReader';
 import useSubmenu from '@hooks/useSubmenu';
 import classNames from 'classnames';
 import LazyImage from '@components/LazyImage';
 import user from '@assets/user.png';
 import styles from '../styles.module.scss';
+import useTeamLogo from "@hooks/useTeamLogo";
+import axios from "axios";
+import {navigate} from "react-big-calendar/lib/utils/constants";
+import {useAuthContext} from "@hooks/useAuthContext";
+import placeholder from "@assets/placeholder.webp";
 
 const Team = () => {
   const { anchorEl, open, handleClick, handleClose } = useSubmenu();
-  const { file, handleFile } = useFileReader();
+  const { setFile,file, handleFile } = useTeamLogo();
   const inputRef = useRef(null);
   const [teams, setTeams] = useState([]);
-
+  const {USER} = useAuthContext()
   const checkCoach = async (coachId) => {
     try {
       const response = await fetch(`http://localhost:3000/Team/checkCoach/${coachId}`);
-      /* if (!response.ok) {
-        throw new Error('Failed to check coach');
-      } */
       const data = await response.json();
       return data.exists;
     } catch (error) {
@@ -45,28 +46,6 @@ const Team = () => {
       return false; 
     }
   }
-
-
-
-  const addNewTeam = async (newTeamData) => {
-    try {
-      const response = await fetch("http://localhost:3000/Team/add/65ec9ea8b7fc6d8a3d4f3536", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newTeamData)
-      });
-      /* if (!response.ok) {
-        throw new Error('Failed to add new team');
-      } */
-      const data = await response.json();
-      setTeams([...teams, data]); // Add the new team to the existing teams
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const triggerInput = () => inputRef.current?.click();
 
   const submenuActions = [
@@ -78,7 +57,7 @@ const Team = () => {
     {
       label: 'Remove',
       icon: 'trash',
-      onClick: () => handleFile(null)
+      onClick: () => setFile(null)
     }
   ];
 
@@ -87,33 +66,35 @@ const Team = () => {
   const onSubmit = async (data) => {
     const newTeamData = {
       name: data.fullname,
-      logo: "",//file,     // Assuming file is a URL or path to the uploaded logo image
-      /* players: [],
-      coach: "",
-      staff: [],
-      matches: [] */
+      logo: file,
     };
-    const coachExists = await checkCoach("65ec9ea8b7fc6d8a3d4f3536");
-    if (coachExists) {
-      const shouldCreateTeam = window.confirm('A team already exists for this coach. Do you want to create a new team?');
-  
-      if (shouldCreateTeam) {
-        await updateTeam("65ec9ea8b7fc6d8a3d4f3536");
-        await addNewTeam(newTeamData);
-        reset(); // Clear the form fields
+    const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+    const userId = userResponse.data._id;
+
+
+    try {
+      const formData = new FormData();
+      formData.append('name', newTeamData.name);
+      formData.append('team', file);
+
+      const response = await fetch(`http://localhost:3000/Team/add/${userId}`, {
+        method: 'POST',
+        body: formData,
+      })  ;
+
+      if (response.ok) {
+        const teamData = await response.json();
+        setTeams([...teams, teamData]);
+        reset();
         toast.success('Your team has been successfully saved!');
+        navigate.go(0);
       } else {
-        toast.info('Team creation canceled.');
+        toast.error('Failed to save team. Please try again.');
       }
-    } else {
-      // Coach does not exist or is not assigned to a team
-      await addNewTeam(newTeamData);
-        reset(); // Clear the form fields
-        toast.success('Your team has been successfully saved!');
-      toast.error('Coach does not exist or is not assigned to a team!');
+    } catch (e) {
+      console.log(e.message);
     }
   }
-
   return (
     <form className={`d-flex flex-column align-items-center`} onSubmit={handleSubmit(onSubmit)}>
       <br />
@@ -131,7 +112,7 @@ const Team = () => {
         </button>
         <Submenu open={open} onClose={handleClose} anchorEl={anchorEl} actions={submenuActions} />
       </div>
-      <br />
+      <br/>
       <div>
         <input className={classNames('field', { 'field--error': errors.fullname })}
           type="text"

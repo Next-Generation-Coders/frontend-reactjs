@@ -139,7 +139,7 @@ export const LINKS = [
             },
             {
                 title: 'Team List',
-                path: '/team--ist'
+                path: '/team-list'
             },
             {
                 title: 'Complaint List',
@@ -265,7 +265,7 @@ export const ADMIN_LINKS = [
             },
             {
                 title: 'Team List',
-                path: '/team--ist'
+                path: '/team-list'
             },
             {
                 title: 'Complaint List',

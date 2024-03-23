@@ -13,15 +13,15 @@ import useMeasure from 'react-use-measure';
 
 // assets
 import {useGetUsers} from "@hooks/useGetUsers";
-import {useEffect} from "react";
 import {useBlockUser} from "@hooks/useBlockUser";
+import {useEffectOnce} from "react-use";
 
 
 const BlockedUsers = () => {
 
 
     const [headerRef, {height: headerHeight}] = useMeasure();
-    const [{height: footerHeight}] = useMeasure();
+    const [footerRef,{height: footerHeight}] = useMeasure();
     const [nameRef, {width}] = useMeasure();
     const Wrapper = Spring;
     const wrapperProps = {
@@ -29,12 +29,12 @@ const BlockedUsers = () => {
     };
     const { getUsers, isLoading, blockedUsers,setBlockedUsers} = useGetUsers()
 
-    useEffect(() => {
+    useEffectOnce(() => {
         async function fetchData() {
             await getUsers();
             }
             fetchData();
-    },[])
+    })
     const { toggleBlock ,Loading ,error} = useBlockUser()
 
     const handleBlock = async (item)=>{
@@ -64,7 +64,7 @@ const BlockedUsers = () => {
 
                             return (
                                 <div className={`${styles.item} d-flex align-items-center justify-content-between g-20`}
-                                     key={item.id}>
+                                     key={item._id}>
                                     <div className="d-flex align-items-center flex-1 g-10">
 
                                         <img className="square-avatar" src={item.img} alt={item.title}/>

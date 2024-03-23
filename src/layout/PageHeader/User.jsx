@@ -13,10 +13,10 @@ import useStoreRoute from '@hooks/useStoreRoute';
 import {useShopProvider} from '@contexts/shopContext';
 import {useLogout} from '@hooks/useLogout';
 import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+
 // assets
 import user from '@assets/placeholder.webp';
-import {useNavigate} from "react-router-dom";
-import {useFindUserByEmail} from "@hooks/useFindUserByEmail";
 
 const User = () => {
 
@@ -28,14 +28,13 @@ const User = () => {
     const isStoreRoute = useStoreRoute();
     const {setCartOpen} = useShopProvider();
     const navigate = useNavigate();
-    const {getByEmail} = useFindUserByEmail()
     const settingsPopup = {
         label: 'UI Settings',
         icon: 'gear-solid',
         onClick: () => setPopupOpen(true)
     }
 
-    const {USER,dispatch} = useAuthContext();
+    const {USER} = useAuthContext();
     const {logout} = useLogout();
     const onClickProfile=()=>{
         navigate('/profile')
@@ -47,17 +46,17 @@ const User = () => {
     useEffect(() => {
         if(!USER){
             const queryParams = new URLSearchParams(window.location.search);
-            const email = queryParams.get('email');
-            if (email) {
+            const token = queryParams.get('token');
+            if (token) {
                 async function fetchByEmail(){
-                    await getByEmail(email);
+                    await localStorage.setItem('token',token)
                 }
                 fetchByEmail().then(()=>{
                     navigate('/')
                 })
             }
         }
-    },[dispatch, USER, getByEmail, navigate]);
+    });
     const submenuActions = [
         {
             label: 'My Profile',
