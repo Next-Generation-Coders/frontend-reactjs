@@ -83,6 +83,7 @@
     "styled-theming": "^2.2.0",
     "stylis-plugin-rtl": "^2.1.1",
     "swiper": "^8.4.6",
+    "tesseract.js": "^5.0.5",
     "use-gauge": "^0.5.0",
     "use-mobile-detect-hook": "^1.0.5"
   },

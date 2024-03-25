@@ -21,9 +21,8 @@ import PropTypes from 'prop-types';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useAuthContext} from "@hooks/useAuthContext";
-import {useNavigate} from "react-router-dom";
-//TODO: import notificationSound from '@assets/notification/mixkit-happy-bells-notification-937.wav';
-//import notificationSound from '@assets/notification/mixkit-happy-bells-notification-937.wav';
+import notificationSound from '@assets/notification/mixkit-happy-bells-notification-937.wav';
+
 const  TabletHeader = ({title}) => {
     const [ref, {width}] = useMeasure();
 
@@ -52,14 +51,12 @@ const DesktopHeader = ({title}) => {
     const [notifications, setNotifications] = useState([]);
     const [notificationCount, setNotificationCount] = useState(0);
     const [previousNotificationCount, setPreviousNotificationCount] = useState(0);
-    const navigate = useNavigate()
+
     const { USER } = useAuthContext();
-
-
-    // TODO: const [audio] = useState(new Audio(notificationSound));
-    // const playNotificationSound = () => {
-    //     audio.play();
-    // };
+    const [audio] = useState(new Audio(notificationSound));
+    const playNotificationSound = () => {
+        audio.play();
+    };
 
     useEffect(() => {
         const fetchNotifications = async () => {
@@ -82,9 +79,7 @@ const DesktopHeader = ({title}) => {
 
         fetchNotifications();
     }, [previousNotificationCount]);
-    const goToMessages = ()=>{
-        navigate('/chat')
-    }
+
 
 
     return (
@@ -119,8 +114,7 @@ const DesktopHeader = ({title}) => {
 
                     <div className="d-flex g-16">
                         <button className={`${styles.control} ${styles[direction]} h5`}
-                                //TODO: onClick={() =>{ setCartOpen(true);playNotificationSound();}}>
-                                onClick={() =>{ setCartOpen(true);}}>
+                                onClick={() =>{ setCartOpen(true);playNotificationSound();}}>
                             <i className="icon icon-gear-regular"/>
                             <span className={styles.control_indicator}/>
                             Notification ({notificationCount})
@@ -128,7 +122,7 @@ const DesktopHeader = ({title}) => {
 
                     </div>
                     <div className="d-flex g-16">
-                        <button onClick={goToMessages} className={`${styles.control} ${styles[direction]} h5`}
+                        <button className={`${styles.control} ${styles[direction]} h5`}
                             // onClick={() =>{ setCartOpen(true);}}
                         >
                             <i className="icon icon-envelope"/>
