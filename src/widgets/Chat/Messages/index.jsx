@@ -55,7 +55,7 @@ const Messages = () => {
             })
         })
     },[])
-    const messages = selectedChat.messages
+    const messages = selectedChat ? selectedChat.messages : chat
     const {handleSubmit, register,reset} = useForm({
         defaultValues: {
             message:'',

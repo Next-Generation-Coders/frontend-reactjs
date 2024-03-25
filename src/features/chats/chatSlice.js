@@ -12,7 +12,7 @@ export const Chats = createSlice({
     reducers: {
         setChats: (state,action)=>{
             state.chats = action.payload
-            state.selectedChatId = action.payload[0]._id
+            state.selectedChatId = action.payload.length > 0 ? action.payload[0]._id : null
         },
         toggleComplete: (state, action) => {
             const chatIndex = state.chats.findIndex(chat => chat._id === action.payload._id);

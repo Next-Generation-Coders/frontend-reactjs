@@ -12,15 +12,16 @@
     input {
         cursor: grab;
 
-        &.title {
+        &.sender {
             max-width: 150px;
             margin-top: -2px;
-            font-weight: bolder;
+            font-weight: bold;
             // iPhone XR
             @media screen and (min-width: 414px) {
                 max-width: 250px;
             }
         }
+
     }
 
     &:after {
@@ -132,4 +133,20 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
+}
+
+.message-content {
+    font-weight: normal;
+    // iPhone XR
+    @media screen and (min-width: 414px) {
+        max-width: 250px;
+    }
+}
+.label {
+    justify-self: center;
+    font-weight: bolder;
+    // iPhone XR
+    @media screen and (min-width: 414px) {
+        max-width: 250px;
+    }
 }

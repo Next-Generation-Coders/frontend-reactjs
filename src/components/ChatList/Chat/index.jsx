@@ -19,16 +19,25 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useThemeProvider} from '@contexts/themeContext';
 import MinimalCheckbox from "@ui/MinimalCheckbox";
 import moment from "moment";
-import {useFindUserChats} from "@hooks/useFindUserChats";
 
-const Chat = ({data, variant,selected}) => {
+const Chat = ({data, variant}) => {
     const selectedChatId = useSelector(state => state.chats.selectedChatId);
     const {theme} = useThemeProvider();
     const _id = data._id;
     const label = data.label;
     const type = data.type;
     const complete = data._id === selectedChatId
-    const timestamp = data.messages[0] ? data.messages[0].timestamp : moment().set({date: 17, month: 3, year: 2022, hour: 12, minute: 20}).valueOf();
+    const uniqueDates = [...new Set(data.messages.map((item) => dayjs(item.timestamp).format('DD.MM.YY')))];
+    const messagesByDate = uniqueDates.map((date) => {
+        return data.messages.filter((item) => dayjs(item.timestamp).format('DD.MM.YY') === date);
+    });
+    messagesByDate.sort((a, b) => {
+        const dateA = dayjs(a[0].timestamp, 'DD.MM.YY');
+        const dateB = dayjs(b[0].timestamp, 'DD.MM.YY');
+        return dateB - dateA;
+    });
+    const latestMessage = data.messages[data.messages.length-1]
+    const timestamp = data.messages ? data.messages[data.messages.length-1].timestamp : moment().set({date: 17, month: 3, year: 2022, hour: 12, minute: 20}).valueOf();
     const dispatch = useDispatch();
     const checkboxColor = CHAT_LEGEND.find(item => item.text.toLowerCase() === type.toLowerCase()).color;
     const handleClick = (_id)=>{
@@ -41,7 +50,7 @@ const Chat = ({data, variant,selected}) => {
             case 'list':
                 return (
                     <div className={styles.list_item} tabIndex={0} style={{
-                        backgroundColor:complete ? "rgba(230, 230, 230, 0.2)" : "rgba(0, 0, 0, 0.2)"
+                        backgroundColor:complete ? "rgba(230, 230, 230, 0.1)" : "rgba(0, 0, 0, 0.5)"
                     }} onClick={() => handleClick(_id)}>
                         <div className={styles.content} >
                             <BasicCheckbox id={`${_id}`}
@@ -49,16 +58,17 @@ const Chat = ({data, variant,selected}) => {
                                            checked={complete}
                                            onChange={() => dispatch(toggleCollapse({id:_id}))}/>
                             <div className="d-flex flex-column g-2 flex-1">
-                                <input className={`${styles.title} text-overflow`} type="text" defaultValue={label} readOnly={true}/>
+                                <input className={`${styles.label} text-overflow`} type="text" defaultValue={label} readOnly={true}/>
+                                <input className={`${styles.sender} text-overflow`} type="text" defaultValue={latestMessage.senderEmail} readOnly={true}/>
                                 <span className="label h6">
                                     {dayjs(timestamp).format('DD MMM YYYY / HH:mm')}
                                 </span>
                             </div>
                             <div className={styles.secondary}>
-                                <button className={`${styles.delete} label h6`}
-                                        onClick={() => dispatch(removeTodo({_id}))}>
-                                   Remove
-                                </button>
+                                {/*<button className={`${styles.delete} label h6`}*/}
+                                {/*        onClick={() => dispatch(removeTodo({_id}))}>*/}
+                                {/*   Remove*/}
+                                {/*</button>*/}
                                 <div className={styles.category}>
                                     <span className={`${styles.category_label} label h6`}>{type}</span>
                                     <span className={styles.category_color}
