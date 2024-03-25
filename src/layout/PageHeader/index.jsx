@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useAuthContext} from "@hooks/useAuthContext";
+import {useNavigate} from "react-router-dom";
 //TODO: import notificationSound from '@assets/notification/mixkit-happy-bells-notification-937.wav';
 //import notificationSound from '@assets/notification/mixkit-happy-bells-notification-937.wav';
 const  TabletHeader = ({title}) => {
@@ -51,7 +52,7 @@ const DesktopHeader = ({title}) => {
     const [notifications, setNotifications] = useState([]);
     const [notificationCount, setNotificationCount] = useState(0);
     const [previousNotificationCount, setPreviousNotificationCount] = useState(0);
-
+    const navigate = useNavigate()
     const { USER } = useAuthContext();
 
 
@@ -81,7 +82,9 @@ const DesktopHeader = ({title}) => {
 
         fetchNotifications();
     }, [previousNotificationCount]);
-
+    const goToMessages = ()=>{
+        navigate('/chat')
+    }
 
 
     return (
@@ -125,7 +128,7 @@ const DesktopHeader = ({title}) => {
 
                     </div>
                     <div className="d-flex g-16">
-                        <button className={`${styles.control} ${styles[direction]} h5`}
+                        <button onClick={goToMessages} className={`${styles.control} ${styles[direction]} h5`}
                             // onClick={() =>{ setCartOpen(true);}}
                         >
                             <i className="icon icon-envelope"/>

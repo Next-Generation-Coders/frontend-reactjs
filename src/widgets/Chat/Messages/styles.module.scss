@@ -1,0 +1,71 @@
+.header {
+    padding: var(--card-padding) var(--card-padding) 16px;
+}
+
+.main {
+    padding-bottom: var(--card-padding);
+    display: flex;
+    flex-direction: column-reverse;
+    &_group {
+        padding: 0 var(--card-padding);
+        gap: 10px;
+    }
+}
+
+.example {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+/* Loader style */
+
+.loader {
+    width: 12px;
+    height: 12px;
+    display: block;
+    margin: 5px auto;
+    position: relative;
+    color: #ccc;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+.loader::after,
+.loader::before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: 50%;
+    left: 50%;
+    transform: scale(0.5) translate(0, 0);
+    background-color: #ccc;
+    border-radius: 50%;
+    animation: animloader 1s infinite ease-in-out;
+}
+.loader::before {
+    background-color: #000;
+    transform: scale(0.5) translate(-24px, -24px);
+}
+
+.center-me{
+    //align-items: center;
+    //justify-content: center;
+    justify-items: center;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes animloader {
+    50% {
+        transform: scale(0.5) translate(-50%, -50%);
+    }
+}
+
+/* END Loader style */

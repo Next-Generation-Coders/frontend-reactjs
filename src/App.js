@@ -53,10 +53,10 @@
     import ScrollToTop from '@components/ScrollToTop';
     import MatchResult from '@pages/Results/MatchResult';
     import AgentScore from '@pages/Results/AgentScore';
-    import {useAuthContext} from "@hooks/useAuthContext";
     import RequireAuth from "@components/ProtectedRoute/RequireAuth";
     import Role from "@utils/Role";
     import UserManagement from "@pages/Admin/UserManagement";
+    import Chat from "@pages/Chat/Chat";
 
     // pages
     const AddTeams = lazy(() =>import ('@pages/Tournament/AddTeams'))
@@ -206,6 +206,11 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
                                                     <Route path="/complaint" element={<Complaint/>}/>
                                                     <Route path="/test" element={<Test/>}/>
 
+
+                                                    //Chat route
+                                                    <Route element={<RequireAuth allowedRoles={[Role.USER]}/> }>
+                                                    <Route path="/chat" element={<Chat/>}/>
+                                                    </Route>
                                                     //Result Routes
                                                     <Route path="/match/:id" element={<MatchResult/>}/>
                                                     <Route path="/agent/:id" element={<AgentScore/>}/>
@@ -253,11 +258,6 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
                                                     <Route path="/profile" element={<Profile/>}/>
                                                     </Route>
                                                     <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
-
-
-
-
-
 
                                                 </Routes>
                                         </Suspense>
