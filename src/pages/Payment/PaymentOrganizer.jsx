@@ -10,7 +10,7 @@ const PaymentOrganizer = () => {
 
   return (
     <>
-      <PageHeader title="Payment" />
+      <PageHeader title="Payment with Stripe" />
       <br />
       <br /><br />
    

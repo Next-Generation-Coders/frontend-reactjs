@@ -112,8 +112,12 @@ export const LINKS = [
         icon: 'cart',
         pages: [
             {
-                title: 'Payment',
-                path: '/payment'
+                title: 'payment stripe',
+                path: '/payment-stripe'
+            },
+            {
+                title: 'payment coin',
+                path: '/payment-coin'
             },
         ]
     },
@@ -509,8 +513,12 @@ export const ORGANIZER_LINKS = [
         icon: 'cart',
         pages: [
             {
-                title: 'Payment',
-                path: '/payment'
+                title: 'payment stripe',
+                path: '/payment-stripe'
+            },
+            {
+                title: 'payment coin',
+                path: '/payment-coin'
             },
 
 

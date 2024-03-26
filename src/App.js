@@ -46,9 +46,7 @@
     import Sidebar from '@layout/Sidebar';
     import BottomNav from '@layout/BottomNav';
     import Navbar from '@layout/Navbar';
-    //import ShoppingCart from '@widgets/ShoppingCart';TODO:
-    import ShoppingCart from '@widgets/ShoppingCart';
-    // TODO: import ShoppingCart from '@widgets/NotificationCart';
+    import ShoppingCart from '@widgets/NotificationCart';
 
     import ScrollToTop from '@components/ScrollToTop';
     import MatchResult from '@pages/Results/MatchResult';
@@ -100,6 +98,8 @@
     // Payment Routes
     const PaymentAdmin = lazy(() => import('@pages/Payment/PamyentAdmin'));
     const PaymentOrganizer = lazy(() => import('@pages/Payment/PaymentOrganizer'));
+    const PaymentWithCoin = lazy(() => import('@pages/Payment/PaymentWithCoin'));
+
     const PaymentSucess = lazy(() => import('@pages/Payment/SuccessPayment'));
     const CancelPayment = lazy(() => import('@pages/Payment/CancelPayment'));
 
@@ -232,7 +232,8 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
 
                                                     // Payment Routes
                                                     <Route path="/payment-list" element={<PaymentAdmin/>}/>
-                                                    <Route path="/payment" element={<PaymentOrganizer/>}/>
+                                                    <Route path="/payment-stripe" element={<PaymentOrganizer/>}/>
+                                                    <Route path="/payment-coin" element={<PaymentWithCoin/>}/>
                                                     <Route path="/payment/checkout-success" element={<PaymentSucess/>}/>
                                                     <Route path="/payment/checkout-cancel" element={<CancelPayment/>}/>
 
