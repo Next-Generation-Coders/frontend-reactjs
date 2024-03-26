@@ -22,6 +22,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useAuthContext} from "@hooks/useAuthContext";
 import notificationSound from '@assets/notification/mixkit-happy-bells-notification-937.wav';
+import {useNavigate} from "react-router-dom";
 
 const  TabletHeader = ({title}) => {
     const [ref, {width}] = useMeasure();
@@ -48,10 +49,13 @@ const DesktopHeader = ({title}) => {
     const {setCartOpen} = useShopProvider();
     const [ref, {width: titleWidth}] = useMeasure();
     const isStoreRoute = useStoreRoute();
+    const navigate = useNavigate()
     const [notifications, setNotifications] = useState([]);
     const [notificationCount, setNotificationCount] = useState(0);
     const [previousNotificationCount, setPreviousNotificationCount] = useState(0);
-
+    const goToChat = ()=>{
+        navigate('/chat')
+    }
     const { USER } = useAuthContext();
     const [audio] = useState(new Audio(notificationSound));
     const playNotificationSound = () => {
@@ -124,6 +128,7 @@ const DesktopHeader = ({title}) => {
                     <div className="d-flex g-16">
                         <button className={`${styles.control} ${styles[direction]} h5`}
                             // onClick={() =>{ setCartOpen(true);}}
+                            onClick={goToChat}
                         >
                             <i className="icon icon-envelope"/>
                             <span className={styles.control_indicator}/>
