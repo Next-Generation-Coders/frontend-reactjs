@@ -128,7 +128,7 @@ const DesktopHeader = ({title}) => {
                     <div className="d-flex g-16">
                         <button className={`${styles.control} ${styles[direction]} h5`}
                             // onClick={() =>{ setCartOpen(true);}}
-                            onClick={goToChat}
+                                onClick={goToChat}
                         >
                             <i className="icon icon-envelope"/>
                             <span className={styles.control_indicator}/>

@@ -1,32 +1,29 @@
 // styles
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
-import TabButton from '@ui/TabButton';
+import { Dialog, DialogContent, DialogActions, Button } from '@mui/material';
 
 // styled components
-import {StyledEventsCalendar, Header} from './styles';
-import { FaWindowClose } from "react-icons/fa";
+import { Header} from './styles';
 
 // components
 import Spring from '@components/Spring';
-import {Calendar, momentLocalizer} from 'react-big-calendar';
 import ViewNavigator from './ViewNavigator';
-import Navigator from './Navigator';
-import Event from './Event';
+
 
 // hooks
-import {useState, useEffect} from 'react';
-import {useWindowSize} from 'react-use';
+import React, {useState, useEffect} from 'react';
 import {useThemeProvider} from '@contexts/themeContext';
 
-//import CheckCircleIcon from '@mui/icons-material/CheckCircleOutline';
-//import CancelIcon from '@mui/icons-material/Cancel';
 
 import { FiCheckCircle } from "react-icons/fi";
-import { GiCancel } from "react-icons/gi";
+import {GiCancel, GiNextButton, GiPreviousButton} from "react-icons/gi";
+
+import { Navigation } from './styles';
+import PropTypes from 'prop-types';
+import { FaSearch } from "react-icons/fa";
 
 
-
+const PAGE_SIZE = 5;
 
 const AffichageCrud = () => {
     const { direction } = useThemeProvider();
@@ -34,6 +31,10 @@ const AffichageCrud = () => {
     const [selectedPayment, setSelectedPayment] = useState(null);
     const [payments, setPayments] = useState([]);
     const [tournaments, setTournaments] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -93,19 +94,66 @@ const AffichageCrud = () => {
 
     };
 
+    const displayAmount = (amount) => {
+        return amount < 20 ? 'Amount with GSC '+amount : amount+'  TND';
+    };
+    const displayAmountt = (amount) => {
+        return amount < 20 ? amount+'  GSC' : amount+'  TND';
+    };
+
+    const filteredPayments = payments.filter(payment => {
+        return (
+            (payment.user?.fullname ?? '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (payment.user?.email ?? '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (payment.user?.addressWallet ?? '').toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    });
+
+    const getPaginatedPayment = () => {
+        if (!payments || !payments.length) {
+            return [];
+        }
+
+        const startIndex = (currentPage - 1) * PAGE_SIZE;
+        const endIndex = startIndex + PAGE_SIZE;
+        return filteredPayments.slice(startIndex, endIndex);
+    };
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
     return (
         <Spring className="card h-fit card-padded">
             <div className="card h-fit card-padded">
+
                 <Header>
-                    <h1 style={{ position: 'relative' }}></h1>
-                    <ViewNavigator />
+                    <Navigation className="tab-nav">
+                        <div style={{ display: 'flex', alignItems: 'center', width: '30%',paddingLeft:'1150px' }}>
+
+                            <input
+                                type="text"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                placeholder="To research..."
+                                style={{ flex: '1', fontSize: '15px', padding: '5px', borderBottom: '2px solid #ddd', alignItems: 'center' }}
+                            />
+                            <Button style={{ backgroundColor: 'yellow', color: 'black', borderRadius: '20%' }}>
+                                <FaSearch />
+                            </Button>
+                        </div>
+
+                    </Navigation>
                 </Header>
+
                 <div style={{ width: '100%', overflowX: 'auto', padding: '10px' }}>
+                    {payments && payments.length > 0 ? (
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
                         <tr>
                             <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Name</th>
                             <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Email</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Address Wallet</th>
+
                             <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Payment Status</th>
                             <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Amount Paid</th>
                             <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Tournament Title</th>
@@ -113,11 +161,13 @@ const AffichageCrud = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {payments.map(payment => (
+                        {getPaginatedPayment().map(payment => (
                             <tr key={payment._id}>
                                 {/*     */}
                                 <td style={{ padding: '20px', borderBottom: '1px solid #ddd' }}>{payment.user?.fullname} </td>
                                 <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.user?.email || ''}</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.user?.addressWallet || 'No Address Wallet'}</td>
+
                                 <td style={{ padding: '10px', borderBottom: '1px solid #ddd', color: payment.payment_status === 'paid' ? 'green' : 'red' }}>
                                     {payment.payment_status === 'paid' ? (
                                         <FiCheckCircle style={{ color: 'green', marginRight: '8px' }} />
@@ -126,7 +176,7 @@ const AffichageCrud = () => {
                                     )}
                                     <b>{payment.payment_status}</b>
                                 </td>
-                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.amount}</td>
+                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{displayAmountt(payment.amount)}</td>
                                 <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{getTournamentTitle(payment.tournament?._id)}</td>
                                 <td>
                                     <Button onClick={() => openEditDialog(payment)} style={{   borderBottom: '1px solid #ddd',backgroundColor: 'green' }} >
@@ -137,7 +187,30 @@ const AffichageCrud = () => {
                             </tr>
                         ))}
                         </tbody>
-                    </table>
+                     </table>
+
+                    ) : (
+                        <p>No payment available.</p>
+                    )}
+                    <div style={{ marginTop: '20px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Button
+                            style={{ marginRight: '10px', backgroundColor: '#4285f4', color: 'white' }}
+                            disabled={currentPage === 1}
+                            onClick={() => handlePageChange(currentPage - 1)}
+                        >
+                            <GiPreviousButton />
+                        </Button>
+                        <span style={{ fontSize: '12px', fontWeight: 'bold' }}>
+                            Page {currentPage}
+                        </span>
+                        <Button
+                            style={{ marginLeft: '10px', backgroundColor: '#4285f4', color: 'white' }}
+                            disabled={currentPage * PAGE_SIZE >= payments.length}
+                            onClick={() => handlePageChange(currentPage + 1)}
+                        >
+                            <GiNextButton />
+                        </Button>
+                    </div>
                 </div>
             </div>
 
@@ -162,7 +235,10 @@ const AffichageCrud = () => {
                                 <strong>User Email:</strong> {selectedPayment.user?.email}
                             </div>
                             <div style={{ marginBottom: '10px' }}>
-                                <strong>Amount Paid:</strong> {selectedPayment.amount}
+                                <strong>Amount Paid:</strong> {displayAmount(selectedPayment.amount)}
+                            </div>
+                            <div style={{ marginBottom: '10px' }}>
+                                <strong>Address Wallet:</strong> {selectedPayment.user?.addressWallet}
                             </div>
                             <div style={{ marginBottom: '10px' }}>
                                 <strong>Payment Date:</strong> {selectedPayment.paymentDate}

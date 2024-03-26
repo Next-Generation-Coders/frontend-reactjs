@@ -53,6 +53,9 @@ const App = () => {
 
   const [tournamentSelected, setTournamentSelected] = useState(false);
   const navigate = useNavigate();
+  const [userId, setUserId] = useState("");
+
+
   const handleSaveFirstPartData = (data) => {
     setDataFromFirstPart(data);
   };
@@ -188,6 +191,7 @@ const App = () => {
       try {
         const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
+        setUserId(userId);
 
 
         const response = await axios.get(`http://localhost:3000/Tournament/getByUserId/${userId}`);
@@ -236,7 +240,7 @@ const App = () => {
       }
 
       const formData = {
-        ...userData,
+        userId: userId,
         ...paymentData,
         tournament: tournamentId,
         payment_status: 'unpaid',

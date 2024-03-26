@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Navigation } from './styles';
-import TabButton from '@ui/TabButton';
 import PropTypes from 'prop-types';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import {  Button } from '@mui/material';
 import { FaSearch } from "react-icons/fa";
 
 const ViewNavigator = ({ current, handler }) => {
