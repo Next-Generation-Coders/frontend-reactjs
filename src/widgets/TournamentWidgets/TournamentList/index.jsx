@@ -9,8 +9,6 @@ import Dialog from '@mui/material/Dialog';
 import { Link } from 'react-router-dom';
 
 const Index = () => {
-  const [tournamentId, setTournamentId] = useState("");
-  const [title, setTitle] = useState("");
   const [tournaments, setTournaments] = useState([]);
   const [activeTournament, setActiveTournament] = useState(null);
   const { USER } = useAuthContext();
@@ -19,7 +17,6 @@ const Index = () => {
 
 
   const isTournamentPaid = () => {
-    // Vérifie si le tournoi a un paiement avec le statut "paid"
     return payments.some(payment => payment.tournament === activeTournament._id && payment.payment_status === "paid");
   };
   const handlePayedClick = () => {
@@ -121,8 +118,8 @@ const Index = () => {
                     <Button
                         style={{
                           marginRight: '10px',
-                          backgroundColor: activeTournament && isTournamentPaid() ? '#CCCCCC' : '#FDCA40',// Change la couleur de fond en gris si le bouton est désactivé
-                          color: activeTournament && isTournamentPaid() ? '#666666' : 'black', // Change la couleur du texte en plus foncé si le bouton est désactivé
+                          backgroundColor: activeTournament && isTournamentPaid() ? '#CCCCCC' : '#FDCA40',
+                          color: activeTournament && isTournamentPaid() ? '#666666' : 'black',
                         }}
                         variant="contained"
                         disabled={activeTournament && isTournamentPaid()}
@@ -152,7 +149,7 @@ const Index = () => {
                                             parseInt(tournament.rating['4 stars']) * 4 +
                                             parseInt(tournament.rating['3 stars']) * 3 +
                                             parseInt(tournament.rating['2 stars']) * 2 +
-                                            parseInt(tournament.rating['1 star']) * 1) /
+                                            parseInt(tournament.rating['1 star'])) /
                                         (parseInt(tournament.rating['5 stars']) +
                                             parseInt(tournament.rating['4 stars']) +
                                             parseInt(tournament.rating['3 stars']) +
