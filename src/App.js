@@ -79,8 +79,13 @@
     const Login = lazy(() => import('@pages/Login'));
     const SignUp = lazy(() => import('@pages/SignUp'));
     const Settings = lazy(() => import('@pages/Settings'));
-    
-// Refree Routes
+    //Tournament
+    const Tournaments = lazy(() => import('@pages/Tournament/TournamentList'));
+
+
+
+
+    // Refree Routes
    // const Complaints = lazy(() => import('@pages/Admin/Complaints'));
     const RealTime = lazy(() => import('@pages/Refree/RealTime'));
     const MatchList = lazy(() => import('@pages/Refree/MatchList'));
@@ -205,6 +210,9 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
                                                     <Route path="/match-list" element={<MatchList/>}/>
                                                     <Route path="/complaint" element={<Complaint/>}/>
                                                     <Route path="/test" element={<Test/>}/>
+
+                                                    //Tournaments Routes
+                                                    <Route path="/tournament-list" element={<Tournaments/>}/>
 
 
                                                     //Chat route

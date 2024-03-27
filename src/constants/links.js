@@ -483,6 +483,10 @@ export const ORGANIZER_LINKS = [
             {
                 title: 'Consult Tournament',
                 path: '/KnockoutTournament'
+            },
+            {
+                title: 'Tournament List',
+                path: '/tournament-list'
             }
         ]
     },
