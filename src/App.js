@@ -180,8 +180,10 @@ const TeamList = lazy(() => import('@pages/Team/TeamList'));
                                                     <Route path="/test" element={<Test/>}/>
 
                                                     //Result Routes
-                                                    <Route path="/match/:id" element={<MatchResult/>}/>
-                                                    <Route path="/agent/:id" element={<AgentScore/>}/>
+                                                    {/* <Route path="/match/:id" element={<MatchResult/>}/>
+                                                    <Route path="/agent/:id" element={<AgentScore/>}/> */}
+                                                    <Route path="/match" element={<MatchResult/>}/>
+                                                    <Route path="/agent" element={<AgentScore/>}/>
 
                                                     // Admin Routes
                                                     <Route path="/organizer-list" element={<Organizer/>}/>

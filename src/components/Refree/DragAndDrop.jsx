@@ -44,7 +44,7 @@ export const DragAndDrop = () => {
     const getContainerStyle = (container) => {
         if (container === 'VS') {
             return {
-                height: '900px', 
+                height: '800px', 
                 backgroundImage: `url(${backgroundImageVS})`,
                 backgroundSize: 'cover',
             };
