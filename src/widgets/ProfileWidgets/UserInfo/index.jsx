@@ -10,9 +10,9 @@ const UserInfo = () => {
     const {USER} = useAuthContext()
 
     const data = USER ? [
-        {'Full Name': USER.fullname},
-        {'Phone': '+216 '+USER.phone},
         {'E-mail': USER.email},
+        {'Phone': '+216 '+USER.phone},
+        {'Address Wallet': USER.addressWallet},
         {'Age': USER.age},
         {'Location': USER.country.label+' , '+USER.city.label}
     ] : [

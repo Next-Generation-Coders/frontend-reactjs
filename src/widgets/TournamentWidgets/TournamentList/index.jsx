@@ -7,13 +7,43 @@ import { MdFavorite } from "react-icons/md";
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import { Link } from 'react-router-dom';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
+import { IoIosCloseCircle } from "react-icons/io";
 
 const Index = () => {
   const [tournaments, setTournaments] = useState([]);
+  const [filteredTournaments, setFilteredTournaments] = useState([]);
   const [activeTournament, setActiveTournament] = useState(null);
   const { USER } = useAuthContext();
   const [openDialog, setOpenDialog] = useState(false);
   const [payments, setPayments] = useState([]);
+  const [searchTitle, setSearchTitle] = useState("");
+  const [searchActive, setSearchActive] = useState(false); // State to control the search field activation
+
+
+  const handleClearSearch = () => {
+    setSearchTitle("");
+    setSearchActive(false);
+    // Add any additional logic here if needed
+  };
+  const handleSearchButtonClick = () => {
+    setSearchActive(true); // Activate the search field when the search button is clicked
+  };
+
+
+  const handleSearch = (event) => {
+    const { value } = event.target;
+    setSearchTitle(value);
+    const filtered = tournaments.filter(tournament => tournament.title.toLowerCase().includes(value.toLowerCase()));
+    setFilteredTournaments(filtered);
+    if (filtered.length > 0) {
+      setActiveTournament(filtered[0]);
+    } else {
+      setActiveTournament(null);
+
+    }
+  };
 
 
   const isTournamentPaid = () => {
@@ -33,6 +63,8 @@ const Index = () => {
 
         const data = response.data && response.data.tournaments ? response.data.tournaments : [];
         setTournaments(data);
+        setFilteredTournaments(data);
+
       } catch (error) {
         console.error("Error fetching tournaments:", error.message);
       }
@@ -78,21 +110,21 @@ const Index = () => {
       },
       on: {
         slideChange: function () {
-          const activeIndex = this.activeIndex % tournaments.length;
-          setActiveTournament(tournaments[activeIndex]);
+          const activeIndex = this.activeIndex % filteredTournaments.length;
+          setActiveTournament(filteredTournaments[activeIndex]);
         },
       },
     });
 
     swiper.on('slideChange', () => {
-      const activeIndex = swiper.realIndex % tournaments.length;
-      setActiveTournament(tournaments[activeIndex]);
+      const activeIndex = swiper.realIndex % filteredTournaments.length;
+      setActiveTournament(filteredTournaments[activeIndex]);
     });
 
     return () => {
       swiper.destroy(true, true);
     };
-  }, [tournaments]);
+  }, [filteredTournaments]);
 
   return (
       <section>
@@ -100,18 +132,38 @@ const Index = () => {
 
         <div className="content">
           <div className="info">
+            {searchActive ? (
+                <div  className="search-container">
+                  <TextField
+                      style={{boxShadow:'0 4px 20px -2px #e9e9e9',borderRadius:'40px' ,border: '1px solid #ccc' }}
+                      type="text"
+                      value={searchTitle}
+                      onChange={handleSearch}
+                      placeholder="Search by title"
+                      InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                              <IoIosCloseCircle  onClick={handleClearSearch} style={{ cursor: 'pointer',color:'red',fontSize: '16px' }} />
+                            </InputAdornment>
+                        ),
+                      }}
+                  />
+                </div>
+            ) : (
+
+                  <Button className="search-container" onClick={handleSearchButtonClick} variant="contained">Search</Button>
+            )}
             {activeTournament ? (
                 <>
                   <p>
-                    Title: {activeTournament.title} <br />
-                    Start Date: {activeTournament.startDay}/{activeTournament.startMonth}/{activeTournament.startYear} <br />
-                    End Date: {activeTournament.endDay}/{activeTournament.endMonth}/{activeTournament.endYear} <br />
-                    Country: {activeTournament.Country} <br />
-                    City: {activeTournament.City} <br />
-                    Tournament Type: {activeTournament.TournamentType} <br />
-                    Tournament Status: {activeTournament.TournamentStatus} <br />
-                    Access: {activeTournament.access} <br />
-                    FriOrComp: {activeTournament.FriOrComp} <br />
+                   <b>Title:</b>  {activeTournament.title} <br />
+                    <b>Start Date:</b>  {activeTournament.startDay}/{activeTournament.startMonth}/{activeTournament.startYear} <br />
+                    <b> End Date:</b>  {activeTournament.endDay}/{activeTournament.endMonth}/{activeTournament.endYear} <br />
+                    <b> Country:</b>  {activeTournament.Country} <br />
+                    <b> City:</b>  {activeTournament.City} <br />
+                    <b> Tournament Type:</b>  {activeTournament.TournamentType} <br />
+                    <b>Access: </b>   {activeTournament.access} <br />
+                    <b> FriOrComp: </b>  {activeTournament.FriOrComp} <br />
                   </p>
 
                   <div className="button-containerr">
