@@ -10,10 +10,10 @@ import CustomSelect from '@ui/CustomSelect';
 import AddFormContainer from '@components/AddFormContainer';
 
 // hooks
-import {useState, useRef, useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import useMeasure from 'react-use-measure';
-import {useForm, Controller} from 'react-hook-form';
+import {Controller, useForm} from 'react-hook-form';
 
 // utils
 import classNames from 'classnames';
@@ -25,14 +25,13 @@ import {addChat, toggleCollapse} from '@features/chats/chatSlice';
 // constants
 import {CHAT_LEGEND, CHAT_OPTIONS} from '@constants/chat';
 import {useAuthContext} from "@hooks/useAuthContext";
+import CustomMultiSelect from "@ui/CustomMultiSelect";
 
 const ChatList = ({userChats,isLoading,selected}) => {
 
-    const {USER} = useAuthContext()
-
     const {control, handleSubmit, register, reset, formState: {errors}} = useForm({
         defaultValues: {
-            owner:USER.email ? USER.email : null,
+            owner: null,
             label: '',
             type: 'group',
         }
@@ -47,18 +46,62 @@ const ChatList = ({userChats,isLoading,selected}) => {
     const dispatch = useDispatch();
 
     const onSubmit = data => {
-        const {label, type} = data;
         const id = nanoid(5);
         dispatch(addChat({
-            type: type.value,
-            label: label,
-            timestamp: Date.now(),
+            type: data.type.value,
+            label: data.label,
             expanded: false
         }));
+        let participants = [{}];
+        data.participants.forEach(user=>{
+            const participant = user.value
+            participants.push(participant);
+        })
+        console.log(participants);
+        const Chat = {
+            label:data.label,
+            owner:null,
+            participants: participants,
+            type: data.type.value,
+            messages: [],
+        }
+        console.log(Chat);
         setFormVisible(false);
         setTimeout(() => dispatch(toggleCollapse({id})), 300);
+        data.participants=null;
         reset();
     }
+    const [users, setUsers] = useState([]);
+    const [fetchingUsers,setFetchingUsers]=useState(true);
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/User/for-chat`,{
+                    method: 'GET',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                });
+                return response.json()
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                throw error;
+            }
+        };
+        fetchUsers().then((json)=>{
+            const data = json.data.map(user=> ({
+                value: user.email,
+                label:user.fullname ? user.fullname+" ( "+user.email+" ) " : user.email,
+            }))
+            setUsers(data);
+            setFetchingUsers(false)
+        }).catch(e=>{
+            setUsers([]);
+            setFetchingUsers(false)
+            console.log(e.message);
+        })
+    }, []);
 
     const onReset = () => {
         reset();
@@ -101,24 +144,30 @@ const ChatList = ({userChats,isLoading,selected}) => {
                                             control={control}
                                             rules={{required: true}}
                                             render={({field}) => (
-                                                <CustomSelect value={field.value}
+                                                <CustomSelect
+                                                              value={field.value}
+                                                              variant='basic'
                                                               onChange={field.onChange}
                                                               innerRef={field.ref}
                                                               options={CHAT_OPTIONS}
                                                               placeholder="Chat type"
                                                               className={classNames('field', {'field--error': errors.type})}/>
                                             )}/>
-                                <Controller name="participants"
-                                            control={control}
-                                            rules={{required: true}}
-                                            render={({field}) => (
-                                                <CustomSelect value={field.value}
-                                                              onChange={field.onChange}
-                                                              innerRef={field.ref}
-                                                              options={CHAT_OPTIONS}
-                                                              placeholder="Participants"
-                                                              className={classNames('field', {'field--error': errors.type})}/>
-                                            )}/>
+                                <Controller
+                                    name="participants"
+                                    control={control}
+                                    rules={{ required: true}}
+                                    render={({ field }) =>
+                                        fetchingUsers ? <div className="box"></div> :
+                                        <CustomMultiSelect
+                                            // value={field.email}
+                                            defaultValue={[]}
+                                            name="participants"
+                                            options={users}
+                                            onChange={field.onChange}
+                                            className={classNames('field', {'field--error': errors.participants})}
+                                        />}
+                                />
                             </div>
                             <div className="d-grid col-2 g-20">
                                 <button className="btn">Submit</button>

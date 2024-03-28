@@ -661,6 +661,17 @@ const layouts = {
             {i: 'chat_list', x: 1, y: 4, w: 1, h: 2},
         ]
     },
+    my_tournaments: {
+        xl: [
+            {i: 'league_standings', x: 1, y: 0, w: 2, h: 2},
+        ],
+        lg: [
+            {i: 'league_standings', x: 1, y: 0, w: 2, h: 2},
+        ],
+        md: [
+            {i: 'league_standings', x: 0, y: 0, w: 2, h: 2},
+        ]
+    },
 }
 
 export default layouts

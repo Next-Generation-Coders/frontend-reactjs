@@ -20,12 +20,16 @@ import useStoreRoute from '@hooks/useStoreRoute';
 import PropTypes from 'prop-types';
 import {useEffect, useState} from "react";
 import axios from "axios";
+import Role from "@utils/Role";
 import {useAuthContext} from "@hooks/useAuthContext";
 import notificationSound from '@assets/notification/mixkit-happy-bells-notification-937.wav';
 import {useNavigate} from "react-router-dom";
+import Collaborate from "@layout/PageHeader/Collaborate";
 
 const  TabletHeader = ({title}) => {
     const [ref, {width}] = useMeasure();
+    const { USER } = useAuthContext();
+    const isUser = USER && USER.roles && USER.roles.length === 1 && USER.roles[0] === Role.USER;
 
     return (
         <div className={`${styles.tablet} d-flex align-items-center justify-content-between g-20`}>
@@ -36,7 +40,8 @@ const  TabletHeader = ({title}) => {
                 </div>
             </div>
             <div className="d-flex align-items-center g-20">
-                <Search/>
+                {isUser && <Collaborate/>}
+                {/*<Search/>*/}
                 <User/>
             </div>
         </div>
@@ -57,6 +62,7 @@ const DesktopHeader = ({title}) => {
         navigate('/chat')
     }
     const { USER } = useAuthContext();
+    const isUser = USER && USER.roles && USER.roles.length === 1 && USER.roles[0] === Role.USER;
     const [audio] = useState(new Audio(notificationSound));
     const playNotificationSound = () => {
         audio.play();
@@ -95,7 +101,8 @@ const DesktopHeader = ({title}) => {
                 </div>
             </div>
             <div className="d-flex align-items-center">
-                <Search/>
+                {isUser && <Collaborate/>}
+                {/*<Search/>*/}
                 <div className="d-flex g-30" style={{margin: '0 50px'}}>
                     <button className={`${styles.control} h5`} onClick={toggleTheme}>
                         <i className={`icon-${theme === 'light' ? 'moon' : 'sun'}`}/>

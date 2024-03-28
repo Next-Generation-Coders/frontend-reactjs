@@ -35,7 +35,7 @@ const Sidebar = () => {
     const {USER} = useAuthContext()
     const liens = USER ? USER.roles.find(r=>[Role.ADMIN].includes(r)) ?
         ADMIN_LINKS
-        : USER.roles.find(r=>[Role.COACH].includes(r)) ?
+        : USER.roles.find(r=>[Role.COACH,Role.PLAYER,Role.TEAM_MANAGER].includes(r)) ?
              COACH_LINKS
         : USER.roles.find(r=>[Role.REFEREE].includes(r)) ?
             REFEREE_LINKS

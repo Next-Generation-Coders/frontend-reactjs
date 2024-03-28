@@ -55,6 +55,10 @@
     import Role from "@utils/Role";
     import UserManagement from "@pages/Admin/UserManagement";
     import Chat from "@pages/Chat/Chat";
+    import ClubSummary from "@pages/ClubSummary";
+    import MyTournaments from "@pages/Player/MyTournaments";
+    import RoleRequests from "@pages/Admin/RoleRequests";
+    // import MyTournamentsSelectorFrontDisplay from "@pages/Player/MyTournaments";
 
     // pages
     const AddTeams = lazy(() =>import ('@pages/Tournament/AddTeams'))
@@ -219,6 +223,7 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/> }>
                                                     <Route path="/chat" element={<Chat/>}/>
                                                     </Route>
+
                                                     //Result Routes
                                                     <Route path="/match/:id" element={<MatchResult/>}/>
                                                     <Route path="/agent/:id" element={<AgentScore/>}/>
@@ -236,6 +241,7 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
                                                     <Route path="/team-list" element={<Team/>}/>
                                                     <Route path="/complaint-list" element={<Complaints/>}/>
                                                     <Route path="/user-management" element={<UserManagement/>}/>
+                                                    <Route path="/role-requests" element={<RoleRequests/>}/>
                                                     </Route>
 
                                                     // Payment Routes
@@ -261,6 +267,10 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
                                                     <Route path="/complaint" element={<Complaint/>}/>
                                                     <Route path="/about-us" element={<AboutUs/>}/>
 
+                                                    //Player routes
+                                                    <Route element={<RequireAuth allowedRoles={[Role.PLAYER,Role.TEAM_MANAGER,Role.COACH]}/> }>
+                                                        <Route path="/my-tournaments" element={<MyTournaments/>}/>
+                                                    </Route>
 
                                                     // User routes
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/>}>

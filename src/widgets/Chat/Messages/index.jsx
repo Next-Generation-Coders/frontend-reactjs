@@ -84,6 +84,7 @@ const Messages = () => {
 
     const onSubmit = async data => {
         if(selectedChat){
+            data.timestamp = Date.now()
             data.chat = selectedChat._id;
             await sendMessage(data)
             reset()
@@ -98,10 +99,10 @@ const Messages = () => {
                 <div className={`${styles.main} track d-flex flex-column g-10`}>
                     {
                         uniqueDates.map((date, index) => {
-                            const isToday = dayjs().format('DD.MM.YY') === date;
+                            const isToday = dayjs().format('DD.MM.YY') !== date;
                             return (
                                 <div key={index}>
-                                    <DateSeparator date={isToday ? 'Today' : date} />
+                                    <DateSeparator date={isToday ? 'New' : date} />
                                     <div className={styles.main_group}>
                                         {
                                             messagesByDate[index].map((message, index) => {
@@ -129,7 +130,7 @@ const Messages = () => {
                             placeholder="Send message..."
                             {...register('message', {required: true})}
                         />
-                        <button type="submit" className="btn">
+                        <button type="submit" disabled={sending} className="btn">
                             { sending ? <span className={styles.loader}></span>
                                 : <LuSendHorizonal/>}
                         </button>

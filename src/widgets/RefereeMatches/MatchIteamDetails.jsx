@@ -8,7 +8,7 @@ import useMeasure from 'react-use-measure';
 import {getClubInfo} from '@utils/helpers';
 import PropTypes from 'prop-types';
 
-const Item = ({isLeader, withLogo, team, variant}) => {
+const MyMatchItem = ({isLeader, withLogo, team, variant,isTeamOne,tournament}) => {
     const [ref, {width}] = useMeasure();
     const itemStyles = {
         fontFamily: 'var(--heading-font)',
@@ -27,17 +27,18 @@ const Item = ({isLeader, withLogo, team, variant}) => {
              style={itemStyles}>
             <div className="d-flex align-items-center g-8 flex-1" ref={ref}>
                 {
-                    withLogo &&
-                    <img style={logoStyles} src={getClubInfo(team.id).logo} alt={getClubInfo(team.id).name}/>
+                    <img style={logoStyles} src={team.logo} alt={team.name}/>
                 }
-                <TruncatedText width={width - 30} text={getClubInfo(team.id).name} lines={1}/>
+                <b>{isTeamOne && <TruncatedText width={width - 30} text={team.name} lines={1}/>}
+                    {!isTeamOne && team.name}</b>
             </div>
-            {team.score}
+            {isTeamOne && "Tournament :"}<p className="text-700 h3">{isTeamOne && tournament.title}</p>
+            {!isTeamOne && <img style={logoStyles} src={tournament.logo} alt={team.name}/>}
         </div>
     )
 }
 
-const MatchScoreItem = ({match, variant = 'card', withLogo}) => {
+const MatchItemDetails = ({match, variant = 'card', withLogo}) => {
     const getLeader = () => {
         if (match.team1.score > match.team2.score) {
             return match.team1.id;
@@ -50,22 +51,28 @@ const MatchScoreItem = ({match, variant = 'card', withLogo}) => {
 
     return (
         <div className={`d-flex flex-column ${variant === 'card' ? 'g-6' : 'g-8'}`}>
-            <Item isLeader={getLeader() === match.team1.id}
+            <MyMatchItem isLeader={getLeader() === match.team1.id}
                   withLogo={withLogo}
                   variant={variant}
-                  team={match.team1}/>
-            <Item isLeader={getLeader() === match.team2.id}
+                  team={match.team1}
+                  isTeamOne={true}
+                  tournament={match.tournament}
+            />
+            <MyMatchItem isLeader={getLeader() === match.team2.id}
                   withLogo={withLogo}
                   variant={variant}
-                  team={match.team2}/>
+                  team={match.team2}
+                  isTeamOne={false}
+                  tournament={match.tournament}
+            />
         </div>
     )
 }
 
-MatchScoreItem.propTypes = {
+MatchItemDetails.propTypes = {
     match: PropTypes.object.isRequired,
     variant: PropTypes.oneOf(['card', 'thumb']),
     withLogo: PropTypes.bool
 }
 
-export default MatchScoreItem
+export default MatchItemDetails
