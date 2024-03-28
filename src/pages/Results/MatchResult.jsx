@@ -28,12 +28,13 @@ import TeamsLineups1 from './resultWidgets/TeamsLineups1';
 import TeamsLineups2 from './resultWidgets/TeamsLineups2';
 
 
+const matchID = "65fb89764297d5d1df8c8858"
 
 const socket = io('http://localhost:3000', { transports : ['websocket'] });
 const MatchResult = () => {
 
   
-const {id} = useParams()
+//const {id} = useParams()
     const [result, setResult] = useState([]);
     const [teams, setTeams] = useState({});
   const team1 = teams?.team1?.team1
@@ -42,10 +43,10 @@ const {id} = useParams()
         // Fetch current result when component mounts
         const fetchResult = async () => {
           try {
-            const response = await axios.get(`http://localhost:3000/api/result/${id}`); // Assuming you have an endpoint to get the current result
+            const response = await axios.get(`http://localhost:3000/api/result/${matchID}`); // Assuming you have an endpoint to get the current result
             console.log(response.data);
             setResult(response.data);
-            const teamsResponse = await axios.get(`http://localhost:3000/api/teams/${id}`);
+            const teamsResponse = await axios.get(`http://localhost:3000/api/teams/${matchID}`);
             setTeams(teamsResponse.data);
 
           } catch (error) {
@@ -113,14 +114,15 @@ const {id} = useParams()
           }
       const widgets = {
         teamA_lineups: <TeamsLineups1 team1={team1}/>,
-        teamA_stats_progress: <TeamStatsProgress1 score={score} corners={corners} offsides={offsides} team1={team1}/>,
+        teamA_stats_progress: <TeamStatsProgress1 score={score} corners={corners} offsides={offsides} team2={team2}/>,
     
         passes_polar_chart: <PassesPolarChartt  offsides={offsides} corners={corners} score={score} red1={red.redTeam1} red2={red.redTeam2} yellow1={yellow.yellowTeam1} yellow2={yellow.yellowTeam2} team1={team1} team2={team2}/>,
         teamB_lineups: <TeamsLineups2 team2={team2} />,
-        teamB_stats_progress: <TeamStatsProgress2 score={score} corners={corners} offsides={offsides} team2={team2}/>,
+        teamB_stats_progress: <TeamStatsProgress2 score={score} corners={corners} offsides={offsides} team1={team1}/>,
         player_cards: <WidgetGroup>
+                         <PlayerDiscipline2 red2={red.redTeam2} yellow2={yellow.yellowTeam2} team2={team2}/>
+
             <PlayerDiscipline1 red1={red.redTeam1} yellow1={yellow.yellowTeam1}  team1={team1} />
-               <PlayerDiscipline2 red2={red.redTeam2} yellow2={yellow.yellowTeam2} team2={team2}/>
              </WidgetGroup>,
         match_events: <MatchScoreWidget score={score}  team1={team1} team2={team2}/>,
     }

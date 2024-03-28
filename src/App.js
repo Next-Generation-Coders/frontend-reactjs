@@ -225,8 +225,10 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
                                                     </Route>
 
                                                     //Result Routes
-                                                    <Route path="/match/:id" element={<MatchResult/>}/>
-                                                    <Route path="/agent/:id" element={<AgentScore/>}/>
+                                                    {/* <Route path="/match/:id" element={<MatchResult/>}/>
+                                                    <Route path="/agent/:id" element={<AgentScore/>}/> */}
+                                                    <Route path="/match" element={<MatchResult/>}/>
+                                                    <Route path="/agent" element={<AgentScore/>}/>
 
 
                                                     <Route path="/match" element={<MatchResult/>}/>

@@ -8,13 +8,13 @@ import {useThemeProvider} from '@contexts/themeContext';
 import {useWindowSize} from 'react-use';
 import ClubInfoTeam1 from './ClubInfoTeam1';
 
-const TeamStatsProgress1 = ({score,corners,offsides,team1}) => {
+const TeamStatsProgress1 = ({score,corners,offsides,team2}) => {
     const {width} = useWindowSize();
     const {theme} = useThemeProvider();
     const data = [
-        {name: 'Goals', value: score.scoreTeam1},
-        {name: 'Corners', value: corners.cornersTeam1},
-        {name: 'Offsides', value: offsides.offsidesTeam1}
+        {name: 'Goals', value: score.scoreTeam2},
+        {name: 'Corners', value: corners.cornersTeam2},
+        {name: 'Offsides', value: offsides.offsidesTeam2}
     ]
 
     const getPercents = () => {
@@ -31,7 +31,7 @@ const TeamStatsProgress1 = ({score,corners,offsides,team1}) => {
 
     return (
         <Spring className={`card d-flex flex-column ${width < 414 ? 'g-20' : 'g-30'}`}>
-            <ClubInfoTeam1 team1={team1}/>
+            <ClubInfoTeam1 team2={team2}/>
             <div className="d-flex flex-column justify-content-between flex-1 border-top card-padded  g-20">
                 {
                     data.map((item, index) => (
