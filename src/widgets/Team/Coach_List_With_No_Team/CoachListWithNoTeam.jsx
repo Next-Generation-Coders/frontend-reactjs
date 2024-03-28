@@ -14,17 +14,22 @@ import {useState, useEffect} from 'react';
 import { FaSearch } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
+import {useAuthContext} from "@hooks/useAuthContext";
+import axios from 'axios';
 
 const CoachListWithNoTeam = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [playerData, setPlayerData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const playersPerPage = 3;
+    const playersPerPage = 4;
+    const {USER} = useAuthContext();
 
     const addNewPlayer = async ( newPlayerData) => {
-        console.log(newPlayerData+"-----------")
+        //console.log(newPlayerData+"-----------")
+        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userId = userResponse.data._id;
         try {
-            const response = await fetch(`http://localhost:3000/Team/addCoachToTeam/65ec9ea8b7fc6d8a3d4f3536`, {
+            const response = await fetch(`http://localhost:3000/Team/addCoachToTeam/${userId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -55,9 +60,17 @@ const CoachListWithNoTeam = () => {
         fetchPlayerData();
     }, []);
 
-    const handleSearch = () => {
-        console.log("Search term:", searchTerm);
+    const handleSearch = (searchTerm) => {
+        const filteredPlayers = playerData.filter(player => player.fullname.toLowerCase().includes(searchTerm.toLowerCase()));
+        setPlayerData(filteredPlayers);
+        setCurrentPage(1);
     };
+
+    const handleChange = (e) => {
+        setSearchTerm(e.target.value);
+        handleSearch(e.target.value);
+    };
+    
     const AddPlayerToTeam = (email)=>{
         console.log(email)
         addNewPlayer(email) ;
@@ -65,9 +78,15 @@ const CoachListWithNoTeam = () => {
 
     const indexOfLastPlayer = currentPage * playersPerPage;
     const indexOfFirstPlayer = indexOfLastPlayer - playersPerPage;
-    const currentPlayers = playerData.slice(indexOfFirstPlayer, indexOfLastPlayer);
+    const filteredPlayers = playerData.filter(player =>
+        player.fullname.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+    const currentPlayers = filteredPlayers.slice(indexOfFirstPlayer, indexOfLastPlayer);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    
 
     return (
         <div className="card h-fit card-padded" >
@@ -78,11 +97,8 @@ const CoachListWithNoTeam = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Search..."
-                    style={{ flex: '1', fontSize: '15px', padding: '5px', borderBottom: '2px solid #ddd', alignItems: 'center' }}
+                    style={{ flex: '1', fontSize: '15px', padding: '5px',  alignItems: 'center' }}
                 />
-                <Button onClick={handleSearch} style={{ backgroundColor: 'yellow', color: 'black', borderRadius: '20%' }}>
-                    <FaSearch />
-                </Button>
             </div>
 
             {/* Player Table */}
@@ -110,7 +126,7 @@ const CoachListWithNoTeam = () => {
                             <td style={{ padding: '10px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>{player.value}</td>
                             <td style={{ padding: '10px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>
                                 <Button style={{ backgroundColor: '#24292B', textTransform: 'none' }} onClick={() => AddPlayerToTeam({ email: player.email })} >
-                                    <b style={{ color: 'white', fontSize: "12px" }}>Add Player</b>
+                                    <b style={{ color: 'white', fontSize: "12px" }}>Add Coach</b>
                                 </Button>
                             </td>
                         </tr>

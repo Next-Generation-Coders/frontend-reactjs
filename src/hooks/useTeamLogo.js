@@ -38,12 +38,11 @@ const useTeamLogo = () => {
         // set up a loading indicator while the file is being loaded
         reader.onloadstart = () => setLoading(true);
         // when the file is finished loading, set the file state and turn off the loading indicator
-
-
+        formData.append('team', file);
+        console.log(formData.get('team')); // Verify that the file is present in the form data
         reader.onloadend = async () => {
             try {
                 setFile(reader.result);
-                formData.append('team', file);
                 setLoading(false);
             } catch (error) {
                 setLoading(false)
@@ -55,4 +54,4 @@ const useTeamLogo = () => {
     return {file, setFile, handleFile,formData, loading,message};
 }
 
-export default useTeamLogo
+export default useTeamLogo
