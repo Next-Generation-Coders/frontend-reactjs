@@ -6,12 +6,13 @@ import LazyImage from '@components/LazyImage';
 
 // hooks
 import {useThemeProvider} from '@contexts/themeContext';
+import logo from '../../placeholder.png';
 
 // utils
 import {getClubInfo} from '@utils/helpers';
 import PropTypes from 'prop-types';
 
-const PlayerDiscipline2 = ({clubID = 'realmadrid', firstName = 'Manuel', lastName = 'Neuer', red2, yellow2}) => {
+const PlayerDiscipline2 = ({clubID = 'realmadrid', firstName = 'Manuel', lastName = 'Neuer', red2, yellow2,team2}) => {
     const club = getClubInfo(clubID);
     const {direction} = useThemeProvider();
 
@@ -25,10 +26,9 @@ const PlayerDiscipline2 = ({clubID = 'realmadrid', firstName = 'Manuel', lastNam
     return (
         <div className="card h-1 d-flex flex-column g-20">
             <div className="card_header d-flex flex-column g-16 flex-1">
-                <LazyImage className="club-logo club-logo--md" src={club.logo} alt={club.name} />
+            <LazyImage className="club-logo club-logo--md" src={logo || team2?.logo} alt={team2?.name} />
                 <h3>
-                    {firstName}
-                    <span className="d-block">{lastName}</span>
+                   {team2?.name}
                 </h3>
             </div>
             <div className="card_footer--sm justify-content-between">

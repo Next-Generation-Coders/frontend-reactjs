@@ -14,24 +14,32 @@ import ScoreWidget from './resultWidgets/ScoreWidget';
 import WidgetGroup from '@components/WidgetGroup';
 import PlayerDiscipline1 from './resultWidgets/PlayerDiscipline1';
 import PlayerDiscipline2 from './resultWidgets/PlayerDiscipline2';
+import TimeMatch from './resultWidgets/TimeMatch';
+import { useParams } from 'react-router-dom';
 
 const AgentScore = () => { 
 
 
-  const matchID = "65e742cdd620b28801ce9e8e"
+  const matchID = "65fb89764297d5d1df8c8858"
+  //const {id} = useParams()
+
   const socket = io('http://localhost:3000', { transports : ['websocket'] });
 
 
     const [result, setResult] = useState([]);
     const [teams, setTeams] = useState({});
+    const team1 = teams?.team1?.team1
+    const team2=teams?.team2?.team2
 
 
     const [changed, setChanged] = useState(null);
 
-    const handleGoal = (team) => {
-      // Emit goal event to the server
-      socket.emit('goal', { team });
+    const handleGoal = (team,matchID) => {
+      console.log(matchID)
 
+      // Emit goal event to the server
+      socket.emit('goal', { team,matchID });
+      console.log(matchID)
       setChanged(team);
       setTimeout(() => {
         setChanged(false);
@@ -39,9 +47,9 @@ const AgentScore = () => {
       console.log("goal")
 
     };
-    const handleRed = (team) => {
+    const handleRed = (team,matchID) => {
       // Emit goal event to the server
-      socket.emit('red', { team });
+      socket.emit('red', { team,matchID });
 
       setChanged(team);
       setTimeout(() => {
@@ -50,9 +58,9 @@ const AgentScore = () => {
       console.log("red")
 
     };
-    const handleYellow = (team) => {
+    const handleYellow = (team,matchID) => {
       // Emit goal event to the server
-      socket.emit('yellow', { team });
+      socket.emit('yellow', { team,matchID });
 
       setChanged(team);
       setTimeout(() => {
@@ -61,9 +69,9 @@ const AgentScore = () => {
       console.log("yellow")
 
     };
-    const handleCorners = (team) => {
+    const handleCorners = (team,matchID) => {
       // Emit goal event to the server
-      socket.emit('corners', { team });
+      socket.emit('corners', { team,matchID });
 
       setChanged(team);
       setTimeout(() => {
@@ -72,9 +80,9 @@ const AgentScore = () => {
       console.log("corner")
 
     };
-    const handleOffsides = (team) => {
+    const handleOffsides = (team,matchID) => {
       // Emit goal event to the server
-      socket.emit('offsides', { team });
+      socket.emit('offsides', { team,matchID });
 
       setChanged(team);
       setTimeout(() => {
@@ -160,10 +168,10 @@ const AgentScore = () => {
         }
     
     const widgets = {
-      match_score: <ScoreWidget score={score} handleGoal={handleGoal} red={red} yellow={yellow} 
+      match_score: <ScoreWidget matchID={matchID} team1={team1} team2={team2} score={score} handleGoal={handleGoal} red={red} yellow={yellow} 
       handleRed={handleRed} handleYellow={handleYellow} changed={changed}
       corners={corners} handleCorners={handleCorners}  offsides={offsides} handleOffsides={handleOffsides} teams={team}/>,
-      
+   
       
 
   }
@@ -176,7 +184,7 @@ const AgentScore = () => {
   <AppGrid id="MatchAgent" widgets={widgets}/>
 
 
-
+  
   <DragAndDrop />
 
     </>

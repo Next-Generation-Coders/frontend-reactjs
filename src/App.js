@@ -113,6 +113,7 @@ const AddNewPlayer = lazy(() => import('@pages/Coach/AddPlayer'));
 const LineUp = lazy(() => import('@pages/Coach/LineUp'));
 const LineupTeam = lazy(() => import('@pages/Coach/lineupTeam'));
 const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
+const CoachProfile = lazy(() => import('@pages/CoachProfile'));
 
 
 
@@ -230,6 +231,7 @@ const TeamProfile = lazy(() => import('@pages/Team/TeamProfile'));
                                                     // Coach
                                                     <Route path="/lineup" element={<LineUp/>}/>
                                                     <Route path="/lineupTeam" element={<LineupTeam/>}/>
+                                                    <Route path="/coach-profile" element={<CoachProfile />} />
 
                                                     // Complaint Routes
                                                     <Route path="/complaint" element={<Complaint/>}/>

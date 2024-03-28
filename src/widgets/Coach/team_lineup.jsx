@@ -156,6 +156,7 @@ export const TeamLineupManager = () => {
       );
   
       setplayerOntheFiled(playersOnField);
+      const playerIds = players.map(player => player.id);
   
         // Check if the team has a lineup saved
       const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
@@ -169,7 +170,8 @@ export const TeamLineupManager = () => {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ 
-            playerNames: playersOnField 
+            playerNames: playersOnField ,
+            players :playerIds
           })
         });
         const updatedLineup = await updateResponse.json();
@@ -184,6 +186,7 @@ export const TeamLineupManager = () => {
         body: JSON.stringify({
           team : userId,
           playerNames: playersOnField ,
+          players :playerIds
           //players : playerOntheFiled.id
         })
       });
