@@ -9,10 +9,10 @@ const TournamentStatusSelector = ({ onSelectTournamentType }) => {
       onSelectTournamentType(status); // Pass the selected value to the parent component
   };
   return (<div><label>Tournament Type</label>
-    <div className="flex justify-center space-x-4">
+    <div className="flex justify-center  space-x-4">
 
         
-      <label style={{ marginRight: '10px', borderRadius: '15px' }} className={`btn ${selectedStatus === 'Knockout' ? 'active' : ''}`}>
+      <label style={{ marginRight: '10px', borderRadius: '15px', marginTop :'5px' }} className={`btn ${selectedStatus === 'Knockout' ? 'active' : ''}`}>
         <input
           type="checkbox"
           checked={selectedStatus === 'Knockout'}
@@ -21,7 +21,7 @@ const TournamentStatusSelector = ({ onSelectTournamentType }) => {
         />
         Knockout
       </label>
-      <label style={{ marginRight: '10px', borderRadius: '15px' }} className={`btn ${selectedStatus === 'League' ? 'active' : ''}`}>
+      <label style={{ marginRight: '10px', borderRadius: '15px', marginTop :'5px' }} className={`btn ${selectedStatus === 'League' ? 'active' : ''}`}>
         <input
           type="checkbox"
           checked={selectedStatus === 'League'}
@@ -30,7 +30,7 @@ const TournamentStatusSelector = ({ onSelectTournamentType }) => {
         />
         League
       </label>
-      <label style={{ marginRight: '10px', borderRadius: '15px' }} className={`btn ${selectedStatus === 'Championship' ? 'active' : ''}`}>
+      <label style={{ marginRight: '10px', borderRadius: '15px', marginTop :'5px' }} className={`btn ${selectedStatus === 'Championship' ? 'active' : ''}`}>
         <input
           type="checkbox"
           checked={selectedStatus === 'Championship'}

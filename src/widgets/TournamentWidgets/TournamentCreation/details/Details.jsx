@@ -1,27 +1,58 @@
-// components
-
 import Spring from '@components/Spring';
 
-import { useState , } from 'react';
-// hooks
+import { useRef, useState , } from 'react';
+import {toast} from 'react-toastify';
 import {useForm} from 'react-hook-form';
-
+import useTourLogo from '@hooks/useTourLogo';
 // utils
 import classNames from 'classnames';
-
+import styles from './styles.module.scss'
 import TournamentAccessSelector from './selectorAccess';
 import TournamentFORCSelector from './comOrfriendselector';
+import useSubmenu from '@hooks/useSubmenu';
+import LazyImage from '@components/LazyImage';
+import Submenu from '@ui/Submenu';
+
 const DetailsForm  = ({ standalone = true, formData, setFormData,onSubmit }) => {
     const { register, formState: { errors }, handleSubmit } = useForm({
         defaultValues: formData
     });;
 
     const handleFormSubmit = (data) => {
-        onSubmit({ ...data, access: selectedAccess,FriOrComp :selectedType });
-        console.log('data from details titkle',data) // Call the onSubmit function from props and pass the form data
+        
+     
+        if(!selectedAccess){
+        toast.error("Select the access type to your tournament")
+     };
+     if(!selectedType){
+        toast.error("Select the state of your tournament")
+     };
+     if(!file){
+        toast.error("Select the logo of your tournament")
+     }
+     
+
+        onSubmit({ ...data, access: selectedAccess,FriOrComp :selectedType, logo : file });
+       
     };
+    const {setFile,file,loading,setLoading} = useTourLogo(formData);
+    const {anchorEl, open, handleClick, handleClose} = useSubmenu();
+    const inputRef = useRef(null);
 
+    const triggerInput = () => inputRef.current?.click();
 
+    const submenuActions = [
+        {
+            label: 'Upload',
+            icon: 'upload',
+            onClick: triggerInput,
+        },
+        {
+            label: 'Remove',
+            icon: 'trash',
+            onClick: () => setFile(null)
+        }
+    ]
     
 
 
@@ -45,11 +76,47 @@ const DetailsForm  = ({ standalone = true, formData, setFormData,onSubmit }) => 
     };
 
 
-    const handleFileChange = (e) => {
-        // Store only the name of the selected logo file in formData
-        onSubmit({ ...formData, logo: e.target.files[0].name });
-    };
-    
+   /* const handleFile = (e) => {
+       console.log(e.target.files[0])
+        onSubmit({ ...formData, logo: e.target.files[0] });
+    };*/
+    const handleFile = (e) => {
+        // get the file object from the event
+        const file = e.target.files[0];
+
+        // check if a file was selected; if not, exit the function
+        if (!file) {
+            toast.error("Please select a file")
+            return;
+        }
+        // check if the file type is supported (JPEG, PNG, or WEBP); if not, show an error message and exit the function
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/webp') {
+            toast.error("File type not supported")
+            return;
+        }
+
+        // create a new FileReader object
+        const reader = new FileReader();
+        // read the file as a data URL
+        reader.readAsDataURL(file);
+        // set up an error handler for the reader
+        reader.onerror = () => {
+            toast.error('Something went wrong. Please try again.');
+        }
+        // set up a loading indicator while the file is being loaded
+        reader.onloadstart = () => setLoading(true);
+
+
+        reader.onloadend = async () => {
+            try {
+                setFile(reader.result);
+                setLoading(false);
+            } catch (error) {
+                setLoading(false)
+                console.error('Error uploading logo:', error.message);
+            }
+        };
+    }
 
     return (
         <div className="container">
@@ -73,9 +140,22 @@ const DetailsForm  = ({ standalone = true, formData, setFormData,onSubmit }) => 
                          <TournamentAccessSelector onSelectAccess={handleSelectAccess} />
                  <TournamentFORCSelector onSelecttournamentType={handleSelecFORCStatus}  />
 <br></br> 
-        <input type="file" accept="image/*" onChange={handleFileChange} />
+<div className={styles.wrapper} title="Click to upload a Team Logo">
+        <input type="file" onChange={handleFile} ref={inputRef} hidden />
+        <div>
+          {file ? (
+            <LazyImage className={styles.img} src={file} alt="Team Logo" />
+          ) : (<div></div>
+        //    <LazyImage className={styles.img} src={user} alt="Default User" />
+          )}
+        </div>
+        <button className={styles.button} onClick={handleClick} aria-label="Open menu">
+          <i className="icon-camera" />
+        </button>
+        <Submenu open={open} onClose={handleClose} anchorEl={anchorEl} actions={submenuActions} />
+      </div>
                  </div>
-                 <button type='onSubmit'>submit</button>
+                 <button class="btn" type='onSubmit'>Validate    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
                 </div>
                 
                     

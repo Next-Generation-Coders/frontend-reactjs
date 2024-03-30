@@ -50,7 +50,7 @@ const useTourLogo = () => {
         };
     }
 
-    return {file, setFile, handleFile,formData, loading,message};
+    return {file, setFile, handleFile,formData, loading,message,setLoading};
 }
 
 export default useTourLogo

@@ -1,8 +1,12 @@
+import PageHeader from '@layout/PageHeader'
 import React from 'react'
 
 const KnockoutTournamentBuild = () => {
-  return (
-    <div>KnockoutTournamentBuild</div>
+  return (<>
+  <PageHeader title="Manage your tournament" />
+      <div>KnockoutTournamentBuild</div>
+  
+  </>
   )
 }
 

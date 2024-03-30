@@ -26,13 +26,14 @@ import TeamStatsProgress2 from './resultWidgets/TeamStatsProgress copy';
 import { useParams } from 'react-router-dom';
 import TeamsLineups1 from './resultWidgets/TeamsLineups1';
 import TeamsLineups2 from './resultWidgets/TeamsLineups2';
-
+import { useLocation } from 'react-router-dom';
 
 const matchID = "65fb89764297d5d1df8c8858"
 
 const socket = io('http://localhost:3000', { transports : ['websocket'] });
 const MatchResult = () => {
-
+  const { state } = useLocation();
+  const MatchIdfromLeaguesDisplay = state.matchId;
   
 //const {id} = useParams()
     const [result, setResult] = useState([]);
