@@ -1,4 +1,3 @@
-// styles
 import { Button } from '@mui/material';
 
 
@@ -26,6 +25,7 @@ import DialogActions from '@mui/material/DialogActions';
 import { toast } from 'react-toastify';
 import { GiNextButton } from "react-icons/gi";
 import { GiPreviousButton } from "react-icons/gi";
+import { FaRegEye } from "react-icons/fa";
 
 const PAGE_SIZE = 5;
 const AffichageCrud = () => {
@@ -35,6 +35,15 @@ const AffichageCrud = () => {
     const [openDialog, setOpenDialog] = useState(false);
     const [response, setResponse] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    const [openDialogDescription, setOpenDialogDescription] = useState(false);
+    const [selectedDescription, setSelectedDescription] = useState('');
+
+
+
+    const handleViewDescription = (description) => {
+        setSelectedDescription(description);
+        setOpenDialogDescription(true);
+    };
 
     const getPaginatedComplaints = () => {
         if (!complaints || !complaints.length) {
@@ -211,7 +220,11 @@ const AffichageCrud = () => {
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{complaint.user?.email || 'N/A'}</td>
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{complaint.user?.phone || 'N/A'}</td>
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{complaint.title}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{complaint.description}</td>
+                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
+                                        <span>
+                                            <FaRegEye style={{ cursor: 'pointer', marginLeft: '30px' }} onClick={() => handleViewDescription(complaint.description)} />
+                                        </span>
+                                    </td>
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{complaint.status}</td>
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd',paddingLeft:'50px' }}>
                                         <Button
@@ -271,10 +284,21 @@ const AffichageCrud = () => {
                         </Button>
                     </DialogActions>
                 </Dialog>
+                <Dialog open={openDialogDescription} onClose={() => setOpenDialogDescription(false)}>
+                    <DialogTitle>Description</DialogTitle>
+                    <DialogContent>
+                        <p>{selectedDescription}</p>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setOpenDialogDescription(false)} variant="contained" color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
             </div>
         </Spring>
     );
 };
 
 export default AffichageCrud;
-

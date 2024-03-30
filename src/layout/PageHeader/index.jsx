@@ -71,26 +71,35 @@ const DesktopHeader = ({title}) => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
-                const userId = userResponse.data._id;
-
-
-                const response = await axios.get(`http://localhost:3000/Notification/getByUserId/${userId}`);
-                setNotifications(response.data);
-
-                const countResponse = await axios.get(`http://localhost:3000/Notification/getNotificationCountByUserId/${userId}`);
-                setNotificationCount(countResponse.data.notificationCount)
-
-
+                if (USER && USER.email === 'moatazfoudhaily@gmail.com') {
+                    const responsecomplaint = await axios.get(`http://localhost:3000/api/AllComplaints`);
+                    if (responsecomplaint.data && Array.isArray(responsecomplaint.data.complaints)) {
+                        const filteredComplaints = responsecomplaint.data.complaints.filter(complaint => complaint.adminResponse === "");
+                        setNotifications(filteredComplaints);
+                        setNotificationCount(filteredComplaints.length);
+                    }
+                } else if (USER) {
+                    const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                    const userId = userResponse.data._id;
+                    const response = await axios.get(`http://localhost:3000/Notification/getByUserId/${userId}`);
+                    setNotifications(response.data);
+                    const countResponse = await axios.get(`http://localhost:3000/Notification/getNotificationCountByUserId/${userId}`);
+                    setNotificationCount(countResponse.data.notificationCount);
+                }
             } catch (error) {
                 console.error('Error fetching notifications:', error);
             }
         };
 
-        fetchNotifications();
-    }, [previousNotificationCount]);
-
-
+        if (USER) {
+            fetchNotifications();
+            const interval = setInterval(fetchNotifications, 5000);
+            return () => clearInterval(interval);
+        } else {
+            setNotifications([]);
+            setNotificationCount(0);
+        }
+    }, [USER]);
 
     return (
         <div className={`${styles.desktop} d-flex justify-content-between align-items-center g-20`}>
@@ -124,12 +133,14 @@ const DesktopHeader = ({title}) => {
                     </div>
 
                     <div className="d-flex g-16">
-                        <button className={`${styles.control} ${styles[direction]} h5`}
-                                onClick={() =>{ setCartOpen(true);playNotificationSound();}}>
-                            <i className="icon icon-gear-regular"/>
-                            <span className={styles.control_indicator}/>
-                            Notification ({notificationCount})
-                        </button>
+                        {notificationCount > 0 && (
+                            <button className={`${styles.control} ${styles[direction]} h5`} onClick={() => { setCartOpen(true); playNotificationSound(); }}>
+                                <i className="icon icon-gear-regular"/>
+                                <span className={styles.control_indicator}/>
+                                Notification ({notificationCount})
+                            </button>
+                        )}
+
 
                     </div>
                     <div className="d-flex g-16">

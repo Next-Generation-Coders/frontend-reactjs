@@ -65,23 +65,35 @@ const NotificationCart = ({isPopup}) => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
-                const userId = userResponse.data._id;
-
-
-                const response = await axios.get(`http://localhost:3000/Notification/getByUserId/${userId}`);
-                setNotifications(response.data);
-
-                const countResponse = await axios.get(`http://localhost:3000/Notification/getNotificationCountByUserId/${userId}`);
-                setNotificationCount(countResponse.data.notificationCount);
-
+                if (USER && USER.email === 'moatazfoudhaily@gmail.com') {
+                    const responsecomplaint = await axios.get(`http://localhost:3000/api/AllComplaints`);
+                    if (responsecomplaint.data && Array.isArray(responsecomplaint.data.complaints)) {
+                        const filteredComplaints = responsecomplaint.data.complaints.filter(complaint => complaint.adminResponse === "");
+                        setNotifications(filteredComplaints);
+                        setNotificationCount(filteredComplaints.length);
+                    }
+                } else if (USER) {
+                    const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                    const userId = userResponse.data._id;
+                    const response = await axios.get(`http://localhost:3000/Notification/getByUserId/${userId}`);
+                    setNotifications(response.data);
+                    const countResponse = await axios.get(`http://localhost:3000/Notification/getNotificationCountByUserId/${userId}`);
+                    setNotificationCount(countResponse.data.notificationCount);
+                }
             } catch (error) {
                 console.error('Error fetching notifications:', error);
             }
         };
 
-        fetchNotifications();
-    }, []);
+        if (USER) {
+            fetchNotifications();
+            const interval = setInterval(fetchNotifications, 5000);
+            return () => clearInterval(interval);
+        } else {
+            setNotifications([]);
+            setNotificationCount(0);
+        }
+    }, [USER]);
 
     return (
         <Wrapper {...wrapperProps}>
@@ -96,11 +108,13 @@ const NotificationCart = ({isPopup}) => {
                             <div className="d-flex align-items-center flex-1 g-10">
                                 <img className="square-avatar" src={getRandomImage()} />
                                 <div className="d-flex flex-column flex-1" ref={nameRef}>
-                                    <NavLink to="/product">
-                                        <TruncatedText className="h4" text={notification.title} width={width} lines={1}/>
-                                    </NavLink>
+                                    {USER.email === 'moatazfoudhaily@gmail.com' && (
+                                        <NavLink to="/complaint-list">
+                                            <TruncatedText className="h4" text={notification.title} width={width} lines={1}/>
+                                        </NavLink>
+                                    )}
 
-                                        <span className={`label label--store ${isPopup ? 'h5' : 'h6'}`}>
+                                    <span className={`label label--store ${isPopup ? 'h5' : 'h6'}`}>
                                             <p>{notification.description}</p>
                                     </span>
 
@@ -122,7 +136,14 @@ const NotificationCart = ({isPopup}) => {
             </ScrollContainer>
             <div className="card-padded d-flex flex-column g-20" ref={footerRef}>
 
-                <button className="btn w-100">Proceed to all notification</button>
+                <button className="btn w-100">
+                    {USER.email === 'moatazfoudhaily@gmail.com' ? (
+                        <NavLink to="/complaint-list">Proceed to all notification</NavLink>
+                    ) : (
+                        <NavLink to="/">Proceed to all notification</NavLink>
+                    )}
+                    </button>
+
             </div>
         </Wrapper>
     )

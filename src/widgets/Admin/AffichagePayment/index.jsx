@@ -21,6 +21,7 @@ import {GiCancel, GiNextButton, GiPreviousButton} from "react-icons/gi";
 import { Navigation } from './styles';
 import PropTypes from 'prop-types';
 import { FaSearch } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 
 
 const PAGE_SIZE = 5;
@@ -45,7 +46,6 @@ const AffichageCrud = () => {
                 }
 
                 const data = await response.json();
-                console.log(data)
 
                 setPayments(data);
             } catch (error) {
@@ -67,7 +67,6 @@ const AffichageCrud = () => {
                 }
 
                 const data = await response.json();
-                console.log(data)
 
                 setTournaments(data);
             } catch (error) {
@@ -122,6 +121,37 @@ const AffichageCrud = () => {
         setCurrentPage(newPage);
     };
 
+    const handleEditPaymentStatus = async (paymentId, currentStatus) => {
+        try {
+            const newStatus = currentStatus === 'unpaid' ? 'paid' : 'unpaid';
+
+            const response = await fetch(`http://localhost:3000/Payment/${paymentId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ payment_status: newStatus })
+
+            });
+            if (!response.ok) {
+                throw new Error('Failed to update payment status');
+            }
+
+            // Mettre à jour l'état des paiements localement si nécessaire
+            const updatedPayment = await response.json();
+            setPayments(prevPayments => {
+                const updatedPayments = prevPayments.map(payment => {
+                    if (payment._id === paymentId) {
+                        return { ...payment, payment_status: updatedPayment.payment_status };
+                    }
+                    return payment;
+                });
+                return updatedPayments;
+            });
+        } catch (error) {
+            console.error('Error updating payment status:', error);
+        }
+    };
     return (
         <Spring className="card h-fit card-padded">
             <div className="card h-fit card-padded">
@@ -147,47 +177,53 @@ const AffichageCrud = () => {
 
                 <div style={{ width: '100%', overflowX: 'auto', padding: '10px' }}>
                     {payments && payments.length > 0 ? (
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                        <thead>
-                        <tr>
-                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Name</th>
-                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Email</th>
-                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Address Wallet</th>
+                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <thead>
+                            <tr>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Name</th>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Email</th>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>User Address Wallet</th>
 
-                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Payment Status</th>
-                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Amount Paid</th>
-                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Tournament Title</th>
-                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {getPaginatedPayment().map(payment => (
-                            <tr key={payment._id}>
-                                {/*     */}
-                                <td style={{ padding: '20px', borderBottom: '1px solid #ddd' }}>{payment.user?.fullname} </td>
-                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.user?.email || ''}</td>
-                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.user?.addressWallet || 'No Address Wallet'}</td>
-
-                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd', color: payment.payment_status === 'paid' ? 'green' : 'red' }}>
-                                    {payment.payment_status === 'paid' ? (
-                                        <FiCheckCircle style={{ color: 'green', marginRight: '8px' }} />
-                                    ) : (
-                                        <GiCancel style={{ color: 'red', marginRight: '8px' }} />
-                                    )}
-                                    <b>{payment.payment_status}</b>
-                                </td>
-                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{displayAmountt(payment.amount)}</td>
-                                <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{getTournamentTitle(payment.tournament?._id)}</td>
-                                <td>
-                                    <Button onClick={() => openEditDialog(payment)} style={{   borderBottom: '1px solid #ddd',backgroundColor: 'green' }} >
-                                        <b style={{ color: 'white' }}>See more</b>
-                                    </Button>
-
-                                </td>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Payment Status</th>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Amount Paid</th>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Tournament Title</th>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Action</th>
                             </tr>
-                        ))}
-                        </tbody>
-                     </table>
+                            </thead>
+                            <tbody>
+                            {getPaginatedPayment().map(payment => (
+                                <tr key={payment._id}>
+                                    {/*     */}
+                                    <td style={{ padding: '20px', borderBottom: '1px solid #ddd' }}>{payment.user?.fullname} </td>
+                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.user?.email || ''}</td>
+                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{payment.user?.addressWallet || 'No Address Wallet'}</td>
+
+                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd', color: payment.payment_status === 'paid' ? 'green' : 'red' }}>
+
+                                        {payment.payment_status === 'paid' ? (
+                                            <FiCheckCircle style={{ color: 'green', marginRight: '8px' }} />
+
+                                        ) : (
+                                            <GiCancel style={{ color: 'red', marginRight: '8px' }} />
+                                        )}
+                                        <b>{payment.payment_status}</b>
+                                        <FaEdit
+                                            style={{ marginLeft: '20px', cursor: 'pointer' }}
+                                            onClick={() => handleEditPaymentStatus(payment._id, payment.payment_status)}
+                                        />
+                                    </td>
+                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{displayAmountt(payment.amount)}</td>
+                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{getTournamentTitle(payment.tournament?._id)}</td>
+                                    <td>
+                                        <Button onClick={() => openEditDialog(payment)} style={{   borderBottom: '1px solid #ddd',backgroundColor: 'green' }} >
+                                            <b style={{ color: 'white' }}>See more</b>
+                                        </Button>
+
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
 
                     ) : (
                         <p>No payment available.</p>
