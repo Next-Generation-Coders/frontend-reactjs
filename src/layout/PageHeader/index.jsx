@@ -16,7 +16,6 @@ import {useShopProvider} from '@contexts/shopContext';
 import useMeasure from 'react-use-measure';
 import useStoreRoute from '@hooks/useStoreRoute';
 
-// utils
 import PropTypes from 'prop-types';
 import {useEffect, useState} from "react";
 import axios from "axios";
