@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: 197.26.204.208:8083/frontend-pipeline_gestion_utilisateur-node_app:latest
     ports:
       - "3001:3001"
     volumes:
