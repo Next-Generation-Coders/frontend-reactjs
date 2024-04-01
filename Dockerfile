@@ -1,11 +1,11 @@
 FROM node:18
 WORKDIR ./frontpi
 COPY package*.json .
-COPY src .
+COPY src ./src
 COPY craco.config.js .
 COPY babel-plugin-macros.config.js .
-COPY public .
-COPY service .
+COPY public ./public
+COPY service ./service
 COPY jsconfig.json .
 COPY .env .
 RUN npm install --force
