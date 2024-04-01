@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:16
 WORKDIR ./frontpi
 COPY package*.json .
 COPY src ./src
