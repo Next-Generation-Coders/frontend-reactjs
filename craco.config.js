@@ -22,8 +22,12 @@ module.exports = {
             '@features': path.resolve(__dirname, 'src/features'),
         },
         optimization: {
-            minimize: false,
+            minimize: true,
+            splitChunks: {
+                chunks: 'all',
+            },
         },
-        devtool: 'cheap-module-source-map',
+        mode: 'production',
+        devtool: false,
     },
 };
