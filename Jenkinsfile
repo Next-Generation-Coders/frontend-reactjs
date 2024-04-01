@@ -8,14 +8,14 @@ pipeline {
     stage('Clean Build Folder (Optional)') {
             steps {
                 script {
+                    sh 'rm -rf node_modules'
+                    sh 'npm --legacy-peer-deps'
                     if (!fileExists('build')) {
                         echo 'Build folder not found.'
                     } else {
-                        sh 'rm -rf node_modules'
                         sh 'rm -rf build'
                         sh 'ls'
                         echo 'Build folder removed.'
-                        sh 'npm --legacy-peer-deps'
                     }
                 }
             }
