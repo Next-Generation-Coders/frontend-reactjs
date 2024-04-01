@@ -21,6 +21,9 @@ module.exports = {
             '@constants': path.resolve(__dirname, 'src/constants'),
             '@features': path.resolve(__dirname, 'src/features'),
         },
+        stats: {
+            warnings: false,
+        },
         optimization: {
             minimize: true,
             splitChunks: {
