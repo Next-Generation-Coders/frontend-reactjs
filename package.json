@@ -83,6 +83,7 @@
     "styled-components": "^5.3.6",
     "styled-theming": "^2.2.0",
     "stylis-plugin-rtl": "^2.1.1",
+    "svgo": "^2.2.0",
     "swiper": "^8.4.6",
     "tesseract.js": "^5.0.5",
     "use-gauge": "^0.5.0",
