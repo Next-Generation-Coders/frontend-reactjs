@@ -9,7 +9,7 @@ export const useBlockUser = () => {
         setLoading(true)
         setError('')
 
-        const response = await fetch('http://localhost:3000/User/toggle-block', {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+'/User/toggle-block', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

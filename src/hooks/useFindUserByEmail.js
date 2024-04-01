@@ -13,7 +13,7 @@ export const useFindUserByEmail = () => {
         setIsLoading(true)
         setError('')
 
-        const response = await fetch(`http://localhost:3000/User/email/${email}`, {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+`/User/email/${email}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
         })

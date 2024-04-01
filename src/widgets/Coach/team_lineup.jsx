@@ -61,7 +61,7 @@ export const TeamLineupManager = () => {
   const getLineup = async () => {
     try {
       const teamId = "65e7245fd82eb4076b42776a"; // Use the actual team ID
-      const response = await fetch(`http://localhost:3000/Team/getLineup/${teamId}`);
+      const response = await fetch(process.env.REACT_APP_BASE_URL+`/Team/getLineup/${teamId}`);
       const lineupData = await response.json();
       
       console.log("Lineup Data:", lineupData); // Log the entire lineup data object
@@ -82,7 +82,7 @@ export const TeamLineupManager = () => {
 
   const getTeamByCoach = async (coachId) => {
     try {
-      const response = await fetch(`http://localhost:3000/Team/getTeambyCoach/${coachId}`);
+      const response = await fetch(process.env.REACT_APP_BASE_URL+`/Team/getTeambyCoach/${coachId}`);
       const data = await response.json();
       console.log(data)
       return data;
@@ -103,11 +103,11 @@ export const TeamLineupManager = () => {
   
         // Check if the team has a lineup saved
       const teamId = "65e7245fd82eb4076b42776a"; // Use the actual team ID
-      const response = await fetch(`http://localhost:3000/Team/getLineup/${teamId}`);
+      const response = await fetch(process.env.REACT_APP_BASE_URL+`/Team/getLineup/${teamId}`);
       const existingLineup = await response.json();
           //console.log(existingLineup+"adadaddddddddd")
       if(existingLineup){
-        const updateResponse = await fetch(`http://localhost:3000/Team/updateLineup/${teamId}`, {
+        const updateResponse = await fetch(process.env.REACT_APP_BASE_URL+`/Team/updateLineup/${teamId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -120,7 +120,7 @@ export const TeamLineupManager = () => {
         console.log('Lineup updated:', updatedLineup);
       }
       else{
-      const response = await fetch('http://localhost:3000/Team/addLineup/', {
+      const response = await fetch(process.env.REACT_APP_BASE_URL+'/Team/addLineup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

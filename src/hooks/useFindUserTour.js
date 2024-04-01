@@ -11,7 +11,7 @@ export const useFindUserTour = () => {
     const findTours = async () => {
         setIsLoading(true)
         setError('')
-        const response = await fetch(`http://localhost:3000/User/player-tournaments`, {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+`/User/player-tournaments`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export const useFindUserTour = () => {
     const findTeams = async (tournament) => {
         setIsLoading(true)
         setError('')
-        const response = await fetch(`http://localhost:3000/User/player-teams/${tournament._id}`, {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+`/User/player-teams/${tournament._id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

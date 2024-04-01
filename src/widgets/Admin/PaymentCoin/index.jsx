@@ -189,12 +189,12 @@ const App = () => {
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
-        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userResponse = await axios.get(process.env.REACT_APP_BASE_URL+`/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
         setUserId(userId);
 
 
-        const response = await axios.get(`http://localhost:3000/Tournament/getByUserId/${userId}`);
+        const response = await axios.get(process.env.REACT_APP_BASE_URL+`/Tournament/getByUserId/${userId}`);
 
         const data = response.data && response.data.tournaments ? response.data.tournaments : [];
         console.log("tournament :",data)
@@ -247,7 +247,7 @@ const App = () => {
         amount: amount,
       };
 
-      const response = await axios.post('http://localhost:3000/Payment/createPayment', formData);
+      const response = await axios.post(process.env.REACT_APP_BASE_URL+'/Payment/createPayment', formData);
 
       console.log("data cc:",formData)
 
@@ -259,7 +259,7 @@ const App = () => {
       console.log("payment dddd:", payment);
 
       if (addressesMatch && payment) {
-        await axios.put(`http://localhost:3000/Payment/${payment._id}`, { payment_status: 'paid' });
+        await axios.put(process.env.REACT_APP_BASE_URL+`/Payment/${payment._id}`, { payment_status: 'paid' });
         toast.success("Your payment has been processed successfully!");
         navigate('/payment/checkout-success');
 

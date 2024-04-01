@@ -16,7 +16,7 @@ export const useFindUserChats = () => {
         setIsLoading(true)
         setError('')
 
-        const response = await fetch('http://localhost:3000/Chat/', {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+'/Chat/', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

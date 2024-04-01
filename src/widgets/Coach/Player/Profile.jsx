@@ -31,7 +31,7 @@ const Profile = () => {
     // Function to add a new player
     const addNewPlayer = async (coachId, newPlayerData) => {
         try {
-            const response = await fetch(`http://localhost:3000/Team/addPlayer/${coachId}`, {
+            const response = await fetch(process.env.REACT_APP_BASE_URL+`/Team/addPlayer/${coachId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

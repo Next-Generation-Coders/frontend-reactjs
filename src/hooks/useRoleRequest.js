@@ -14,7 +14,7 @@ export const useRoleRequest = () => {
     const submitRequest = async (requestedRole) => {
         setIsLoading(true)
         setError('')
-        const response = await fetch(`http://localhost:3000/User/request/`, {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+`/User/request/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export const useRoleRequest = () => {
 
     const checkRequest = async ()=> {
         setFetching(true);
-        const response = await fetch(`http://localhost:3000/User/check-request`, {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+`/User/check-request`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export const useRoleRequest = () => {
 
     const fetchRequests = async ()=> {
         setIsLoading(true);
-        const response = await fetch(`http://localhost:3000/User/requests`, {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+`/User/requests`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ export const useRoleRequest = () => {
     }
     const acceptRequest = async (request)=> {
         setFetching(true);
-        const response = await fetch(`http://localhost:3000/User/accept`, {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+`/User/accept`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ export const useRoleRequest = () => {
     }
     const rejectRequest = async (request)=> {
         setFetching(true);
-        const response = await fetch(`http://localhost:3000/User/reject`, {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+`/User/reject`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

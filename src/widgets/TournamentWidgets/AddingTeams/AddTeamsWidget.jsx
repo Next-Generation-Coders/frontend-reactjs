@@ -9,7 +9,7 @@ const AddTeamsWidget = () => {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/Team/getall');
+        const response = await axios.get(process.env.REACT_APP_BASE_URL+'/Team/getall');
         setTeams(response.data);
       } catch (error) {
         console.error('Error fetching teams:', error);
@@ -23,7 +23,7 @@ const AddTeamsWidget = () => {
   const addTeamsToTournament = async () => {
     try {
       
-      await axios.put('http://localhost:3000/Tournament/addteams/65e606111c6ca2f4141c4714', { teams: selectedTeams });
+      await axios.put(process.env.REACT_APP_BASE_URL+'/Tournament/addteams/65e606111c6ca2f4141c4714', { teams: selectedTeams });
       console.log('Selected teams added to the tournament successfully.');
     } catch (error) {
       console.error('Error adding teams to tournament:', error);

@@ -12,7 +12,7 @@ export const useUpdateProfile = () => {
         setIsLoading(true)
         setError('')
         user.email = USER.email;
-        const response = await fetch('http://localhost:3000/User/profile', {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+'/User/profile', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -30,7 +30,7 @@ const Messages = () => {
     const selectedChat = useSelector(state => state.chats.chats.find(chat => chat._id === selectedChatId));
     let socket;
     try{
-         socket = io('http://localhost:3000', { transports : ['websocket'] });
+         socket = io(process.env.REACT_APP_BASE_URL+'', { transports : ['websocket'] });
     }catch(error){
         console.log("Socket couldn't connect, ERROR:",error.message)
     }

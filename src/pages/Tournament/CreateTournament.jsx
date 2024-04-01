@@ -29,7 +29,7 @@ const CreateTournament = () => {
         };
         
         console.log("Final form data:", dataToSend);
-        fetch('http://localhost:3000/Tournament/add', {
+        fetch(process.env.REACT_APP_BASE_URL+'/Tournament/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

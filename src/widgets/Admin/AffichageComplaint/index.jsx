@@ -56,7 +56,7 @@ const AffichageCrud = () => {
         if (!searchTerm) {
             const fetchData = async () => {
                 try {
-                    const response = await axios.get('http://localhost:3000/api/AllComplaints');
+                    const response = await axios.get(process.env.REACT_APP_BASE_URL+'/api/AllComplaints');
                     setComplaints(response.data.complaints);
                 } catch (error) {
                     console.error('Error fetching complaints:', error.message);
@@ -81,7 +81,7 @@ const AffichageCrud = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/AllComplaints');
+                const response = await axios.get(process.env.REACT_APP_BASE_URL+'/api/AllComplaints');
                 setComplaints(response.data.complaints);
             } catch (error) {
                 console.error('Error fetching complaints:', error.message);
@@ -115,7 +115,7 @@ const AffichageCrud = () => {
             const confirmed = window.confirm("Are you sure you want to delete this complaint?");
 
             if (confirmed) {
-                const apiResponse = await axios.delete(`http://localhost:3000/api/complaints/${complaintId}`);
+                const apiResponse = await axios.delete(process.env.REACT_APP_BASE_URL+`/api/complaints/${complaintId}`);
 
                 const updatedComplaints = apiResponse.data.complaints;
 
@@ -150,7 +150,7 @@ const AffichageCrud = () => {
                 response: responseValue,
             });
 
-            const apiResponse = await axios.put('http://localhost:3000/api/complaints/respond', {
+            const apiResponse = await axios.put(process.env.REACT_APP_BASE_URL+'/api/complaints/respond', {
                 complaintId: selectedComplaint._id,
                 response: responseValue,
             });

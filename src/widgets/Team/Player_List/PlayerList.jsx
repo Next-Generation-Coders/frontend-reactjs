@@ -22,7 +22,7 @@ const PlayerList = () => {
     useEffect(() => {
         async function fetchTeamData() {
             try {
-                const response = await fetch('http://localhost:3000/Team/getTeambyTeamManger/65e3b04de506da5b7fdff654');
+                const response = await fetch(process.env.REACT_APP_BASE_URL+'/Team/getTeambyTeamManger/65e3b04de506da5b7fdff654');
                 const data = await response.json();
                 setTeamData(data);
             } catch (error) {
@@ -31,7 +31,7 @@ const PlayerList = () => {
         }
         async function fetchPlayerData() {
             try {
-                const response = await fetch(`http://localhost:3000/User/getPlayersByIds/+${teamData.players}`);
+                const response = await fetch(process.env.REACT_APP_BASE_URL+`/User/getPlayersByIds/+${teamData.players}`);
                 const data = await response.json();
                 setPlayerData(data);
             } catch (error) {

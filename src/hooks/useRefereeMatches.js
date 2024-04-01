@@ -10,7 +10,7 @@ export const useRefereeMatches = () => {
     const findMatches = async () => {
         setIsLoading(true)
         setError('')
-        const response = await fetch(`http://localhost:3000/Match/ref-matches`, {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+`/Match/ref-matches`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

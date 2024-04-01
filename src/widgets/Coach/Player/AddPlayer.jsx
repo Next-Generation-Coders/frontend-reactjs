@@ -19,7 +19,7 @@ import {useWindowSize} from 'react-use';
 
 const checkCoach = async (coachId) => {
     try {
-      const response = await fetch(`http://localhost:3000/Team/checkCoach/${coachId}`);
+      const response = await fetch(process.env.REACT_APP_BASE_URL+`/Team/checkCoach/${coachId}`);
       const data = await response.json();
       return data.exists;
     } catch (error) {

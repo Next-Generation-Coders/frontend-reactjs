@@ -19,7 +19,7 @@ const TeamProfileCard = () => {
     useEffect(() => {
         async function fetchTeamData() {
             try {
-                const response = await fetch('http://localhost:3000/Team/getTeambyTeamManger/65e3b04de506da5b7fdff654');
+                const response = await fetch(process.env.REACT_APP_BASE_URL+'/Team/getTeambyTeamManger/65e3b04de506da5b7fdff654');
                 const data = await response.json();
                 setTeamData(data);
                 console.log(data)
@@ -30,7 +30,7 @@ const TeamProfileCard = () => {
 
         async function fetchUserData() {
             try {
-                const response = await fetch('http://localhost:3000/User/getbyid/65e3b04de506da5b7fdff654'); // team manger id 
+                const response = await fetch(process.env.REACT_APP_BASE_URL+'/User/getbyid/65e3b04de506da5b7fdff654'); // team manger id 
                 const data = await response.json();
                 setUserData(data);
                 console.log(userData)

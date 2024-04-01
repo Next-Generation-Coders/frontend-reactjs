@@ -21,7 +21,7 @@ const Team = () => {
   const {USER} = useAuthContext()
   const checkCoach = async (coachId) => {
     try {
-      const response = await fetch(`http://localhost:3000/Team/checkCoach/${coachId}`);
+      const response = await fetch(process.env.REACT_APP_BASE_URL+`/Team/checkCoach/${coachId}`);
       const data = await response.json();
       return data.exists;
     } catch (error) {
@@ -32,7 +32,7 @@ const Team = () => {
 
   async function updateTeam(coachId) {
     try {
-      const response = await fetch(`http://localhost:3000/Team/updateXTeam/${coachId}`, {
+      const response = await fetch(process.env.REACT_APP_BASE_URL+`/Team/updateXTeam/${coachId}`, {
         method: 'PUT',
       });
   
@@ -68,7 +68,7 @@ const Team = () => {
       name: data.fullname,
       logo: file,
     };
-    const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+    const userResponse = await axios.get(process.env.REACT_APP_BASE_URL+`/User/getbyemail?email=${USER.email}`);
     const userId = userResponse.data._id;
 
 
@@ -77,7 +77,7 @@ const Team = () => {
       formData.append('name', newTeamData.name);
       formData.append('team', file);
 
-      const response = await fetch(`http://localhost:3000/Team/add/${userId}`, {
+      const response = await fetch(process.env.REACT_APP_BASE_URL+`/Team/add/${userId}`, {
         method: 'POST',
         body: formData,
       })  ;

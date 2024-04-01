@@ -11,7 +11,7 @@ export const DragAndDrop = () => {
 
     const getTeamByCoach = async (coachId) => {
         try {
-            const response = await fetch(`http://localhost:3000/Team/getTeambyCoach/${coachId}`);
+            const response = await fetch(process.env.REACT_APP_BASE_URL+`/Team/getTeambyCoach/${coachId}`);
             /* if (!response.ok) {
                 throw new Error('Failed to fetch team');
             } */

@@ -71,14 +71,14 @@ const DesktopHeader = ({title}) => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                const userResponse = await axios.get(process.env.REACT_APP_BASE_URL+`/User/getbyemail?email=${USER.email}`);
                 const userId = userResponse.data._id;
 
 
-                const response = await axios.get(`http://localhost:3000/Notification/getByUserId/${userId}`);
+                const response = await axios.get(process.env.REACT_APP_BASE_URL+`/Notification/getByUserId/${userId}`);
                 setNotifications(response.data);
 
-                const countResponse = await axios.get(`http://localhost:3000/Notification/getNotificationCountByUserId/${userId}`);
+                const countResponse = await axios.get(process.env.REACT_APP_BASE_URL+`/Notification/getNotificationCountByUserId/${userId}`);
                 setNotificationCount(countResponse.data.notificationCount)
 
 

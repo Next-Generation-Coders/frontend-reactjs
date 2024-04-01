@@ -56,10 +56,10 @@ const Index = () => {
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
-        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userResponse = await axios.get(process.env.REACT_APP_BASE_URL+`/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
 
-        const response = await axios.get(`http://localhost:3000/Tournament/getByUserId/${userId}`);
+        const response = await axios.get(process.env.REACT_APP_BASE_URL+`/Tournament/getByUserId/${userId}`);
 
         const data = response.data && response.data.tournaments ? response.data.tournaments : [];
         setTournaments(data);
@@ -78,10 +78,10 @@ const Index = () => {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userResponse = await axios.get(process.env.REACT_APP_BASE_URL+`/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
 
-        const response = await axios.get(`http://localhost:3000/Payment/user/${userId}`);
+        const response = await axios.get(process.env.REACT_APP_BASE_URL+`/Payment/user/${userId}`);
 
         const data = response.data || [];
         console.log('payments :',data)

@@ -29,7 +29,7 @@ import TeamsLineups2 from './resultWidgets/TeamsLineups2';
 
 
 
-const socket = io('http://localhost:3000', { transports : ['websocket'] });
+const socket = io(process.env.REACT_APP_BASE_URL+'', { transports : ['websocket'] });
 const MatchResult = () => {
 
   
@@ -42,10 +42,10 @@ const {id} = useParams()
         // Fetch current result when component mounts
         const fetchResult = async () => {
           try {
-            const response = await axios.get(`http://localhost:3000/api/result/${id}`); // Assuming you have an endpoint to get the current result
+            const response = await axios.get(process.env.REACT_APP_BASE_URL+`/api/result/${id}`); // Assuming you have an endpoint to get the current result
             console.log(response.data);
             setResult(response.data);
-            const teamsResponse = await axios.get(`http://localhost:3000/api/teams/${id}`);
+            const teamsResponse = await axios.get(process.env.REACT_APP_BASE_URL+`/api/teams/${id}`);
             setTeams(teamsResponse.data);
 
           } catch (error) {

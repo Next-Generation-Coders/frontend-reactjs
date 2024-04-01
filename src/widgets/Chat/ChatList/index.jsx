@@ -49,7 +49,7 @@ const ChatList = ({userChats,isLoading,selected}) => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/User/for-chat`,{
+                const response = await fetch(process.env.REACT_APP_BASE_URL+`/User/for-chat`,{
                     method: 'GET',
                         headers: {
                         'Content-Type': 'application/json',

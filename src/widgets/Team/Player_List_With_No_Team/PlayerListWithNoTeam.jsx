@@ -24,7 +24,7 @@ const PlayerListWithNoTeam = () => {
     const addNewPlayer = async ( newPlayerData) => {
         console.log(newPlayerData+"-----------")
         try {
-            const response = await fetch(`http://localhost:3000/Team/addPlayer/65ec9ea8b7fc6d8a3d4f3536`, {
+            const response = await fetch(process.env.REACT_APP_BASE_URL+`/Team/addPlayer/65ec9ea8b7fc6d8a3d4f3536`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -44,7 +44,7 @@ const PlayerListWithNoTeam = () => {
     useEffect(() => {
         async function fetchPlayerData() {
             try {
-                const response = await fetch(`http://localhost:3000/User/getallPlayersWithNoTeam`);
+                const response = await fetch(process.env.REACT_APP_BASE_URL+`/User/getallPlayersWithNoTeam`);
                 const data = await response.json();
                 setPlayerData(data);
             } catch (error) {

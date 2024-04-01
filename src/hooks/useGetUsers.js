@@ -13,7 +13,7 @@ export const useGetUsers = () => {
         setIsLoading(true)
         setError('')
 
-        const response = await fetch('http://localhost:3000/User/getall', {
+        const response = await fetch(process.env.REACT_APP_BASE_URL+'/User/getall', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
