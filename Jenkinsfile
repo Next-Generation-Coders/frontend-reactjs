@@ -9,6 +9,7 @@ pipeline {
         stage('Build application') {
             steps {
                 script {
+                        sh 'rm -rf build'
                         sh 'npm run build'
                 }
             }
