@@ -34,7 +34,5 @@ module.exports = {
                 chunks: 'all',
             },
         },
-        mode: 'production',
-        devtool: false,
     },
 };
