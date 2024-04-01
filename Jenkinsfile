@@ -5,23 +5,7 @@ pipeline {
         registry = "197.26.204.208:8083"
     }
     stages {
-        stage('Install dependencies') {
-            steps {
-                script {
-                    sh 'npm install --legacy-peer-deps'
-                }
-            }
-        }
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'scanner'
-                    withSonarQubeEnv {
-                        sh "${scannerHome}/bin/sonar-scanner -X"
-                    }
-                }
-            }
-        }
+
         stage('Build application') {
             steps {
                 script {
