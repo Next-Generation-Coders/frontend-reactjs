@@ -5,33 +5,11 @@ pipeline {
         registry = "197.26.204.208:8083"
     }
     stages {
-    stage('Clean Build Folder (Optional)') {
-            steps {
-                script {
-                    if (!fileExists('build')) {
-                        echo 'Build folder not found.'
-                    } else {
-                        sh 'rm -rf build'
-                        sh 'ls'
-                        echo 'Build folder removed.'
-                    }
-                }
-            }
-        }
-        stage('Build application') {
-            steps {
-                script {
-                    try {
-                        sh 'npm run build'
-                    } catch (Exception e) {
-                        catchError(buildResult: 'UNSTABLE', message: "Build failed: ${e.message}")
-                    }
-                }
-            }
-        }
+
         stage('Building image') {
             steps {
                 script {
+                    sh('npm cache clean --force')
                     sh('docker-compose build')
                 }
             }
