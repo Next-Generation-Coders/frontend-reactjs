@@ -21,7 +21,11 @@ pipeline {
         stage('Build application') {
             steps {
                 script {
+                    try {
                         sh 'npm run build'
+                    } catch (Exception e) {
+                        catchError(buildResult: 'UNSTABLE', message: "Build failed: ${e.message}")
+                    }
                 }
             }
         }
