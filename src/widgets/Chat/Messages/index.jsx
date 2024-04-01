@@ -21,7 +21,8 @@ import {useAuthContext} from "@hooks/useAuthContext";
 import io from "socket.io-client";
 import {useEffect, useState} from "react";
 import {useFindUserChats} from "@hooks/useFindUserChats";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {toggleCollapse} from "@features/chats/chatSlice";
 
 
 const Messages = () => {
@@ -33,6 +34,7 @@ const Messages = () => {
     }catch(error){
         console.log("Socket couldn't connect, ERROR:",error.message)
     }
+    const dispatch = useDispatch();
     const {getChats} = useFindUserChats();
     const [sending,setSending] = useState(false);
 
@@ -41,6 +43,7 @@ const Messages = () => {
     const sendMessage = async (data)=>{
         setSending(true)
         socket.emit('message',data);
+
     }
     useEffect(() => {
         async function fetchData() {
@@ -52,6 +55,7 @@ const Messages = () => {
         socket.on('received',async (data)=>{
             await fetchData().then(()=>{
                 setSending(false)
+                dispatch(toggleCollapse({ id: data._id }))
             })
         })
     },[])

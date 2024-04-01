@@ -9,7 +9,7 @@ import BasicCheckbox from '@ui/BasicCheckbox';
 import dayjs from 'dayjs';
 
 // actions
-import {toggleComplete, removeTodo,toggleCollapse} from '@features/chats/chatSlice';
+import {toggleComplete,toggleCollapse} from '@features/chats/chatSlice';
 
 // constants
 import {CHAT_LEGEND} from '@constants/chat';
@@ -37,7 +37,7 @@ const Chat = ({data, variant}) => {
         return dateB - dateA;
     });
     const latestMessage = data.messages[data.messages.length-1]
-    const timestamp = data.messages ? data.messages[data.messages.length-1].timestamp : moment().set({date: 17, month: 3, year: 2022, hour: 12, minute: 20}).valueOf();
+    const timestamp = data.messages && data.messages.length > 0 ? data.messages[data.messages.length-1].timestamp : moment().set({date: 17, month: 3, year: 2022, hour: 12, minute: 20}).valueOf();
     const dispatch = useDispatch();
     const checkboxColor = CHAT_LEGEND.find(item => item.text.toLowerCase() === type.toLowerCase()).color;
     const handleClick = (_id)=>{
@@ -49,6 +49,36 @@ const Chat = ({data, variant}) => {
             default:
             case 'list':
                 return (
+                    data.messages.length === 0 ?
+                        <div className={styles.list_item} tabIndex={0} style={{
+                            backgroundColor:complete ? "rgba(230, 230, 230, 0.1)" : "rgba(0, 0, 0, 0.5)"
+                        }} onClick={() => handleClick(_id)}>
+                            <div className={styles.content} >
+                                <BasicCheckbox id={`${_id}`}
+                                               color={checkboxColor}
+                                               checked={complete}
+                                               onChange={() => dispatch(toggleCollapse({id:_id}))}/>
+                                <div className="d-flex flex-column g-2 flex-1">
+                                    <input className={`${styles.label} text-overflow`} type="text" defaultValue={label} readOnly={true}/>
+                                    <input className={`${styles.sender} text-overflow`} type="text" defaultValue={latestMessage ? latestMessage.senderEmail : ''} readOnly={true}/>
+                                    <span className="label h6">
+                                    {latestMessage ? dayjs(timestamp).format('DD MMM YYYY / HH:mm') : ''}
+                                </span>
+                                </div>
+                                <div className={styles.secondary}>
+                                    {/*<button className={`${styles.delete} label h6`}*/}
+                                    {/*        onClick={() => dispatch(removeTodo({_id}))}>*/}
+                                    {/*   Remove*/}
+                                    {/*</button>*/}
+                                    <div className={styles.category}>
+                                        <span className={`${styles.category_label} label h6`}>{type}</span>
+                                        <span className={styles.category_color}
+                                              style={{backgroundColor: `var(--${checkboxColor})`}}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        :
                     <div className={styles.list_item} tabIndex={0} style={{
                         backgroundColor:complete ? "rgba(230, 230, 230, 0.1)" : "rgba(0, 0, 0, 0.5)"
                     }} onClick={() => handleClick(_id)}>

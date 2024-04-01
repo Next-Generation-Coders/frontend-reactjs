@@ -17,15 +17,14 @@ import {Controller, useForm} from 'react-hook-form';
 
 // utils
 import classNames from 'classnames';
-import {nanoid} from 'nanoid';
 
 // actions
 import {addChat, toggleCollapse} from '@features/chats/chatSlice';
 
 // constants
 import {CHAT_LEGEND, CHAT_OPTIONS} from '@constants/chat';
-import {useAuthContext} from "@hooks/useAuthContext";
 import CustomMultiSelect from "@ui/CustomMultiSelect";
+import {useChat} from "@hooks/useChat";
 
 const ChatList = ({userChats,isLoading,selected}) => {
 
@@ -42,35 +41,9 @@ const ChatList = ({userChats,isLoading,selected}) => {
     const [footerRef, {height: footerHeight}] = useMeasure();
     const trackRef = useRef(null);
 
-    const chats = useSelector(state => state['chats'].chats);
     const dispatch = useDispatch();
 
-    const onSubmit = data => {
-        const id = nanoid(5);
-        dispatch(addChat({
-            type: data.type.value,
-            label: data.label,
-            expanded: false
-        }));
-        let participants = [{}];
-        data.participants.forEach(user=>{
-            const participant = user.value
-            participants.push(participant);
-        })
-        console.log(participants);
-        const Chat = {
-            label:data.label,
-            owner:null,
-            participants: participants,
-            type: data.type.value,
-            messages: [],
-        }
-        console.log(Chat);
-        setFormVisible(false);
-        setTimeout(() => dispatch(toggleCollapse({id})), 300);
-        data.participants=null;
-        reset();
-    }
+
     const [users, setUsers] = useState([]);
     const [fetchingUsers,setFetchingUsers]=useState(true);
     useEffect(() => {
@@ -102,6 +75,38 @@ const ChatList = ({userChats,isLoading,selected}) => {
             console.log(e.message);
         })
     }, []);
+
+    const {createChat,chat} = useChat();
+
+    const onSubmit = async data => {
+        dispatch(addChat({
+            type: data.type.value,
+            label: data.label,
+            expanded: false
+        }));
+        let participants = [];
+        data.participants.forEach(user=>{
+            const participant = user.value
+            participants.push(participant);
+        })
+        console.log(participants);
+        const Chat = {
+            label:data.label,
+            owner:null,
+            participants: participants,
+            type: data.type.value,
+            messages: [],
+        }
+
+        await createChat(Chat).then((chat)=>{
+            console.log(Chat);
+            setFormVisible(false);
+            setTimeout(() => dispatch(toggleCollapse({id:chat._id})), 300);
+            data.participants=null;
+            reset();
+        });
+
+    }
 
     const onReset = () => {
         reset();

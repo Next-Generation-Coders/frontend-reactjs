@@ -17,6 +17,8 @@ import {useNavigate} from "react-router-dom";
 
 // assets
 import user from '@assets/placeholder.webp';
+import { MdVerified } from "react-icons/md";
+import { MdOutlineVerified } from "react-icons/md";
 
 const User = () => {
 
@@ -81,6 +83,10 @@ const User = () => {
         USER ?
             <div className="d-flex align-items-center g-16">
                 <div>
+                    {
+                        USER.verified ? <MdVerified/> : <MdOutlineVerified/>
+                    }
+
                 </div>
                 <div className={styles.avatar}>
                     <img className="c-pointer" src={USER.avatar ? USER.avatar : user} alt="user" onClick={handleClick}/>
