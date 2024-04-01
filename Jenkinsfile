@@ -9,7 +9,6 @@ pipeline {
         stage('Building image') {
             steps {
                 script {
-                    sh('npm cache clean --force')
                     sh('docker-compose build')
                 }
             }
