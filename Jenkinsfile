@@ -9,15 +9,7 @@ pipeline {
         stage('Build application') {
             steps {
                 script {
-                    try{
                         sh 'npm run build'
-                    }catch(e){
-                        echo "Error during build: ${e.getMessage()}"
-                        echo "Stack trace: "
-                        echo e.getMessage()
-                        echo e.getStackTrace()
-                        error "Build failed!"
-                    }
                 }
             }
         }
