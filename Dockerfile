@@ -8,7 +8,7 @@ COPY public ./public
 COPY service ./service
 COPY jsconfig.json .
 COPY .env .
-RUN npm config set fetch-retry-maxtimeout 120000
+RUN npm cache clean --force
 RUN npm install --force
 EXPOSE 3001
 CMD ["npm","run","start"]
