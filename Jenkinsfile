@@ -8,8 +8,6 @@ pipeline {
     stage('Clean Build Folder (Optional)') {
             steps {
                 script {
-                    sh 'rm -rf node_modules'
-                    sh 'npm install --legacy-peer-deps'
                     if (!fileExists('build')) {
                         echo 'Build folder not found.'
                     } else {
