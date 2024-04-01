@@ -14,7 +14,8 @@ pipeline {
                     }catch(e){
                         echo "Error during build: ${e.getMessage()}"
                         echo "Stack trace: "
-                        echo e.stackTrace()
+                        echo e.getMessage()
+                        echo e.getStackTrace()
                         error "Build failed!"
                     }
                 }
