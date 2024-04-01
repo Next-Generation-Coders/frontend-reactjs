@@ -9,7 +9,7 @@ pipeline {
             steps {
                 script {
                     sh 'rm -rf node_modules'
-                    sh 'npm --legacy-peer-deps'
+                    sh 'npm install --legacy-peer-deps'
                     if (!fileExists('build')) {
                         echo 'Build folder not found.'
                     } else {
