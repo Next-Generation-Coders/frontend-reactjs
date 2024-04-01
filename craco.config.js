@@ -21,8 +21,12 @@ module.exports = {
             '@constants': path.resolve(__dirname, 'src/constants'),
             '@features': path.resolve(__dirname, 'src/features'),
         },
-        stats: {
-            warnings: false,
+        configure: (webpackConfig, { env, paths }) => {
+            webpackConfig.stats = {
+                warnings: false,
+            };
+
+            return webpackConfig;
         },
         optimization: {
             minimize: true,
