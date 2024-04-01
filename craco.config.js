@@ -21,5 +21,9 @@ module.exports = {
             '@constants': path.resolve(__dirname, 'src/constants'),
             '@features': path.resolve(__dirname, 'src/features'),
         },
-    }
+        optimization: {
+            minimize: false,
+        },
+        devtool: 'cheap-module-source-map',
+    },
 };
