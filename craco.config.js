@@ -5,6 +5,9 @@ module.exports = {
         port: 3001,
     },
     webpack: {
+        eslint: {
+            enable: false,
+        },
         alias: {
             '@components': path.resolve(__dirname, 'src/components'),
             '@ui': path.resolve(__dirname, 'src/ui'),
