@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useRef } from 'react';
 
-const TimeMatch = () => {
+const TimeMatch = ({matchID}) => {
   const [matchStarted, setMatchStarted] = useState(false);
   const [matchTime, setMatchTime] = useState({ minutes: 0, seconds: 0 });
   const [pauseTime, setPauseTime] = useState({ minutes: 0, seconds: 0 });
@@ -22,8 +22,8 @@ const TimeMatch = () => {
       setMatchTime({ minutes, seconds });
     }, 1000);
     try {
-      const response = await axios.post('http://localhost:3000/api/results', {
-        matchId: '65fb89764297d5d1df8c8858' // Replace with actual match ID if available
+      const response = await axios.post('http://localhost:3000/result/results', {
+        matchId: matchID // Replace with actual match ID if available
       });
       console.log('Result state initiated:', response.data);
     } catch (error) {
@@ -57,7 +57,7 @@ const TimeMatch = () => {
     setMatchTime({ minutes: 0, seconds: 0 });
     setPauseTime({ minutes: 0, seconds: 0 });
     setElapsedTime(0);
-  };
+    };
 
   return (
     <div>

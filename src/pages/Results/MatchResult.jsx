@@ -44,10 +44,10 @@ const MatchResult = () => {
         // Fetch current result when component mounts
         const fetchResult = async () => {
           try {
-            const response = await axios.get(`http://localhost:3000/api/result/${matchID}`); // Assuming you have an endpoint to get the current result
+            const response = await axios.get(`http://localhost:3000/api/result/${MatchIdfromLeaguesDisplay}`); // Assuming you have an endpoint to get the current result
             console.log(response.data);
             setResult(response.data);
-            const teamsResponse = await axios.get(`http://localhost:3000/api/teams/${matchID}`);
+            const teamsResponse = await axios.get(`http://localhost:3000/api/teams/${MatchIdfromLeaguesDisplay}`);
             setTeams(teamsResponse.data);
 
           } catch (error) {

@@ -108,7 +108,7 @@ const NotificationCart = ({isPopup}) => {
                             <div className="d-flex align-items-center flex-1 g-10">
                                 <img className="square-avatar" src={getRandomImage()} />
                                 <div className="d-flex flex-column flex-1" ref={nameRef}>
-                                    {USER.email === 'moatazfoudhaily@gmail.com' && (
+                                    {USER && USER.email === 'moatazfoudhaily@gmail.com' && (
                                         <NavLink to="/complaint-list">
                                             <TruncatedText className="h4" text={notification.title} width={width} lines={1}/>
                                         </NavLink>
@@ -137,10 +137,8 @@ const NotificationCart = ({isPopup}) => {
             <div className="card-padded d-flex flex-column g-20" ref={footerRef}>
 
                 <button className="btn w-100">
-                    {USER.email === 'moatazfoudhaily@gmail.com' ? (
+                    {USER && USER.email === 'moatazfoudhaily@gmail.com' && (
                         <NavLink to="/complaint-list">Proceed to all notification</NavLink>
-                    ) : (
-                        <NavLink to="/">Proceed to all notification</NavLink>
                     )}
                     </button>
 
