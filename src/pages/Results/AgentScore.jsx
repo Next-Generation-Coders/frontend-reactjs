@@ -20,8 +20,8 @@ import { useParams } from 'react-router-dom';
 const AgentScore = () => { 
 
 
-  const matchID = "65fb89764297d5d1df8c8858"
-  //const {id} = useParams()
+  //const matchID = "65fb89764297d5d1df8c8858"
+  const {id} = useParams()
 
   const socket = io('http://localhost:3000', { transports : ['websocket'] });
 
@@ -95,9 +95,9 @@ const AgentScore = () => {
       // Fetch current result when component mounts
       const fetchResult = async () => {
         try {
-          const response = await axios.get(`http://localhost:3000/api/result/${matchID}`); // Assuming you have an endpoint to get the current result
+          const response = await axios.get(`http://localhost:3000/result/result/${id}`); // Assuming you have an endpoint to get the current result
           setResult(response.data);
-          const teamsResponse = await axios.get(`http://localhost:3000/api/teams/${matchID}`);
+          const teamsResponse = await axios.get(`http://localhost:3000/result/teams/${id}`);
         setTeams(teamsResponse.data);
 
         } catch (error) {
@@ -168,7 +168,7 @@ const AgentScore = () => {
         }
     
     const widgets = {
-      match_score: <ScoreWidget matchID={matchID} team1={team1} team2={team2} score={score} handleGoal={handleGoal} red={red} yellow={yellow} 
+      match_score: <ScoreWidget matchID={id} team1={team1} team2={team2} score={score} handleGoal={handleGoal} red={red} yellow={yellow} 
       handleRed={handleRed} handleYellow={handleYellow} changed={changed}
       corners={corners} handleCorners={handleCorners}  offsides={offsides} handleOffsides={handleOffsides} teams={team}/>,
    

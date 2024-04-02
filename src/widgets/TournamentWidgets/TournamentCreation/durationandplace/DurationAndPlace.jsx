@@ -10,7 +10,7 @@ import classNames from 'classnames';
 
 const DurationAndPlace = ({standalone,onSubmit}) => {
     const [open, setOpen] = useState(false);
-    const {handleSubmit,register, formState: {errors}, reset, control} = useForm({
+    const {handleSubmit,register, formState: {errors}, control} = useForm({
         defaultValues: {
             startDate: '',
             endDate: '',
@@ -24,7 +24,29 @@ const DurationAndPlace = ({standalone,onSubmit}) => {
     
     
     const handleFormSubmit = () => {
-    
+       
+        const startDateObject = new Date(startDate);
+        const endDateObject = new Date(endDate);
+        if (startDateObject >= endDateObject) {
+            
+            toast.error("Start date should be before the end date");
+            return;
+
+           
+        }
+        
+        if (!selectedCountry) {
+            toast.error("Please select the country");
+            return;
+        }
+
+        if (!selectedCity) {
+            toast.error("Please select the city");
+            return;
+        }
+
+        
+        
         
         // Now you can include startDay, startMonth, startYear, endDay, endMonth, and endYear in the form data object
         const formDataToSend = {
@@ -39,7 +61,7 @@ const DurationAndPlace = ({standalone,onSubmit}) => {
             City: selectedCity ? selectedCity.label : null
         };
         
-        // Call the onSubmit function from props and pass the modified form data
+       
         onSubmit(formDataToSend);
         
         console.log('Data from details title:', formDataToSend);
@@ -63,7 +85,7 @@ const [endDate, setEndDate] = useState({ day: null, month: null, year: null });
 
 
 const handleStartDateChange = (e) => {
-    const selectedDate = new Date(e.target.value); // Parse the selected date string into a Date object
+    const selectedDate = new Date(e.target.value); 
     setStartDate({
         startDay: selectedDate.getDate(),
         startMonth: selectedDate.getMonth() + 1,
@@ -72,7 +94,7 @@ const handleStartDateChange = (e) => {
 };
 
 const handleEndDateChange = (e) => {
-    const selectedDate = new Date(e.target.value); // Parse the selected date string into a Date object
+    const selectedDate = new Date(e.target.value);
     setEndDate({
         endDay: selectedDate.getDate(),
         endMonth: selectedDate.getMonth() + 1,
@@ -89,36 +111,40 @@ const handleEndDateChange = (e) => {
         <div className="container">
         <Wrapper {...wrapperProps}>
             <div className="d-flex flex-column g-4">
-                        <h2>Tournament Details</h2>
+                        <h2>Tournament Duration and Place</h2>
                         <p className="text-12">Fill out the form below to create a new Tournament</p>
                     </div>
             <form onSubmit={handleSubmit(handleFormSubmit)} className="d-flex flex-column g-40">
                 <div className="d-flex flex-column g-20">
+                
+                <CountryCitySelector
+                  onSelectedCountry={handleSelectedCountry}
+                  onSelectedCity={handleSelectedCity}
+              />
                 <input
                             className={classNames('field', { 'field--error': errors.startDate })}
-                            type="date" // Use type="date" to display a date picker
+                            type="date" 
                             placeholder="Start Date"
-                            onChange={handleStartDateChange} // Call handleDateChange on date selection change
+                            onChange={handleStartDateChange} 
                             required
+                            
                         />
+                        {errors.startDate && <p className="error-message">Please select a start date</p>}
 
                 <input
                             className={classNames('field', { 'field--error': errors.startDate })}
-                            type="date" // Use type="date" to display a date picker
+                            type="date" c
                             placeholder="End Date"
-                            onChange={handleEndDateChange} // Call handleDateChange on date selection change
+                            onChange={handleEndDateChange} 
                             required
                         />
            
                   
-                  <CountryCitySelector
-                  onSelectedCountry={handleSelectedCountry}
-                  onSelectedCity={handleSelectedCity}
-              />
+                
                   
                     
                 </div>
-                <button type='onSubmit' >validate</button>
+                <button class="btn" type='onSubmit'>Validate    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
                    
             </form>
             </Wrapper>

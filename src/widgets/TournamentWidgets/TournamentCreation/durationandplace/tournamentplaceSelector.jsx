@@ -21,28 +21,29 @@ const CountryCitySelector = ({ onSelectedCountry, onSelectedCity }) => {
 
   const handleCountryChange = (country) => {
     setSelectedCountry(country);
-    setSelectedCity(null); // Reset selected city when country changes
-
-    // Fetch cities of the selected country
+    setSelectedCity(null); 
+    
     const rawData = City.getCitiesOfCountry(country.value);
     const options = rawData.map((item) => ({ value: item.name, label: item.name }));
     setCities(options);
 
-    // Call the parent function with the selected country
+
     if (onSelectedCountry) {
       onSelectedCountry(country);
     }
   };
 
-  // Function to handle city change
+
   const handleCityChange = (city) => {
     setSelectedCity(city);
 
-    // Call the parent function with the selected city
+
     if (onSelectedCity) {
       onSelectedCity(city);
     }
   };
+
+  
 
   return (
     <div>

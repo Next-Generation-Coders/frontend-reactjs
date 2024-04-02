@@ -25,6 +25,9 @@ const Header = styled.div`
     }
   }
 `;
+const ScoreWidgetContainer = styled.div`
+    height: 37vh; /* Set the height to 50% of the viewport height */
+  `;
 
 const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow,handleCorners,handleOffsides,team1,team2}) => {
     
@@ -37,6 +40,8 @@ const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow
       };
 
     return (
+        <ScoreWidgetContainer className="card flex-column">
+
         <div className="card  flex-column ">
             <Header className="d-flex align-items-center justify-content-between card-padded p-relative">
                 <ClubInfoTeam1 team1={team1}/>
@@ -48,7 +53,7 @@ const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow
 
             <div className='bg-red text-center'> 
             
-            <TimeMatch />
+            <TimeMatch matchID={matchID}/>
             
             
             </div>
@@ -95,6 +100,7 @@ const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow
             </Header>
                         
         </div>
+        </ScoreWidgetContainer>
     )
 } 
 

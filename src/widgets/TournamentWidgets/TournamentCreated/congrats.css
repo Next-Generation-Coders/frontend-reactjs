@@ -1,29 +1,28 @@
 /* congrats.css */
 
 .congrats-background {
-    background-image: url('../../../assets/ballwallpaper.jpg'); /* Specify the path to your background image */
-    background-size: cover;
-    background-position: center;
-    height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .congrats-container {
-    max-width: 800px; /* Adjust max-width as needed */
-    padding: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    border-radius: 12px;
-    background: rgba(31, 28, 28, 0.55); /* Semi-transparent white background */
-    -webkit-backdrop-filter: blur(1px); /* Blur effect for WebKit browsers */
-    backdrop-filter: blur(1px); /* Blur effect for other browsers */
-    text-align: center;
-    height : 400px;
-   
-  }
-  
-  .congrats-card {
-    text-align: center;
-  }
-  
+  background-image: url('../../../assets/ballwallpaper.jpg'); /* Specify the path to your background image */
+  background-size: cover;
+  background-position: center;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.congrats-container {
+  max-width: 800px; /* Adjust max-width as needed */
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  background: rgba(31, 28, 28, 0.55); /* Semi-transparent white background */
+  -webkit-backdrop-filter: blur(1px); /* Blur effect for WebKit browsers */
+  backdrop-filter: blur(1px); /* Blur effect for other browsers */
+  text-align: center;
+  height : 400px;
+ 
+}
+
+.congrats-card {
+  text-align: center;
+}
