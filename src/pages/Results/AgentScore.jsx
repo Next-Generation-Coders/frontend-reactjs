@@ -185,7 +185,7 @@ const AgentScore = () => {
 
 
   
-  <DragAndDrop />
+  <DragAndDrop id={id} />
 
     </>
    
