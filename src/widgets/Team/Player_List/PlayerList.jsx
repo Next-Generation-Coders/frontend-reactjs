@@ -104,7 +104,7 @@ const PlayerList = () => {
                                                 height="50"
                                                 image={player.avatar}
                                                 /* image={player.fullname} */
-                                                alt={player.fullname}
+                                                alt="avatar"
 
                                                 style={{
                                                     borderRadius: "50%",

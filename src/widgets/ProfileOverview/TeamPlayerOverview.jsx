@@ -53,7 +53,7 @@ const TeamPlayerOverview = () => {
                             <span className="h6 label">
                                 Nationality
                             </span>
-                            <h3>???</h3>
+                            <h3>{userData.country?.label ?? 'Unknown'}</h3>
                     </div>
                     <div className="d-flex flex-column g-4 align-items-center">
                             <span className="h6 label">
@@ -65,7 +65,7 @@ const TeamPlayerOverview = () => {
                             <span className="h6 label">
                                 Position
                             </span>
-                            <h3>{userData.position}</h3>
+                            <h3>{userData.position?? 'Unknown'}</h3>
                     </div>
                 </div>
                 <div className="d-flex justify-content-between align-items-center ">
@@ -73,19 +73,19 @@ const TeamPlayerOverview = () => {
                             <span className="h6 label">
                                 Shirt number
                             </span>
-                            <h3>{userData.jersyNumber}</h3>
+                            <h3>{userData.jersyNumber?? 'Unknown'}</h3>
                     </div>
                     <div className="d-flex flex-column g-4 align-items-center">
                             <span className="h6 label">
                                 Height
                             </span>
-                            <h3>??</h3>
+                            <h3>{userData.height?? 'Unknown'}</h3>
                     </div>
                     <div className="d-flex flex-column g-4 align-items-center">
                             <span className="h6 label">
                                 Preferred foot
                             </span>
-                            <h3>??</h3>
+                            <h3>{userData.preferedFoot?? 'Unknown'}</h3>
                     </div>
                 </div>
             </div>

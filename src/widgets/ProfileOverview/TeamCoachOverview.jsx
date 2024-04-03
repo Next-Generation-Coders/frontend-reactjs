@@ -53,7 +53,7 @@ const TeamPlayerOverview = () => {
                             <span className="h6 label">
                                 Nationality
                             </span>
-                            <h3>???</h3>
+                            <h3>{userData.country?.label ?? 'Unknown'}</h3>
                     </div>
                     <div className="d-flex flex-column g-4 align-items-center">
                             <span className="h6 label">
@@ -65,7 +65,7 @@ const TeamPlayerOverview = () => {
                             <span className="h6 label">
                                 Games
                             </span>
-                            <h3>??</h3>{/*  maybe add percentage of wining  */}
+                            <h3>0</h3>{/*  maybe add percentage of wining  */}
                     </div>
                 </div>
                 <div className="d-flex justify-content-between align-items-center ">
