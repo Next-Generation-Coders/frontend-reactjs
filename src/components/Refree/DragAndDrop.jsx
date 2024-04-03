@@ -4,7 +4,7 @@ import ContainerCards from "./ContainerCards";
 import backgroundImageVS from '@assets/refree/terrain.jpeg';
 import axios from "axios";
 
-export const DragAndDrop = () => {
+export const DragAndDrop = ({id}) => {
     const [teamsData, setTeamsData] = useState([]);
 
     useEffect(() => {
