@@ -67,7 +67,7 @@ const CreateTournament = () => {
 
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
 
-  <button class="btn"  onClick={handleSubmit} type='onSubmit'>Submit    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
+  <button className="btn"  onClick={handleSubmit} type='onSubmit'>Submit    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
 </div>
         </>
     )

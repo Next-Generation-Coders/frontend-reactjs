@@ -231,7 +231,7 @@ useEffect(() => {
                 {tournament.TournamentType === 'League' ? (
   <div className={`${styles.card}`}>
     {fixtures.map((fixture, index) => (
-      <div key={index} className="fixture-table">
+    <div key={index} className="fixture-table" style={{marginBottom : '15px'}}>
         <GameCard match={fixture} selectedDay={selectedDay}  />
       </div>
     ))}
@@ -239,7 +239,7 @@ useEffect(() => {
 ) : tournament.TournamentType === 'Knockout' ? (
   <div className={`${styles.card}`}>
      {rounds.map((fixture, index) => (
-      <div key={index} className="fixture-table">
+      <div key={index} className="fixture-table"  style={{marginBottom : '15px'}}>
         <GameCard match={fixture} selectedDay={selectedDay}  />
       </div>
     ))}
@@ -247,7 +247,7 @@ useEffect(() => {
 ) : tournament.TournamentType === 'Championship' ? (
   <div className={`${styles.card}`}>
      {groupMatches.map((fixture, index) => (
-      <div key={index} className="fixture-table">
+      <div key={index} className="fixture-table" style={{marginBottom : '15px'}}>
         <GameCard match={fixture} selectedDay={selectedDay}   />
       </div>
        ))}

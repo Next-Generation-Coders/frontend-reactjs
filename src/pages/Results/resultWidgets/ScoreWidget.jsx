@@ -60,6 +60,24 @@ const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow
         
 
             <Header className="d-flex align-items-center justify-content-between card-padded p-relative">
+               
+            <button className="btn "  onClick={() => handleGoal('team1',matchID)} style={buttonStyle} type="submit">
+                        Goal 
+                    </button>
+
+                     <button className="btn "  onClick={() => handleRed('team1',matchID)} style={buttonStyle} type="submit">
+                        Red 
+                    </button>     
+                    <button className="btn" onClick={() => handleYellow('team1',matchID)}   style={buttonStyle} type="submit">
+                        Yellow 
+                    </button>  
+                    <button className="btn"  onClick={() => handleCorners('team1',matchID)}   style={buttonStyle} type="submit">
+                        Corner 
+                    </button> 
+                    <button className="btn"  onClick={() => handleOffsides('team1',matchID)}  style={buttonStyle }type="button">
+                        Offside 
+                    </button> 
+               
                 <button className="btn"   onClick={() => handleGoal('team2',matchID)} style={buttonStyle} type="submit">
                         Goal 
                     </button> 
@@ -78,22 +96,7 @@ const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow
 
 
                     
-                    <button className="btn "  onClick={() => handleGoal('team1',matchID)} style={buttonStyle} type="submit">
-                        Goal 
-                    </button>
-
-                     <button className="btn "  onClick={() => handleRed('team1',matchID)} style={buttonStyle} type="submit">
-                        Red 
-                    </button>     
-                    <button className="btn" onClick={() => handleYellow('team1',matchID)}   style={buttonStyle} type="submit">
-                        Yellow 
-                    </button>  
-                    <button className="btn"  onClick={() => handleCorners('team1',matchID)}   style={buttonStyle} type="submit">
-                        Corner 
-                    </button> 
-                    <button className="btn"  onClick={() => handleOffsides('team1',matchID)}  style={buttonStyle }type="button">
-                        Offside 
-                    </button> 
+                  
 
  
 

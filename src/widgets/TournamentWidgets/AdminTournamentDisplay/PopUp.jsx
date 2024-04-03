@@ -217,7 +217,7 @@ const Popup = ({
                             </Droppable>
                         </div>
                     </DragDropContext>
-                    <Button onClick={handleDataCollection}>Collect Data</Button>
+                    <Button className='btn' onClick={handleDataCollection}>Confirm</Button>
                 </div>
             </div>
         </Modal>

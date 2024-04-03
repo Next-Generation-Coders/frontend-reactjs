@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const TimeMatch = ({matchID}) => {
   const [matchStarted, setMatchStarted] = useState(false);
@@ -7,8 +7,25 @@ const TimeMatch = ({matchID}) => {
   const [pauseTime, setPauseTime] = useState({ minutes: 0, seconds: 0 });
   const [elapsedTime, setElapsedTime] = useState(0);
   const [matchEnded, setMatchEnded] = useState(false);
+  const [tournament , setTournament] = useState();
   const intervalRef = useRef();
 
+  useEffect(() => {
+    const fetchTournamentDetails = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/Tournament/getTournamentBymatch/${matchID}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch tournament details');
+            }
+            const tournamentData = await response.json();
+            setTournament(tournamentData);
+        } catch (error) {
+            console.error('Error fetching tournament details:', error);
+        }
+    };
+
+    fetchTournamentDetails();
+}, [matchID]);
 
   const startMatch = async () => {
     setMatchStarted(true);
@@ -50,14 +67,53 @@ const TimeMatch = ({matchID}) => {
     }, 1000);
   };
 
-  const endMatch = () => {
+  const endMatch = async () => {
     clearInterval(intervalRef.current);
     setMatchStarted(false);
     setMatchEnded(true);
     setMatchTime({ minutes: 0, seconds: 0 });
     setPauseTime({ minutes: 0, seconds: 0 });
     setElapsedTime(0);
-    };
+
+    try {
+      let endpoint;
+      switch (tournament.TournamentType) {
+          case 'League':
+              endpoint = `http://localhost:3000/Standings/upadteStandings/${matchID}`;
+              break;
+          case 'Knockout':
+              endpoint = `http://localhost:3000/Tournament/UpdateTournamentKnockout/${tournament._id}/${matchID}`;
+              break;
+          case 'Championship':
+              
+          if(tournament.GPended=== false){
+          endpoint = `http://localhost:3000/Tournament/UpdateGroupStandingAfterMatch/${matchID}`;
+          }
+          else {
+          endpoint  = `http://localhost:3000/Tournament/UpdateTournamentKnockout/${tournament._id}/${matchID}`;
+          }break;
+          default:
+              throw new Error('Invalid tournament type');
+      }
+console.log(tournament.GPended)
+      const response = await fetch(endpoint, {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      });
+
+      if (!response.ok) {
+          throw new Error('Failed to update standings');
+      }
+
+      console.log('Standings updated successfully:', response.data);
+  } catch (error) {
+      console.error('Error updating standings:', error);
+  }
+   
+
+};
 
   return (
     <div>

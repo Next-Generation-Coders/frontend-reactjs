@@ -23,7 +23,7 @@ const FollowButton = ({selectedTournamentId}) => {
 
 
     return (
-        <button onClick={toggleFollow}>
+        <button style={{marginBottom : '15px'}} className='btn' onClick={toggleFollow}>
             {isFollowing ? 'Unfollow' : 'Follow'}
         </button>
     );

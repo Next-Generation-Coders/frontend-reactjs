@@ -88,7 +88,8 @@ const TournamentSelector = ({  onTournamentSelect }) => {
       {tournaments.filter((tournament) => {
                 return search.toLowerCase() === ''
                   ? tournament
-                  : tournament.title.toLowerCase().includes(search);
+                  :tournament.title && tournament.title.toLowerCase().includes(search);
+
               })
       .map(tournament => (
         <div key={tournament._id} className="tournament-item" onClick={() => onTournamentSelect(tournament._id)}>

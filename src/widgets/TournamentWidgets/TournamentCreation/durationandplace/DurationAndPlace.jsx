@@ -133,7 +133,7 @@ const handleEndDateChange = (e) => {
 
                 <input
                             className={classNames('field', { 'field--error': errors.startDate })}
-                            type="date" c
+                            type="date" 
                             placeholder="End Date"
                             onChange={handleEndDateChange} 
                             required
@@ -144,7 +144,7 @@ const handleEndDateChange = (e) => {
                   
                     
                 </div>
-                <button class="btn" type='onSubmit'>Validate    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
+                <button className="btn" type='onSubmit'>Validate    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
                    
             </form>
             </Wrapper>

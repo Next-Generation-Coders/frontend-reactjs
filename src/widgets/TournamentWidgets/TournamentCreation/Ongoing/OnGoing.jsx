@@ -103,7 +103,7 @@ const OnGoing = ({ standalone = true, formData, setFormData,onSubmit }) => {
                            
                             
                         </div>
-                        <button class="btn" type='onSubmit'>Validate    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
+                        <button className="btn" type='onSubmit'>Validate    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
                     </form>
                 </Wrapper>
             </div>

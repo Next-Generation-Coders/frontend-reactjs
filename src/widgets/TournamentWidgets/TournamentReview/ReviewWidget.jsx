@@ -70,11 +70,17 @@ const [tournamentrates ,settournamentrates] = useState();
         <>
         
         <Spring className="card d-flex flex-column justify-content-between g-20 card-padded">
-        <FollowButton/>
-        <BasicRating/>
-            {tournament && (
-                <LeagueHeader img={tournament.logo} title={tournament.title} subtitle={tournament.TournamentType} />
-            )}
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+  
+        {tournament && (
+    <LeagueHeader img={tournament.logo} title={tournament.title} subtitle={tournament.TournamentType} />
+  )}
+  <div style={{ marginLeft: '50px' ,alignItems: 'center'}}>
+    <FollowButton />
+    <BasicRating />
+  </div>
+  
+</div>
             <AnimatedCount className="h1 large" count={count} decimals={1} />
             <div className="d-flex flex-column g-24">
                 {

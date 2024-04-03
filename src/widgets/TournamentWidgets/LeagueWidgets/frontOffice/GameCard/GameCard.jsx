@@ -82,7 +82,7 @@ const GameCard = ({match, index, variant = 'basic',selectedDay ,onClick }) => {
                     
                 
                     <img className="club-logo" src={team1Logo } alt={team1Logo}/>
-                    <Score team2={match.startHour} team1={match.startMinutes} variant="alt"/>
+                    <Score team1={match.startHour} team2={match.startMinutes} variant="alt"/>
                     <img className="club-logo" src={team2Logo } alt={team2Logo}/>
                 </div>
                 {
@@ -90,11 +90,11 @@ const GameCard = ({match, index, variant = 'basic',selectedDay ,onClick }) => {
                         <div className="d-flex justify-content-between g-30">
                             <div style={{minWidth: 0}}>
                                 <h3>{team1Name}</h3>
-                                <p className="text-12 text-overflow">{team1Name}, {team1Name}</p>
+                               
                             </div>
                             <div className="text-right" style={{minWidth: 0}}>
                                 <h3>{team2Name}</h3>
-                                <p className="text-12 text-overflow">{team1Name}, {team2Name}</p>
+                               
                             </div>
                         </div>
                     )

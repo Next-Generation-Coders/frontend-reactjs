@@ -27,7 +27,7 @@ const TournamentTeamSlider = ({selectedTournamentId}) => {
     const[tournament ,setTournament] = useState();
     const [teams, setTeams] = useState([]);
     const [DataTeams, setDataTeams] = useState([]);
-    
+    const [stop, setstop] = useState(false);
     
       useEffect(() => {
         const fetchTournamentDetails = async () => {
@@ -38,6 +38,7 @@ const TournamentTeamSlider = ({selectedTournamentId}) => {
                 }
                 const tournamentData = await response.json();
                 setTournament(tournamentData);
+                
             } catch (error) {
                 console.error('Error fetching tournament details:', error);
             }
@@ -50,8 +51,8 @@ const TournamentTeamSlider = ({selectedTournamentId}) => {
       useEffect(() => {
         const fetchTeams = async () => {
           try {
-            const response = await axios.get('http://localhost:3000/Team/getall');
-            setTeams(response.data);
+            const response = await axios.get(`http://localhost:3000/Tournament/getTeamsOftournament/${selectedTournamentId}`);
+            await setTeams(response.data);
             
           } catch (error) {
             console.error('Error fetching teams:', error);
@@ -59,22 +60,24 @@ const TournamentTeamSlider = ({selectedTournamentId}) => {
         };
    
         fetchTeams();
-      }, []);
+      }, [selectedTournamentId]);
 
-useEffect(() => {
-
-    const buildData = async () => {
-    const dataOfTeams = await teams.map(team => ({
-        id: team.name.toLowerCase().replace(/\s/g, ''), 
-        value: team.matches.length 
-    }));
-    setDataTeams([...dataOfTeams]);
+      useEffect(() => {
+        const buildData = async () => {
+            
+                const dataOfTeams = await teams.map(team => ({
+                    id: team._id,
+                    value: team.matches.length 
+                }));
+                setDataTeams(dataOfTeams);
+                setstop(true);
+                
+            
+        };
   
-    };
-     if(teams){
-     buildData();
-    }
-}, [DataTeams,teams]);
+        buildData();
+    
+    }, [teams]);
 
 
     

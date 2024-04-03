@@ -155,7 +155,7 @@ const DetailsForm  = ({ standalone = true, formData, setFormData,onSubmit }) => 
         <Submenu open={open} onClose={handleClose} anchorEl={anchorEl} actions={submenuActions} />
       </div>
                  </div>
-                 <button class="btn" type='onSubmit'>Validate    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
+                 <button className="btn" type='onSubmit'>Validate    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
                 </div>
                 
                     

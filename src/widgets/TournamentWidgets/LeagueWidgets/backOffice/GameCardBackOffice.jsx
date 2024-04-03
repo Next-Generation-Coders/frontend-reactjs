@@ -259,7 +259,7 @@ console.log(formDataToSend);
               
               
               <Popup open={showPopup} onClose={togglePopup}>
-  <h2>Match Details</h2>
+  <h2 style={{margin : '22px'}}>Match Details</h2>
   <form onSubmit={handleSubmit(handleFormSubmit)}>
     <div className={styles.inputGroup}>
       <label>
@@ -292,7 +292,7 @@ console.log(formDataToSend);
       {errors.stadium && <span className="error-message">Stadium is required</span>}
     </div>
     <div className={styles.inputGroup}>
-      <label>
+      <label style={{margin : '2px'}}>
         <FaClock className={styles.icon} />
         Match Day:
         <input
@@ -302,10 +302,10 @@ console.log(formDataToSend);
           onChange={handleStartDateChange}
         />
         {errors.matchDay && <span className="error-message">Match Day is required</span>}
-      </label>
+      </label >
     </div>
     <div className={styles.inputGroup}>
-      <label>Match Start Hour:</label>
+      <label style={{margin : '2px'}}>Match Start Hour:</label>
       <input
         type="number"
       required
@@ -318,7 +318,7 @@ console.log(formDataToSend);
       {errors.matchStartHour && <span className="error-message">Match Start Hour is required</span>}
     </div>
     <div className={styles.inputGroup}>
-      <label>Match Start Minute:</label>
+      <label style={{margin : '2px'}}>Match Start Minute:</label>
       <input
         type="number"
       required
@@ -330,7 +330,7 @@ console.log(formDataToSend);
       />
       {errors.matchStartMinute && <span className="error-message">Match Start Minute is required</span>}
     </div>
-    <button className="btn" type="submit">Confirm</button>
+    <button style={{marginLeft : '222px', marginTop : '15px'}} className="btn" type="submit">Confirm</button>
   </form>
 </Popup>
 

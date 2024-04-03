@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@mui/material';
 import { FaSearch } from "react-icons/fa";
 import { Header } from './styles';
 import Spring from '@components/Spring';
-
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
 import { useWindowSize } from 'react-use';
 import { useThemeProvider } from '@contexts/themeContext';
 import Popup from './PopUp';
@@ -20,6 +21,9 @@ const TournamentAdminDisplay = () => {
     const [Stadiums, setStadiums] = useState([]);
     const [selectedTournament, setSelectedTournament] = useState(null);
     const [selectedTournamentId, setSelectedTournamentId] = useState(null);
+    const inputRef = useRef(null);
+
+    const [search, setSearch] = useState('');
     useEffect(() => {
         const fetchTournaments = async () => {
             try {
@@ -111,51 +115,84 @@ const TournamentAdminDisplay = () => {
         setIsPopupOpen(false);
     };
 
-    const handleSearch = () => {
-        console.log("Search term:", searchTerm);
-        // Implement search functionality here
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(7);
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
     };
+
+    // Calculate the index of the first and last item to display
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = tournaments.slice(indexOfFirstItem, indexOfLastItem);
+    useEffect(() => {
+        document.addEventListener('keydown', detectkeydown , true)  
+      
+      }, [])
+      const detectkeydown=(e) =>{
+    
+        if(e.key ==="/"){
+          e.preventDefault();
+          inputRef.current.focus();
+          inputRef.current.value = ''; 
+        }
+      }
 
     return (
         <Spring className="card h-fit card-padded">
             <div className="card h-fit card-padded">
                 <Header>
                     <div style={{ display: 'flex', alignItems: 'center', width: '30%' }}>
-                        <input
-                            type="text"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            placeholder="Search..."
-                            style={{ flex: '1', fontSize: '15px', padding: '5px', borderBottom: '2px solid #ddd' }}
-                        />
-                        <Button onClick={handleSearch} style={{ backgroundColor: 'yellow', color: 'black', borderRadius: '20%' }}>
-                            <FaSearch />
-                        </Button>
+                        <h2>Tournaments</h2>
+
                     </div>
+                    <Form>
+          <InputGroup className='my-3'>
+
+            
+          
+              <Form.Control
+                ref={inputRef}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder='Press / to search'
+                style={{
+                  padding: '10px',
+                  borderRadius: '5px',
+                  border: '1px solid #ccc',
+                  boxShadow: 'none',
+                }}
+              />
+          
+          </InputGroup>
+        </Form>
                 </Header>
                 <div style={{ width: '100%', overflowX: 'auto', padding: '10px' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
                             <tr>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>ID</th>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Logo</th>
                                 <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Title</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Date</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Location</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Action</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Action</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Action</th>
-                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Action</th>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Type</th>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Status</th>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Start</th>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Affect</th>
+                                <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', borderBottom: '1px solid #ddd' }}>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {tournaments.map(tournament => (
+                        {currentItems.filter((tournament) => {
+                return search.toLowerCase() === ''
+                  ? tournament
+                  : tournament.title && tournament.title.toLowerCase().includes(search);
+              })
+      .map(tournament => (
                                 <tr key={tournament._id}>
                                     
+                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd'  }}><img style={{width : '50px' , height: '50px' , borderRadius : '15%' }} src={tournament.logo} alt={tournament.logo}/></td>
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{tournament.title}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{tournament.startDay}</td>
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{tournament.TournamentType ? tournament.TournamentType.toString() : ''}</td>
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{tournament.TournamentStatus ? tournament.TournamentStatus.toString() : ''}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{tournament.access ? tournament.access.toString() : ''}</td>
+                                   
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
                                         
                                         <Button onClick={() => handleSetActiveTournament(tournament._id)} style={{ backgroundColor: 'black' }} ><b style={{ color: 'white' }}>Set Active</b></Button>
@@ -172,6 +209,17 @@ const TournamentAdminDisplay = () => {
                             ))}
                         </tbody>
                     </table>
+                </div>
+                <div>
+                    {tournaments.length > itemsPerPage && (
+                        <div style={{  alignItems: 'center'}}>
+                            {Array.from({ length: Math.ceil(tournaments.length / itemsPerPage) }).map((_, index) => (
+                                <Button className='btn' key={index} onClick={() => handlePageChange(index + 1)}>
+                                    {index + 1}
+                                </Button>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
             <Popup

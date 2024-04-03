@@ -7,13 +7,14 @@ import defaultLogo2 from "../../../assets/Def2.png";
 import defaultLogo3 from "../../../assets/Def3.png";
 import defaultLogo4 from "../../../assets/Def4.png";
 import styles from './AddTeamsWidget.module.css'; 
+import { useNavigate } from 'react-router-dom';
+
 const AddTeamsWidget = ({ tournamentId }) => {
   const [teams, setTeams] = useState([]);
   const [selectedTeams, setSelectedTeams] = useState([]);
   const [tournament, setTournament] = useState(null);
   const tournamentIdString = String(tournamentId);
-
-
+  const navigate= useNavigate(); 
   const getRandomDefaultLogo = () => {
     const defaultLogos = [defaultLogo1, defaultLogo2, defaultLogo3, defaultLogo4];
     const randomIndex = Math.floor(Math.random() * defaultLogos.length);
@@ -137,12 +138,14 @@ console.log(tournamentId)
       else {
           throw new Error('Invalid tournament type');
       }
+
+      navigate('/TournamentCreated');
   } catch (error) {
       console.error('Error adding teams to tournament:', error);
   }
     };
     
-
+    
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
