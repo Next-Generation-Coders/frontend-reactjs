@@ -43,6 +43,7 @@
     "lottie-react": "^2.4.0",
     "moment": "^2.29.4",
     "nanoid": "^4.0.1",
+    "primereact": "^10.5.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
@@ -85,6 +86,7 @@
     "styled-theming": "^2.2.0",
     "stylis-plugin-rtl": "^2.1.1",
     "swiper": "^8.4.6",
+    "tesseract.js": "^5.0.5",
     "use-gauge": "^0.5.0",
     "use-mobile-detect-hook": "^1.0.5"
   },

@@ -471,6 +471,7 @@ const layouts = {
             {i: 'teamA_stats_progress', x: 0, y: 1, w: 1, h: 2},
             {i: 'teamB_lineups', x: 3, y: 0, w: 1, h: 2},
             {i: 'teamB_stats_progress', x: 3, y: 1, w: 1, h: 2},
+            {i: 'time', x: 3, y: 1, w: 1, h: 2},
 
             {i: 'match_events', x: 1, y: 0, w: 2, h: 1},
             {i: 'passes_polar_chart', x: 1, y: 1, w: 2, h: 3},
@@ -603,6 +604,17 @@ const layouts = {
             {i: 'teams_lineups', x: 0.5, y: 0, w: 2, h: 2.5},
         ]
     },
+    user_management: {
+        xl: [
+            {i: 'users', x: 1, y: 1, w: 2, h: 2.5},
+        ],
+        lg: [
+            {i: 'users', x: 1, y: 1, w: 1, h: 2},
+        ],
+        md: [
+            {i: 'users', x: 0, y: 0, w: 1, h: 2},
+        ]
+    },
     Team_Managment: {
         xl: [
             {i: 'profile_card', x: 0, y: 0, w: 4, h: 1},
@@ -633,6 +645,31 @@ const layouts = {
             {i: 'messages', x: 1, y: 3, w: 1, h: 2},
             {i: 'field', x: 0, y: 1, w: 1, h: 1},
             {i: 'champions', x: 0, y: 5, w: 2, h: 1},
+        ]
+    },
+    chat: {
+        xl: [
+            {i: 'messages', x: 2, y: 1, w: 2, h: 3},
+            {i: 'chat_list', x: 0, y: 0, w: 2, h: 2},
+        ],
+        lg: [
+            {i: 'messages', x: 2, y: 6, w: 1, h: 2},
+            {i: 'chat_list', x: 0, y: 2, w: 1, h: 2},
+        ],
+        md: [
+            {i: 'messages', x: 0, y: 6, w: 1, h: 2},
+            {i: 'chat_list', x: 1, y: 4, w: 1, h: 2},
+        ]
+    },
+    my_tournaments: {
+        xl: [
+            {i: 'league_standings', x: 1, y: 0, w: 2, h: 2},
+        ],
+        lg: [
+            {i: 'league_standings', x: 1, y: 0, w: 2, h: 2},
+        ],
+        md: [
+            {i: 'league_standings', x: 0, y: 0, w: 2, h: 2},
         ]
     },
 }

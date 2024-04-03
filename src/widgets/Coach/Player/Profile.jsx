@@ -29,9 +29,10 @@ import axios from 'axios';
 
 const Profile = () => {
     // State and refs
-    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset ,control} = useForm();
     const inputRef = useRef(null);
     const {USER} = useAuthContext();
+    const [preferredFoot, setPreferredFoot] = useState('');
 
     // Function to add a new player
     const addNewPlayer = async (coachId, newPlayerData) => {
@@ -75,7 +76,7 @@ const Profile = () => {
         
         const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
-        
+        console.log(data+".......................000000")
         if (showBasicForm) {
             newPlayerData = {
                 fullname: data.fullname,
@@ -84,6 +85,12 @@ const Profile = () => {
                 age: data.age,
                 position: data.position,
                 jersyNumber: data.jersyNumber,
+                height :data.height,
+                country :{
+                    value : data.country && data.country.value ? data.country.value : data.nationality, // Perform a null check
+                    label : data.country && data.country.label ? data.country.label : data.nationality
+                } ,
+                preferedFoot: preferredFoot,
                 password: generateRandomPassword() // Use the random password generator function here
             };
         } else {
@@ -105,6 +112,24 @@ const Profile = () => {
         setShowBasicForm(!showBasicForm); // Toggle the form
     };
 
+    const getCountriesOptions = () => {
+        let countries = countryList().getData();
+        for (let i = 0; i < countries.length; i++) {
+            if (countries[i].value === 'RU') {
+                countries[i].label = 'Russia [terrorist state]';
+            }
+        }
+        return countries;
+    }
+
+   /*  const handleCountryChange = (country) => {
+        setSelectedCountry(country);
+        setSelectedCity(null);
+        let options = [];
+        const rawData = City.getCitiesOfCountry(country.value);
+        rawData.map(item => options.push({ value: item.name, label: item.name }));
+        setCities(options);
+    } */
 
     return (
         <form className="d-flex flex-column g-100" onSubmit={handleSubmit(onSubmit)}>
@@ -177,6 +202,66 @@ const Profile = () => {
                             min="0"
                             max="99"
                             {...register('jersyNumber')} />
+                    </div>
+                    {/* <div className={styles.row}>
+                        <input className={classNames('field', {'field--error': errors.email})}
+                            type="text"
+                            placeholder="Email"
+                            {...register('email', {required: true, pattern: /^\S+@\S+$/i})} />
+                        <input className={classNames('field', {'field--error': errors.age})}
+                            type="number"
+                            placeholder="Age"
+                            {...register('age', {required: true})} />
+                    </div> */}
+                    <div className={styles.row}>
+                        <Controller
+                            name="country"
+                            control={control}
+                            className={classNames('field', {'field--error': errors.nationality})}
+                            render={({ field }) => (
+                                <CustomSelect
+                                    options={getCountriesOptions()}
+                                    value={field.value}
+                                    onChange={(value) => {
+                                        field.onChange(value);
+                                        /* handleCountryChange(value); */
+                                    }}
+                                    placeholder="Nationality"
+                                    isSearchable={true}
+                                    variant="basic"
+                                    innerRef={field.ref}
+                                />
+                            )}
+                        />
+                        <input className={classNames('field', {'field--error': errors.height})}
+                            type="text"
+                            placeholder="Height ??cm"
+                            {...register('height', { required: true, pattern: /^\d{2,3}\s?cm$/ })} />
+                    </div>
+                    <div className={styles.row}>
+                    <div>
+                        <label>Preferred Foot:  </label>
+                        <input
+                            type="radio"
+                            id="left"
+                            name="preferredFoot"
+                            value="left"
+                            checked={preferredFoot === 'left'}
+                            onChange={() => setPreferredFoot('L')}
+                        />
+                        <label >L</label>
+
+                        <input
+                            type="radio"
+                            id="right"
+                            name="preferredFoot"
+                            value="right"
+                            checked={preferredFoot === 'right'}
+                            onChange={() => setPreferredFoot('R')}
+                        />
+                        <label >R</label>
+                    </div>
+
                     </div>
                     <div className={styles.footer}>
                         <button className="btn" type="submit">Save Player</button>

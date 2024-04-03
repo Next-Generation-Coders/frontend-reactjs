@@ -22,6 +22,8 @@ const TeamProfileCard = () => {
     const [teamRating, setTeamRating] = useState(null); // State to store team rating
     const {USER} = useAuthContext();
 
+    
+    
     useEffect(() => {
         async function fetchTeamData() {
             const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
@@ -29,7 +31,7 @@ const TeamProfileCard = () => {
             try {
                 const response = await fetch(`http://localhost:3000/Team/getTeambyTeamManger/${userId}`);
                 const data = await response.json();
-                console.log(data)
+                //console.log(data)
                 setTeamData(data);
                 // After fetching team data, fetch team rating
                 fetchTeamRating(data._id);
@@ -50,23 +52,31 @@ const TeamProfileCard = () => {
             }
         }
 
-        fetchTeamRating();
+        // Function to fetch team rating
+        const fetchTeamRating = async (teamId) => {
+            try {
+                const response = await fetch(`http://localhost:3000/Team/getTeamRating/${teamId}`);
+                const ratingData = await response.json();
+                //console.log(ratingData.rating+"......")
+                const rate =ratingData.rating
+                setTeamRating(rate); // Update team rating state
+                //console.log(teamRating+",,,,,,,,,,,,,,,,,,,,,,,")
+            } catch (error) {
+                console.error('Error fetching team rating:', error);
+            }
+        };
+
+        //fetchTeamRating();
         fetchTeamData();
         fetchUserData(); 
         
     }, []);
 
-    // Function to fetch team rating
-    const fetchTeamRating = async (teamId) => {
-        try {
-            const response = await fetch(`http://localhost:3000/Team/getTeamRating/${teamId}`);
-            const ratingData = await response.json();
-            console.log(ratingData.rating+"......")
-            setTeamRating(ratingData.rating); // Update team rating state
-        } catch (error) {
-            console.error('Error fetching team rating:', error);
-        }
-    };
+
+    useEffect(() => {
+        console.log('teamRating changed:', teamRating);
+    },[teamRating])
+    
 
     return (
         <Spring className={`${styles.container} card h-1 g-30 card-padded`}>
@@ -96,8 +106,10 @@ const TeamProfileCard = () => {
                         </div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
-                        <CustomRating value={teamRating} max={5} type="stars" isCompact />
-                        <Like qty={27} isLiked withText/>
+                        {teamRating !== null ? (
+                            <CustomRating value={teamRating} max={5} type="stars" isCompact />
+                        ) : null}
+                        {/* <Like qty={27} isLiked withText/> */}
                     </div>
                 </div>
             </div>

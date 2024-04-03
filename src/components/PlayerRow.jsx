@@ -44,10 +44,10 @@ const PlayerRow = ({player, index}) => {
         <Spring index={index} type="slideUp">
             <StyledPlayerRow className={`${direction} reverse label h6`}>
                 <div>
-                    <LazyImage className="media" src={player.avatar} alt={player.name} data-captain={player.isCaptain}/>
+                    <LazyImage className="media" src={player.avatar} alt={player.fullname} data-captain={player.isCaptain}/>
                 </div>
                 <div className="main d-flex align-items-center justify-content-between">
-                    {player.name} ({player.number})
+                    {player.fullname} ({player.jersyNumber})
                     {player.substitutes && <SubstitutionIcon className="icon"/>}
                 </div>
             </StyledPlayerRow>

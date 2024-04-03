@@ -13,10 +13,10 @@ import useStoreRoute from '@hooks/useStoreRoute';
 import {useShopProvider} from '@contexts/shopContext';
 import {useLogout} from '@hooks/useLogout';
 import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+
 // assets
 import user from '@assets/placeholder.webp';
-import {useNavigate} from "react-router-dom";
-import {useFindUserByEmail} from "@hooks/useFindUserByEmail";
 
 const User = () => {
 
@@ -28,17 +28,16 @@ const User = () => {
     const isStoreRoute = useStoreRoute();
     const {setCartOpen} = useShopProvider();
     const navigate = useNavigate();
-    const {getByEmail} = useFindUserByEmail()
     const settingsPopup = {
         label: 'UI Settings',
         icon: 'gear-solid',
         onClick: () => setPopupOpen(true)
     }
 
-    const {USER,dispatch} = useAuthContext();
+    const {USER} = useAuthContext();
     const {logout} = useLogout();
-    const onClickChangeAccount=()=>{
-        console.log('Change account!')
+    const onClickProfile=()=>{
+        navigate('/profile')
     }
     const onClickLogout=()=>{
         logout()
@@ -47,22 +46,22 @@ const User = () => {
     useEffect(() => {
         if(!USER){
             const queryParams = new URLSearchParams(window.location.search);
-            const email = queryParams.get('email');
-            if (email) {
+            const token = queryParams.get('token');
+            if (token) {
                 async function fetchByEmail(){
-                    await getByEmail(email);
+                    await localStorage.setItem('token',token)
                 }
                 fetchByEmail().then(()=>{
                     navigate('/')
                 })
             }
         }
-    },[dispatch,USER,getByEmail]);
+    });
     const submenuActions = [
         {
-            label: 'Change user',
-            icon: 'users-two',
-            onClick: onClickChangeAccount
+            label: 'My Profile',
+            icon: 'user',
+            onClick: onClickProfile
         },
         {
             label: 'Logout',
@@ -84,7 +83,7 @@ const User = () => {
                 <div>
                 </div>
                 <div className={styles.avatar}>
-                    <img className="c-pointer" src={user} alt="user" onClick={handleClick}/>
+                    <img className="c-pointer" src={USER.avatar ? USER.avatar : user} alt="user" onClick={handleClick}/>
                     {
                         isStoreRoute && isTablet && (
                             <button className={styles.avatar_cart} aria-label="Shopping cart" onClick={() => setCartOpen(true)}>

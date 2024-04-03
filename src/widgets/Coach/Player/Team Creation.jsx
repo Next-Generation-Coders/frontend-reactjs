@@ -143,7 +143,7 @@ const Team = () => {
         </button>
         <Submenu open={open} onClose={handleClose} anchorEl={anchorEl} actions={submenuActions} />
       </div>
-      <br />
+      <br/>
       <div>
         <input className={classNames('field', { 'field--error': errors.fullname })}
           type="text"

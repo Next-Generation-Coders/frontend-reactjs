@@ -11,7 +11,7 @@ import { useAuthContext } from '@hooks/useAuthContext';
 const CreateTournament = () => {
     const navigate = useNavigate();
     const { USER } = useAuthContext(); // Destructure USER from the context
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState(new FormData());
     const handleFormData = (data) => {
         console.log("Received data in parent:", data);
         setFormData({ ...formData, ...data });

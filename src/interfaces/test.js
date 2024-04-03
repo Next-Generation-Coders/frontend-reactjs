@@ -5,7 +5,7 @@ import ECommerce from "./Pages/Dashbord/ECommerce.jsx";
 import FormElements from "./Pages/Form/FormElements.jsx";
 import FormLayout from "./Pages/Form/FormLayout.jsx";
 import Calendar from "./Pages/Calendar.jsx";
-import Profile from "./Pages/Profile.jsx";
+import Profile from "./Pages/BlockedUsers.jsx";
 import Tables from "./Pages/Tables.jsx";
 import Settings from "./Pages/Settings.jsx";
 import Chart from "./Pages/Chart.jsx";

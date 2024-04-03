@@ -68,14 +68,6 @@ export const LINKS = [
         icon: 'user',
         pages: [
             {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
-            {
                 title: 'Profile',
                 path: '/profile'
             },
@@ -87,6 +79,20 @@ export const LINKS = [
         title: 'Team',
         icon: 'users',
         pages: [
+            // {
+            //     title: 'Create Team',
+            //     path: '/create-team'
+            // },
+            // {
+            //     title: 'Team List',
+            //     path: '/team-list'
+            // },
+            // {
+            //     title: 'Player profile',
+            //     path: '/player-profile'
+            // },
+            //
+            //
             {
                 title: 'Create Team',
                 path: '/add-new-player'
@@ -99,8 +105,6 @@ export const LINKS = [
                 title: 'Linup',
                 path: '/TeamLineupF'
             },
-           
-           
         ]
     },
     {
@@ -108,16 +112,13 @@ export const LINKS = [
         icon: 'cart',
         pages: [
             {
-                title: 'Payment List',
-                path: '/payment-list'
+                title: 'payment stripe',
+                path: '/payment-stripe'
             },
             {
-                title: 'Payment',
-                path: '/payment'
+                title: 'payment coin',
+                path: '/payment-coin'
             },
-           
-           
-           
         ]
     },
     {
@@ -142,11 +143,15 @@ export const LINKS = [
             },
             {
                 title: 'Team List',
-                path: '/team--ist'
+                path: '/team-list'
             },
             {
                 title: 'Complaint List',
                 path: '/complaint-list'
+            },
+            {
+                title: 'Payment List',
+                path: '/payment-list'
             },
         ]
     },
@@ -264,11 +269,23 @@ export const ADMIN_LINKS = [
             },
             {
                 title: 'Team List',
-                path: '/team--ist'
+                path: '/team-list'
             },
             {
                 title: 'Complaint List',
                 path: '/complaint-list'
+            },
+            {
+                title: 'Users',
+                path: '/user-management'
+            },
+            {
+                title: 'Role requests',
+                path: '/role-requests'
+            },
+            {
+                title: 'Payment List',
+                path: '/payment-list'
             },
         ]
     },
@@ -276,14 +293,6 @@ export const ADMIN_LINKS = [
         title: 'Profile',
         icon: 'user',
         pages: [
-            {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
             {
                 title: 'Profile',
                 path: '/profile'
@@ -327,14 +336,6 @@ export const USER_LINKS = [
         title: 'Profile',
         icon: 'user',
         pages: [
-            {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
             {
                 title: 'Profile',
                 path: '/profile'
@@ -392,14 +393,6 @@ export const REFEREE_LINKS = [
         title: 'Profile',
         icon: 'user',
         pages: [
-            {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
             {
                 title: 'Profile',
                 path: '/profile'
@@ -476,14 +469,6 @@ export const ORGANIZER_LINKS = [
         icon: 'user',
         pages: [
             {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
-            {
                 title: 'Profile',
                 path: '/profile'
             },
@@ -502,6 +487,10 @@ export const ORGANIZER_LINKS = [
             {
                 title: 'Consult Tournament',
                 path: '/KnockoutTournament'
+            },
+            {
+                title: 'Tournament List',
+                path: '/tournament-list'
             }
         ]
     },
@@ -532,12 +521,12 @@ export const ORGANIZER_LINKS = [
         icon: 'cart',
         pages: [
             {
-                title: 'Payment List',
-                path: '/payment-list'
+                title: 'payment stripe',
+                path: '/payment-stripe'
             },
             {
-                title: 'Payment',
-                path: '/payment'
+                title: 'payment coin',
+                path: '/payment-coin'
             },
 
 
@@ -594,14 +583,6 @@ export const TM_LINKS = [
         icon: 'user',
         pages: [
             {
-                title: 'Login',
-                path: '/login'
-            },
-            {
-                title: 'Sign up',
-                path: '/sign-up'
-            },
-            {
                 title: 'Profile',
                 path: '/profile'
             },
@@ -627,6 +608,16 @@ export const TM_LINKS = [
             },
 
 
+        ]
+    },
+    {
+        title: 'Tournament',
+        icon: 'ball',
+        pages: [
+            {
+                title: 'My Tournaments',
+                path: '/my-tournaments'
+            }
         ]
     },
     {
@@ -680,13 +671,92 @@ export const COACH_LINKS = [
         icon: 'user',
         pages: [
             {
-                title: 'Login',
-                path: '/login'
+                title: 'Profile',
+                path: '/profile'
+            },
+
+
+        ]
+    },
+    {
+        title: 'Team',
+        icon: 'users',
+        pages: [
+            {
+                title: 'Create Team',
+                path: '/create-team'
             },
             {
-                title: 'Sign up',
-                path: '/sign-up'
+                title: 'Team List',
+                path: '/team-list'
             },
+            {
+                title: 'Player profile',
+                path: '/player-profile'
+            },
+
+
+        ]
+    },
+    {
+        title: 'Tournament',
+        icon: 'ball',
+        pages: [
+            {
+                title: 'My Tournaments',
+                path: '/my-tournaments'
+            }
+        ]
+    },
+    {
+        title: 'Complaint',
+        icon: 'phone-light',
+        pages: [
+            {
+                title: 'Complaint',
+                path: '/complaint'
+            },
+            {
+                title: 'About us',
+                path: '/about-us'
+            },
+        ]
+    },
+]
+
+export const PLAYER_LINKS = [
+    {
+        title: 'Browse',
+        icon: 'table',
+        pages: [
+            {
+                title: 'Club summary',
+                path: '/'
+            },
+            {
+                title: 'Game summary',
+                path: '/game-summary'
+            },
+            {
+                title: 'Championships',
+                path: '/championships'
+            },
+            {
+                title: 'League overview',
+                path: '/league-overview'
+            },
+
+            {
+                title: 'Statistics',
+                path: '/statistics'
+            },
+
+        ]
+    },
+    {
+        title: 'Profile',
+        icon: 'user',
+        pages: [
             {
                 title: 'Profile',
                 path: '/profile'
@@ -713,6 +783,16 @@ export const COACH_LINKS = [
             },
 
 
+        ]
+    },
+    {
+        title: 'Tournament',
+        icon: 'ball',
+        pages: [
+            {
+                title: 'My Tournaments',
+                path: '/my-tournaments'
+            }
         ]
     },
     {
@@ -762,4 +842,4 @@ export const GUEST_LINKS = [
     },
 ]
 
-export default {LINKS , ADMIN_LINKS , ORGANIZER_LINKS, COACH_LINKS, TM_LINKS, USER_LINKS, REFEREE_LINKS, GUEST_LINKS}
+export default {LINKS , ADMIN_LINKS , ORGANIZER_LINKS, COACH_LINKS, TM_LINKS, USER_LINKS, REFEREE_LINKS, GUEST_LINKS,PLAYER_LINKS}

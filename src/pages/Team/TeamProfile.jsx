@@ -10,14 +10,33 @@ import LatestMessages from '@widgets/LatestMessages';
 import HotField from '@widgets/HotField';
 import ChampionsLeague from '@widgets/ChampionsLeague';
 import PlayerList from '@widgets/Team/Player_List/PlayerList';
+import PlayerTour from "@widgets/PlayerTournaments/PlayerTour";
+import LoadingScreen from "@components/LoadingScreen";
+import {useFindUserTour} from "@hooks/useFindUserTour";
+import {useEffect} from "react";
 
-const widgets = {
-    profile_card: <TeamProfileCard />,
-    calendar: <GamesCalendar />,
-    listplayers : <PlayerList/>
-}
+
 
 const TeamProfile = () => {
+    const {findTours,tournaments,isLoading} = useFindUserTour();
+    let length = tournaments.length;
+    useEffect(() => {
+        async function fetchData() {
+            await findTours()
+        }
+
+        fetchData().then(()=>{
+            length = tournaments.length;
+            console.log(length," Tournaments, data :",tournaments);
+        })
+    }, [length]);
+    const widgets = {
+        profile_card: <TeamProfileCard />,
+        calendar: <GamesCalendar />,
+        listplayers : <PlayerList/>,
+        league_standings: <PlayerTour tournaments={tournaments}/>,
+    }
+    
     return (
         <>
             <PageHeader title="Team Profile" />

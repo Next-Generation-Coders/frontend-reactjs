@@ -40,19 +40,25 @@
     import Profile from "@pages/User/Profile";
     import Home from "@pages/Home/Home";
     // components
-    import {Navigate, Route, Routes} from 'react-router-dom';
+    import {Route, Routes} from 'react-router-dom';
     import {ToastContainer} from 'react-toastify';
     import LoadingScreen from '@components/LoadingScreen';
     import Sidebar from '@layout/Sidebar';
     import BottomNav from '@layout/BottomNav';
     import Navbar from '@layout/Navbar';
-    import ShoppingCart from '@widgets/ShoppingCart';
+    import ShoppingCart from '@widgets/NotificationCart';
+
     import ScrollToTop from '@components/ScrollToTop';
     import MatchResult from '@pages/Results/MatchResult';
     import AgentScore from '@pages/Results/AgentScore';
-    import {useAuthContext} from "@hooks/useAuthContext";
     import RequireAuth from "@components/ProtectedRoute/RequireAuth";
     import Role from "@utils/Role";
+    import UserManagement from "@pages/Admin/UserManagement";
+    import Chat from "@pages/Chat/Chat";
+    import ClubSummary from "@pages/ClubSummary";
+    import MyTournaments from "@pages/Player/MyTournaments";
+    import RoleRequests from "@pages/Admin/RoleRequests";
+    // import MyTournamentsSelectorFrontDisplay from "@pages/Player/MyTournaments";
 
     // pages
     const AddTeams = lazy(() =>import ('@pages/Tournament/AddTeams'))
@@ -77,9 +83,14 @@
     const Login = lazy(() => import('@pages/Login'));
     const SignUp = lazy(() => import('@pages/SignUp'));
     const Settings = lazy(() => import('@pages/Settings'));
-    
-// Refree Routes
-    const Complaints = lazy(() => import('@pages/Admin/Complaints'));
+    //Tournament
+    const Tournaments = lazy(() => import('@pages/Tournament/TournamentList'));
+
+
+
+
+    // Refree Routes
+   // const Complaints = lazy(() => import('@pages/Admin/Complaints'));
     const RealTime = lazy(() => import('@pages/Refree/RealTime'));
     const MatchList = lazy(() => import('@pages/Refree/MatchList'));
     const Test = lazy(() => import('@pages/Refree/Test'));
@@ -90,10 +101,14 @@
     const Referee = lazy(() => import('@pages/Admin/Referee'));
     const Player = lazy(() => import('@pages/Admin/Player'));
     const Team = lazy(() => import('@pages/Admin/Team'));
+    const Complaints = lazy(() => import('@pages/Admin/Complaints'));
+
 
     // Payment Routes
     const PaymentAdmin = lazy(() => import('@pages/Payment/PamyentAdmin'));
     const PaymentOrganizer = lazy(() => import('@pages/Payment/PaymentOrganizer'));
+    const PaymentWithCoin = lazy(() => import('@pages/Payment/PaymentWithCoin'));
+
     const PaymentSucess = lazy(() => import('@pages/Payment/SuccessPayment'));
     const CancelPayment = lazy(() => import('@pages/Payment/CancelPayment'));
 
@@ -121,7 +136,6 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
 
 
     const App = () => {
-        const {USER} = useAuthContext();
 
         const appRef = useRef(null);
         const {theme, direction} = useThemeProvider();
@@ -202,9 +216,26 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/complaint" element={<Complaint/>}/>
                                                     <Route path="/test" element={<Test/>}/>
 
+                                                    //Tournaments Routes
+                                                    <Route path="/tournament-list" element={<Tournaments/>}/>
+
+
+                                                    //Chat route
+                                                    <Route element={<RequireAuth allowedRoles={[Role.USER]}/> }>
+                                                    <Route path="/chat" element={<Chat/>}/>
+                                                    </Route>
+
+                                                    //Result Routes
+                                                    {/* <Route path="/match/:id" element={<MatchResult/>}/>
+                                                    <Route path="/agent/:id" element={<AgentScore/>}/> */}
+                                                    <Route path="/match" element={<MatchResult/>}/>
+                                                    <Route path="/agent" element={<AgentScore/>}/>
+
+
                                                     <Route path="/match" element={<MatchResult/>}/>
                                                     <Route path="/agent" element={<AgentScore/>}/>
                                                     <Route element={<RequireAuth allowedRoles={[Role.ADMIN]} />}>
+
                                                     // Admin Routes
                                                     <Route path="/organizer-list" element={<Organizer/>}/>
                                                     <Route path="/coach-list" element={<Coach/>}/>
@@ -212,11 +243,14 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/player-list" element={<Player/>}/>
                                                     <Route path="/team-list" element={<Team/>}/>
                                                     <Route path="/complaint-list" element={<Complaints/>}/>
+                                                    <Route path="/user-management" element={<UserManagement/>}/>
+                                                    <Route path="/role-requests" element={<RoleRequests/>}/>
                                                     </Route>
 
                                                     // Payment Routes
                                                     <Route path="/payment-list" element={<PaymentAdmin/>}/>
-                                                    <Route path="/payment" element={<PaymentOrganizer/>}/>
+                                                    <Route path="/payment-stripe" element={<PaymentOrganizer/>}/>
+                                                    <Route path="/payment-coin" element={<PaymentWithCoin/>}/>
                                                     <Route path="/payment/checkout-success" element={<PaymentSucess/>}/>
                                                     <Route path="/payment/checkout-cancel" element={<CancelPayment/>}/>
 
@@ -236,16 +270,17 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     // Complaint Routes
                                                     <Route path="/complaint" element={<Complaint/>}/>
                                                     <Route path="/about-us" element={<AboutUs/>}/>
+
+                                                    //Player routes
+                                                    <Route element={<RequireAuth allowedRoles={[Role.PLAYER,Role.TEAM_MANAGER,Role.COACH]}/> }>
+                                                        <Route path="/my-tournaments" element={<MyTournaments/>}/>
+                                                    </Route>
+
                                                     // User routes
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/>}>
                                                     <Route path="/profile" element={<Profile/>}/>
                                                     </Route>
                                                     <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
-
-
-
-
-
 
                                                 </Routes>
                                         </Suspense>

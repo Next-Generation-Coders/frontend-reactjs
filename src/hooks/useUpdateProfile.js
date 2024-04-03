@@ -23,6 +23,11 @@ export const useUpdateProfile = () => {
         const json = await response.json()
 
         if (json.error) {
+            if(json.error === "jwt expired"){
+                toast.error("Your session has expired, Please re-sign in");
+                localStorage.removeItem('token');
+                dispatch({type:'LOGOUT'})
+            }
             setError(json.error)
             setIsLoading(false)
             toast.error(json.error);

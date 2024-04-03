@@ -7,7 +7,6 @@ import classNames from 'classnames';
 import TabButton from '@ui/TabButton';
 import { useWindowSize } from 'react-use';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import {useAuthContext} from "@hooks/useAuthContext";
 
 const ComplaintSettings = () => {
@@ -34,99 +33,74 @@ const ComplaintSettings = () => {
       setComplaintTitle('');
       setComplaintDescription('');
 
-      toast.success('Complaint submitted successfully', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success('Complaint submitted successfully');
+
     } catch (error) {
       console.error('Error submitting complaint:', error.message);
-      
-      toast.error(`Error submitting complaint: ${error.message}`, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+
+      toast.error(`Error submitting complaint`);
     }
   };
 
   return (
-    <Spring className="card d-flex flex-column card-padded">
-      <div className="d-flex flex-column justify-content-between flex-1">
-        <Tabs value={activeTab}>
-          <TabsList className={`${styles.tabs_list} tab-nav `}>
-            <TabButton
-              title={width >= 375 ? ' Complaint' : 'Complaint'}
-              onClick={() => setActiveTab('Complaint')}
-              active={activeTab === 'Complaint'}
-            />
-          </TabsList>
+      <Spring className="card d-flex flex-column card-padded">
+        <div className="d-flex flex-column justify-content-between flex-1">
+          <Tabs value={activeTab}>
+            <TabsList className={`${styles.tabs_list} tab-nav `}>
+              <TabButton
+                  title={width >= 375 ? ' Complaint' : 'Complaint'}
+                  onClick={() => setActiveTab('Complaint')}
+                  active={activeTab === 'Complaint'}
+              />
+            </TabsList>
 
-          <form className="d-flex flex-column ">
-            <div className={styles.row}>
-              <input
-                className={classNames('field text-700')}
-                type="text"
-                placeholder="Name"
-                disabled={true}
-                value={USER.fullname}
-                onChange={(e) => setUserName(e.target.value)}
+            <form className="d-flex flex-column ">
+              <div className={styles.row}>
+                <input
+                    className={classNames('field text-700')}
+                    type="text"
+                    placeholder="Name"
+                    disabled={true}
+                    value={USER.fullname}
+                    onChange={(e) => setUserName(e.target.value)}
+                />
+                <input
+                    className={classNames('field text-700')}
+                    type="email"
+                    placeholder="Email"
+                    disabled={true}
+                    value={USER.email}
+                    onChange={(e) => setUserEmail(e.target.value)}
+                />
+              </div>
+              <div className={styles.row}>
+                <input
+                    className={classNames('field')}
+                    type='text'
+                    placeholder='Complaint Title'
+                    value={complaintTitle}
+                    onChange={(e) => setComplaintTitle(e.target.value)}
+                />
+              </div>
+              <textarea
+                  className={classNames('field')}
+                  placeholder='Complaint Description'
+                  value={complaintDescription}
+                  onChange={(e) => setComplaintDescription(e.target.value)}
               />
-              <input
-                className={classNames('field text-700')}
-                type="email"
-                placeholder="Email"
-                disabled={true}
-                value={USER.email}
-                onChange={(e) => setUserEmail(e.target.value)}
-              />
-            </div>
-            <div className={styles.row}>
-              <input
-                className={classNames('field')}
-                type='text'
-                placeholder='Complaint Title'
-                value={complaintTitle}
-                onChange={(e) => setComplaintTitle(e.target.value)}
-              />
-            </div>
-            <textarea
-              className={classNames('field')}
-              placeholder='Complaint Description'
-              value={complaintDescription}
-              onChange={(e) => setComplaintDescription(e.target.value)}
-            />
-            <div className={styles.footer}>
-              <button className="btn" type="button" onClick={handleComplaintSubmit}>
-                Submit Complaint
-              </button>
-              <button className="btn btn--outlined" type="reset">
-                Cancel
-              </button>
-            </div>
-          </form>
-        </Tabs>
-      </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-    </Spring>
+              <div className={styles.footer}>
+                <button className="btn" type="button" onClick={handleComplaintSubmit}>
+                  Submit Complaint
+                </button>
+                <button className="btn btn--outlined" type="reset">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </Tabs>
+        </div>
+
+      </Spring>
   );
 };
 

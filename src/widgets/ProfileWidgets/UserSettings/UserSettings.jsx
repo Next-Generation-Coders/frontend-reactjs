@@ -17,14 +17,25 @@ import {useAuthContext} from "@hooks/useAuthContext";
 import {useUpdateProfile} from "@hooks/useUpdateProfile";
 
 const UserSettings = () => {
+    const formatAddressWallet = (addressWallet) => {
+        if (!addressWallet) return '';
+        const visibleLength = 8;
+        const ellipsis = '...';
+        const start = addressWallet.substring(0, 10);
+        const end = addressWallet.substring(addressWallet.length - 9);
+        const formattedAddressWallet = `${start}${ellipsis}${end}`;
+        return formattedAddressWallet;
+    };
+
 
     const {USER} = useAuthContext();
-    // eslint-disable-next-line no-unused-vars
     const [country,setSelectedCountry] = useState();
-    // eslint-disable-next-line no-unused-vars
     const [city,setSelectedCity] = useState();
     const [cities, setCities] = useState([]);
-    const {register, handleSubmit, formState: {errors}, reset, control} = useForm({
+    const {register,
+        handleSubmit,
+        formState: {errors},
+        reset, control} = useForm({
         defaultValues: {
             fullname: USER ? USER.fullname : '',
             phone: USER ? USER.phone : '',
@@ -32,6 +43,7 @@ const UserSettings = () => {
             age: USER ? USER.age : '',
             country: USER ? USER.country : null,
             city: USER ? USER.city : null,
+            addressWallet: USER ? formatAddressWallet(USER.addressWallet) : '',
         }
     });
     const getCountriesOptions = () => {
@@ -60,10 +72,13 @@ const UserSettings = () => {
             phone: data.phone,
             age: data.age,
             country: data.country,
-            city: data.city
+            city: data.city,
+            addressWallet: formatAddressWallet(data.addressWallet)
         }
         await update(user);
     }
+
+
 
     return (
         <form className="d-flex flex-column g-20" onSubmit={handleSubmit(onSubmit)}>
@@ -143,6 +158,15 @@ const UserSettings = () => {
                     }}
                 />
             </div>
+            <div>
+                <input
+                    className={classNames('field', { 'field--error': errors.addressWallet })}
+                    type="text"
+                    defaultValue={USER ? formatAddressWallet(USER.addressWallet) : ''}
+                    placeholder="Address Wallet"
+                    {...register('addressWallet', { required: true })}
+                />
+            </div>
            {/* <div className={styles.row}>
                 <input className={classNames('field', {'field--error': errors.address})}
                        type="text"
@@ -153,9 +177,7 @@ const UserSettings = () => {
                        placeholder="Postal code"
                        {...register('zip')} />
             </div>*/}
-            <div className={styles.row}>
 
-            </div>
             <div className={styles.footer}>
                 <button className="btn" type="submit" disabled={isLoading}>Update Profile</button>
                 <button className="btn btn--outlined" type="reset" onClick={reset}>Cancel</button>

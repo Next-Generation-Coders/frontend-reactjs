@@ -14,6 +14,15 @@
     width: 100% !important;
     object-fit: contain;
 }
+.chat-field {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    height: 100%;
+    width: 100% !important;
+    object-fit: contain;
+    outline: none;
+}
 
 .overlay {
     position: absolute;

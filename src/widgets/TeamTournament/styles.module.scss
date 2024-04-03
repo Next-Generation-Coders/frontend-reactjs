@@ -1,0 +1,11 @@
+.myTournamentWidget {
+  background-color: #1a1a1a; /* Initial background color */
+  transition: background-color 0.3s ease; /* Smooth transition effect */
+
+  /* Other styles for your widget */
+}
+
+.myTournamentWidget:hover {
+  cursor: pointer;
+  background-color: #3A3A3A; /* Modern light gray on hover */
+}
