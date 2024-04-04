@@ -75,8 +75,8 @@ const MatchesOverview = () => {
                         <TabPanel className="h-100" value="finished" onClick={() => setActiveTab('finished')}>
                             <div className="d-flex flex-column g-24" style={{paddingBottom: 24}}>
                                 {
-                                    matchesFinished.map((match, index) => (
-                                        <MatchCard key={index} match={match} index={index}/>
+                                    matches.map((match, index) => (
+                                        <MatchesWidgets key={index} score={match}/>
                                     ))
                                 }
                             </div>
