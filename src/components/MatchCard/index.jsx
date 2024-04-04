@@ -11,7 +11,7 @@ const MatchCard = ({match, index}) => {
     return (
         <Spring className={styles.container} type="slideUp" index={index}>
             <div className={styles.main}>
-                <MatchScoreItem match={match} withLogo/>
+                <MatchScoreItem match={match} />
             </div>
             <div className={`${styles.footer} d-flex align-items-center g-10 border-top text-12`}>
                 <span className="text-600 text-highlight">{latestEvent.minute}'</span>

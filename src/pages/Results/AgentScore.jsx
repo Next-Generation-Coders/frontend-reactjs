@@ -93,7 +93,7 @@ const AgentScore = () => {
     };
     useEffect(() => {
       // Fetch current result when component mounts
-      const fetchResult = async () => {
+      const fetchResult = async () => { 
         try {
           const response = await axios.get(`http://localhost:3000/result/result/${id}`); // Assuming you have an endpoint to get the current result
           setResult(response.data);
