@@ -21,7 +21,7 @@ const Header = styled.div`
 
 const MatchesWidgets = ({score }) => {
    
-    console.log(score)
+    //console.log(score)
 
     return (
         <div className="card  flex-column ">
