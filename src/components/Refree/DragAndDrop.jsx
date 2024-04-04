@@ -10,7 +10,9 @@ export const DragAndDrop = ({id}) => {
     useEffect(() => {
         const fetchTeamsData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/Team/getTeamsByMatch/66056a2895be3305f204a6d8');
+                // const response = await axios.get('http://localhost:3000/Team/getTeamsByMatch/66056a2895be3305f204a6d8');
+                const response = await axios.get(`http://localhost:3000/Team/getTeamsByMatch/${id}`);
+
                 const data = response.data;
                 const teamID1 = data.team1Lineup.team;
                 const teamID2 = data.team2Lineup.team;
