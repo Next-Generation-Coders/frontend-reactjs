@@ -78,7 +78,7 @@ console.log(tournamentId)
 
     const addTeamsToTournament = async (tournamentIdString) => {
       const expectedTeamIds = tournament.numberOfTeams
-    // Extract selected team IDs
+   
     const selectedTeamIds = selectedTeams.map(team => team._id);
     const number = selectedTeamIds.length;
       if (number != expectedTeamIds) {
@@ -101,7 +101,7 @@ console.log(tournamentId)
           throw new Error('Failed to add teams to the tournament');
         }
     
-        console.log('Selected teams added to the tournament successfully.');
+        
     
         toast.success('Selected teams added to the tournament successfully.');
         if (tournament.TournamentType === 'League') {

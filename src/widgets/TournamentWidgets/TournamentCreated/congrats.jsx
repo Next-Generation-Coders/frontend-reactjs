@@ -20,8 +20,7 @@ const Congrats = () => {
 
     <div style={{margin :"15px"}}>
     <button className='btn' onClick={() => navigate("/")}>Home</button>
-<button className='btn' onClick={() => navigate("/addTeams")}>Add Teams</button>
-<button className='btn' onClick={() => navigate("/addTeams")}>Procced to Payment</button>
+
 </div>
         </div>
       </div>

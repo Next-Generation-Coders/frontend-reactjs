@@ -9,7 +9,7 @@ export default function BasicRating({selectedTournamentId}) {
 
   const handleRatingChange = async (event, newValue) => {
     setValue(newValue);
-    console.log(newValue);
+    
     try {
       const response = await fetch(`http://localhost:3000/Tournament/addRate/${selectedTournamentId}`, {
         method: 'PUT',

@@ -69,7 +69,8 @@ const OnGoing = ({ standalone = true, formData, setFormData,onSubmit }) => {
             ...data,
             TournamentType:(selectedTournamentType.toString()),
             numberOfTeams: parseInt(data.numberOfTeams),
-            numberOfPlayers: parseInt(data.numberOfPlayers)
+            numberOfPlayers: parseInt(data.numberOfPlayers),
+            
         };
         console.log("Received data in parent:", formattedData);
         onSubmit({ ...formData, ...formattedData });

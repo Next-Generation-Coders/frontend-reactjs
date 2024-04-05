@@ -27,9 +27,7 @@ const DetailsForm  = ({ standalone = true, formData, setFormData,onSubmit }) => 
      if(!selectedType){
         toast.error("Select the state of your tournament")
      };
-     if(!file){
-        toast.error("Select the logo of your tournament")
-     }
+     
      
 
         onSubmit({ ...data, access: selectedAccess,FriOrComp :selectedType, logo : file });
