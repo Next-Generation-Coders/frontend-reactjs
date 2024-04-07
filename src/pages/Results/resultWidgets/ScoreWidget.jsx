@@ -46,7 +46,7 @@ const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow
             <Header className="d-flex align-items-center justify-content-between card-padded p-relative">
                 <ClubInfoTeam1 team1={team1}/>
                 
-                <Score changed={changed} team2={score.scoreTeam2} team1={score.scoreTeam1} />
+                <Score changed={changed} team1={score.scoreTeam1} team2={score.scoreTeam2}  />
                 <ClubInfoTeam2 team2={team2} wrapperClass="flex-row-reverse text-right"/>
 
             </Header>

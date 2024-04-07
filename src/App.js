@@ -228,6 +228,8 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/addTeams" element={<AddTeams/>}/>
                                                     <Route path='/TournamentReview' element={<TournamentReview/>}/>
                                                     <Route path='/TournamentAdmin' element={<TournamentList/>} />
+                                                    <Route path='/LeaguesDisplay' element={<LeaguesDisplay/>}/>
+
                                                     //Chat route
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/> }>
                                                     <Route path="/chat" element={<Chat/>}/>
@@ -287,7 +289,6 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     // User routes
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/>}>
                                                     <Route path="/profile" element={<Profile/>}/>
-                                                    <Route path='/LeaguesDisplay' element={<LeaguesDisplay/>}/>
                                                     </Route>
                                                     <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
 

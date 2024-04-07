@@ -56,6 +56,10 @@ export const TeamLineupManager = () => {
         });
 
         setPlayers(sortedPlayers);
+        /* correct one if needed
+          if (team) {
+          setPlayers(team.playerNames);
+        } */
       }
       
       getLineup(); // Fetch the lineup after the team data is fetched
