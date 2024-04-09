@@ -1,10 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import {toast} from 'react-toastify';
+import defaultLogo1 from "../../../assets/Def1.png";
+import defaultLogo2 from "../../../assets/Def2.png";
+import defaultLogo3 from "../../../assets/Def3.png";
+import defaultLogo4 from "../../../assets/Def4.png";
+import styles from './AddTeamsWidget.module.css'; 
+import { useNavigate } from 'react-router-dom';
 
-const AddTeamsWidget = () => {
+const AddTeamsWidget = ({ tournamentId }) => {
   const [teams, setTeams] = useState([]);
   const [selectedTeams, setSelectedTeams] = useState([]);
+  const [tournament, setTournament] = useState(null);
+  const tournamentIdString = String(tournamentId);
+  const navigate= useNavigate(); 
+  const getRandomDefaultLogo = () => {
+    const defaultLogos = [defaultLogo1, defaultLogo2, defaultLogo3, defaultLogo4];
+    const randomIndex = Math.floor(Math.random() * defaultLogos.length);
+    return defaultLogos[randomIndex];
+  };
+
+  useEffect(() => {
+    const fetchTournamentDetails = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/Tournament/getbyid/${tournamentIdString}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch tournament details');
+            }
+            const tournamentData = await response.json();
+            setTournament(tournamentData);
+        } catch (error) {
+            console.error('Error fetching tournament details:', error);
+        }
+    };
+
+    fetchTournamentDetails();
+}, [tournamentId]);
+
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -15,21 +48,104 @@ const AddTeamsWidget = () => {
         console.error('Error fetching teams:', error);
       }
     };
-
+console.log(tournamentId)
     fetchTeams();
   }, []);
 
 
-  const addTeamsToTournament = async () => {
-    try {
-      
-      await axios.put('http://localhost:3000/Tournament/addteams/65e606111c6ca2f4141c4714', { teams: selectedTeams });
-      console.log('Selected teams added to the tournament successfully.');
-    } catch (error) {
-      console.error('Error adding teams to tournament:', error);
-    }
-  };
+  const [matchestable, setMatches] = useState([]);
 
+    /*useEffect(() => {
+        const fetchMatches = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/Tournament/fixtures/65eb22e0767105013a8eaa41');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch matches');
+                }
+                const data = await response.json();
+                console.log(data.fixtures)
+                console.log(matchestable)
+                setMatches(data.fixtures);
+                console.log("after the set",matchestable)
+            } catch (error) {
+                console.error('Error fetching matches:', error);
+            }
+        };
+
+        fetchMatches();
+    }, []);*/
+
+
+    const addTeamsToTournament = async (tournamentIdString) => {
+      const expectedTeamIds = tournament.numberOfTeams
+   
+    const selectedTeamIds = selectedTeams.map(team => team._id);
+    const number = selectedTeamIds.length;
+      if (number != expectedTeamIds) {
+      
+        toast.error("Number of the teams selected is not valid");
+        return;
+      }
+      
+      try {
+       
+        const addTeamsResponse = await fetch(`http://localhost:3000/Tournament/addteams/${tournament._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ teams: selectedTeams })
+        });
+    
+        if (!addTeamsResponse.ok) {
+          throw new Error('Failed to add teams to the tournament');
+        }
+    
+        
+    
+        toast.success('Selected teams added to the tournament successfully.');
+        if (tournament.TournamentType === 'League') {
+          try {
+            const [generateScheduleResponse, standingsResponse] = await Promise.all([
+              fetch(`http://localhost:3000/Tournament/generateRoundRobinSchedule/${tournament._id}`),
+              fetch(`http://localhost:3000/Standings/CreateStandings/${tournament._id}`)
+            ]);
+        
+            if (!generateScheduleResponse.ok) {
+              throw new Error('Failed to generate round robin schedule');
+            }
+        
+            if (!standingsResponse.ok) {
+              throw new Error('Failed to generate standings');
+            }
+      
+          } catch (error) {
+            console.error('Error during schedule or standings generation:', error);
+          }
+      } else if (tournament.TournamentType === 'Knockout') {
+          const generateScheduleResponse = await fetch(`http://localhost:3000/Tournament/KnockoutTournamentBuild/${tournament._id}`);
+          if (!generateScheduleResponse.ok) {
+              throw new Error('Failed to generate Knockout rounds');
+          }
+          console.log('Knockout rounds generated successfully.');
+      } else if (tournament.TournamentType === 'Championship') {
+        const generateScheduleResponse = await fetch(`http://localhost:3000/Tournament/ChampionshipGroupsAndMatches/${tournament._id}`);
+        if (!generateScheduleResponse.ok) {
+            throw new Error('Failed to generate championship tournament');
+        }
+        console.log('championship tournament generated successfully.');
+    }
+      else {
+          throw new Error('Invalid tournament type');
+      }
+
+      navigate('/TournamentCreated');
+  } catch (error) {
+      console.error('Error adding teams to tournament:', error);
+  }
+    };
+    
+    
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -60,57 +176,77 @@ const AddTeamsWidget = () => {
   };
 
   return (
-    <div>
-      <h2>Available Teams</h2>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="teams">
+    <div className={styles.container}>
+      <div className={styles.teamsContainer}>
+      <h2 className={styles.titles}>Available Teams</h2><br></br>
+        < DragDropContext onDragEnd={onDragEnd}>
+         <Droppable droppableId="teams">
           {(provided) => (
-            <ul className="teams" {...provided.droppableProps} ref={provided.innerRef}>
+            <div  className={styles.teamsList} {...provided.droppableProps} ref={provided.innerRef}>
               {teams.map((team, index) => (
                 <Draggable key={team._id} draggableId={team._id} index={index}>
                   {(provided) => (
-                    <li
+                    <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
+                      <img
+                       src={team.logo || getRandomDefaultLogo()}
+                            alt={team.name}
+                        
+                        className={styles.teamLogo}
+                        />
                       {team.name}
-                    </li>
+                    </div>
                   )}
                 </Draggable>
               ))}
               {provided.placeholder}
-            </ul>
+            </div>
           )}
         </Droppable>
-
-        <h2>Selected Teams</h2>
+        <div className={styles.dropContainer}>
+        <h2 className={styles.titles}>Selected Teams</h2>
         <Droppable droppableId="selected-teams">
           {(provided) => (
-            <ul className="selected-teams" {...provided.droppableProps} ref={provided.innerRef}>
+            <div
+            className={styles.selectedTeamsContainer}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
               {selectedTeams.map((team, index) => (
                 <Draggable key={team._id} draggableId={team._id} index={index}>
                   {(provided) => (
-                    <li
+                    <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                    >
+                    ><img
+                    src={team.logo || getRandomDefaultLogo()}
+                         alt={team.name}
+                     
+                     className={styles.teamLogo}
+                     />
                       {team.name}
-                    </li>
+                      </div>
+                    
                   )}
                 </Draggable>
               ))}
               {provided.placeholder}
-            </ul>
+            </div>
           )}
         </Droppable>
+        </div>
       </DragDropContext>
-
-      <button onClick={addTeamsToTournament}>
+      </div>
+<button onClick={addTeamsToTournament} className={styles.addButton}>
         Add Teams to Tournament
       </button>
-    </div>
+
+
+</div>
   );
 };
 

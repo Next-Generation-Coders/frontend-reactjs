@@ -6,22 +6,44 @@ import {TabPanel} from '@mui/base/TabPanel';
 import {Tabs} from '@mui/base/Tabs';
 import MatchCard from '@components/MatchCard';
 import TabButton from '@ui/TabButton';
-
+import axios from 'axios';
 // hooks
 import useMeasure from 'react-use-measure';
 import {useState, useEffect, useRef} from 'react';
 
 // data placeholder
 import matches from '@db/matches';
+import MatchScoreWidget from '@pages/Results/resultWidgets/MatchScoreWidget';
+import MatchesWidgets from '@pages/Results/resultWidgets/MatchesWidgets';
 
 const MatchesOverview = () => {
     const [activeTab, setActiveTab] = useState('live');
+
+    const [matches, setMatches] = useState([]);
+
     const [ref, {height}] = useMeasure();
     const trackRef = useRef(null);
 
-    const matchesLive = matches.filter(match => match.active === true);
     const matchesFinished = matches.filter(match => match.active === false);
 
+
+    useEffect(() => {
+        // Fetch current result when component mounts
+        const fetchResult = async () => {
+          try {
+            const response = await axios.get('http://localhost:3000/result/resultsMatches'); // Assuming you have an endpoint to get the current result
+            setMatches(response.data);
+
+            console.log(response.data);
+  
+          } catch (error) {
+            console.error('Error fetching current result:', error);
+          }
+
+        }
+        fetchResult();
+
+        })
     useEffect(() => {
         trackRef.current && trackRef.current.scrollTo(0, 0);
     }, [activeTab]);
@@ -44,8 +66,8 @@ const MatchesOverview = () => {
                         <TabPanel className="h-100" value="live" onClick={() => setActiveTab('live')}>
                             <div className="d-flex flex-column g-24" style={{paddingBottom: 24}}>
                                 {
-                                    matchesLive.map((match, index) => (
-                                        <MatchCard key={index} match={match} index={index}/>
+                                    matches.map((match, index) => (
+                                        <MatchesWidgets key={index} score={match} />
                                     ))
                                 }
                             </div>
@@ -53,8 +75,8 @@ const MatchesOverview = () => {
                         <TabPanel className="h-100" value="finished" onClick={() => setActiveTab('finished')}>
                             <div className="d-flex flex-column g-24" style={{paddingBottom: 24}}>
                                 {
-                                    matchesFinished.map((match, index) => (
-                                        <MatchCard key={index} match={match} index={index}/>
+                                    matches.map((match, index) => (
+                                        <MatchesWidgets key={index} score={match}/>
                                     ))
                                 }
                             </div>

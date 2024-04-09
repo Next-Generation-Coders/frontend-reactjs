@@ -15,12 +15,14 @@ import LazyImage from '@components/LazyImage';
 import {useAuthContext} from "@hooks/useAuthContext";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import { useLocation   } from 'react-router-dom';
 const TeamProfileCard = () => {
     const [teamData, setTeamData] = useState([]);
     const [userData, setUserData] = useState([]);
     const [teamRating, setTeamRating] = useState(null); // State to store team rating
     const {USER} = useAuthContext();
+    const { state } = useLocation();
+const teamId = state ? state.teamId : null;
 
     
     
@@ -29,12 +31,16 @@ const TeamProfileCard = () => {
             const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
             const userId = userResponse.data._id;
             try {
-                const response = await fetch(`http://localhost:3000/Team/getTeambyTeamManger/${userId}`);
-                const data = await response.json();
-                //console.log(data)
-                setTeamData(data);
-                // After fetching team data, fetch team rating
-                fetchTeamRating(data._id);
+                let teamDataResponse;
+                if (!teamId) {
+                    teamDataResponse = await fetch(`http://localhost:3000/Team/getTeambyTeamManger/${userId}`);
+                } else {
+                    teamDataResponse = await fetch(`http://localhost:3000/Team/getbyid/${teamId}`);
+                }
+    
+                const teamData = await teamDataResponse.json();
+                setTeamData(teamData);
+                fetchTeamRating(teamData._id);
             } catch (error) {
                 console.error(error);
             }
@@ -90,7 +96,9 @@ const TeamProfileCard = () => {
                             <h1 className="text-20 text-overflow">{teamData.name}</h1>
                             {userData.fullname && (
                                 <>
-                                <span className="text-12"> Team Manager: {userData.fullname} </span>
+                                {teamData.teamManagerName && teamData.teamManagerName.map(manager => (
+                                        <span key={manager.id} className="text-12"> Team Manager: {manager.fullname} </span>
+                                        ))}
                                 {teamData.coachName && teamData.coachName.length > 0 && !teamData.coachNameRendered && (
                                     <>
                                     <Link to={"/coach-profile"} state={{ playerId: teamData.coach }} style={{ textDecoration: 'none', color: 'inherit' }}>

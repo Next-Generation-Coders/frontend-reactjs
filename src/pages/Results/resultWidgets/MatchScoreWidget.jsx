@@ -27,7 +27,7 @@ const MatchScoreWidget = ({score , team1,team2 }) => {
         <div className="card  flex-column ">
             <Header className="d-flex align-items-center justify-content-between card-padded p-relative">
                 <ClubInfoTeam1 team1={team1} />
-                <Score  team2={score.scoreTeam2} team1={score.scoreTeam1}   />
+                <Score team1={score.scoreTeam1}  team2={score.scoreTeam2}   />
             
                 <ClubInfoTeam2  team2={team2} wrapperClass="flex-row-reverse text-right"/>
            

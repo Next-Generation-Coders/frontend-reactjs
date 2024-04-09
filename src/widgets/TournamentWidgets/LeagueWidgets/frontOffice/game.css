@@ -1,0 +1,20 @@
+.game-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .game-card h3 {
+    margin-bottom: 10px;
+  }
+  
+  .game-details {
+    display: flex;
+    align-items: center;
+  }
+  
+  .game-details .icon {
+    margin-right: 10px;
+  }
+  

@@ -25,6 +25,9 @@ const Header = styled.div`
     }
   }
 `;
+const ScoreWidgetContainer = styled.div`
+    height: 37vh; /* Set the height to 50% of the viewport height */
+  `;
 
 const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow,handleCorners,handleOffsides,team1,team2}) => {
     
@@ -37,24 +40,44 @@ const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow
       };
 
     return (
+        <ScoreWidgetContainer className="card flex-column">
+
         <div className="card  flex-column ">
             <Header className="d-flex align-items-center justify-content-between card-padded p-relative">
                 <ClubInfoTeam1 team1={team1}/>
                 
-                <Score changed={changed} team2={score.scoreTeam2} team1={score.scoreTeam1} />
+                <Score changed={changed} team1={score.scoreTeam1} team2={score.scoreTeam2}  />
                 <ClubInfoTeam2 team2={team2} wrapperClass="flex-row-reverse text-right"/>
 
             </Header>
 
             <div className='bg-red text-center'> 
             
-            <TimeMatch />
+            <TimeMatch matchID={matchID}/>
             
             
             </div>
         
 
             <Header className="d-flex align-items-center justify-content-between card-padded p-relative">
+               
+            <button className="btn "  onClick={() => handleGoal('team1',matchID)} style={buttonStyle} type="submit">
+                        Goal 
+                    </button>
+
+                     <button className="btn "  onClick={() => handleRed('team1',matchID)} style={buttonStyle} type="submit">
+                        Red 
+                    </button>     
+                    <button className="btn" onClick={() => handleYellow('team1',matchID)}   style={buttonStyle} type="submit">
+                        Yellow 
+                    </button>  
+                    <button className="btn"  onClick={() => handleCorners('team1',matchID)}   style={buttonStyle} type="submit">
+                        Corner 
+                    </button> 
+                    <button className="btn"  onClick={() => handleOffsides('team1',matchID)}  style={buttonStyle }type="button">
+                        Offside 
+                    </button> 
+               
                 <button className="btn"   onClick={() => handleGoal('team2',matchID)} style={buttonStyle} type="submit">
                         Goal 
                     </button> 
@@ -73,28 +96,14 @@ const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow
 
 
                     
-                    <button className="btn "  onClick={() => handleGoal('team1',matchID)} style={buttonStyle} type="submit">
-                        Goal 
-                    </button>
-
-                     <button className="btn "  onClick={() => handleRed('team1',matchID)} style={buttonStyle} type="submit">
-                        Red 
-                    </button>     
-                    <button className="btn" onClick={() => handleYellow('team1',matchID)}   style={buttonStyle} type="submit">
-                        Yellow 
-                    </button>  
-                    <button className="btn"  onClick={() => handleCorners('team1',matchID)}   style={buttonStyle} type="submit">
-                        Corner 
-                    </button> 
-                    <button className="btn"  onClick={() => handleOffsides('team1',matchID)}  style={buttonStyle }type="button">
-                        Offside 
-                    </button> 
+                  
 
  
 
             </Header>
                         
         </div>
+        </ScoreWidgetContainer>
     )
 } 
 

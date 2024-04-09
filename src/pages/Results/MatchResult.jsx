@@ -26,13 +26,14 @@ import TeamStatsProgress2 from './resultWidgets/TeamStatsProgress copy';
 import { useParams } from 'react-router-dom';
 import TeamsLineups1 from './resultWidgets/TeamsLineups1';
 import TeamsLineups2 from './resultWidgets/TeamsLineups2';
-
+import { useLocation } from 'react-router-dom';
 
 const matchID = "65fb89764297d5d1df8c8858"
 
 const socket = io('http://localhost:3000', { transports : ['websocket'] });
 const MatchResult = () => {
-
+  const { state } = useLocation();
+  const MatchIdfromLeaguesDisplay = state.matchId;
   
 //const {id} = useParams()
     const [result, setResult] = useState([]);
@@ -43,10 +44,10 @@ const MatchResult = () => {
         // Fetch current result when component mounts
         const fetchResult = async () => {
           try {
-            const response = await axios.get(`http://localhost:3000/api/result/${matchID}`); // Assuming you have an endpoint to get the current result
+            const response = await axios.get(`http://localhost:3000/result/result/${MatchIdfromLeaguesDisplay}`); // Assuming you have an endpoint to get the current result
             console.log(response.data);
             setResult(response.data);
-            const teamsResponse = await axios.get(`http://localhost:3000/api/teams/${matchID}`);
+            const teamsResponse = await axios.get(`http://localhost:3000/result/teams/${MatchIdfromLeaguesDisplay}`);
             setTeams(teamsResponse.data);
 
           } catch (error) {

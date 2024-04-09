@@ -12,9 +12,10 @@ import Spring from '@components/Spring';
 // hooks
 import {useState} from 'react';
 
+
 // assets
 import preview from '@assets/preview.webp';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import MatchItemDetails from "@widgets/RefereeMatches/MatchIteamDetails";
 
 const StyledAccordion = styled(Accordion)`
@@ -44,6 +45,7 @@ const StyledAccordionDetails = styled(AccordionDetails)`
 `;
 
 const MatchItem = ({data, index}) => {
+
     const [expanded, setExpanded] = useState(undefined);
     const matchDate = new Date(data.date)
     console.log("data",matchDate);
@@ -54,7 +56,7 @@ const MatchItem = ({data, index}) => {
     // manually handle accordion expansion
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
-        navigate('/agent')
+        navigate(`/agent/${data._id}`)
     }
 
     return (

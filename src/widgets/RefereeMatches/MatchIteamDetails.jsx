@@ -32,8 +32,10 @@ const MyMatchItem = ({isLeader, withLogo, team, variant,isTeamOne,tournament}) =
                 <b>{isTeamOne && <TruncatedText width={width - 30} text={team.name} lines={1}/>}
                     {!isTeamOne && team.name}</b>
             </div>
-            {isTeamOne && "Tournament :"}<p className="text-700 h3">{isTeamOne && tournament.title}</p>
-            {!isTeamOne && <img style={logoStyles} src={tournament.logo} alt={team.name}/>}
+            {tournament && <div>
+                {isTeamOne && "Tournament :"}<p className="text-700 h3">{isTeamOne && tournament.title}</p>
+                {!isTeamOne && <img style={logoStyles} src={tournament.logo} alt={team.name}/>}
+            </div>}
         </div>
     )
 }

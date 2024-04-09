@@ -58,6 +58,7 @@ const Index = () => {
       try {
         const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
+        console.log(userId)
 
         const response = await axios.get(`http://localhost:3000/Tournament/getByUserId/${userId}`);
 

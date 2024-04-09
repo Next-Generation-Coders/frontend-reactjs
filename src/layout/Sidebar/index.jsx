@@ -25,7 +25,7 @@ import {
     COACH_LINKS,
     USER_LINKS,
     REFEREE_LINKS,
-    GUEST_LINKS
+    GUEST_LINKS, PLAYER_LINKS, TM_LINKS
 } from '@constants/links';
 import {useAuthContext} from "@hooks/useAuthContext";
 import Role from "@utils/Role";
@@ -35,8 +35,12 @@ const Sidebar = () => {
     const {USER} = useAuthContext()
     const liens = USER ? USER.roles.find(r=>[Role.ADMIN].includes(r)) ?
         ADMIN_LINKS
-        : USER.roles.find(r=>[Role.COACH,Role.PLAYER,Role.TEAM_MANAGER].includes(r)) ?
+        : USER.roles.find(r=>[Role.COACH]) ?
              COACH_LINKS
+         : USER.roles.find(r=>[Role.PLAYER].includes(r)) ?
+                PLAYER_LINKS
+         : USER.roles.find(r=>[Role.TEAM_MANAGER]) ?
+                    TM_LINKS
         : USER.roles.find(r=>[Role.REFEREE].includes(r)) ?
             REFEREE_LINKS
         : USER.roles.find(r=>[Role.ORGANIZER].includes(r)) ?

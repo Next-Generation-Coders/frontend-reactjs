@@ -13,16 +13,33 @@ import PlayerList from '@widgets/Team/Player_List/PlayerList';
 import PlayerTour from "@widgets/PlayerTournaments/PlayerTour";
 import LoadingScreen from "@components/LoadingScreen";
 import {useFindUserTour} from "@hooks/useFindUserTour";
-import {useEffect} from "react";
+import React, { useState, useEffect } from 'react';
+import { useLocation   } from 'react-router-dom';
 
 
 
 const TeamProfile = () => {
     const {findTours,tournaments,isLoading} = useFindUserTour();
     let length = tournaments.length;
+    const { state } = useLocation();
+    const teamId = state ? state.teamId : null;
+    const [teamData, setTeamData] = useState([]);
+
     useEffect(() => {
         async function fetchData() {
-            await findTours()
+            if(!teamId){
+                await findTours()
+            }
+            else{
+                try {
+                    const teamDataResponse = await fetch(`http://localhost:3000/Team/getbyid/${teamId}`);
+                    const teamData = await teamDataResponse.json();
+                    const firstTeamManagerId = teamData.teamManagerName[0].id;
+                    await findTours(firstTeamManagerId);
+                } catch (error) {
+                    console.error('Error fetching team data:', error);
+                }
+            }
         }
 
         fetchData().then(()=>{

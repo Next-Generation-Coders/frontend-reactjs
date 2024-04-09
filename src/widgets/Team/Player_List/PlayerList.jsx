@@ -22,6 +22,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { useLocation   } from 'react-router-dom';
 
 
 // Define position categories
@@ -51,14 +52,23 @@ const PlayerList = () => {
     const [teamData, setTeamData] = useState([]);
     const { USER } = useAuthContext();
 
+    const { state } = useLocation();
+const teamId = state ? state.teamId : null;
+
     useEffect(() => {
         async function fetchTeamData() {
             try {
                 const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
                 const userId = userResponse.data._id;
-                const response = await fetch(`http://localhost:3000/Team/getTeambyTeamManger/${userId}`);
-                const data = await response.json();
-                setTeamData(data);
+                let teamDataResponse;
+                if (!teamId) {
+                    teamDataResponse = await fetch(`http://localhost:3000/Team/getTeambyTeamManger/${userId}`);
+                } else {
+                    teamDataResponse = await fetch(`http://localhost:3000/Team/getbyid/${teamId}`);
+                }
+    
+                const teamData = await teamDataResponse.json();
+                setTeamData(teamData);
             } catch (error) {
                 console.error(error);
             }

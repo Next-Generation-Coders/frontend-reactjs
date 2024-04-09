@@ -16,9 +16,9 @@ import axios from 'axios';
 const PlayerProfileCard = () => {
     const {USER} = useAuthContext() ;
     const location = useLocation();
-    console.log(location)
+    //console.log(location)
   const { playerId } = location.state || {}; // Set a default value for playerId if it's undefined
-console.log(playerId)
+//console.log(playerId)
   if (!playerId) {
     // Redirect to a fallback page if the playerId is not available
     console.log("error player id ")
