@@ -10,6 +10,7 @@ import TabButton from '@ui/TabButton';
 // hooks
 import useMeasure from 'react-use-measure';
 import {useState, useEffect, useRef} from 'react';
+import { Link } from 'react-router-dom';
 
 // data placeholder
 import matches from '@db/matches';
@@ -47,7 +48,9 @@ const PlayerTour = ({tournaments}) => {
                                 {
                                     tournaments.map((tournament, index) => (
                                         // <MatchCard key={index} match={match} index={index}/>
-                                        <MyTournament tournament={tournament}/>
+                                        <Link key={index} to={"/TournamentReview"} state={{ tournamentId: tournament._id }} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            <MyTournament tournament={tournament}/>
+                                        </Link>
                                     ))
                                 }
                             </div>

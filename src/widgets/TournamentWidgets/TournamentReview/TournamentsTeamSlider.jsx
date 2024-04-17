@@ -10,6 +10,7 @@ import {useState, useEffect} from 'react';
 import {useThemeProvider} from '@contexts/themeContext';
 import axios from 'axios';
 import ItemInfo from './ItemInfo';
+import { Link } from 'react-router-dom';
 const data = [
     {id: 'arsenal', value: 10},
     {id: 'chelsea', value: 12},
@@ -113,7 +114,9 @@ const TournamentTeamSlider = ({selectedTournamentId}) => {
                                          width: 175,
                                          margin: direction === 'ltr' ? '0 24px 0 0' : '0 0 0 24px'
                                      }}>
-                            <ItemInfo {...item}/>
+                            <Link key={index} to={"/team-profile"} state={{ teamId: item.id }} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <ItemInfo {...item}/>
+                            </Link>
                         </SwiperSlide>
                     ))
                 }

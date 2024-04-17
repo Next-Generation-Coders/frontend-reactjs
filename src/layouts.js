@@ -622,7 +622,7 @@ const layouts = {
             {i: 'calendar', x: 3, y: 0, w: 1, h: 2},
             {i: 'listplayers', x: 0, y: 1, w: 2, h: 2},
             {i: 'planner', x: 1, y: 1, w: 2, h: 2},
-            {i: 'messages', x: 3, y: 2, w: 1, h: 2},
+            {i: 'messages', x: 2, y: 0, w: 1, h: 2},
             {i: 'field', x: 0, y: 3, w: 1, h: 1},
             {i: 'champions', x: 1, y: 3, w: 2, h: 1},
         ],

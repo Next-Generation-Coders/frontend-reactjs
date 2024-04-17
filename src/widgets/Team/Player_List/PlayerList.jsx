@@ -12,6 +12,7 @@ import {useState, useEffect} from 'react';
 
 import { FaSearch } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import {useAuthContext} from "@hooks/useAuthContext";
 import axios from 'axios';
@@ -22,6 +23,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { useLocation   } from 'react-router-dom';
 
 
 // Define position categories
@@ -51,14 +53,24 @@ const PlayerList = () => {
     const [teamData, setTeamData] = useState([]);
     const { USER } = useAuthContext();
 
+    const { state } = useLocation();
+const teamId = state ? state.teamId : null;
+
     useEffect(() => {
         async function fetchTeamData() {
             try {
-                const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
-                const userId = userResponse.data._id;
-                const response = await fetch(`http://localhost:3000/Team/getTeambyTeamManger/${userId}`);
-                const data = await response.json();
-                setTeamData(data);
+                
+                let teamDataResponse;
+                if (!teamId) {
+                    const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                    const userId = userResponse.data._id;
+                    teamDataResponse = await fetch(`http://localhost:3000/Team/getTeambyTeamManger/${userId}`);
+                } else {
+                    teamDataResponse = await fetch(`http://localhost:3000/Team/getbyid/${teamId}`);
+                }
+    
+                const teamData = await teamDataResponse.json();
+                setTeamData(teamData);
             } catch (error) {
                 console.error(error);
             }
@@ -69,6 +81,26 @@ const PlayerList = () => {
     const handleSearch = () => {
         console.log("Recherche effectuée :", searchTerm);
     };
+
+    
+    const removePlayerFromTeam = async (playerId, name) => {
+        try {
+            // Show confirmation dialog
+            const confirmRemove = window.confirm(`Are you sure you want to remove ${name} from the team?`);
+            if (!confirmRemove) {
+                return; // Exit if user cancels the removal
+            }
+    
+            // Proceed with removal if user confirms
+            const response = await axios.delete(`http://localhost:3000/Team/removePlayerFromTeam?idPlayer=${playerId}`);
+            toast.success(name + ' has been successfully removed from the team!');
+            return response.data; // Return any data returned by the backend
+        } catch (error) {
+            console.error('Error removing player from team:', error);
+            throw error; // Rethrow the error to be handled by the caller
+        }
+    };
+    
 
     // Group players by position category
     const categorizedPlayers = {};
@@ -94,6 +126,10 @@ const PlayerList = () => {
                             <hr /><br />
                             <div style={{ textAlign: 'left', display: 'inline-flex', justifyContent: 'space-between', padding: '10px' }}>
                                 {categorizedPlayers[category]?.map((player, index) => (
+                                    <>
+                                    {!teamId && (
+                                        <Button onClick={() => removePlayerFromTeam(player.id, player.fullname)}>Remove</Button>
+                                    )}
                                     <Link key={index} to={"/player-profile"} state={{ playerId: player.id }} style={{ textDecoration: 'none', color: 'inherit' }}>
                                         <Card sx={{ width: 160, height: 180, marginBottom: '100px', backgroundColor: "#FCC93F", margin: '0 6px' }}>
                                             {/* Card content */}
@@ -127,8 +163,8 @@ const PlayerList = () => {
                                                     {player.jersyNumber}
                                                 </Typography>
                                                 <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                                                    <Typography gutterBottom variant="h5" component="div">
-                                                        {player.fullname}
+                                                    <Typography gutterBottom variant="h5" component="div" style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                        {player.fullname.length > 7 ? `${player.fullname.substring(0, 7)}...` : player.fullname} {/* truncate */}
                                                     </Typography>
                                                     <Typography variant="body2" color="text.secondary">
                                                         <strong>{player.position}</strong>
@@ -137,6 +173,7 @@ const PlayerList = () => {
                                             </CardActionArea>
                                         </Card>
                                     </Link>
+                                    </>
                                 ))}
                             </div>
                         </div>

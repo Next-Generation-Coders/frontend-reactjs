@@ -3,7 +3,7 @@ import PageHeader from '@layout/PageHeader';
 import AppGrid from '@layout/AppGrid';
 import PlayerProfileCard from '@widgets/PlayerProfileCard';
 import TrainingPaceChart from '@widgets/TrainingPaceChart';
-import GamesCalendar from '@widgets/GamesCalendar';
+import GamesCalendar from '@widgets/GamesCalendar copy';
 import TeamCoachOverview from '@widgets/ProfileOverview/TeamCoachOverview';
 import TrainingsPlanner from '@widgets/TrainingsPlanner';
 import LatestMessages from '@widgets/LatestMessages';

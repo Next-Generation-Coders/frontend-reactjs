@@ -605,26 +605,26 @@ export const TM_LINKS = [
         title: 'Team',
         icon: 'users',
         pages: [
-            {
+/*             {
                 title: 'Create Team',
                 path: '/create-team'
             },
             {
                 title: 'Team List',
                 path: '/team-list'
-            },
+            }, */
             {
-                title: 'Add New player',
+                title: 'Add New player / coach',
                 path: '/add-new-player'
             },
             {
                 title: 'Team profile',
                 path: '/team-Profile'
             },
-            {
+/*             {
                 title: 'Player profile',
                 path: '/player-profile/:playerId'
-            },
+            }, */
 
 
         ]
@@ -703,14 +703,14 @@ export const COACH_LINKS = [
                 title: 'Team Lineup',
                 path: '/TeamLineupF'
             },
-            {
+            /* {
                 title: 'Lineup',
                 path: '/lineup'
             },
             {
                 title: 'Player profile',
                 path: '/coach-profile'
-            },
+            }, */
 
 
         ]
