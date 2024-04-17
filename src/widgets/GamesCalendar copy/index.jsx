@@ -33,7 +33,7 @@ const EventsList = ({matches, color}) => {
                             <span className="title_color" style={{backgroundColor: `var(--${color(match.date)})`}}/>
                             {/* {match.tournament?.title} <br /> */}
                             {match ? (
-                                <>{match.tournament?.title} : {match.team1?.name} vs {match.team2?.name}</>
+                                <>{match.tournament?.title} : {match?.team1?.name} vs {match?.team2?.name}</>
                             ) : (
                                 <span>Loading...</span>
                             )}

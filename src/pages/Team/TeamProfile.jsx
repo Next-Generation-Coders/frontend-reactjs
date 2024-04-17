@@ -66,8 +66,8 @@ const TeamProfile = () => {
     const widgets = {
         profile_card: <TeamProfileCard />,
         calendar: isDataLoaded && <GamesCalendar teamId={TeamId} />,
-        listplayers : <PlayerList/>,
-        league_standings: <PlayerTour tournaments={tournaments}/>,
+        listplayers :isDataLoaded && <PlayerList teamId={TeamId} />,
+        messages: <PlayerTour tournaments={tournaments}/>,
     }
     
     return (

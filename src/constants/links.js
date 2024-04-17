@@ -703,14 +703,14 @@ export const COACH_LINKS = [
                 title: 'Team Lineup',
                 path: '/TeamLineupF'
             },
-            {
+            /* {
                 title: 'Lineup',
                 path: '/lineup'
             },
             {
                 title: 'Player profile',
                 path: '/coach-profile'
-            },
+            }, */
 
 
         ]

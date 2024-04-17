@@ -83,7 +83,7 @@ const Profile = () => {
                 email: data.email,
                 phone: data.phone,
                 age: data.age,
-                position: data.position,
+                position: data.position?.value,
                 jersyNumber: data.jersyNumber,
                 height :data.height,
                 country :{
@@ -171,31 +171,43 @@ const Profile = () => {
                             {...register('age', {required: true})} />
                     </div>
                     <div className={styles.row}>
-                        <div className={styles.select}>
-                        <select
-                                className={classNames('field', {'field--error': errors.position})}
-                                {...register('position', { required: true })}
-                            >
-                            <option value="">Select Position</option>
-                            <option value="GK">Goalkeeper (GK)</option>
-                            <option value="CB">Centre-back (CB)</option>
-                            <option value="RB">Right-back (RB)</option>
-                            <option value="LB">Left-back (LB)</option>
-                            <option value="RWB">Right wing-back (RWB)</option>
-                            <option value="LWB">Left wing-back (LWB)</option>
-                            <option value="CM">Central midfielder (CM)</option>
-                            <option value="CDM">Defensive midfielder (CDM)</option>
-                            <option value="CAM">Attacking midfielder (CAM)</option>
-                            <option value="RM">Right midfielder (RM)</option>
-                            <option value="LM">Left midfielder (LM)</option>
-                            <option value="ST">Striker (ST)</option>
-                            <option value="CF">Centre forward (CF)</option>
-                            <option value="RF">Right forward (RF)</option>
-                            <option value="LF">Left forward (LF)</option>
-                            <option value="RW">Right winger (RW)</option>
-                            <option value="LW">Left winger (LW)</option>
-                        </select>
-                        </div>
+                            <Controller
+                                name="position"
+                                control={control}
+                                render={({ field }) => (
+                                <CustomSelect
+                                    className={classNames('field', { 'field--error': errors.position })}
+                                    options={[
+                                    { value: 'GK', label: 'Goalkeeper (GK)' },
+                                    { value: 'CB', label: 'Centre-back (CB)' },
+                                    { value: 'RB', label: 'Right-back (RB)' },
+                                    { value: 'LB', label: 'Left-back (LB)' },
+                                    { value: 'RWB', label: 'Right wing-back (RWB)' },
+                                    { value: 'LWB', label: 'Left wing-back (LWB)' },
+                                    { value: 'CM', label: 'Central midfielder (CM)' },
+                                    { value: 'CDM', label: 'Defensive midfielder (CDM)' },
+                                    { value: 'CAM', label: 'Attacking midfielder (CAM)' },
+                                    { value: 'RM', label: 'Right midfielder (RM)' },
+                                    { value: 'LM', label: 'Left midfielder (LM)' },
+                                    { value: 'ST', label: 'Striker (ST)' },
+                                    { value: 'CF', label: 'Centre forward (CF)' },
+                                    { value: 'RF', label: 'Right forward (RF)' },
+                                    { value: 'LF', label: 'Left forward (LF)' },
+                                    { value: 'RW', label: 'Right winger (RW)' },
+                                    { value: 'LW', label: 'Left winger (LW)' },
+                                    ]}
+                                    value={field.value}
+                                    onChange={(value) => {
+                                    field.onChange(value);
+                                    /* handlePositionChange(value); */
+                                    }}
+                                    placeholder="Select Position"
+                                    isSearchable={false}
+                                    variant="basic"
+                                    innerRef={field.ref}
+                                />
+                                )}
+                            />
                         <input className={classNames('field', {'field--error': errors.jersyNumber})}
                             type="number"
                             placeholder="Jersey Number"
