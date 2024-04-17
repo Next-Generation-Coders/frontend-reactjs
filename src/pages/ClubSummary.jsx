@@ -11,7 +11,7 @@ import TeamFullInfo from '@widgets/TeamFullInfo';
 import TeamResults from '@widgets/TeamResults';
 import LeagueStandings from '@widgets/LeagueStandings';
 import LiveMatches from '@widgets/LiveMatches';
-import GamesCalendar from '@widgets/GamesCalendar';
+import GamesCalendar from '@widgets/GamesCalendar copy';
 import MatchesOverview from '@widgets/MatchesOverview';
 import MatchResultBasic from '@widgets/MatchResultBasic';
 

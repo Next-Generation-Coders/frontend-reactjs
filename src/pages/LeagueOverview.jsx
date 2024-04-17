@@ -5,7 +5,7 @@ import LeagueRating from '@widgets/LeagueRating';
 import MatchesOverview from '@widgets/MatchesOverview';
 import TeamStatsCard from '@components/TeamStatsCard';
 import TeamPulse from '@widgets/TeamPulse';
-import GamesCalendar from '@widgets/GamesCalendar';
+import GamesCalendar from '@widgets/GamesCalendar copy';
 import Standings from '@widgets/Standings';
 import BallPossessionAreaChart from '@widgets/BallPossessionAreaChart';
 import LineDotsChart from '@widgets/LineDotsChart';

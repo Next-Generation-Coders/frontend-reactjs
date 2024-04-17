@@ -3,7 +3,7 @@ import PageHeader from '@layout/PageHeader';
 import AppGrid from '@layout/AppGrid';
 import Ticket from '@widgets/Ticket';
 import User from '@widgets/User';
-import GamesCalendar from '@widgets/GamesCalendar';
+import GamesCalendar from '@widgets/GamesCalendar copy';
 import Merch from '@widgets/Merch';
 import LatestMessages from '@widgets/LatestMessages';
 import League from '@widgets/League';

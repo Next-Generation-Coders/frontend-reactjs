@@ -3,7 +3,7 @@ import AppGrid from '@layout/AppGrid';
 import RefreeRating from '@widgets/Refree/RefreeRating';
 import MatchesOverview from '@widgets/MatchesOverview';
 import RefPulse from '@widgets/Refree/RefPulse';
-import GamesCalendar from '@widgets/GamesCalendar';
+import GamesCalendar from '@widgets/GamesCalendar copy';
 import StandingsRef from '@widgets/Refree/StandingsRef';
 import RefereeMatches from "@widgets/RefereeMatches/RefereeMatches";
 

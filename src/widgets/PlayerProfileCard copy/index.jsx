@@ -28,11 +28,12 @@ const teamId = state ? state.teamId : null;
     
     useEffect(() => {
         async function fetchTeamData() {
-            const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
-            const userId = userResponse.data._id;
+            
             try {
                 let teamDataResponse;
                 if (!teamId) {
+                    const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                    const userId = userResponse.data._id;
                     teamDataResponse = await fetch(`http://localhost:3000/Team/getTeambyTeamManger/${userId}`);
                 } else {
                     teamDataResponse = await fetch(`http://localhost:3000/Team/getbyid/${teamId}`);
@@ -46,7 +47,7 @@ const teamId = state ? state.teamId : null;
             }
         }
 
-        async function fetchUserData() {
+        /* async function fetchUserData() {
             try {
                 const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
                 const userId = userResponse.data._id;
@@ -56,7 +57,7 @@ const teamId = state ? state.teamId : null;
             } catch (error) {
                 console.error(error);
             }
-        }
+        } */
 
         // Function to fetch team rating
         const fetchTeamRating = async (teamId) => {
@@ -74,7 +75,7 @@ const teamId = state ? state.teamId : null;
 
         //fetchTeamRating();
         fetchTeamData();
-        fetchUserData(); 
+        //fetchUserData(); 
         
     }, []);
 
@@ -94,7 +95,7 @@ const teamId = state ? state.teamId : null;
                     <div className={`${styles.main_info} d-flex flex-column g-14`}>
                         <div className="d-flex flex-column g-4">
                             <h1 className="text-20 text-overflow">{teamData.name}</h1>
-                            {userData.fullname && (
+                            {/* {userData.fullname && ( */}
                                 <>
                                 {teamData.teamManagerName && teamData.teamManagerName.map(manager => (
                                         <span key={manager.id} className="text-12"> Team Manager: {manager.fullname} </span>
@@ -110,7 +111,7 @@ const teamId = state ? state.teamId : null;
                                 )}
                                 </>
                                 
-                            )}
+                            {/* )} */}
                         </div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center">

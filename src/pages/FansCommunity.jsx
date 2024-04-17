@@ -9,7 +9,7 @@ import LocalFans from '@widgets/LocalFans';
 import WidgetGroup from '@components/WidgetGroup';
 import ClubFans from '@widgets/ClubFans';
 import ClubFansMap from '@widgets/ClubFansMap';
-import GamesCalendar from '@widgets/GamesCalendar';
+import GamesCalendar from '@widgets/GamesCalendar copy';
 import LatestMessages from '@widgets/LatestMessages';
 
 const widgets = {

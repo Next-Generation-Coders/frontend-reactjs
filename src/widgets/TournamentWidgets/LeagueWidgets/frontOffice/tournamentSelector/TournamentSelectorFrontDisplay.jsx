@@ -42,7 +42,7 @@ const TournamentSelectorFrontDisplay = ({ onSelectTournament }) => {
   }
 const navigate= useNavigate();
   const GoToTournamentReview = async (tournamentId) =>{
-    navigate('/TournamentReview', { state: { tournamentId } });
+    navigate('/TournamentReview', { state: { tournamentId } }); 
   }
 
 

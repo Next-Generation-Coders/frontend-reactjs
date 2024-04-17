@@ -33,20 +33,21 @@ import Role from "@utils/Role";
 const Sidebar = () => {
 
     const {USER} = useAuthContext()
-    const liens = USER ? USER.roles.find(r=>[Role.ADMIN].includes(r)) ?
-        ADMIN_LINKS
-        : USER.roles.find(r=>[Role.COACH]) ?
-             COACH_LINKS
-         : USER.roles.find(r=>[Role.PLAYER].includes(r)) ?
-                PLAYER_LINKS
-         : USER.roles.find(r=>[Role.TEAM_MANAGER]) ?
-                    TM_LINKS
-        : USER.roles.find(r=>[Role.REFEREE].includes(r)) ?
-            REFEREE_LINKS
-        : USER.roles.find(r=>[Role.ORGANIZER].includes(r)) ?
-            ORGANIZER_LINKS
-        : USER_LINKS
-        : GUEST_LINKS
+    const liens = USER ? USER.roles.includes(Role.ADMIN) ?
+    ADMIN_LINKS
+    : USER.roles.includes(Role.COACH) ?
+        COACH_LINKS
+    : USER.roles.includes(Role.PLAYER) ?
+        PLAYER_LINKS
+    : USER.roles.includes(Role.TEAM_MANAGER) ?
+        TM_LINKS
+    : USER.roles.includes(Role.REFEREE) ?
+        REFEREE_LINKS
+    : USER.roles.includes(Role.ORGANIZER) ?
+        ORGANIZER_LINKS
+    : USER_LINKS
+    : GUEST_LINKS;
+
 
 
 
