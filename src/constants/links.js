@@ -327,6 +327,10 @@ export const USER_LINKS = [
                 title: 'Statistics',
                 path: '/statistics'
             },
+            {
+                title: 'Fantasy',
+                path: '/Fantasy'
+            },
 
         ]
     },
@@ -467,6 +471,10 @@ export const ORGANIZER_LINKS = [
             {
                 title: 'Statistics',
                 path: '/statistics'
+            },
+            {
+                title: 'Fantasy',
+                path: '/Fantasy'
             },
 
         ]

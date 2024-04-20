@@ -91,7 +91,7 @@
     const TournamentReview = lazy(()=> import('@pages/Tournament/TournamentReview'))
     const LeagueInformationsBackOffice = lazy(() => import('@pages/Tournament/LeagueInformationsBackOffice'));
     const LeaguesDisplay = lazy(()=> import('@pages/Tournament/LeagueDisplay'));
-    
+    const FantasyHome = lazy(() => import('@pages/Tournament/FantasyHome'))
     
     // Refree Routes
    // const Complaints = lazy(() => import('@pages/Admin/Complaints'));
@@ -289,6 +289,7 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     // User routes
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/>}>
                                                     <Route path="/profile" element={<Profile/>}/>
+                                                    <Route path="/Fantasy" element={<FantasyHome/>}/>
                                                     </Route>
                                                     <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
 
