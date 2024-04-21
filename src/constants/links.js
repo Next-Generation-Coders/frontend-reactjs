@@ -331,6 +331,10 @@ export const USER_LINKS = [
                 title: 'Fantasy',
                 path: '/Fantasy'
             },
+            {
+                title: 'World Wide',
+                path: '/WorldWide'
+            },
 
         ]
     },
@@ -476,7 +480,11 @@ export const ORGANIZER_LINKS = [
                 title: 'Fantasy',
                 path: '/Fantasy'
             },
-
+            {
+                title: 'World Wide',
+                path: '/WorldWide'
+            },
+            
         ]
     },
     {

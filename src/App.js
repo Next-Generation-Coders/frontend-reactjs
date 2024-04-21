@@ -92,7 +92,7 @@
     const LeagueInformationsBackOffice = lazy(() => import('@pages/Tournament/LeagueInformationsBackOffice'));
     const LeaguesDisplay = lazy(()=> import('@pages/Tournament/LeagueDisplay'));
     const FantasyHome = lazy(() => import('@pages/Tournament/FantasyHome'))
-    
+    const WorldWide = lazy(() =>import('@pages/Tournament/WorldWide'));
     // Refree Routes
    // const Complaints = lazy(() => import('@pages/Admin/Complaints'));
     const RealTime = lazy(() => import('@pages/Refree/RealTime'));
@@ -222,7 +222,7 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/tournament-list" element={<Tournaments/>}/>
                                                     <Route path="/create-tournament" element={<CreateTournament/>}/>
                                                     <Route path="/LeaguesBackOffice" element={<LeagueInformationsBackOffice/>}/>
-                                                   
+                                                    <Route path='/WorldWide' element={<WorldWide/>}/>
                                                     <Route path="/TournamentCreated" element={<TournamentCreated/>}/>
                                                     <Route path="/KnockoutTournamentBuild" element={<KnockTournamentBuild/>}/>
                                                     <Route path="/addTeams" element={<AddTeams/>}/>
