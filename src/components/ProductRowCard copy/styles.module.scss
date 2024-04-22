@@ -1,0 +1,68 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    //height: 516px;
+
+    .media {
+        height: 320px;
+        border-radius: 8px;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        &_title {
+            display: inline-block;
+            margin: 5px 0 7px;
+            max-width: 220px;
+        }
+    }
+}
+
+// iPhone XR
+@media screen and (min-width: 414px) {
+    .container {
+        flex-direction: row;
+        align-items: stretch;
+
+        .media {
+            height: 160px;
+            width: 120px;
+        }
+
+        .main {
+            flex: 1;
+            height: auto;
+        }
+    }
+}
+
+
+.addButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.addButton:hover {
+    background-color: #45a049; /* Darker Green */
+}
+
+.removeButton {
+    background-color: #f44336; /* Red */
+}
+
+.removeButton:hover {
+    background-color: #d32f2f; /* Darker Red */
+}

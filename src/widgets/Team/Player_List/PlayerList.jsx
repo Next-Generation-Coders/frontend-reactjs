@@ -27,7 +27,7 @@ import { useLocation   } from 'react-router-dom';
 
 
 // Define position categories
-const positionMap = {
+const positionMap = { 
     GK: "Goalkeeper",
     CB: "Defender",
     RB: "Defender",
@@ -105,6 +105,7 @@ const teamId = state ? state.teamId : null;
     // Group players by position category
     const categorizedPlayers = {};
     teamData.playerNames?.forEach(player => {
+        console.log("team players : "+player.position)
         const category = positionMap[player.position] || 'Other';
         categorizedPlayers[category] = [...(categorizedPlayers[category] || []), player];
     });

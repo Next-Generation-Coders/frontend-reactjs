@@ -8,8 +8,7 @@ import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom';
 const TournamentReview = () => {
   const { state } = useLocation();
-  const tournamentId = state.tournamentId; 
-  console.log(tournamentId+".....................")
+  const tournamentId = state.tournamentId;
 //const [tournamentId, setTournamentId] = useState("65fd1d5fa662c44a0912a23c");
 
     const widgets = {

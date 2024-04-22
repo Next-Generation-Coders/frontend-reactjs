@@ -5,6 +5,7 @@ import {useAuthContext} from "@hooks/useAuthContext";
 import axios from 'axios';
 // styling
 import styles  from './styleee.module.scss';
+import ProductRowCardList from '@widgets/ProductRowCardList copy';
 
 
 export const TeamLineupManager = () => {
@@ -109,22 +110,30 @@ export const TeamLineupManager = () => {
         };
   
         // Map each player to their respective position in the squad
-        // Map each player to their respective position in the squad
         playerNames.forEach(player => {
           const position = positionMap[player.position.toUpperCase()]; // Ensure the position is uppercase
-          if (position && updatedSquad[position]) { // Check if position exists in the squad
+          console.log(position, updatedSquad[position]); // Log the position and current value of updatedSquad[position]
+          if (position && position in updatedSquad) { // Check if position exists in the squad
             const playerInfo = {
               name: player.fullname,
               number: player.jersyNumber,
               position: player.position
             };
-            updatedSquad[position].push(playerInfo);
+            if (position === "gk") {
+              console.log("goalkeeper info:", playerInfo);
+              updatedSquad.gk = playerInfo;
+            } else {
+              // Ensure the position is initialized as an array
+              if (!Array.isArray(updatedSquad[position])) {
+                updatedSquad[position] = [];
+              }
+              updatedSquad[position].push(playerInfo);
+            }
           } else {
             console.log(`Position ${player.position} doesn't exist in updatedSquad`);
             // Optionally handle this case based on your application logic
           }
         });
-
   
         // Update the homeTeam with the new squad
         setHomeTeam({ squad: updatedSquad });
@@ -135,6 +144,7 @@ export const TeamLineupManager = () => {
       console.error('Error fetching lineup:', error);
     }
   };
+  
   
   
   
@@ -284,6 +294,7 @@ export const TeamLineupManager = () => {
   
 
   return (
+    <>
     <div className={styles.container}>
       <div className={styles.pitchContainer}>
         <h2>Field</h2>
@@ -293,7 +304,7 @@ export const TeamLineupManager = () => {
           />
         </div>
       </div>
-      <div className={styles.playersContainer}>
+      {/* <div className={styles.playersContainer}>
         <h2>Available Players</h2>
         <ul className={styles.playersList}>
           {players.map((player) => (
@@ -320,9 +331,14 @@ export const TeamLineupManager = () => {
             </div>
           ))}
         </ul>
-      </div>
-      <button onClick={() => saveLineup(players)}>Save Lineup</button>
+      </div> */}
     </div>
+    <br />
+    <ProductRowCardList isSlider players={players} addPlayer={addPlayer} homeTeam={homeTeam} />
+    <br />
+    <button onClick={() => saveLineup(players)}>Save Lineup</button>
+
+    </>
   );
   
   

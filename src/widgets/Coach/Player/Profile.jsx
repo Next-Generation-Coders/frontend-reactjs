@@ -153,21 +153,21 @@ const Profile = () => {
                     <div className={styles.row}>
                         <input className={classNames('field', {'field--error': errors.fullname})}
                             type="text"
-                            placeholder="Full Name"
+                            placeholder={errors.fullname ? 'Name is required' : 'Full Name'}
                             {...register('fullname', {required: true})} />
                         <input className={classNames('field', {'field--error': errors.phone})}
                             type="text"
-                            placeholder="Phone"
+                            placeholder={errors.phone ? 'Phone Number is required' : "Phone"}
                             {...register('phone', {required: true})} />
                     </div>
                     <div className={styles.row}>
                         <input className={classNames('field', {'field--error': errors.email})}
                             type="text"
-                            placeholder="Email"
+                            placeholder={errors.email ? 'Email is required' : "Email"}
                             {...register('email', {required: true, pattern: /^\S+@\S+$/i})} />
                         <input className={classNames('field', {'field--error': errors.age})}
                             type="number"
-                            placeholder="Age"
+                            placeholder={errors.age ? 'Age is required' : "Age"}
                             {...register('age', {required: true})} />
                     </div>
                     <div className={styles.row}>
@@ -201,7 +201,7 @@ const Profile = () => {
                                     field.onChange(value);
                                     /* handlePositionChange(value); */
                                     }}
-                                    placeholder="Select Position"
+                                    placeholder={errors.position ? 'Position is required' : "Select Position"}
                                     isSearchable={false}
                                     variant="basic"
                                     innerRef={field.ref}
@@ -210,21 +210,11 @@ const Profile = () => {
                             />
                         <input className={classNames('field', {'field--error': errors.jersyNumber})}
                             type="number"
-                            placeholder="Jersey Number"
+                            placeholder={errors.jersyNumber ? 'Jersy number is required' : "Jersey Number"}
                             min="0"
                             max="99"
-                            {...register('jersyNumber')} />
+                            {...register('jersyNumber',{required: true})} />
                     </div>
-                    {/* <div className={styles.row}>
-                        <input className={classNames('field', {'field--error': errors.email})}
-                            type="text"
-                            placeholder="Email"
-                            {...register('email', {required: true, pattern: /^\S+@\S+$/i})} />
-                        <input className={classNames('field', {'field--error': errors.age})}
-                            type="number"
-                            placeholder="Age"
-                            {...register('age', {required: true})} />
-                    </div> */}
                     <div className={styles.row}>
                         <Controller
                             name="country"
@@ -238,7 +228,7 @@ const Profile = () => {
                                         field.onChange(value);
                                         /* handleCountryChange(value); */
                                     }}
-                                    placeholder="Nationality"
+                                    placeholder={errors.nationality ? 'Nationality is required' : "Nationality"}
                                     isSearchable={true}
                                     variant="basic"
                                     innerRef={field.ref}
@@ -247,7 +237,7 @@ const Profile = () => {
                         />
                         <input className={classNames('field', {'field--error': errors.height})}
                             type="text"
-                            placeholder="Height ??cm"
+                            placeholder={errors.height ? 'Height is required #cm' : "Height"}
                             {...register('height', { required: true, pattern: /^\d{2,3}\s?cm$/ })} />
                     </div>
                     <div className={styles.row}>
@@ -258,6 +248,7 @@ const Profile = () => {
                             id="left"
                             name="preferredFoot"
                             value="left"
+                            /* {...register('preferredFoot', { required: true })} */
                             checked={preferredFoot === 'left'}
                             onChange={() => setPreferredFoot('L')}
                         />
@@ -268,6 +259,7 @@ const Profile = () => {
                             id="right"
                             name="preferredFoot"
                             value="right"
+                            /* {...register('preferredFoot', { required: true })} */
                             checked={preferredFoot === 'right'}
                             onChange={() => setPreferredFoot('R')}
                         />
