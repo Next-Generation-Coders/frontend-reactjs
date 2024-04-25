@@ -27,6 +27,8 @@ import { useParams } from 'react-router-dom';
 import TeamsLineups1 from './resultWidgets/TeamsLineups1';
 import TeamsLineups2 from './resultWidgets/TeamsLineups2';
 import { useLocation } from 'react-router-dom';
+import MatchLiveReport from './resultWidgets/MatchLiveReport';
+import MatchLiveReportScan from './resultWidgets/MatchLiveReport copy';
 
 const matchID = "65fb89764297d5d1df8c8858"
 
@@ -114,11 +116,14 @@ const MatchResult = () => {
             offsidesTeam2:result.team2Offsides
           }
       const widgets = {
-        teamA_lineups: <TeamsLineups1 team1={team1}/>,
+        //teamA_lineups: <TeamsLineups1 team1={team1}/>,
+        matchLive:<MatchLiveReport/>,
         teamA_stats_progress: <TeamStatsProgress1 score={score} corners={corners} offsides={offsides} team2={team2}/>,
     
         passes_polar_chart: <PassesPolarChartt  offsides={offsides} corners={corners} score={score} red1={red.redTeam1} red2={red.redTeam2} yellow1={yellow.yellowTeam1} yellow2={yellow.yellowTeam2} team1={team1} team2={team2}/>,
-        teamB_lineups: <TeamsLineups2 team2={team2} />,
+        //teamB_lineups: <TeamsLineups2 team2={team2} />,
+        matchLiveScan:<MatchLiveReportScan/>,
+
         teamB_stats_progress: <TeamStatsProgress2 score={score} corners={corners} offsides={offsides} team1={team1}/>,
         player_cards: <WidgetGroup>
                          <PlayerDiscipline2 red2={red.redTeam2} yellow2={yellow.yellowTeam2} team2={team2}/>

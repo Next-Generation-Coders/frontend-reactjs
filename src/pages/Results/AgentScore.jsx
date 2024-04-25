@@ -1,5 +1,6 @@
 // Install required packages: react, socket.io-client
 // Create React components and set up WebSocket connection
+import styled from 'styled-components/macro';
 
 import TeamScoreRow from '@components/TeamScoreRow';
 import React, { useState, useEffect } from 'react';
@@ -17,8 +18,12 @@ import PlayerDiscipline2 from './resultWidgets/PlayerDiscipline2';
 import TimeMatch from './resultWidgets/TimeMatch';
 import { useParams } from 'react-router-dom';
 
+const ScoreWidgetContainer = styled.div`
+    height: 37vh; /* Set the height to 50% of the viewport height */
+  `;
 const AgentScore = () => { 
 
+  const [matchStart, setMatchStart] = useState(false);
 
   //const matchID = "65fb89764297d5d1df8c8858"
   const {id} = useParams()
@@ -33,7 +38,17 @@ const AgentScore = () => {
 
 
     const [changed, setChanged] = useState(null);
-
+    // const handleGoal = (team, matchID) => {
+    //   const goalTime = new Date(); // Get the current timestamp
+  
+    //   // Emit goal event to the server along with the goal time
+    //   socket.emit('goal', { team, matchID, time: goalTime });
+    //   setChanged(team);
+  
+    //   setTimeout(() => {
+    //     setChanged(false);
+    //   }, 1000);
+    // };
     const handleGoal = (team,matchID) => {
       console.log(matchID)
 
@@ -170,7 +185,7 @@ const AgentScore = () => {
     const widgets = {
       match_score: <ScoreWidget matchID={id} team1={team1} team2={team2} score={score} handleGoal={handleGoal} red={red} yellow={yellow} 
       handleRed={handleRed} handleYellow={handleYellow} changed={changed}
-      corners={corners} handleCorners={handleCorners}  offsides={offsides} handleOffsides={handleOffsides} teams={team}/>,
+      corners={corners} handleCorners={handleCorners}  offsides={offsides} handleOffsides={handleOffsides} teams={team} matchStart={matchStart}/>,
    
       
 
@@ -180,10 +195,14 @@ const AgentScore = () => {
 
     <>            
   <PageHeader title="Match live tracking" />
-  
+  <ScoreWidgetContainer className="card flex-column">
+  <div className='bg-red text-center'> 
+  <TimeMatch matchID={id} matchStart={matchStart} setMatchStart={setMatchStart}/>
+  </div>
   <AppGrid id="MatchAgent" widgets={widgets}/>
-
-
+ 
+  </ScoreWidgetContainer>
+  
   
   <DragAndDrop id={id} />
 
