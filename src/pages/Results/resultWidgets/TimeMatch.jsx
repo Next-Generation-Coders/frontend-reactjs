@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
 
-const TimeMatch = ({matchID}) => {
+const TimeMatch = ({matchID,matchStart, setMatchStart }) => {
   const [matchStarted, setMatchStarted] = useState(false);
   const [matchTime, setMatchTime] = useState({ minutes: 0, seconds: 0 });
   const [pauseTime, setPauseTime] = useState({ minutes: 0, seconds: 0 });
@@ -29,6 +29,8 @@ const TimeMatch = ({matchID}) => {
 
   const startMatch = async () => {
     setMatchStarted(true);
+    setMatchStart(true);
+
     const startTime = Date.now() - elapsedTime;
     intervalRef.current = setInterval(() => {
       const currentTime = Date.now();
@@ -51,10 +53,14 @@ const TimeMatch = ({matchID}) => {
 
   const pauseMatch = () => {
     clearInterval(intervalRef.current);
+    setMatchStart(false);
+
     setPauseTime({ minutes: Math.floor(elapsedTime / 60), seconds: elapsedTime % 60 });
   };
 
   const resumeMatch = () => {
+    setMatchStart(true);
+
     const resumeStartTime = Date.now() - (pauseTime.minutes * 60 + pauseTime.seconds) * 1000;
     setElapsedTime(pauseTime.minutes * 60 + pauseTime.seconds);
     intervalRef.current = setInterval(() => {
@@ -68,6 +74,8 @@ const TimeMatch = ({matchID}) => {
   };
 
   const endMatch = async () => {
+    setMatchStart(false);
+
     clearInterval(intervalRef.current);
     setMatchStarted(false);
     setMatchEnded(true);

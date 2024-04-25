@@ -17,22 +17,26 @@ import MatchScoreWidget from '@pages/Results/resultWidgets/MatchScoreWidget';
 import MatchesWidgets from '@pages/Results/resultWidgets/MatchesWidgets';
 
 const MatchesOverview = () => {
-    const [activeTab, setActiveTab] = useState('live');
+    const [activeTab, setActiveTab] = useState('finished');
 
     const [matches, setMatches] = useState([]);
 
     const [ref, {height}] = useMeasure();
     const trackRef = useRef(null);
+    const [matchesLive, setMatchesLive] = useState([]);
+    const [matchesFinished, setMatchesFinished] = useState([]);
 
-    const matchesFinished = matches.filter(match => match.active === false);
+    //const matchesFinished = matches.filter(match => match.active === false);
 
 
     useEffect(() => {
         // Fetch current result when component mounts
         const fetchResult = async () => {
           try {
-            const response = await axios.get('http://localhost:3000/result/resultsMatches'); // Assuming you have an endpoint to get the current result
-            setMatches(response.data);
+            const response = await axios.get('http://localhost:3000/result/resultsSorted'); // Assuming you have an endpoint to get the current result
+            const { finishedResults, upcomingResults } = response.data;
+            setMatchesLive(upcomingResults); // Assuming upcoming matches are considered live
+            setMatchesFinished(finishedResults);
 
             console.log(response.data);
   
@@ -53,12 +57,13 @@ const MatchesOverview = () => {
             <Tabs className="h-100" value={activeTab}>
                 <div className="card-padded" ref={ref}>
                     <TabsList className="tab-nav col-2">
-                        <TabButton title="Live"
-                                   onClick={() => setActiveTab('live')}
-                                   active={activeTab === 'live'}/>
-                        <TabButton title="Finished"
+                    <TabButton title="Finished"
                                    onClick={() => setActiveTab('finished')}
                                    active={activeTab === 'finished'}/>
+                        <TabButton title="Upcoming"
+                                   onClick={() => setActiveTab('live')}
+                                   active={activeTab === 'live'}/>
+                        
                     </TabsList>
                 </div>
                 <ScrollContainer height={height}>
@@ -66,7 +71,7 @@ const MatchesOverview = () => {
                         <TabPanel className="h-100" value="live" onClick={() => setActiveTab('live')}>
                             <div className="d-flex flex-column g-24" style={{paddingBottom: 24}}>
                                 {
-                                    matches.map((match, index) => (
+                                    matchesLive.map((match, index) => (
                                         <MatchesWidgets key={index} score={match} />
                                     ))
                                 }
@@ -75,7 +80,7 @@ const MatchesOverview = () => {
                         <TabPanel className="h-100" value="finished" onClick={() => setActiveTab('finished')}>
                             <div className="d-flex flex-column g-24" style={{paddingBottom: 24}}>
                                 {
-                                    matches.map((match, index) => (
+                                    matchesFinished.map((match, index) => (
                                         <MatchesWidgets key={index} score={match}/>
                                     ))
                                 }

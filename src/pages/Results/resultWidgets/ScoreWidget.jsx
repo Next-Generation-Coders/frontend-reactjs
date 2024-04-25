@@ -29,7 +29,7 @@ const ScoreWidgetContainer = styled.div`
     height: 37vh; /* Set the height to 50% of the viewport height */
   `;
 
-const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow,handleCorners,handleOffsides,team1,team2}) => {
+const ScoreWidget = ({matchID,matchStart,score , handleGoal ,changed,handleRed,handleYellow,handleCorners,handleOffsides,team1,team2}) => {
     
 
     const buttonStyle = { 
@@ -53,7 +53,7 @@ const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow
 
             <div className='bg-red text-center'> 
             
-            <TimeMatch matchID={matchID}/>
+            {/* <TimeMatch matchID={matchID}/> */}
             
             
             </div>
@@ -61,36 +61,36 @@ const ScoreWidget = ({matchID,score , handleGoal ,changed,handleRed,handleYellow
 
             <Header className="d-flex align-items-center justify-content-between card-padded p-relative">
                
-            <button className="btn "  onClick={() => handleGoal('team1',matchID)} style={buttonStyle} type="submit">
+            <button className="btn " disabled={!matchStart}  onClick={() => handleGoal('team1',matchID)} style={buttonStyle} type="submit">
                         Goal 
                     </button>
 
-                     <button className="btn "  onClick={() => handleRed('team1',matchID)} style={buttonStyle} type="submit">
+                     <button className="btn " disabled={!matchStart}  onClick={() => handleRed('team1',matchID)} style={buttonStyle} type="submit">
                         Red 
                     </button>     
-                    <button className="btn" onClick={() => handleYellow('team1',matchID)}   style={buttonStyle} type="submit">
+                    <button className="btn" disabled={!matchStart} onClick={() => handleYellow('team1',matchID)}   style={buttonStyle} type="submit">
                         Yellow 
                     </button>  
-                    <button className="btn"  onClick={() => handleCorners('team1',matchID)}   style={buttonStyle} type="submit">
+                    <button className="btn" disabled={!matchStart}  onClick={() => handleCorners('team1',matchID)}   style={buttonStyle} type="submit">
                         Corner 
                     </button> 
-                    <button className="btn"  onClick={() => handleOffsides('team1',matchID)}  style={buttonStyle }type="button">
+                    <button className="btn" disabled={!matchStart} onClick={() => handleOffsides('team1',matchID)}  style={buttonStyle }type="button">
                         Offside 
                     </button> 
                
-                <button className="btn"   onClick={() => handleGoal('team2',matchID)} style={buttonStyle} type="submit">
+                <button className="btn" disabled={!matchStart}   onClick={() => handleGoal('team2',matchID)} style={buttonStyle} type="submit">
                         Goal 
                     </button> 
-                    <button className="btn" onClick={() => handleRed('team2',matchID)}   style={buttonStyle} type="submit">
+                    <button className="btn" disabled={!matchStart} onClick={() => handleRed('team2',matchID)}   style={buttonStyle} type="submit">
                         Red 
                     </button>   
-                    <button className="btn"  onClick={() => handleYellow('team2',matchID)}  style={buttonStyle} type="submit">
+                    <button className="btn" disabled={!matchStart}  onClick={() => handleYellow('team2',matchID)}  style={buttonStyle} type="submit">
                         Yellow 
                     </button>  
-                    <button className="btn"   onClick={() => handleCorners('team2',matchID)} style={buttonStyle} type="button">
+                    <button className="btn" disabled={!matchStart}   onClick={() => handleCorners('team2',matchID)} style={buttonStyle} type="button">
                         Corner 
                     </button> 
-                    <button className="btn" onClick={() => handleOffsides('team2',matchID)}   style={buttonStyle} type="button">
+                    <button className="btn" disabled={!matchStart} onClick={() => handleOffsides('team2',matchID)}   style={buttonStyle} type="button">
                         Offside 
                     </button> 
 
