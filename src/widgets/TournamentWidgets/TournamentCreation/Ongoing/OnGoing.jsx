@@ -6,11 +6,16 @@ import TournamentStatusSelector from './TournamentTypeselector';
 import {toast} from 'react-toastify';
 import {useState} from 'react';
 import classNames from 'classnames';
+import styles from "@widgets/TournamentWidgets/TournamentCreation/details/styles.module.scss";
 
 const OnGoing = ({ standalone = true, formData, setFormData,onSubmit }) => {
-    const { register, formState: { errors }, handleSubmit: handleSubmitForm } = useForm({
+    const { register,
+        formState: { errors },
+        handleSubmit: handleSubmitForm } = useForm({
         defaultValues: formData
     });
+    const [formSubmitted, setFormSubmitted] = useState(false);
+
 
     const Wrapper = standalone ? 'div' : Spring;
     const wrapperProps = standalone ? {className: 'card card-padded'} : {};
@@ -72,23 +77,24 @@ const OnGoing = ({ standalone = true, formData, setFormData,onSubmit }) => {
             numberOfPlayers: parseInt(data.numberOfPlayers),
             
         };
-        console.log("Received data in parent:", formattedData);
         onSubmit({ ...formData, ...formattedData });
         setButtonText("Undo");
+        toast.success("Form submitted successfully!");
+        setFormSubmitted(true);
+
     }
 
  
         return (
-            <div className="container">
+            <div className={classNames("container", { [styles.blurred]: formSubmitted })}>
                 <Wrapper {...wrapperProps}>
                     <div className="d-flex flex-column g-4">
-                        <h2>Tournament Ongoing</h2>
-                        <p className="text-12">Fill out the form below to create a new Tournament</p>
+                        <h2 style={{paddingLeft:"220px"}}>Tournament Ongoing</h2>
                     </div>
                     <form onSubmit={handleSubmitForm(handleFormSubmit)} className="d-flex flex-column g-40">
                         <div className="d-flex flex-column g-20" style={{ margin: '20px 0 30px' }}>
                         <TournamentStatusSelector onSelectTournamentType={handleSelectTournamentType} />
-                           
+                            <bR></bR>
                             <input
                                 className={classNames('field', { 'field--error': errors.numberOfTeams })}
                                 type="number"
@@ -104,7 +110,17 @@ const OnGoing = ({ standalone = true, formData, setFormData,onSubmit }) => {
                            
                             
                         </div>
-                        <button className="btn" type='onSubmit'>Validate    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
+                        <bR></bR> <bR></bR> <bR></bR> <bR></bR> <bR></bR><bR></bR>
+
+                        <button
+                            className="btn"
+                            type="submit"
+                            style={{ backgroundColor: "#FDCA40", color: "black" }}
+                            disabled={!selectedTournamentType }
+                        >
+                            Validate <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span>
+                        </button>
+
                     </form>
                 </Wrapper>
             </div>

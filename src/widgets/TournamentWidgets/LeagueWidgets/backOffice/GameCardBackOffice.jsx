@@ -1,10 +1,11 @@
 // styling
 import styles from './styles.module.scss';
 import classNames from 'classnames';
-import { FaMapMarkerAlt, FaClock, FaUser } from 'react-icons/fa'; 
+import { FaMapMarkerAlt, FaClock, FaUser } from 'react-icons/fa';
 import Spring from '@components/Spring';
 import Lineups from '@components/Lineups';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import defaultLogo1 from "../../../../assets/Def1.png";
 import defaultLogo2 from "../../../../assets/Def2.png";
@@ -25,20 +26,20 @@ const GameCardBackOffice = ({matchId, index, variant = 'basic',selectedTournamen
     const {theme} = useThemeProvider();
     const defaultLogos = [defaultLogo1, defaultLogo2, defaultLogo3, defaultLogo4];
     const [match , setMatch] =useState();
-const[stadiums, setStadiums] =useState();
-const[referees, setReferees] =useState();
-const [StadiumInfo ,setStadiumsInfo] = useState();
-const [refereeInfo ,setRefereesInfo] = useState();
-const [startDate, setStartDate] = useState({ day: null, month: null, year: null });
-const [startHour, setStartHour] = useState('');
-const [startMinutes, setStartMinutes] = useState('');
-const { handleSubmit, register, formState: { errors }, control } = useForm({
-  defaultValues: {}
-});
+    const[stadiums, setStadiums] =useState();
+    const[referees, setReferees] =useState();
+    const [StadiumInfo ,setStadiumsInfo] = useState();
+    const [refereeInfo ,setRefereesInfo] = useState();
+    const [startDate, setStartDate] = useState({ day: null, month: null, year: null });
+    const [startHour, setStartHour] = useState('');
+    const [startMinutes, setStartMinutes] = useState('');
+    const { handleSubmit, register, formState: { errors }, control } = useForm({
+      defaultValues: {}
+    });
 useEffect(() => {
   const fetchStaduimsAndRefs = async () => {
 try{
- 
+
         const StaduimsAndRefs = await fetch(`http://localhost:3000/Tournament/getRefereesAndStadiumsForTournament/${selectedTournamentId}`);
         if (!StaduimsAndRefs.ok) {
         throw new Error('Failed to fetch  details');
@@ -52,7 +53,7 @@ try{
 
   }catch{
   }
-  }  
+  }
   if(selectedTournamentId){
   fetchStaduimsAndRefs()}
 }, [selectedTournamentId])
@@ -60,7 +61,7 @@ try{
 useEffect(() => {
     const fetchStadiumAndRefereeDetails = async () => {
         try {
-         
+
             if (stadiums && stadiums.length > 0) {
                 const stadiumPromises = stadiums.map(async (stadiumId) => {
                     const response = await fetch(`http://localhost:3000/Stadium/getbyid/${stadiumId}`);
@@ -73,12 +74,12 @@ useEffect(() => {
                 setStadiumsInfo(stadiumData);
             }
 
-          
+
             if (referees && referees.length > 0) {
                 const refereePromises = referees.map(async (refereeId) => {
                     const response = await fetch(`http://localhost:3000/User/getbyid/${refereeId}`);
                     if (!response.ok) {
-                        throw new Error(`Failed to fetch referee details for ID ${refereeId}`);
+                        toast.rror(`Failed to fetch referee details for ID ${refereeId}`);
                     }
                     return response.json();
                 });
@@ -86,7 +87,7 @@ useEffect(() => {
                 setRefereesInfo(refereeData);
             }
         } catch (error) {
-            console.error('Error fetching stadium and referee details:', error);
+            toast.error('Error fetching stadium and referee details:', error);
         }
     };
 
@@ -108,7 +109,7 @@ const handleStartDateChange = (e) => {
 
          const fetchMatchDetails = async () => {
         try {
-     
+
           const team1Response = await fetch(`http://localhost:3000/Match/getbyid/${matchId}`);
           if (!team1Response.ok) {
             throw new Error('Failed to fetch team details');
@@ -122,7 +123,7 @@ const handleStartDateChange = (e) => {
           const team1Data = await teamResponse.json();
           setTeam1Name(team1Data.name);
           setteam1Logo(team1Data.logo || getRandomDefaultLogo(team1Data.logo))
-  
+
           const team2Response = await fetch(`http://localhost:3000/Team/getbyid/${MatchData.team2}`);
           if (!team2Response.ok) {
             throw new Error('Failed to fetch team details');
@@ -141,7 +142,7 @@ const handleStartDateChange = (e) => {
         let randomIndex = Math.floor(Math.random() * defaultLogos.length);
 
         if (defaultLogos.length === 1) return defaultLogos[0];
-        
+
 
         while (defaultLogos[randomIndex] === prevLogo) {
           randomIndex = Math.floor(Math.random() * defaultLogos.length);
@@ -160,7 +161,7 @@ const handleStartDateChange = (e) => {
     setShowPopup(!showPopup);
   };
 
-  
+
  /*   useEffect(() => {
       const fetchTeamDetails = async () => {
         try {
@@ -187,8 +188,8 @@ const handleStartDateChange = (e) => {
       if(match){
       fetchTeamDetails();}
     }, [match]);
-  
-      
+
+
 */
 
 
@@ -202,11 +203,11 @@ const onSubmit = async (formDataToSend) => {
       body: JSON.stringify(formDataToSend),
     });
     if (!response.ok) {
-      throw new Error('Failed to update match details');
+        toast.error('Failed to update match details');
     }
-    
+
   } catch (error) {
-    console.error('Error updating match details:', error);
+    toast.error('Error updating match details:', error);
   }
 };
 
@@ -214,8 +215,8 @@ const onSubmit = async (formDataToSend) => {
 const [selectedRefereeId, setSelectedRefereeId] = useState(null);
 const [selectedstadiumId, setSelectedstadiumId] = useState(null);
 const handleFormSubmit = (e) => {
- 
- 
+
+
   const formDataToSend = {
     startDay: parseInt(startDate.startDay),
     startMonth: parseInt(startDate.startMonth),
@@ -228,115 +229,113 @@ const handleFormSubmit = (e) => {
 
 console.log(formDataToSend);
   onSubmit(formDataToSend);
-  
-  
+
+
 };
 
     return (
         <Spring className={`${styles.container} ${styles[theme]} h-100`} type="slideUp" index={index}>
-          {team1Name && team2Name && ( // Check if team names are defined
+          {team1Name && team2Name && (
             <div className="card-padded d-flex flex-column g-20" style={{ paddingBottom: variant !== 'extended' ? 'var(--card-padding)' : 10 }}>
               <div className="d-flex align-items-center justify-content-between p-relative">
                 <img className="club-logo" src={team1Logo} alt={team1Name} />
-                
-                    <button className='btn' onClick={togglePopup}> Match Details <br /> <FaUser className="icon"/>  <FaClock className="icon" />  <FaMapMarkerAlt className="icon"/></button>
-                  
+
+                    <button className='btn' style={{backgroundColor:"#FDCA40",color:"black"}} onClick={togglePopup}> Match Details <br />
+                        <FaMapMarkerAlt style={{marginLeft:"8px"}} className="icon"/></button>
+
                 <img className="club-logo" src={team2Logo} alt={team2Name} />
+
               </div>
-              {width >= 414 && (
+
+               {width >= 414 && (
                 <div className="d-flex justify-content-between g-30">
-                  <div style={{ minWidth: 0 }}>
-                    <h3>{team1Name}</h3>
-                   
-                  </div>
-                  
-                  <div className="text-right" style={{ minWidth: 0 }}>
-                    <h3>{team2Name}</h3>
-                    
-                  </div>
+
+                      <div style={{ minWidth: 0 }}>
+                        <h3>{team1Name}</h3>
+                      </div>
+                      <div className="text-right" style={{ minWidth: 0 }}>
+                        <h3>{team2Name}</h3>
+                      </div>
                 </div>
-              )}
-              
-              
-              <Popup open={showPopup} onClose={togglePopup}>
-  <h2 style={{margin : '22px'}}>Match Details</h2>
-  <form onSubmit={handleSubmit(handleFormSubmit)}>
-    <div className={styles.inputGroup}>
-      <label>
-        <FaUser className={styles.icon} />
-        Referee:
-        <select  className={classNames('field', { 'field--error': errors.referee })}
-        onChange={(e) => setSelectedRefereeId(e.target.value)}>
-          {refereeInfo && refereeInfo.map(referee => (
-            <option key={referee._id} value={referee._id}>
-              {referee.fullname} 
-            </option>
-          ))}
-        </select>
-      </label>
-      {errors.referee && <span className="error-message">Referee is required</span>}
-    </div>
-    <div className={styles.inputGroup}>
-      <label>
-        <FaMapMarkerAlt className={styles.icon} />
-        Stadium:
-        <select className={classNames('field', { 'field--error': errors.stadium })}
-        onChange={(e) => setSelectedstadiumId(e.target.value)}>
-          {StadiumInfo && StadiumInfo.map(stadium => (
-            <option key={stadium._id} value={stadium._id}>
-              {stadium.name} 
-            </option>
-          ))}
-        </select>
-      </label>
-      {errors.stadium && <span className="error-message">Stadium is required</span>}
-    </div>
-    <div className={styles.inputGroup}>
-      <label style={{margin : '2px'}}>
-        <FaClock className={styles.icon} />
-        Match Day:
-        <input
-          type="date"
-         required
-          className={classNames('field', { 'field--error': errors.matchDay })}
-          onChange={handleStartDateChange}
-        />
-        {errors.matchDay && <span className="error-message">Match Day is required</span>}
-      </label >
-    </div>
-    <div className={styles.inputGroup}>
-      <label style={{margin : '2px'}}>Match Start Hour:</label>
-      <input
-        type="number"
-      required
-        className={classNames('field', { 'field--error': errors.matchStartHour })}
-        min="0"
-        max="23"
-        value={startHour}
-                onChange={(e) => setStartHour(e.target.value)}
-      />
-      {errors.matchStartHour && <span className="error-message">Match Start Hour is required</span>}
-    </div>
-    <div className={styles.inputGroup}>
-      <label style={{margin : '2px'}}>Match Start Minute:</label>
-      <input
-        type="number"
-      required
-        className={classNames('field', { 'field--error': errors.matchStartMinute })}
-        min="0"
-        max="59"
-        value={startMinutes}
-                onChange={(e) => setStartMinutes(e.target.value)}
-      />
-      {errors.matchStartMinute && <span className="error-message">Match Start Minute is required</span>}
-    </div>
-    <button style={{marginLeft : '222px', marginTop : '15px'}} className="btn" type="submit">Confirm</button>
-  </form>
-</Popup>
 
 
+                   )}
 
 
+                      <Popup  open={showPopup} onClose={togglePopup}>
+                      <h2 style={{margin : '22px',marginLeft:"70px"}}>Match Details</h2>
+                      <form onSubmit={handleSubmit(handleFormSubmit)}>
+                        <div className={styles.inputGroup}>
+                          <label>
+                            Referee:
+                            <select  className={classNames('field', { 'field--error': errors.referee })}
+                                     style={{backgroundColor : 'transparent'}}
+                            onChange={(e) => setSelectedRefereeId(e.target.value)}>
+                              {refereeInfo && refereeInfo.map(referee => (
+                                <option key={referee._id} value={referee._id}>
+                                  {referee.fullname}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          {errors.referee && <span className="error-message">Referee is required</span>}
+                        </div>
+                        <div className={styles.inputGroup}>
+                          <label>
+                            Stadium:
+                            <select className={classNames('field', { 'field--error': errors.stadium })}
+                                    style={{backgroundColor : "transparent"}}
+                              onChange={(e) => setSelectedstadiumId(e.target.value)}>
+                              {StadiumInfo && StadiumInfo.map(stadium => (
+                                <option key={stadium._id} value={stadium._id}>
+                                  {stadium.name}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          {errors.stadium && <span className="error-message">Stadium is required</span>}
+                        </div>
+                        <div className={styles.inputGroup}>
+                          <label style={{margin : '2px'}}>
+                            Match Day:
+                            <input
+                              type="date"
+                             required
+                              className={classNames('field', { 'field--error': errors.matchDay })}
+                              onChange={handleStartDateChange}
+                            />
+                            {errors.matchDay && <span className="error-message">Match Day is required</span>}
+                          </label >
+                        </div>
+                        <div className={styles.inputGroup}>
+                          <label style={{margin : '2px'}}>Match Start Hour:</label>
+                          <input
+                            type="number"
+                          required
+                            className={classNames('field', { 'field--error': errors.matchStartHour })}
+                            min="0"
+                            max="23"
+                            value={startHour}
+                                    onChange={(e) => setStartHour(e.target.value)}
+                          />
+                          {errors.matchStartHour && <span className="error-message">Match Start Hour is required</span>}
+                        </div>
+                        <div className={styles.inputGroup}>
+                          <label style={{margin : '2px'}}>Match Start Minute:</label>
+                          <input
+                            type="number"
+                              required
+                                className={classNames('field', { 'field--error': errors.matchStartMinute })}
+                                min="0"
+                                max="59"
+                                value={startMinutes}
+                                        onChange={(e) => setStartMinutes(e.target.value)}
+                          />
+                          {errors.matchStartMinute && <span className="error-message">Match Start Minute is required</span>}
+                        </div>
+                        <button style={{width : '100%', marginTop : '15px',backgroundColor:"#FDCA40",color:"black"}}    className="btn" type="submit">Confirm</button>
+                      </form>
+                    </Popup>
             </div>
           )}
           {
@@ -346,10 +345,10 @@ console.log(formDataToSend);
               </div>
             )
           }
-          
+
         </Spring>
       )
-      
+
 }
 
 GameCardBackOffice.propTypes = {

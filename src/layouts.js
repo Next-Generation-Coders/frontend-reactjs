@@ -56,54 +56,54 @@ const layouts = {
     },
     championships: {
         xl: [
-            {i: 'segment_chart', x: 3, y: 2, w: 1, h: 2},
-            {i: 'live_matches', x: 3, y: 0, w: 1, h: 2},
+            {i: 'segment_chart', x: 0, y: 2, w: 1, h: 3},// 1
+            {i: 'live_matches', x: 3, y: 0, w: 4, h: 2},
             {i: 'team_stats', x: 1, y: 3, w: 2, h: 1},
-            {i: 'month_matches', x: 1, y: 0, w: 2, h: 3},
+            {i: 'month_matches', x: 1, y: 0, w: 3, h: 3},//2
             {i: 'match_result', x: 0, y: 0, w: 1, h: 4},
         ],
         lg: [
-            {i: 'segment_chart', x: 0, y: 4, w: 1, h: 2},
-            {i: 'live_matches', x: 1, y: 4, w: 2, h: 2},
+            {i: 'segment_chart', x: 0, y: 4, w: 1, h: 3},
+            {i: 'live_matches', x: 1, y: 4, w: 4, h: 2},
             {i: 'team_stats', x: 1, y: 3, w: 2, h: 1},
-            {i: 'month_matches', x: 1, y: 0, w: 2, h: 3},
+            {i: 'month_matches', x: 1, y: 0, w: 3, h: 3},
             {i: 'match_result', x: 0, y: 0, w: 1, h: 4},
         ],
         md: [
-            {i: 'segment_chart', x: 1, y: 5, w: 1, h: 2},
-            {i: 'live_matches', x: 1, y: 3, w: 1, h: 2},
+            {i: 'segment_chart', x: 0, y: 5, w: 1, h: 3},
+            {i: 'live_matches', x: 1, y: 3, w: 4, h: 2},
             {i: 'team_stats', x: 0, y: 7, w: 2, h: 1},
-            {i: 'month_matches', x: 0, y: 0, w: 2, h: 3},
+            {i: 'month_matches', x: 0, y: 0, w: 3, h: 3},
             {i: 'match_result', x: 0, y: 3, w: 1, h: 4},
         ]
     },
     league_overview: {
         xl: [
-            {i: 'league_rating', x: 0, y: 0, w: 1, h: 2},
-            {i: 'matches_overview', x: 1, y: 2, w: 2, h: 3},
+            {i: 'league_rating', x: 0, y: 0, w: 1, h: 3},
+            {i: 'matches_overview', x: 1, y: 2, w: 3, h: 3},
             {i: 'calendar', x: 3, y: 2, w: 1, h: 2},
             {i: 'team_pulse', x: 3, y: 1, w: 1, h: 1},
-            {i: 'team_stats', x: 3, y: 0, w: 1, h: 1},
+            {i: 'team_stats', x: 0, y: 4, w: 4, h: 1},
             {i: 'standings', x: 0, y: 3, w: 1, h: 1},
             {i: 'ball_possession', x: 1, y: 3, w: 2, h: 1},
             {i: 'dots_chart', x: 0, y: 2, w: 1, h: 1},
         ],
         lg: [
-            {i: 'league_rating', x: 0, y: 0, w: 1, h: 2},
-            {i: 'matches_overview', x: 1, y: 0, w: 2, h: 3},
+            {i: 'league_rating', x: 0, y: 0, w: 1, h: 3},
+            {i: 'matches_overview', x: 1, y: 0, w: 3, h: 3},
             {i: 'calendar', x: 1, y: 3, w: 1, h: 2},
             {i: 'team_pulse', x: 0, y: 2, w: 1, h: 1},
-            {i: 'team_stats', x: 0, y: 3, w: 1, h: 1},
+            {i: 'team_stats', x: 0, y: 4, w: 4, h: 1},
             {i: 'standings', x: 0, y: 4, w: 1, h: 1},
             {i: 'ball_possession', x: 0, y: 5, w: 3, h: 1},
             {i: 'dots_chart', x: 2, y: 3, w: 1, h: 2},
         ],
         md: [
-            {i: 'league_rating', x: 0, y: 0, w: 1, h: 2},
-            {i: 'matches_overview', x: 0, y: 2, w: 2, h: 3},
+            {i: 'league_rating', x: 0, y: 0, w: 1, h: 3},
+            {i: 'matches_overview', x: 0, y: 2, w: 3, h: 3},
             {i: 'calendar', x: 1, y: 0, w: 1, h: 2},
             {i: 'team_pulse', x: 0, y: 5, w: 1, h: 1},
-            {i: 'team_stats', x: 1, y: 6, w: 1, h: 1},
+            {i: 'team_stats', x: 0, y: 4, w: 4, h: 1},
             {i: 'standings', x: 1, y: 5, w: 1, h: 1},
             {i: 'ball_possession', x: 0, y: 7, w: 2, h: 1},
             {i: 'dots_chart', x: 0, y: 6, w: 1, h: 1},
@@ -672,6 +672,32 @@ const layouts = {
             {i: 'league_standings', x: 0, y: 0, w: 2, h: 2},
         ]
     },
+    player_profilee: {
+        xl: [
+
+            {i: 'avatar', x: 0, y: 4, w: 1, h: 2.3},
+            {i: 'payments',x: 1, y: 0, w: 2, h: 2.3},
+            {i: 'password', x: 3, y: 0, w: 1, h: 2.3}
+
+
+        ],
+        lg: [
+            {i: 'avatar', x: 0, y: 4, w: 1, h: 2.3},
+            {i: 'payments', x: 1, y: 0, w: 2, h: 2},
+            {i: 'password', x: 3, y: 0, w: 1, h: 2}
+
+        ],
+        md: [
+            {i: 'avatar', x: 0, y: 4, w: 1, h: 2.3},
+            {i: 'payments',x: 1, y: 0, w: 2, h: 2},
+            {i: 'password', x: 3, y: 0, w: 1, h: 2}
+
+        ]
+
+    },
+
+
+
 }
 
 export default layouts

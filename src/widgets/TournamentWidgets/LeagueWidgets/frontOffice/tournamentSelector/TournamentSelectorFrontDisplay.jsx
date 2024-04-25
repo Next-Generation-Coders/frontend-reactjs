@@ -6,9 +6,13 @@ import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
 import defaultLogo from "../../../../../assets/uefa.png";
 
+
+import { FaSearch } from 'react-icons/fa';
 const TournamentSelectorFrontDisplay = ({ onSelectTournament }) => {
   const [tournaments, setTournaments] = useState([]);
-  const [search, setSearch] = useState('');
+    const [showSearch, setShowSearch] = useState(false);
+    const [search, setSearch] = useState('');
+    const inputRef = useRef(null);
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
@@ -22,8 +26,20 @@ const TournamentSelectorFrontDisplay = ({ onSelectTournament }) => {
 
     fetchTournaments();
   }, []);
-  const inputRef = useRef(null);
-  
+
+    const handleIconClick = () => {
+        setShowSearch((prevShowSearch) => !prevShowSearch);
+        if (!showSearch && inputRef.current) {
+            inputRef.current.focus();
+        }
+    };
+
+    const handleSearchChange = (e) => {
+        setSearch(e.target.value);
+    };
+
+
+
   const handleTournamentClick = (tournamentId) => {
   
     onSelectTournament(tournamentId);
@@ -46,47 +62,59 @@ const navigate= useNavigate();
   }
 
 
-  return (
-    
-    <Spring className="card d-flex flex-column g-16 card-padded">
-      <div style={{ display: 'flex' ,justifyContent: 'space-between'}}>
-      <h2>Tournaments</h2>
-      <Form>
-          <InputGroup className='my-3'>
-
-            
-          
-              <Form.Control
-                ref={inputRef}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder='Press / to search'
-                style={{
-                  padding: '10px',
-                  borderRadius: '5px',
-                  border: '1px solid #ccc',
-                  boxShadow: 'none',
-                }}
-              />
-          
-          </InputGroup>
-        </Form></div>
-    <div className="tournament-selector-container">
-      {tournaments.filter((tournament) => {
-                return search.toLowerCase() === ''
-                  ? tournament
-                  : tournament.title && tournament.title.toLowerCase().includes(search);
-              })
-      .map(tournament => (
+    const renderTournamentItem = (tournament) => (
         <div key={tournament._id} className="tournament-item" onClick={() => handleTournamentClick(tournament._id)}>
-           <img src={tournament.logo || defaultLogo} alt="Tournament Logo"  className="tournament-logo"/>
-           <p className="tournament-title">{tournament.title}</p>
-           <button className='tournament.button'  onClick={() => GoToTournamentReview(tournament._id)}>More</button>
+            <div className="tournament-content">
+                <img src={tournament.logo || defaultLogo} alt="Tournament Logo" className="tournament-logo" />
+                <p className="tournament-title">{tournament.title}</p>
+            </div>
+            <button className="btn" style={{backgroundColor: "#FDCA40",color:"black"}} onClick={() => GoToTournamentReview(tournament._id)}>More</button>
         </div>
-      ))}
-    </div>
-  </Spring>
-   
-  );
+    );
+
+    const filterTournaments = () => {
+        return tournaments.filter((tournament) => {
+            return search.toLowerCase() === ''
+                ? tournament
+                : tournament.title && tournament.title.toLowerCase().includes(search);
+        });
+    };
+
+ return (
+        <Spring className="card d-flex flex-column g-16 card-padded">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                {showSearch ? (
+                    <Form>
+                        <InputGroup className='my-3' style={{ paddingLeft: '30px' }}>
+                            <Form.Control
+                                ref={inputRef}
+                                value={search}
+                                onChange={handleSearchChange}
+                                onBlur={() => setShowSearch(false)}
+                                placeholder='Search..'
+                                style={{
+                                    padding: '8px',
+                                    borderRadius: '5px',
+                                    border: '1px solid #FDCA40',
+                                    boxShadow: 'none',
+                                }}
+                            />
+                        </InputGroup>
+                    </Form>
+                ) : (
+                    <h2>Tournaments</h2>
+                )}
+                <InputGroup.Text onClick={handleIconClick} style={{ cursor: 'pointer' }}>
+                    <FaSearch style={{ color: "#FBCB40" }} />
+                </InputGroup.Text>
+            </div>
+            <div className="tournament-selector-container">
+                {filterTournaments().map(renderTournamentItem)}
+            </div>
+        </Spring>
+    );
 };
 
 export default TournamentSelectorFrontDisplay;
+
+

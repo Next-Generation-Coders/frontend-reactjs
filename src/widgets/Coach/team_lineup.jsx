@@ -6,6 +6,10 @@ import axios from 'axios';
 // styling
 import styles  from './styleee.module.scss';
 
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 export const TeamLineupManager = () => {
   const {USER} = useAuthContext() ;
@@ -281,51 +285,67 @@ export const TeamLineupManager = () => {
       });
     }
   };
-  
+
 
   return (
-    <div className={styles.container}>
-      <div className={styles.pitchContainer}>
-        <h2>Field</h2>
-        <div className={styles.pitch}>
-          <SoccerLineup homeTeam={homeTeam} 
-          pattern="lines"
-          />
+      <div className={styles.container} style={{
+        '--width': '126px',
+        '--height': 'calc(var(--width) * 4 / 3)',
+        transition: 'all 0.5s',
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        alignContent: 'space-evenly',
+        flexWrap: 'wrap',
+        margin: 0
+      }}>
+        <div className={styles.pitchContainer}>
+          <div className={styles.pitch}>
+            <SoccerLineup homeTeam={homeTeam} pattern="lines" />
+          </div>
         </div>
+        <div className={styles.playersContainer}>
+          <h2>Available Players</h2>
+          <ul className={styles.playersList}>
+            {players.map((player) => (
+                <div key={player.id} className={styles.playerItem}>
+                  <li>
+                    {player.fullname} - {player.position}
+                  </li>
+                  <button
+                      className={`${styles.addButton} ${
+                          Object.values(homeTeam.squad)
+                              .flat()
+                              .some((p) => p && p.name === player.fullname)
+                              ? styles.removeButton
+                              : ""
+                      }`}
+                      onClick={() => addPlayer(player)}
+                  >
+                    {Object.values(homeTeam.squad)
+                        .flat()
+                        .some((p) => p && p.name === player.fullname)
+                        ? "Remove from Lineup"
+                        : "Add to Lineup"}
+                  </button>
+                </div>
+            ))}
+          </ul>
+        </div>
+
+        <button
+            className="btn"
+            type="button"
+            style={{ marginLeft: '40px', width: '60%', backgroundColor: '#FDCA40', color: 'black' }}
+            onClick={() => saveLineup(players)}
+        >
+          Save Lineup
+        </button>
       </div>
-      <div className={styles.playersContainer}>
-        <h2>Available Players</h2>
-        <ul className={styles.playersList}>
-          {players.map((player) => (
-            <div key={player.id} className={styles.playerItem}>
-              <li>
-                {player.fullname} - {player.position}
-              </li>
-              <button
-                className={`${styles.addButton} ${
-                  Object.values(homeTeam.squad)
-                    .flat()
-                    .some((p) => p && p.name === player.fullname)
-                    ? styles.removeButton
-                    : ""
-                }`}
-                onClick={() => addPlayer(player)}
-              >
-                {Object.values(homeTeam.squad)
-                  .flat()
-                  .some((p) => p && p.name === player.fullname)
-                  ? "Remove from Lineup"
-                  : "Add to Lineup"}
-              </button>
-            </div>
-          ))}
-        </ul>
-      </div>
-      <button onClick={() => saveLineup(players)}>Save Lineup</button>
-    </div>
   );
-  
-  
-};
+}
+
+
 
 export default TeamLineupManager;

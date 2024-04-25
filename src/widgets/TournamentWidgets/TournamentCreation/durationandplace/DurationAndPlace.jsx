@@ -7,6 +7,7 @@ import CountryCitySelector from './tournamentplaceSelector';
 // hooks
 import {useState} from 'react';
 import classNames from 'classnames';
+import styles from './styles.module.scss';
 
 const DurationAndPlace = ({standalone,onSubmit}) => {
     const [open, setOpen] = useState(false);
@@ -21,20 +22,21 @@ const DurationAndPlace = ({standalone,onSubmit}) => {
     
     const Wrapper = standalone ? 'div' : Spring;
     const wrapperProps = standalone ? {  } : {className: 'card card-padded'};
-    
-    
+    const [formSubmitted, setFormSubmitted] = useState(false);
+
+
     const handleFormSubmit = () => {
-       
+
         const startDateObject = new Date(startDate);
         const endDateObject = new Date(endDate);
         if (startDateObject >= endDateObject) {
-            
+
             toast.error("Start date should be before the end date");
             return;
 
-           
+
         }
-        
+
         if (!selectedCountry) {
             toast.error("Please select the country");
             return;
@@ -45,9 +47,9 @@ const DurationAndPlace = ({standalone,onSubmit}) => {
             return;
         }
 
-        
-        
-        
+
+
+
         // Now you can include startDay, startMonth, startYear, endDay, endMonth, and endYear in the form data object
         const formDataToSend = {
          
@@ -64,7 +66,10 @@ const DurationAndPlace = ({standalone,onSubmit}) => {
        
         onSubmit(formDataToSend);
         
-        console.log('Data from details title:', formDataToSend);
+        toast.success("Form submitted successfully!");
+        setFormSubmitted(true);
+
+
     };
     
 
@@ -108,12 +113,13 @@ const handleEndDateChange = (e) => {
 
 
     return (
-        <div className="container">
+        <div className={classNames("container", { [styles.blurred]: formSubmitted })}>
         <Wrapper {...wrapperProps}>
             <div className="d-flex flex-column g-4">
-                        <h2>Tournament Duration and Place</h2>
+                        <h2 style={{paddingLeft:"40px"}}>Duration and Place</h2>
                         <p className="text-12">Fill out the form below to create a new Tournament</p>
                     </div>
+            <bR></bR>
             <form onSubmit={handleSubmit(handleFormSubmit)} className="d-flex flex-column g-40">
                 <div className="d-flex flex-column g-20">
                 
@@ -144,8 +150,16 @@ const handleEndDateChange = (e) => {
                   
                     
                 </div>
-                <button className="btn" type='onSubmit'>Validate    <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span></button>
-                   
+                <bR></bR> <bR></bR> <bR></bR>                <bR></bR> <bR></bR>
+                <bR></bR> <bR></bR>
+                <button
+                    className="btn"
+                    type="submit"
+                    style={{ backgroundColor: "#FDCA40", color: "black" }}
+                    disabled={!startDate || !endDate || !selectedCity || !selectedCountry  }
+                >
+                    Validate <span style={{ marginLeft: '10px' }} className='text-xl font-bold text-white'>&#10003;</span>
+                </button>
             </form>
             </Wrapper>
             </div>

@@ -81,8 +81,8 @@ const MatchesPanel = ( { selectedTournamentId }) => {
     }, [ tournamentType,selectedTournamentId]);
 
     const switchToNextFixtureTable = () => {
-        if (tournamentType === 'League') {       
-        setCurrentFixtureTableIndex((prevIndex) => (prevIndex + 1) % matchestable.length);
+        if (tournamentType === 'League') {
+            setCurrentFixtureTableIndex((prevIndex) => (prevIndex + 1) % matchestable.length);
         }else if (tournamentType === 'Knockout') {
             setCurrentFixtureTableIndex((prevIndex) => (prevIndex + 1) % rounds.length);
         }
@@ -92,77 +92,76 @@ const MatchesPanel = ( { selectedTournamentId }) => {
     };
 
     const switchToPreviousFixtureTable = () => {
-        if (tournamentType === 'League') {       
+        if (tournamentType === 'League') {
             setCurrentFixtureTableIndex((prevIndex) => (prevIndex - 1 + matchestable.length) % matchestable.length);
-            }else if (tournamentType === 'Knockout') {
-                setCurrentFixtureTableIndex((prevIndex) => (prevIndex - 1 + rounds.length) % rounds.length);
-            }
-            else if (tournamentType === 'Championship') {
-                setCurrentFixtureTableIndex((prevIndex) => (prevIndex - 1 + groupMatches.length) % groupMatches.length);
-            }
+        }else if (tournamentType === 'Knockout') {
+            setCurrentFixtureTableIndex((prevIndex) => (prevIndex - 1 + rounds.length) % rounds.length);
+        }
+        else if (tournamentType === 'Championship') {
+            setCurrentFixtureTableIndex((prevIndex) => (prevIndex - 1 + groupMatches.length) % groupMatches.length);
+        }
 
     };
 
-   
+
     return (
         <Spring className="card d-flex flex-column card-padded">
-        <div className="d-flex flex-column g-24" style={{ paddingBottom: 24 }}>
-            <div className="switch-buttons">
-                <button className='btn' onClick={switchToPreviousFixtureTable}>Previous</button>
-                <button className='btn' onClick={switchToNextFixtureTable}>Next</button>
-            </div>
-        </div>
-        <div className="d-flex flex-column g-24" style={{ paddingBottom: 24 }}>
-            <div className={styles.grid}>
-                <div className="matchCardContainer-selector">
-                    <ScrollContainer height={0}>
-                        <div className={`${styles.scroll_track} track d-flex flex-column g-20`}>
-                            <div className="game-container">
-                                {tournamentType === 'League' && (
-                                    
-                                    <>
-                                        {matchestable[currentFixtureTableIndex]?.map((matchId, matchIndex) => (
-                                        <div key={matchIndex} className='matchCardContainer'>
-                                            <GameCardBackOffice matchId={matchId} selectedTournamentId={selectedTournamentId} />
-                                        </div>
-                                    ))}
-                                    </>
-                                )}
-                              {tournamentType === 'Knockout' && (
-    
-
-    <>
-    {rounds && rounds[currentFixtureTableIndex]?.map((matchId, matchIndex) => (
-        <div key={matchIndex} className='matchCardContainer'>
-            <GameCardBackOffice matchId={matchId} selectedTournamentId={selectedTournamentId} />
-        </div>
-    ))}
-</>
-    )}
-    {tournamentType === 'Championship' && (
-    
-
-    <>
-    {groupMatches && groupMatches[currentFixtureTableIndex]?.map((matchId, matchIndex) => (
-        <div key={matchIndex} className='matchCardContainer'>
-            <GameCardBackOffice matchId={matchId} selectedTournamentId={selectedTournamentId} />
-        </div>
-    ))}
-</>
-    )}
-    
-
-                            </div>
-                        </div>
-                    </ScrollContainer>
+            <div className="d-flex flex-column g-24" style={{ paddingBottom: 24 }}>
+                <div className="switch-buttons">
+                    <button style={{backgroundColor:"#FDCA40",color:"black"}} className='btn' onClick={switchToPreviousFixtureTable}>Previous</button>
+                    <button style={{backgroundColor:"#FDCA40",color:"black",marginLeft:"950px"}} className='btn' onClick={switchToNextFixtureTable}>Next</button>
                 </div>
             </div>
-        </div>
-    </Spring>
-    
+            <div className="d-flex flex-column g-24" style={{ paddingBottom: 24 }}>
+                <div className={styles.grid}>
+                    <div className="matchCardContainer-selector">
+                        <ScrollContainer height={0}>
+                            <div className={`${styles.scroll_track} track d-flex flex-column g-20`}>
+                                <div className="game-container">
+                                    {tournamentType === 'League' && (
+
+                                        <>
+                                            {matchestable[currentFixtureTableIndex]?.map((matchId, matchIndex) => (
+                                                <div key={matchIndex} className='matchCardContainer'>
+                                                    <GameCardBackOffice matchId={matchId} selectedTournamentId={selectedTournamentId} />
+                                                </div>
+                                            ))}
+                                        </>
+                                    )}
+                                    {tournamentType === 'Knockout' && (
+
+
+                                        <>
+                                            {rounds && rounds[currentFixtureTableIndex]?.map((matchId, matchIndex) => (
+                                                <div key={matchIndex} className='matchCardContainer'>
+                                                    <GameCardBackOffice matchId={matchId} selectedTournamentId={selectedTournamentId} />
+                                                </div>
+                                            ))}
+                                        </>
+                                    )}
+                                    {tournamentType === 'Championship' && (
+
+
+                                        <>
+                                            {groupMatches && groupMatches[currentFixtureTableIndex]?.map((matchId, matchIndex) => (
+                                                <div key={matchIndex} className='matchCardContainer'>
+                                                    <GameCardBackOffice matchId={matchId} selectedTournamentId={selectedTournamentId} />
+                                                </div>
+                                            ))}
+                                        </>
+                                    )}
+
+
+                                </div>
+                            </div>
+                        </ScrollContainer>
+                    </div>
+                </div>
+            </div>
+        </Spring>
+
     );
 };
 
 export default MatchesPanel;
-
 

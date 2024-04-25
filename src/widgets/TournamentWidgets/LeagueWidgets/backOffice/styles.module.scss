@@ -1,8 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     border-radius: 4px;
+    margin-bottom: 20px;
 
     &.light {
         background: var(--widget);
@@ -19,7 +19,7 @@
     height: 264px !important;
     margin-top: 30px !important;
 
-    // tablet portrait
+    /* tablet portrait */
     @media screen and (min-width: 768px) {
         margin-top: 10px;
     }

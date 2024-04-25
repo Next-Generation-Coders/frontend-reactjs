@@ -19,7 +19,7 @@ const BottomNav = () => {
 
     return (
         <div className={styles.container}>
-            <NavLink className={styles.button} to="/settings" aria-label="Account">
+            <NavLink className={styles.button} to="/profile" aria-label="Account">
                 <i className="icon-user"/>
             </NavLink>
             <NavLink className={styles.button} to="/" aria-label="Home">

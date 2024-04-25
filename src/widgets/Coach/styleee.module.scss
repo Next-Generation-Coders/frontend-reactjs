@@ -148,7 +148,7 @@
 
 
 
-/* switch css  */ 
+/* switch css  */
 
 .toggleSwitch {
   display: flex;
@@ -206,7 +206,7 @@
 }
 
 
-// animations for the buttons 
+// animations for the buttons
 
 /* animations.css */
 /* animations.css */
@@ -239,7 +239,7 @@
   transform: scale(1); /* Scale up "Add Players" button to normal size */
 }
 
-// ----------------- wrapper 
+// ----------------- wrapper
 
 /* styles.module.scss */
 
@@ -297,7 +297,7 @@ margin-left: 0.5rem;
 
 
 
-// pitch 
+// pitch
 
 // styles.module.scss
 
@@ -318,7 +318,7 @@ margin-left: 0.5rem;
 .pitch {
   width: 50%;
   position: relative;
-  //transform: rotate(90deg);   //make the pitch vertical 
+  //transform: rotate(90deg);   //make the pitch vertical
 }
 
 .playersContainer {
@@ -348,7 +348,7 @@ margin-left: 0.5rem;
   list-style: none;
   padding: 0;
   margin: 0;
-} 
+}
 
 .playerItem {
   margin-bottom: 10px;
@@ -378,3 +378,5 @@ margin-left: 0.5rem;
 .removeButton:hover {
   background-color: #e42e2b;
 }
+
+

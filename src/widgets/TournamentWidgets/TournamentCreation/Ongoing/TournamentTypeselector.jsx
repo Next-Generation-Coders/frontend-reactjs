@@ -9,7 +9,7 @@ const TournamentStatusSelector = ({ onSelectTournamentType }) => {
       onSelectTournamentType(status); // Pass the selected value to the parent component
   };
   return (<div><label>Tournament Type</label>
-    <div className="flex justify-center  space-x-4">
+    <div style={{paddingLeft:"30%"}}>
 
         
       <label style={{ marginRight: '10px', borderRadius: '15px', marginTop :'5px' }} className={`btn ${selectedStatus === 'Knockout' ? 'active' : ''}`}>

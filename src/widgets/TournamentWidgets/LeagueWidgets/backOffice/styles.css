@@ -1,63 +1,36 @@
-.tournament-selector-container {
+.tournament-item {
     display: flex;
-    flex-direction: column;
-    width: 100%; 
-    height: 100vh; 
-  
-    overflow-y: auto;
-  }
-  
-  .tournament-item {
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
-    margin: 8px;
-    justify-content: center;
-    justify-items: center;
-    transition: background-color 0.45s ease-in-out;
-  }
-  .tournament-item:hover {
-    background-color: slategray;
-    
-  }
-  
-
-  
-
-  .tournament-logo {
-    width: 50px; 
-    height: auto; 
-    margin-right: 10px; 
-    margin-left: 30px; 
-    display: inline-block; 
-    border-radius: 25%;
-    vertical-align: middle; 
-    
-  } 
-
-
-  .tournament-title {
-    margin-left: 50px;
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 12px; 
-    font-weight: bold; 
-    color: #fff; 
-    text-transform: uppercase; 
-    letter-spacing: 1px; 
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); 
-  }
-  .matchCardContainer {
-    width: 80%; /* Adjust the width as needed */
-    margin: 0 auto; /* Centers the container horizontally */
-   margin-top: 10px;
-
+    border: 1px solid #FDCA40;
+    margin-bottom: 10px;
 }
 
-
-.matchCardContainer-selector {
+.tournament-content {
     display: flex;
-    flex-direction: column;
-    width: 100%; 
-    height: 100vh; 
-  
-    overflow-y: auto;
-  }
+    align-items: center;
+}
+
+.tournament-logo {
+    width: 50px; /* Ajustez la largeur de l'image selon vos besoins */
+    height: 50px; /* Ajustez la hauteur de l'image selon vos besoins */
+    margin-right: 10px; /* Espacement entre l'image et le titre */
+}
+
+.tournament-title {
+    margin: 0;
+}
+
+.tournament.button {
+    background-color: #FDCA40;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tournament.button:hover {
+    background-color: #FBBF24;
+}
