@@ -304,8 +304,9 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/profile" element={<Profile/>}/>
                                                     <Route path="/Fantasy" element={<FantasyHome/>}/>
                                                     </Route>
-                                                    <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
-
+                                                    <Route element={<RequireAuth allowedRoles={[Role.COACH]}/>}>
+                                                        <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
+                                                    </Route>  
                                                 </Routes>
                                         </Suspense>
                                     </div>

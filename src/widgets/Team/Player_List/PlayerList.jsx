@@ -24,11 +24,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { useLocation   } from 'react-router-dom';
-import { MdDelete } from "react-icons/md";
 
 
 // Define position categories
-const positionMap = {
+const positionMap = { 
     GK: "Goalkeeper",
     CB: "Defender",
     RB: "Defender",
@@ -106,8 +105,7 @@ const teamId = state ? state.teamId : null;
     // Group players by position category
     const categorizedPlayers = {};
     teamData.playerNames?.forEach(player => {
-        console.log("postion",player.position)
-
+        console.log("team players : "+player.position)
         const category = positionMap[player.position] || 'Other';
         categorizedPlayers[category] = [...(categorizedPlayers[category] || []), player];
     });
@@ -130,64 +128,43 @@ const teamId = state ? state.teamId : null;
                             <div style={{ textAlign: 'left', display: 'inline-flex', justifyContent: 'space-between', padding: '10px' }}>
                                 {categorizedPlayers[category]?.map((player, index) => (
                                     <>
-
+                                    {!teamId && (
+                                        <Button onClick={() => removePlayerFromTeam(player.id, player.fullname)}>Remove</Button>
+                                    )}
                                     <Link key={index} to={"/player-profile"} state={{ playerId: player.id }} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                        {!teamId && (
-                                            <Button
-                                                className="btn"
-                                                type="button"
-                                                style={{ marginLeft:"20px",marginBottom:"10px", backgroundColor: 'red', color: 'white' }}
-                                                onClick={() => removePlayerFromTeam(player.id, player.fullname)}> Remove</Button>
-                                        )}
-                                        <Card sx={{  marginBottom: '100px', backgroundColor: "#FCC93F", margin: '0 6px' }}>
-
+                                        <Card sx={{ width: 160, height: 180, marginBottom: '100px', backgroundColor: "#FCC93F", margin: '0 6px' }}>
+                                            {/* Card content */}
                                             <CardActionArea>
                                                 <br />
-                                                <CardMedia
-                                                    style={{
-                                                        borderRadius: "50%",
-                                                        width: 50,
-                                                        height: 50,
-                                                        background: "white",
-                                                        display: "block",
-                                                        marginLeft: "auto",
-                                                        marginRight: "auto",
-                                                    }}
-                                                    image={player.avatar}
-                                                    alt="player picture"
-                                                />
+                                            <CardMedia 
+                                                component="img"
+                                                height="50"
+                                                image={player.avatar}
+                                                /* image={player.fullname} */
+                                                alt="avatar"
 
-
-                                                <Typography
-                                                    variant="body2"
-                                                    color="text.secondary"
-                                                    style={{
-                                                        position: 'absolute',
-                                                        bottom: 0,
-                                                        right: 0,
-                                                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                                                        padding: '8px 12px',
-                                                        borderRadius: '4px',
-                                                    }}
-                                                >
+                                                style={{
+                                                    borderRadius: "50%",
+                                                    width: 70,
+                                                    height: 70,
+                                                    background: "white",
+                                                    display: "block",
+                                                    marginLeft:"auto" ,
+                                                    marginRight:"auto" ,
+                                                }}
+                                            />
+                                                <Typography variant="body2" color="text.secondary" style={{
+                                                    position: 'absolute',
+                                                    bottom: 0,
+                                                    right: 0,
+                                                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                                                    padding: '8px 12px',
+                                                    borderRadius: '4px',
+                                                }}>
                                                     {player.jersyNumber}
                                                 </Typography>
-
-                                                <CardContent
-                                                    style={{
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        height: '100%',
-                                                    }}
-                                                >
-                                                    <Typography
-                                                        gutterBottom
-                                                        variant="h5"
-                                                        component="div"
-                                                        style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}
-                                                    >
+                                                <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                                                    <Typography gutterBottom variant="h5" component="div" style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                                                         {player.fullname.length > 7 ? `${player.fullname.substring(0, 7)}...` : player.fullname} {/* truncate */}
                                                     </Typography>
                                                     <Typography variant="body2" color="text.secondary">

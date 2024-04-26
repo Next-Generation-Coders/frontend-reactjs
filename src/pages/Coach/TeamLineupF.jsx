@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import {TeamLineupManager} from '@widgets/Coach/team_lineup';
 import PageHeader from '@layout/PageHeader';
 
-const TeamLineup = () => {
+const TeamLineup = () => { 
   
   return (
     <>
