@@ -58,6 +58,7 @@
     import ClubSummary from "@pages/ClubSummary";
     import MyTournaments from "@pages/Player/MyTournaments";
     import RoleRequests from "@pages/Admin/RoleRequests";
+    import ChatBot from '@components/Chatbot/Chatbot';
     // import MyTournamentsSelectorFrontDisplay from "@pages/Player/MyTournaments";
 
     // pages
@@ -176,6 +177,7 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                     <SidebarProvider>
                         <ThemeProvider theme={{ theme: theme }}>
                             <ThemeStyles />
+                            <ChatBot />
                             <ToastContainer theme={theme} autoClose={2500} position={direction === 'ltr' ? 'top-right' : 'top-left'} />
                             <StyleSheetManager stylisPlugins={plugins}>
                                 <div className={`app ${isAuthRoute ? 'fluid' : ''}`} ref={appRef}>
