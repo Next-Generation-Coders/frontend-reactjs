@@ -57,6 +57,26 @@ const Profile = () => {
             toast.error('Failed to add new player');
         }
     };
+
+    const updatePlayer = async (coachId, newPlayerData) => {
+        try {
+            const response = await fetch(`http://localhost:3000/User/update/${coachId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newPlayerData)
+                
+            });console.log(JSON.stringify(newPlayerData))
+            const data = await response.json();
+            console.log(newPlayerData?.fullname +"has been updated to a player:", data);
+            // Add any additional logic here after adding the player
+            toast.success(newPlayerData?.fullname +" has been updated to a player successfully!");
+        } catch (error) {
+            console.error(error);
+            toast.error('Failed to update player');
+        }
+    };
     
     const generateRandomPassword = () => {
         const length = 10; // Adjust the length of the password as needed
@@ -68,6 +88,16 @@ const Profile = () => {
         }
         return password;
     };
+
+    async function getUser(email) {
+        try {
+          const response = await axios.get(`http://localhost:3000/User/getbyemail?email=${email}`);
+          const userdata = response.data._id;
+          return userdata ;
+        } catch (error) {
+          console.error(error);
+        }
+    }
     
 
     // Form submission handler
@@ -77,31 +107,48 @@ const Profile = () => {
         const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
         console.log(data+".......................000000")
-        if (showBasicForm) {
+        const userData = await getUser(data.email);
+        if (userData) {
+            /* const userConfirmation =  prompt("Email exists. Do you want to update the user data? \nPlease enter 'yes' or 'no':");
+
+                if (userConfirmation && userConfirmation.toLowerCase() === "yes") {
+                    newPlayerData = {
+                    email: data.email,
+                    position: data.position?.value,
+                    jersyNumber: data.jersyNumber,
+                    height: data.height,
+                    country: {
+                        value: data.country && data.country.value ? data.country.value : data.nationality,
+                        label: data.country && data.country.label ? data.country.label : data.nationality
+                    },
+                    preferedFoot: preferredFoot,
+                    };
+                    await addNewPlayer(userId, newPlayerData);
+                } else {
+                    console.log("Update canceled. Player data not updated.");
+                } */
+                toast.error('Email already exists. Please use a different email address.');
+          } else {
             newPlayerData = {
-                fullname: data.fullname,
-                email: data.email,
-                phone: data.phone,
-                age: data.age,
-                position: data.position?.value,
-                jersyNumber: data.jersyNumber,
-                height :data.height,
-                country :{
-                    value : data.country && data.country.value ? data.country.value : data.nationality, // Perform a null check
-                    label : data.country && data.country.label ? data.country.label : data.nationality
-                } ,
-                preferedFoot: preferredFoot,
-                password: generateRandomPassword() // Use the random password generator function here
+              fullname: data.fullname,
+              email: data.email,
+              phone: data.phone,
+              age: data.age,
+              position: data.position?.value,
+              jersyNumber: data.jersyNumber,
+              height: data.height,
+              country: {
+                value: data.country && data.country.value ? data.country.value : data.nationality,
+                label: data.country && data.country.label ? data.country.label : data.nationality
+              },
+              preferedFoot: preferredFoot,
+              password: generateRandomPassword()
             };
-        } else {
-            newPlayerData = {
-                email: data.email
-            };
-        }
+            await addNewPlayer(userId, newPlayerData);
+            reset(); // Clear the form fields
+          }
         
-    
-        await addNewPlayer(userId, newPlayerData);
-        reset(); // Clear the form fields
+
     };
 
 
