@@ -47,6 +47,15 @@ const positionMap = {
     LW: "Forward"
 };
 
+const images = [
+    'https://media.asroma.com/prod/images/square_medium_fill/c431a82a89dd-5be9a56f0985-lukaku-copia.png',
+    'https://www.orlandopiratesfc.com/storage/2024/01/01eb1374cd229ff7c7433e966baae768.png',
+    'https://www.indiansuperleague.com/static-assets/images/players/33676.png?v=100.82',
+    'https://media.asroma.com/prod/images/square_medium_fill/143a6bf28f85-rui-patricio-copia.png',
+    'https://www.valenciacf.com/public/Image/2024/1/diakhaby_Retrato.png',
+    'https://media.ol.fr/uploads/assets/Henrique_e2b12fe9f1.png?twic=v1/focus=auto/cover=400x533',
+    'https://www.olympiacos.org/wp-content/uploads/2024/01/02/Martins-PANIGIRIKO.png',
+  ];
 
 const PlayerList = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -133,13 +142,12 @@ const teamId = state ? state.teamId : null;
                                     )}
                                     <Link key={index} to={"/player-profile"} state={{ playerId: player.id }} style={{ textDecoration: 'none', color: 'inherit' }}>
                                         <Card sx={{ width: 160, height: 180, marginBottom: '100px', backgroundColor: "#FCC93F", margin: '0 6px' }}>
-                                            {/* Card content */}
                                             <CardActionArea>
                                                 <br />
                                             <CardMedia 
                                                 component="img"
                                                 height="50"
-                                                image={player.avatar}
+                                                image= {player.avatar ? player.avatar : images[index]}
                                                 /* image={player.fullname} */
                                                 alt="avatar"
 

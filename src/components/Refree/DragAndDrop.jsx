@@ -3,6 +3,7 @@ import { useDragAndDrop } from "@hooks/useDragAndDrop";
 import ContainerCards from "./ContainerCards";
 import backgroundImageVS from '@assets/refree/terrain.jpeg';
 import axios from "axios";
+import { LineupTeams } from '@components/Refree/LineupTeams';
 
 export const DragAndDrop = ({id}) => {
     const [teamsData, setTeamsData] = useState([]);
@@ -86,12 +87,14 @@ export const DragAndDrop = ({id}) => {
                     </div>
                 )}
             </div>
-            <div className="layout-cards" style={{ flex: 1, marginTop: '40px' }}>
+            <div className="layout-cards" style={{ flex: 1, marginTop: '40px'}}>
                 {/* Middle container */}
-                <div style={getContainerStyle()} onDrop={(e) => handleDrop(e, 'VS')}>
-                    {/* "VS" text placed at the top */}
+                {/* <div style={getContainerStyle()} onDrop={(e) => handleDrop(e, 'VS')}>
+                    
                     <h2>VS</h2>
-                </div>
+                </div> */}
+
+                <LineupTeams id={id} />
             </div>
             <div className="layout-cards" style={{ flex: 1, marginTop: '40px' }}>
                 {/* Right team lineup container */}
