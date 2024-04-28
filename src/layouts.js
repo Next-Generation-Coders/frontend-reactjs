@@ -695,6 +695,18 @@ const layouts = {
         ]
 
     },
+    live_stream: {
+        xl: [
+            {i: 'live', x: 1, y: 0, w: 2, h: 3},
+        ],
+        lg: [
+            {i: 'live', x: 1, y: 0, w: 2, h: 2},
+        ],
+        md: [
+            {i: 'live', x: 0, y: 0, w: 2, h: 2},
+        ]
+    },
+
 
 
 

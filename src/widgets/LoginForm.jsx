@@ -6,7 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 
 // hooks
 import {useForm, Controller} from 'react-hook-form';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 // utils
 import classNames from 'classnames';
@@ -26,8 +26,24 @@ const LoginForm = () => {
     });
     const onSubmit = async (data) => {
         await login(data.email,data.password);
-
     };
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleSubmit(onSubmit)();
+            }
+        };
+
+        // Add event listener to the form
+        document.querySelector('form').addEventListener('keypress', handleKeyPress);
+
+        return () => {
+            // Cleanup: remove event listener when component unmounts
+            document.querySelector('form').removeEventListener('keypress', handleKeyPress);
+        };
+    }, [handleSubmit, onSubmit]);
+
 
     const handleResetPassword = e => {
         e.preventDefault();

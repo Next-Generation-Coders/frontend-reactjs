@@ -13,6 +13,7 @@
   "support": "help@merkulov.design",
   "license": "Envato License https://1.envato.market/KYbje",
   "dependencies": {
+    "@daily-co/daily-js": "^0.62.0",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/modifiers": "^6.0.1",
     "@dnd-kit/sortable": "^7.0.2",
