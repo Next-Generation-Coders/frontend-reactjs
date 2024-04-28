@@ -89,7 +89,7 @@ const teamId = state ? state.teamId : null;
         <Spring className={`${styles.container} card h-1 g-30 card-padded`}>
             <div className="d-flex">
                 <div className={styles.media} >
-                    <LazyImage style={styles.img} src={teamData.logo} alt="Team Logo" />
+                    <LazyImage style={styles.img} src={teamData.logo ? teamData.logo : "https://static.vecteezy.com/system/resources/previews/027/385/965/original/blank-e-sport-shield-badge-png.png"} alt="https://clipart-library.com/img/1094138.jpg" />
                 </div>
                 <div className="d-flex flex-column justify-content-between" style={{ width: '100%' }}>
                     <div className={`${styles.main_info} d-flex flex-column g-14`}>
