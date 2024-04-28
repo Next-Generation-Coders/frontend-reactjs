@@ -8,7 +8,7 @@ const TournamentList = () => {
     return (<>
 
             <PageHeader title="Tournament List" />
-            <ListTournament  />
+            <ListTournament   />
         </>
 
     )

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './styles.module.scss';
 
 import Spring from '@components/Spring';
@@ -64,155 +64,92 @@ const TournamentChoice = ({ selectedTournamentId }) => {
     const [fixtures, setFixtures] = useState([]);
     const today = dayjs().date();
     const [selectedDay, setSelectedDay] = useState(today); // Default selected day
-    const [tournament, settournament]= useState({})
-    
-    const [tournamentType , settournamentType] =useState();
-    const [rounds , setRounds] = useState([]);
-    const [groupMatches , setGroupMatches] =useState([]);
+    const [tournament, setTournament] = useState({});
+
+    const [tournamentType, setTournamentType] = useState();
+    const [rounds, setRounds] = useState([]);
+    const [groupMatches, setGroupMatches] = useState([]);
+
     useEffect(() => {
-      const fetchTournamentDetails = async () => {
-        
+        const fetchTournamentDetails = async () => {
             try {
-                if (selectedTournamentId){
-                const response = await fetch(`http://localhost:3000/Tournament/getbyid/${selectedTournamentId}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch tournament details');
+                if (selectedTournamentId) {
+                    const response = await fetch(`http://localhost:3000/Tournament/getbyid/${selectedTournamentId}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch tournament details');
+                    }
+                    const tournamentData = await response.json();
+                    setTournament(tournamentData);
+                    setTournamentType(tournamentData.TournamentType);
                 }
-                const tournamentData = await response.json();
-                settournament(tournamentData);
-                settournamentType(tournament.TournamentType);
-        }
-          
-          } catch (error) {
-              console.error('Error fetching tournament details:', error);
-          }
-      };
-  
-      fetchTournamentDetails();
-  }, [selectedTournamentId]);
-
-
-  
-  useEffect(() => {
-    const fetchMatchesForLeague = async () => {
-        try {
-            if (tournament._id) {
-                const response = await fetch(`http://localhost:3000/Tournament/fixturesByDay/${tournament._id}/${selectedDay}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch fixtures');
-                }
-                const data = await response.json();
-                console.log(data.fixtures);
-                setFixtures(data.fixtures);
-            }
-        } catch (error) {
-            console.error('Error fetching fixtures:', error);
-        }
-    };
-
-    fetchMatchesForLeague();
-}, [tournament._id, selectedDay]);
-
-useEffect(() => {
-    const fetchMatchesForKnockout = async () => {
-        try {
-            if (tournament._id) {
-                const response = await fetch(`http://localhost:3000/Tournament/FixturesByDayKnockout/${tournament._id}/${selectedDay}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch matches for Knockout');
-                }
-                const data = await response.json();
-                console.log(data.fixtures)
-                setRounds(data.fixtures);
-            }
-        } catch (error) {
-            console.error('Error fetching fixtures:', error);
-        }
-    };
-
-    fetchMatchesForKnockout();
-}, [tournament._id, selectedDay]);
-
-
-useEffect(() => {
-    const fetchMatchesForChampionship = async () => {
-        try {
-            if (tournament._id) {
-                const response = await fetch(`http://localhost:3000/Tournament/MatcheGroupsByday/${tournament._id}/${selectedDay}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch matches for Knockout');
-                }
-                const data = await response.json();
-                setGroupMatches(data.fixtures);
-            }
-        } catch (error) {
-            console.error('Error fetching fixtures:', error);
-        }
-    };
-
-    fetchMatchesForChampionship();
-}, [tournament._id, selectedDay]);
-
-  useEffect(() => {
-        const fetchMatchesForLeague = async () => {
-            try {
-                
-                if (tournament._id) { // Check if selectedTournamentId is not undefined
-                  const response = await fetch(`http://localhost:3000/Tournament/fixturesByDay/${tournament._id}/${selectedDay}`);
-                  if (!response.ok) {
-                    throw new Error('Failed to fetch fixtures');
-                  }
-                  const data = await response.json();
-                  console.log(data.fixtures)
-                  setFixtures(data.fixtures);
-                }
-              } catch (error) {
-                console.error('Error fetching fixtures:', error);
-              }
-        };
-
-        const fetchMatchesForKnockout = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/Tournament/FixturesByDayKnockout/${tournament._id}/${selectedDay}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch matches for Knockout');
-                }
-                const data = await response.json();
-                console.log(data.fixtures)
-                setRounds(data.fixtures);
             } catch (error) {
-                console.error('Error fetching matches for type 2:', error);
-            }
-        };
-        const fetchMatchesForChampionship = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/Tournament/getMatchesFromGroupsWithMatches/${tournament._id}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch matches for Knockout');
-                }
-                const data = await response.json();
-                setGroupMatches(data.gamesByGroup);
-            } catch (error) {
-                console.error('Error fetching matches for type 2:', error);
+                console.error('Error fetching tournament details:', error);
             }
         };
 
-        if ( tournamentType) { // Check if tournamentType is set before fetching matches
-            if ( tournamentType === 'League') {
-                fetchMatchesForLeague();
-            } else if ( tournamentType === 'Knockout') {
-                fetchMatchesForKnockout();
-            }else if ( tournamentType === 'Championship'){
-                fetchMatchesForChampionship();
-            }
-        }
+        fetchTournamentDetails();
     }, [selectedTournamentId]);
 
-    
+    useEffect(() => {
+        const fetchMatchesForLeague = async () => {
+            try {
+                if (tournament._id) {
+                    const response = await fetch(`http://localhost:3000/Tournament/fixturesByDay/${tournament._id}/${selectedDay}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch fixtures');
+                    }
+                    const data = await response.json();
+                    setFixtures(data.fixtures);
+                }
+            } catch (error) {
+                console.error('Error fetching fixtures:', error);
+            }
+        };
+
+        fetchMatchesForLeague();
+    }, [tournament._id, selectedDay]);
+
+    useEffect(() => {
+        const fetchMatchesForKnockout = async () => {
+            try {
+                if (tournament._id) {
+                    const response = await fetch(`http://localhost:3000/Tournament/FixturesByDayKnockout/${tournament._id}/${selectedDay}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch matches for Knockout');
+                    }
+                    const data = await response.json();
+                    setRounds(data.fixtures);
+                }
+            } catch (error) {
+                console.error('Error fetching matches for Knockout:', error);
+            }
+        };
+
+        fetchMatchesForKnockout();
+    }, [tournament._id, selectedDay]);
+
+    useEffect(() => {
+        const fetchMatchesForChampionship = async () => {
+            try {
+                if (tournament._id) {
+                    const response = await fetch(`http://localhost:3000/Tournament/MatcheGroupsByday/${tournament._id}/${selectedDay}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch matches for Championship');
+                    }
+                    const data = await response.json();
+                    setGroupMatches(data.fixtures);
+                }
+            } catch (error) {
+                console.error('Error fetching matches for Championship:', error);
+            }
+        };
+
+        fetchMatchesForChampionship();
+    }, [tournament._id, selectedDay]);
 
     return (
-        <Spring className="card d-flex flex-column">
-            <div className="card_header d-flex flex-column g-10" style={{ paddingBottom: 20 }}>
+        <Spring  className="card d-flex flex-column">
+            <div className="card_header d-flex flex-column g-10" style={{ paddingBottom: 20}}>
                 <div className="d-flex justify-content-between align-items-center">
                     <h3>{dayjs().format('MMMM')} matches</h3>
                     <NavLink className="text-button" to="/schedule">
@@ -222,71 +159,69 @@ useEffect(() => {
                 <Navigator active={selectedDay} setActive={setSelectedDay} />
             </div>
 
-            <div className="d-flex flex-column g-24" style={{ paddingBottom: 24 }}>
-            <div className={styles.grid}>
-                <div className={styles.scroll}>
-                    <ScrollContainer height={0}>
-                        <div className={`${styles.scroll_track} track d-flex flex-column g-20`}>
-                <div className="game-container">
-                {tournament.TournamentType === 'League' ? (
-  <div className={`${styles.card}`}>
-    {fixtures.map((fixture, index) => (
-    <div key={index} className="fixture-table" style={{marginBottom : '15px'}}>
-        <GameCard match={fixture} selectedDay={selectedDay}  />
-      </div>
-    ))}
-  </div>
-) : tournament.TournamentType === 'Knockout' ? (
-  <div className={`${styles.card}`}>
-     {rounds.map((fixture, index) => (
-      <div key={index} className="fixture-table"  style={{marginBottom : '15px'}}>
-        <GameCard match={fixture} selectedDay={selectedDay}  />
-      </div>
-    ))}
-  </div>
-) : tournament.TournamentType === 'Championship' ? (
-  <div className={`${styles.card}`}>
-     {groupMatches.map((fixture, index) => (
-      <div key={index} className="fixture-table" style={{marginBottom : '15px'}}>
-        <GameCard match={fixture} selectedDay={selectedDay}   />
-      </div>
-       ))}
-  </div>
-) : (
-  <div>
-    {/* Render a default component when the tournament type is not recognized */}
-  </div>
-)}
-                    </div>
-                    </div>
+            <div>
+                <div style={{ width: "100%" }}>
+                    {tournament.TournamentType === 'League' ? (
+                        <div className={`${styles.card}`} >
+                            <StandingsDisplay selectedTournamentId={tournament._id} />
+                        </div>
+                    ) : tournament.TournamentType === 'Knockout' ? (
+                        <div className={`${styles.card}`}>
+                            <RoundsDisplay selectedTournamentId={tournament._id} />
+                        </div>
+                    ) : tournament.TournamentType === 'Championship' ? (
+                        <div>
+                            <ChampionshipGroups selectedTournamentId={tournament._id}/>
+                        </div>
+                    ) : (
+                        <div>
+                            {/* Render a default component when the tournament type is not recognized */}
+                        </div>
+                    )}
+                </div>
+                <div className="d-flex justify-content-full flex-full " >
+                    <div className={styles.scroll}>
+                        <ScrollContainer height={0}>
+                            <div className={`${styles.scroll_track} track d-flex flex-column g-20`}  style={{ width: "100%"}} >
+                                <div className="game-container">
+                                    {tournament.TournamentType === 'League' ? (
+                                        <div className={`${styles.card}`}>
+                                            {fixtures.map((fixture, index) => (
+                                                <div key={index} className="fixture-table" style={{marginBottom : '15px'}}>
+                                                    <GameCard match={fixture} selectedDay={selectedDay}  />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : tournament.TournamentType === 'Knockout' ? (
+                                        <div className={`${styles.card}`}>
+                                            {rounds.map((fixture, index) => (
+                                                <div key={index} className="fixture-table"  style={{marginBottom : '15px'}}>
+                                                    <GameCard match={fixture} selectedDay={selectedDay}  />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : tournament.TournamentType === 'Championship' ? (
+                                        <div className={`${styles.card}`}>
+                                            {groupMatches.map((fixture, index) => (
+                                                <div key={index} className="fixture-table" style={{marginBottom : '15px'}}>
+                                                    <GameCard match={fixture} selectedDay={selectedDay}   />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            {/* Render a default component when the tournament type is not recognized */}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </ScrollContainer>
-                </div>
-                {tournament.TournamentType === 'League' ? (
-        <div className={`${styles.card}`}>
-          <StandingsDisplay selectedTournamentId={tournament._id} />
-        </div>
-      ) : tournament.TournamentType === 'Knockout' ? (
-        <div className={`${styles.card}`}>
-          <RoundsDisplay selectedTournamentId={tournament._id} />
-        </div>
-      ) : tournament.TournamentType === 'Championship' ?(
-        <div>
-        <ChampionshipGroups selectedTournamentId={tournament._id}/>
-        </div>
-      ):
-      
-      (
-        <div>
+                    </div>
 
-        </div>
-      )}
                 </div>
-                
             </div>
         </Spring>
     );
 };
 
-export default  TournamentChoice;
-
-
+export default TournamentChoice;

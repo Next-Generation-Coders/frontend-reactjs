@@ -6,9 +6,11 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 
 import defaultLogo from "../../../../assets/uefa.png";
+import {FaSearch} from "react-icons/fa";
 
 const TournamentSelector = ({  onTournamentSelect }) => {
   const [tournaments, setTournaments] = useState([]);
+    const [showSearch, setShowSearch] = useState(false);
 
 
 
@@ -42,48 +44,68 @@ const TournamentSelector = ({  onTournamentSelect }) => {
   }, []);
 
   const inputRef = useRef(null);
-  
-  
+
+
   useEffect(() => {
-    document.addEventListener('keydown', detectkeydown , true)  
-  
+    document.addEventListener('keydown', detectkeydown , true)
+
   }, [])
   const detectkeydown=(e) =>{
 
     if(e.key ==="/"){
       e.preventDefault();
       inputRef.current.focus();
-      inputRef.current.value = ''; 
+      inputRef.current.value = '';
     }
   }
 
-  
+    const handleIconClick = () => {
+        setShowSearch((prevShowSearch) => !prevShowSearch);
+        if (!showSearch && inputRef.current) {
+            inputRef.current.focus();
+        }
+    };
+    const handleSearchChange = (e) => {
+        setSearch(e.target.value);
+    };
+
+
+
 
 
   return (
-    
-    <Spring className="card d-flex flex-column g-16 card-padded">
-      <div style={{ display: 'flex' ,justifyContent: 'space-between'}}>
-      <h2>Tournaments</h2>
-      <Form>
-          <InputGroup className='my-3'>
 
-            
-          
-              <Form.Control
-                ref={inputRef}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder='Press / to search'
-                style={{
-                  padding: '10px',
-                  borderRadius: '5px',
-                  border: '1px solid #ccc',
-                  boxShadow: 'none',
-                }}
-              />
-          
-          </InputGroup>
-        </Form></div>
+    <Spring className="card d-flex flex-column g-16 card-padded">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          {showSearch ? (
+              <Form>
+                  <InputGroup className='my-3' style={{ paddingLeft: '30px' }}>
+                      <Form.Control
+                          ref={inputRef}
+                          value={search}
+                          onChange={handleSearchChange}
+                          onBlur={() => setShowSearch(false)}
+                          placeholder='Search..'
+                          style={{
+                              padding: '8px',
+                              borderRadius: '5px',
+                              border: '1px solid #FDCA40',
+                              boxShadow: 'none',
+                          }}
+                      />
+                  </InputGroup>
+              </Form>
+          ) : (
+              <h2>Tournaments</h2>
+          )}
+            <InputGroup.Text onClick={handleIconClick} style={{ cursor: 'pointer' }}>
+                <FaSearch style={{ color: "#FBCB40" }} />
+            </InputGroup.Text>
+        </div>
+
+
+
+
     <div className="tournament-selector-container">
       {tournaments.filter((tournament) => {
                 return search.toLowerCase() === ''
@@ -92,14 +114,23 @@ const TournamentSelector = ({  onTournamentSelect }) => {
 
               })
       .map(tournament => (
+
         <div key={tournament._id} className="tournament-item" onClick={() => onTournamentSelect(tournament._id)}>
-           <img src={tournament.logo || defaultLogo} alt="Tournament Logo"  className="tournament-logo"/>
-           <p className="tournament-title">{tournament.title}</p>
+            <div className="tournament-content">
+                <img src={tournament.logo || defaultLogo} alt="Tournament Logo" className="tournament-logo" />
+                <p className="tournament-title">{tournament.title}</p>
+            </div>
         </div>
+
+
       ))}
     </div>
+
   </Spring>
-   
+
+
+
+
   );
 };
 

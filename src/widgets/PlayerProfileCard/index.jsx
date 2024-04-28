@@ -62,6 +62,8 @@ const PlayerProfileCard = () => {
             try {
                 const response = await fetch(`http://localhost:3000/User/getbyid/${playerId}`); // team manger id 
                 const data = await response.json();
+
+                console.log("DDDD",data)
                 setplayerData(data);
                 //console.log(playerData)
             } catch (error) {

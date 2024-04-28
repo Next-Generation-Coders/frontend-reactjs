@@ -92,8 +92,8 @@
     const TournamentReview = lazy(()=> import('@pages/Tournament/TournamentReview'))
     const LeagueInformationsBackOffice = lazy(() => import('@pages/Tournament/LeagueInformationsBackOffice'));
     const LeaguesDisplay = lazy(()=> import('@pages/Tournament/LeagueDisplay'));
-    
-    
+    const FantasyHome = lazy(() => import('@pages/Tournament/FantasyHome'))
+    const WorldWide = lazy(() =>import('@pages/Tournament/WorldWide'));
     // Refree Routes
    // const Complaints = lazy(() => import('@pages/Admin/Complaints'));
     const RealTime = lazy(() => import('@pages/Refree/RealTime'));
@@ -176,9 +176,8 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                 <MuiThemeProvider theme={muiTheme}>
                     <SidebarProvider>
                         <ThemeProvider theme={{ theme: theme }}>
-                        <ChatBot />
-
                             <ThemeStyles />
+                            <ChatBot />
                             <ToastContainer theme={theme} autoClose={2500} position={direction === 'ltr' ? 'top-right' : 'top-left'} />
                             <StyleSheetManager stylisPlugins={plugins}>
                                 <div className={`app ${isAuthRoute ? 'fluid' : ''}`} ref={appRef}>
@@ -225,13 +224,24 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/tournament-list" element={<Tournaments/>}/>
                                                     <Route path="/create-tournament" element={<CreateTournament/>}/>
                                                     <Route path="/LeaguesBackOffice" element={<LeagueInformationsBackOffice/>}/>
-                                                   
+
+                                                    //Fantasy Routes
+                                                    <Route path='/WorldWide' element={<WorldWide/>}/>
+
+                                                    //page affichier lors de la creation du tournoi
                                                     <Route path="/TournamentCreated" element={<TournamentCreated/>}/>
+
+                                                    //page vide
                                                     <Route path="/KnockoutTournamentBuild" element={<KnockTournamentBuild/>}/>
+
                                                     <Route path="/addTeams" element={<AddTeams/>}/>
                                                     <Route path='/TournamentReview' element={<TournamentReview/>}/>
-                                                    <Route path='/TournamentAdmin' element={<TournamentList/>} />
                                                     <Route path='/LeaguesDisplay' element={<LeaguesDisplay/>}/>
+                                                    <Route path='/TournamentAdmin' element={<TournamentList/>} />
+
+
+                                                    // Admin Tournament Routes
+                                                    {/* <Route path='/TournamentAdmin' element={<TournamentList/>} />*/}
 
                                                     //Chat route
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/> }>
@@ -245,19 +255,21 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/match" element={<MatchResult/>}/>
                                                     <Route path="/agent/:id" element={<AgentScore/>}/>
 
+                                                    <Route path="/users" element={<UserManagement/>}/>
 
                                                     
                                                     <Route element={<RequireAuth allowedRoles={[Role.ADMIN]} />}>
 
                                                     // Admin Routes
                                                     <Route path="/organizer-list" element={<Organizer/>}/>
-                                                    <Route path="/coach-list" element={<Coach/>}/>
+                                                        <Route path="/coach-list" element={<Coach/>}/>
                                                     <Route path="/refree-list" element={<Referee/>}/>
                                                     <Route path="/player-list" element={<Player/>}/>
                                                     <Route path="/team-list" element={<Team/>}/>
                                                     <Route path="/complaint-list" element={<Complaints/>}/>
                                                     <Route path="/user-management" element={<UserManagement/>}/>
                                                     <Route path="/role-requests" element={<RoleRequests/>}/>
+
                                                     </Route>
 
                                                     // Payment Routes
@@ -292,13 +304,12 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     // User routes
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/>}>
                                                     <Route path="/profile" element={<Profile/>}/>
+                                                    <Route path="/Fantasy" element={<FantasyHome/>}/>
                                                     </Route>
                                                     <Route element={<RequireAuth allowedRoles={[Role.COACH]}/>}>
                                                         <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
                                                     </Route>  
-
                                                 </Routes>
-
                                         </Suspense>
                                     </div>
                                 </div>

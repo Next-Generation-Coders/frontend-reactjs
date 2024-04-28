@@ -6,7 +6,7 @@ import defaultLogo1 from "../../../assets/Def1.png";
 import defaultLogo2 from "../../../assets/Def2.png";
 import defaultLogo3 from "../../../assets/Def3.png";
 import defaultLogo4 from "../../../assets/Def4.png";
-import styles from './AddTeamsWidget.module.css'; 
+import styles from './AddTeamsWidget.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const AddTeamsWidget = ({ tournamentId }) => {
@@ -14,7 +14,7 @@ const AddTeamsWidget = ({ tournamentId }) => {
   const [selectedTeams, setSelectedTeams] = useState([]);
   const [tournament, setTournament] = useState(null);
   const tournamentIdString = String(tournamentId);
-  const navigate= useNavigate(); 
+  const navigate= useNavigate();
   const getRandomDefaultLogo = () => {
     const defaultLogos = [defaultLogo1, defaultLogo2, defaultLogo3, defaultLogo4];
     const randomIndex = Math.floor(Math.random() * defaultLogos.length);
@@ -78,17 +78,17 @@ console.log(tournamentId)
 
     const addTeamsToTournament = async (tournamentIdString) => {
       const expectedTeamIds = tournament.numberOfTeams
-   
+
     const selectedTeamIds = selectedTeams.map(team => team._id);
     const number = selectedTeamIds.length;
       if (number != expectedTeamIds) {
-      
+
         toast.error("Number of the teams selected is not valid");
         return;
       }
-      
+
       try {
-       
+
         const addTeamsResponse = await fetch(`http://localhost:3000/Tournament/addteams/${tournament._id}`, {
           method: 'PUT',
           headers: {
@@ -96,13 +96,13 @@ console.log(tournamentId)
           },
           body: JSON.stringify({ teams: selectedTeams })
         });
-    
+
         if (!addTeamsResponse.ok) {
           throw new Error('Failed to add teams to the tournament');
         }
-    
-        
-    
+
+
+
         toast.success('Selected teams added to the tournament successfully.');
         if (tournament.TournamentType === 'League') {
           try {
@@ -110,15 +110,15 @@ console.log(tournamentId)
               fetch(`http://localhost:3000/Tournament/generateRoundRobinSchedule/${tournament._id}`),
               fetch(`http://localhost:3000/Standings/CreateStandings/${tournament._id}`)
             ]);
-        
+
             if (!generateScheduleResponse.ok) {
               throw new Error('Failed to generate round robin schedule');
             }
-        
+
             if (!standingsResponse.ok) {
               throw new Error('Failed to generate standings');
             }
-      
+
           } catch (error) {
             console.error('Error during schedule or standings generation:', error);
           }
@@ -144,8 +144,8 @@ console.log(tournamentId)
       console.error('Error adding teams to tournament:', error);
   }
     };
-    
-    
+
+
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -176,77 +176,90 @@ console.log(tournamentId)
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.teamsContainer}>
-      <h2 className={styles.titles}>Available Teams</h2><br></br>
-        < DragDropContext onDragEnd={onDragEnd}>
-         <Droppable droppableId="teams">
-          {(provided) => (
-            <div  className={styles.teamsList} {...provided.droppableProps} ref={provided.innerRef}>
-              {teams.map((team, index) => (
-                <Draggable key={team._id} draggableId={team._id} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <img
-                       src={team.logo || getRandomDefaultLogo()}
-                            alt={team.name}
-                        
-                        className={styles.teamLogo}
-                        />
-                      {team.name}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-        <div className={styles.dropContainer}>
-        <h2 className={styles.titles}>Selected Teams</h2>
-        <Droppable droppableId="selected-teams">
-          {(provided) => (
-            <div
-            className={styles.selectedTeamsContainer}
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
-              {selectedTeams.map((team, index) => (
-                <Draggable key={team._id} draggableId={team._id} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    ><img
-                    src={team.logo || getRandomDefaultLogo()}
-                         alt={team.name}
-                     
-                     className={styles.teamLogo}
-                     />
-                      {team.name}
-                      </div>
-                    
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-        </div>
-      </DragDropContext>
-      </div>
-<button onClick={addTeamsToTournament} className={styles.addButton}>
-        Add Teams to Tournament
-      </button>
+      <>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 2.5fr 0.5fr" }} className="wrapper">
+              <div style={{ paddingLeft:"10%" }}> <h2> <u>Available Teams</u></h2></div>
+              <div style={{ paddingLeft:"50%" }}> <h2><u>Selected Teams</u></h2></div>
+              <div>
+                  <button onClick={addTeamsToTournament} className={styles.addButton}>Save Tournament</button>
+              </div>
+              <DragDropContext onDragEnd={onDragEnd}>
+                  <div style={{
+                      border: "2px dashed #948409",
+                      width: "270px",
+                      padding: "15px",
+                      minHeight: "170px",
+                      maxHeight: "690px",
+                      borderRadius: "5px",
+                      overflowY: "scroll",
+                  }}>
+                      <Droppable droppableId="teams">
+                          {(provided) => (
+                              <div className={styles.teamsList} {...provided.droppableProps} ref={provided.innerRef}>
+                                  {teams.map((team, index) => (
+                                      <Draggable key={team._id} draggableId={team._id} index={index}>
+                                          {(provided) => (
+                                              <div
+                                                  ref={provided.innerRef}
+                                                  {...provided.draggableProps}
+                                                  {...provided.dragHandleProps}
+                                                  className={styles.teamContainer}
+                                              >
+                                                  <img
+                                                      src={team.logo || getRandomDefaultLogo()}
+                                                      alt={team.name}
+                                                      className={styles.teamLogo}
+                                                  />
+                                                  <span className={styles.teamName}>{team.name}</span> {/* Utilisation d'une balise span pour le nom de l'équipe */}
+                                              </div>
+                                          )}
+                                      </Draggable>
+                                  ))}
+                                  {provided.placeholder}
+                              </div>
+                          )}
+                      </Droppable>
+                  </div>
+                  <div style={{
 
+                      padding: "15px",
+                      Height: "100%",
+                      overflowY: "scroll",
+                  }}>
+                      <Droppable droppableId="selected-teams">
+                          {(provided) => (
+                              <div
+                                  className={styles.selectedTeamsContainer}
+                                  {...provided.droppableProps}
+                                  ref={provided.innerRef}
+                              >
+                                  {selectedTeams.map((team, index) => (
+                                      <Draggable key={team._id} draggableId={team._id} index={index}>
+                                          {(provided) => (
+                                              <div
+                                                  ref={provided.innerRef}
+                                                  {...provided.draggableProps}
+                                                  {...provided.dragHandleProps}
+                                              >
+                                                  <img
+                                                      src={team.logo || getRandomDefaultLogo()}
+                                                      alt={team.name}
+                                                      className={styles.teamLogo}
+                                                  />
+                                                  {team.name}
+                                              </div>
+                                          )}
+                                      </Draggable>
+                                  ))}
+                                  {provided.placeholder}
+                              </div>
+                          )}
+                      </Droppable>
+                  </div>
+              </DragDropContext>
+          </div>
+      </>
 
-</div>
   );
 };
 

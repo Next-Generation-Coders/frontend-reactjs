@@ -18,7 +18,7 @@ const MatchLiveReport = () => {
                     </div>
                     <span className="tag tag--accent animated h6">Hot</span>
                 </div>
-                <video className={`${styles.main_media} border-4`} autoPlay loop muted playsInline disablePictureInPicture>
+                <video className={`${styles.main_media} border-4`}  controls  muted playsInline disablePictureInPicture>
                     <source src={match} type="video/mp4" />
                 </video>
                 <div className={styles.main_buttons}>

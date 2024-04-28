@@ -33,6 +33,9 @@ const Profile = () => {
     const inputRef = useRef(null);
     const {USER} = useAuthContext();
     const [preferredFoot, setPreferredFoot] = useState('');
+    const value = sessionStorage.getItem('playerName');
+    const Agevalue = sessionStorage.getItem('playerAge');
+
 
     // Function to add a new player
     const addNewPlayer = async (coachId, newPlayerData) => {
@@ -177,6 +180,8 @@ const Profile = () => {
         rawData.map(item => options.push({ value: item.name, label: item.name }));
         setCities(options);
     } */
+    sessionStorage.removeItem('playerName');
+    sessionStorage.removeItem('playerAge');
 
     return (
         <form className="d-flex flex-column g-100" onSubmit={handleSubmit(onSubmit)}>
@@ -199,6 +204,7 @@ const Profile = () => {
                     </div>
                     <div className={styles.row}>
                         <input className={classNames('field', {'field--error': errors.fullname})}
+                            value={value}
                             type="text"
                             placeholder={errors.fullname ? 'Name is required' : 'Full Name'}
                             {...register('fullname', {required: true})} />
@@ -213,6 +219,7 @@ const Profile = () => {
                             placeholder={errors.email ? 'Email is required' : "Email"}
                             {...register('email', {required: true, pattern: /^\S+@\S+$/i})} />
                         <input className={classNames('field', {'field--error': errors.age})}
+                            value={Agevalue}
                             type="number"
                             placeholder={errors.age ? 'Age is required' : "Age"}
                             {...register('age', {required: true})} />

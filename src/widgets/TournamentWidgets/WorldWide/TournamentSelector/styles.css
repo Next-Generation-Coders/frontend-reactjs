@@ -1,0 +1,57 @@
+.tournament-selector-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+    height: 100vh; 
+  
+    overflow-y: auto;
+  }
+  
+  .tournament-item {
+    padding: 10px;
+    margin: 3px;
+    justify-content: center;
+    justify-items: center;
+    transition: background-color 0.45s ease-in-out;
+    justify-content: space-between; 
+  }
+  .tournament-item:hover {
+    background-color: slategray;
+    
+  }
+  
+
+
+  .tournament-logo {
+    width: 135px; 
+    height: auto; 
+ 
+    margin-left: 15px; 
+    display: inline-block; 
+   
+    vertical-align: middle; 
+    
+  } 
+
+
+  .tournament-title {
+    margin-left: 35px;
+    margin-right : 30px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px; /* Increase font size */
+    font-weight: bold; /* Make font bold */
+    color: #fff; /* Change text color */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 0.5px; /* Add some letter spacing */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Add a subtle text shadow */
+  }
+  
+
+  .tournament.button{
+    display: inline-block;
+    vertical-align: middle;
+    
+    
+    margin-left: auto;
+  }

@@ -25,11 +25,9 @@ const TournamentList = () => {
   }, []);
 
   const widgets = {
-    segment_chart:<TournamentsTypes />,
+   // segment_chart:<TournamentsTypes />,
     live_matches: <TournamentAdminDisplay/>,
-   // team_stats: ,
-   //month_matches: <TournamentsTypes />,
-    
+
 }
 
   return (

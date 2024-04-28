@@ -9,7 +9,7 @@ const AddTeams = () => {
   
   return (<>    
   
-  <PageHeader title="Add teams to your tournament" />
+  <PageHeader title="Add Teams" />
     <AddTeamsWidget   tournamentId={tournamentId} />
    
 </>
