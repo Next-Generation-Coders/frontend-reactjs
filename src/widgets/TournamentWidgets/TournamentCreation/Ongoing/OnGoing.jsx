@@ -7,7 +7,6 @@ import {toast} from 'react-toastify';
 import React, {useState} from 'react';
 import classNames from 'classnames';
 import styles from "@widgets/TournamentWidgets/TournamentCreation/details/styles.module.scss";
-import verfied from '@assets/icons/q.png';
 import {RiVerifiedBadgeFill} from "react-icons/ri";
 
 
