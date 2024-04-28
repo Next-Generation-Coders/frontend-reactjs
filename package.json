@@ -69,6 +69,7 @@
     "react-scripts": "^5.0.1",
     "react-select": "^5.7.0",
     "react-select-country-list": "^2.2.3",
+    "react-simple-chatbot": "^0.6.1",
     "react-sizeme": "^3.0.2",
     "react-soccer-lineup": "^0.4.3",
     "react-spring": "^9.7.3",

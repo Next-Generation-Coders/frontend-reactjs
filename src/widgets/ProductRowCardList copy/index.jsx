@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 
 // components
 import Spring from '@components/Spring';
-import ProductRowCard from '@components/ProductRowCard';
+import ProductRowCard from '@components/ProductRowCard copy';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Autoplay} from 'swiper';
 import {Navigation} from 'swiper';
@@ -13,6 +13,8 @@ import SwiperControls from '@ui/SwiperControls';
 // hooks
 import {useState, useEffect} from 'react';
 import {useThemeProvider} from '@contexts/themeContext';
+import axios from 'axios';
+import {useAuthContext} from "@hooks/useAuthContext";
 
 // data placeholder
 import products from '@db/products';
@@ -71,24 +73,30 @@ const SliderWrapper = ({children}) => {
     )
 }
 
-const ProductRowCardList = ({isSlider = false}) => {
-    const {direction} = useThemeProvider();
+const ProductRowCardList = ({ isSlider = false, players, addPlayer, homeTeam }) => {
+
+    const [playerOntheFiled, setplayerOntheFiled] = useState([]);
+
+    const saveLineup = async (players) => {
+        // Implement save lineup logic
+    };
+
+    const { direction } = useThemeProvider();
     const WidgetWrapper = isSlider ? SliderWrapper : StaticWrapper;
     const CardWrapper = isSlider ? SwiperSlide : Fragment;
-    const cardWrapperProps = isSlider ? {style: {margin: direction === 'ltr' ? '0 24px 0 0' : '0 0 0 24px'}} : {};
-    const data = isSlider ? products : products.slice(0, 4);
+    const cardWrapperProps = isSlider ? { style: { margin: direction === 'ltr' ? '0 24px 0 0' : '0 0 0 24px' } } : {};
 
     return (
         <WidgetWrapper>
             {
-                data.map((product, index) => (
-                    <CardWrapper key={product.id} {...cardWrapperProps}>
-                        <ProductRowCard index={index} product={product} isSlide={isSlider}/>
+                players.map((player, index) => (
+                    <CardWrapper key={player.id} {...cardWrapperProps}>
+                        <ProductRowCard index={index} player={player} isSlide={isSlider} addPlayer={addPlayer} homeTeam={homeTeam} />
                     </CardWrapper>
                 ))
             }
         </WidgetWrapper>
-    )
-}
+    );
+};
 
 export default ProductRowCardList

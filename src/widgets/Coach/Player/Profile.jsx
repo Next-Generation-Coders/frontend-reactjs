@@ -33,6 +33,9 @@ const Profile = () => {
     const inputRef = useRef(null);
     const {USER} = useAuthContext();
     const [preferredFoot, setPreferredFoot] = useState('');
+    const value = sessionStorage.getItem('playerName');
+    const Agevalue = sessionStorage.getItem('playerAge');
+
 
     // Function to add a new player
     const addNewPlayer = async (coachId, newPlayerData) => {
@@ -57,6 +60,26 @@ const Profile = () => {
             toast.error('Failed to add new player');
         }
     };
+
+    const updatePlayer = async (coachId, newPlayerData) => {
+        try {
+            const response = await fetch(`http://localhost:3000/User/update/${coachId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newPlayerData)
+                
+            });console.log(JSON.stringify(newPlayerData))
+            const data = await response.json();
+            console.log(newPlayerData?.fullname +"has been updated to a player:", data);
+            // Add any additional logic here after adding the player
+            toast.success(newPlayerData?.fullname +" has been updated to a player successfully!");
+        } catch (error) {
+            console.error(error);
+            toast.error('Failed to update player');
+        }
+    };
     
     const generateRandomPassword = () => {
         const length = 10; // Adjust the length of the password as needed
@@ -68,6 +91,16 @@ const Profile = () => {
         }
         return password;
     };
+
+    async function getUser(email) {
+        try {
+          const response = await axios.get(`http://localhost:3000/User/getbyemail?email=${email}`);
+          const userdata = response.data._id;
+          return userdata ;
+        } catch (error) {
+          console.error(error);
+        }
+    }
     
 
     // Form submission handler
@@ -77,31 +110,48 @@ const Profile = () => {
         const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
         console.log(data+".......................000000")
-        if (showBasicForm) {
+        const userData = await getUser(data.email);
+        if (userData) {
+            /* const userConfirmation =  prompt("Email exists. Do you want to update the user data? \nPlease enter 'yes' or 'no':");
+
+                if (userConfirmation && userConfirmation.toLowerCase() === "yes") {
+                    newPlayerData = {
+                    email: data.email,
+                    position: data.position?.value,
+                    jersyNumber: data.jersyNumber,
+                    height: data.height,
+                    country: {
+                        value: data.country && data.country.value ? data.country.value : data.nationality,
+                        label: data.country && data.country.label ? data.country.label : data.nationality
+                    },
+                    preferedFoot: preferredFoot,
+                    };
+                    await addNewPlayer(userId, newPlayerData);
+                } else {
+                    console.log("Update canceled. Player data not updated.");
+                } */
+                toast.error('Email already exists. Please use a different email address.');
+          } else {
             newPlayerData = {
-                fullname: data.fullname,
-                email: data.email,
-                phone: data.phone,
-                age: data.age,
-                position: data.position?.value,
-                jersyNumber: data.jersyNumber,
-                height :data.height,
-                country :{
-                    value : data.country && data.country.value ? data.country.value : data.nationality, // Perform a null check
-                    label : data.country && data.country.label ? data.country.label : data.nationality
-                } ,
-                preferedFoot: preferredFoot,
-                password: generateRandomPassword() // Use the random password generator function here
+              fullname: data.fullname,
+              email: data.email,
+              phone: data.phone,
+              age: data.age,
+              position: data.position?.value,
+              jersyNumber: data.jersyNumber,
+              height: data.height,
+              country: {
+                value: data.country && data.country.value ? data.country.value : data.nationality,
+                label: data.country && data.country.label ? data.country.label : data.nationality
+              },
+              preferedFoot: preferredFoot,
+              password: generateRandomPassword()
             };
-        } else {
-            newPlayerData = {
-                email: data.email
-            };
-        }
+            await addNewPlayer(userId, newPlayerData);
+            reset(); // Clear the form fields
+          }
         
-    
-        await addNewPlayer(userId, newPlayerData);
-        reset(); // Clear the form fields
+
     };
 
 
@@ -130,6 +180,8 @@ const Profile = () => {
         rawData.map(item => options.push({ value: item.name, label: item.name }));
         setCities(options);
     } */
+    sessionStorage.removeItem('playerName');
+    sessionStorage.removeItem('playerAge');
 
     return (
         <form className="d-flex flex-column g-100" onSubmit={handleSubmit(onSubmit)}>
@@ -152,22 +204,24 @@ const Profile = () => {
                     </div>
                     <div className={styles.row}>
                         <input className={classNames('field', {'field--error': errors.fullname})}
+                            value={value}
                             type="text"
-                            placeholder="Full Name"
+                            placeholder={errors.fullname ? 'Name is required' : 'Full Name'}
                             {...register('fullname', {required: true})} />
                         <input className={classNames('field', {'field--error': errors.phone})}
                             type="text"
-                            placeholder="Phone"
+                            placeholder={errors.phone ? 'Phone Number is required' : "Phone"}
                             {...register('phone', {required: true})} />
                     </div>
                     <div className={styles.row}>
                         <input className={classNames('field', {'field--error': errors.email})}
                             type="text"
-                            placeholder="Email"
+                            placeholder={errors.email ? 'Email is required' : "Email"}
                             {...register('email', {required: true, pattern: /^\S+@\S+$/i})} />
                         <input className={classNames('field', {'field--error': errors.age})}
+                            value={Agevalue}
                             type="number"
-                            placeholder="Age"
+                            placeholder={errors.age ? 'Age is required' : "Age"}
                             {...register('age', {required: true})} />
                     </div>
                     <div className={styles.row}>
@@ -201,7 +255,7 @@ const Profile = () => {
                                     field.onChange(value);
                                     /* handlePositionChange(value); */
                                     }}
-                                    placeholder="Select Position"
+                                    placeholder={errors.position ? 'Position is required' : "Select Position"}
                                     isSearchable={false}
                                     variant="basic"
                                     innerRef={field.ref}
@@ -210,21 +264,11 @@ const Profile = () => {
                             />
                         <input className={classNames('field', {'field--error': errors.jersyNumber})}
                             type="number"
-                            placeholder="Jersey Number"
+                            placeholder={errors.jersyNumber ? 'Jersy number is required' : "Jersey Number"}
                             min="0"
                             max="99"
-                            {...register('jersyNumber')} />
+                            {...register('jersyNumber',{required: true})} />
                     </div>
-                    {/* <div className={styles.row}>
-                        <input className={classNames('field', {'field--error': errors.email})}
-                            type="text"
-                            placeholder="Email"
-                            {...register('email', {required: true, pattern: /^\S+@\S+$/i})} />
-                        <input className={classNames('field', {'field--error': errors.age})}
-                            type="number"
-                            placeholder="Age"
-                            {...register('age', {required: true})} />
-                    </div> */}
                     <div className={styles.row}>
                         <Controller
                             name="country"
@@ -238,7 +282,7 @@ const Profile = () => {
                                         field.onChange(value);
                                         /* handleCountryChange(value); */
                                     }}
-                                    placeholder="Nationality"
+                                    placeholder={errors.nationality ? 'Nationality is required' : "Nationality"}
                                     isSearchable={true}
                                     variant="basic"
                                     innerRef={field.ref}
@@ -247,7 +291,7 @@ const Profile = () => {
                         />
                         <input className={classNames('field', {'field--error': errors.height})}
                             type="text"
-                            placeholder="Height ??cm"
+                            placeholder={errors.height ? 'Height is required #cm' : "Height"}
                             {...register('height', { required: true, pattern: /^\d{2,3}\s?cm$/ })} />
                     </div>
                     <div className={styles.row}>
@@ -258,6 +302,7 @@ const Profile = () => {
                             id="left"
                             name="preferredFoot"
                             value="left"
+                            /* {...register('preferredFoot', { required: true })} */
                             checked={preferredFoot === 'left'}
                             onChange={() => setPreferredFoot('L')}
                         />
@@ -268,6 +313,7 @@ const Profile = () => {
                             id="right"
                             name="preferredFoot"
                             value="right"
+                            /* {...register('preferredFoot', { required: true })} */
                             checked={preferredFoot === 'right'}
                             onChange={() => setPreferredFoot('R')}
                         />

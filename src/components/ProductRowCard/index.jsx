@@ -13,7 +13,7 @@ import IconButton from '@ui/IconButton';
 import useMeasure from 'react-use-measure';
 import {useWindowSize} from 'react-use';
 
-const ProductRowCard = ({product, isSlide = false}) => {
+const ProductRowCard = ({product, isSlide = false}) => { 
     const Wrapper = isSlide ? 'div' : Spring;
     const [ref, {width}] = useMeasure();
     const {width: windowWidth} = useWindowSize();
