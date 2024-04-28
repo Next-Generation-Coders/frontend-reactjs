@@ -5,7 +5,7 @@ const ClubInfoTeam2 = ({ team2}) => {
 
     return (
         <div className=" info d-flex align-items-center g-20">
-        <img className="club-logo" src={logo || team2?.logo} alt={team2?.name}/>
+        <img className="club-logo" src= {team2?.logo} alt={team2?.name}/>
         <div className="main d-flex flex-column">
             <h3>{team2?.name}</h3>
         </div>

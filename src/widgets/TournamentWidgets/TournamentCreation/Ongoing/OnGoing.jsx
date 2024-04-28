@@ -4,9 +4,12 @@ import { useForm} from 'react-hook-form';
 
 import TournamentStatusSelector from './TournamentTypeselector';
 import {toast} from 'react-toastify';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import classNames from 'classnames';
 import styles from "@widgets/TournamentWidgets/TournamentCreation/details/styles.module.scss";
+import verfied from '@assets/icons/q.png';
+import {RiVerifiedBadgeFill} from "react-icons/ri";
+
 
 const OnGoing = ({ standalone = true, formData, setFormData,onSubmit }) => {
     const { register,
@@ -87,9 +90,15 @@ const OnGoing = ({ standalone = true, formData, setFormData,onSubmit }) => {
  
         return (
             <div className={classNames("container", { [styles.blurred]: formSubmitted })}>
+
+
                 <Wrapper {...wrapperProps}>
                     <div className="d-flex flex-column g-4">
-                        <h2 style={{paddingLeft:"220px"}}>Tournament Ongoing</h2>
+                        <h2 style={{paddingLeft:"220px"}}>Tournament Ongoing
+                            {formSubmitted ? (
+                                <RiVerifiedBadgeFill style={{marginLeft:"20px",color:"green"}} />
+                            ) : null}
+                        </h2>
                     </div>
                     <form onSubmit={handleSubmitForm(handleFormSubmit)} className="d-flex flex-column g-40">
                         <div className="d-flex flex-column g-20" style={{ margin: '20px 0 30px' }}>

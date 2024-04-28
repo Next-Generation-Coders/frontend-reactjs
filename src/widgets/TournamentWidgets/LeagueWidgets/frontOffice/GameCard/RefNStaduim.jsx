@@ -3,6 +3,8 @@ import {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaMapMarkerAlt, FaUser } from 'react-icons/fa'; // Import icons// utils
 import PropTypes from 'prop-types';
+import Score from "@ui/Score";
+import ScoreMatch from "@ui/ScoreMatch";
 
 const RefNStaduim = ({variant = 'main', match}) => {
     const [active, setActive] = useState('lineups');
@@ -69,14 +71,9 @@ const RefNStaduim = ({variant = 'main', match}) => {
                 </span>
             </button>
             
-            <button disabled className={`btn--switch ${active === 'goals' && 'active'} ${variant} `}
-                   >
-                <span className="p-relative z-2">
-                <FaUser className="icon"  style={{marginRight : "10px"}} />
-                
-                {referee.fullname}<br></br>
-                <FaMapMarkerAlt className="icon" style={{marginRight : "10px"}}/>
-                {stadium.name}
+            <button className={`btn--switch ${active === 'lineups' && 'active'} ${variant} `}>
+                <span  className="p-relative z-2">
+                    <ScoreMatch team1={match.startHour} team2={match.startMinutes} variant="alt"/>
                 </span>
             </button>
             

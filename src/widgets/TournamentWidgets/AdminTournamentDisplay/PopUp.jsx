@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Modal, Button } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
+import loadable from '@loadable/component';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
+import PropTypes from 'prop-types';
+import {toast} from "react-toastify";
 const Popup = ({
                    open,
                    onClose,
@@ -15,12 +16,12 @@ const Popup = ({
                    selectedRefs,
                    setSelectedStadiums,
                    tournamentId,
+
                }) => {
     useEffect(() => {
         fetchReferees();
         fetchStadiums();
     }, []);
-
     const fetchRefsAndStadiums = async (tournamentId, selectedRefs, selectedStadiums) => {
         try {
             console.log(selectedRefs);
@@ -43,17 +44,18 @@ const Popup = ({
         }
     };
 
+
     const handleDataCollection = async () => {
         try {
             console.log(tournamentId);
             const data = await fetchRefsAndStadiums(tournamentId, selectedRefs, selectedStadiums);
-            console.log(data); // Log the response from the server
-            // Optionally, you can perform additional actions based on the response
+            toast.success("Referees and stadiums added to the tournament successfully")
         } catch (error) {
-            console.error('Error adding referees and stadiums to the tournament:', error);
-            // Optionally, you can handle the error or display a message to the user
+            toast.error("Failed to add referees and stadiums to the tournament")
         }
+
     };
+
 
     const handleRefereeSelection = (refereeId) => {
         setSelectedRefs((prevRefs) => {
@@ -128,88 +130,104 @@ const Popup = ({
         }
     };
 
+    const Modal = loadable(() => import('@mui/material/Modal'));
+
     return (
         <Modal open={open} onClose={onClose} closeAfterTransition>
             <div className="popup-container">
-                <div className="popup card card-padded" style={{ minHeight: 'unset', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <button className="popup_close" style={{  backgroundColor: 'red',paddingRight:"10px",paddingLeft:"10px",borderRadius:"20%" }} onClick={onClose} aria-label="Close popup">
-                        <b style={{ color: 'white' }}>Close</b>
+                <div className="popup card card-padded" style={{ minHeight: 'unset', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <button className="popup_close" onClick={onClose} aria-label="Close popup">
+                        <i className="icon-xmark" />
                     </button>
-                    <div style={{ width: '100%' }}>
-                        <h3  style={{color:"#FDCA40",paddingLeft:"27%" }}>Select Referees</h3>
-                        <DragDropContext onDragEnd={onRefereeDragEnd}>
-                            <Droppable droppableId="referees">
+                    <DragDropContext onDragEnd={onRefereeDragEnd}>
+                        <Droppable droppableId="referees">
+                            {(provided) => (
+                                <div  ref={provided.innerRef} {...provided.droppableProps}>
+                                    <h2 style={{paddingLeft:"50px"}}>Select Referees</h2>
+                                    <br></br>
+
+                                    {referees.map((referee, index) => (
+                                        <Draggable key={referee._id} draggableId={referee._id} index={index}>
+                                            {(provided) => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                >
+                                                    {referee.fullname}
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                        <br></br>
+                        <div style={{ marginRight: '20px',width:"100%" }}>
+
+                            <Droppable  droppableId="selectedRefs">
                                 {(provided) => (
-                                    <div ref={provided.innerRef} {...provided.droppableProps} style={{ width: '100%', minHeight: '200px', border: '1px dashed #ccc', borderRadius: '4px', padding: '10px' }}>
-                                        {referees.map((referee, index) => (
-                                            <Draggable key={referee._id} draggableId={referee._id} index={index}>
-                                                {(provided) => (
-                                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={{ margin: '5px 0', padding: '5px', border: '1px solid #ccc', borderRadius: '4px' }}>
-                                                        {referee.fullname}
-                                                    </div>
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
-                            <Droppable droppableId="selectedRefs">
-                                {(provided) => (
-                                    <div ref={provided.innerRef} {...provided.droppableProps} style={{ width: '100%', minHeight: '100px', border: '1px dashed #ccc', borderRadius: '4px', padding: '10px', marginTop: '20px' }}>
+                                    <div ref={provided.innerRef} {...provided.droppableProps} style={{ minHeight: '100px', border: '1px dashed #ccc', borderRadius: '4px', padding: '10px' }}>
                                         {selectedRefs.map((refereeId, index) => {
                                             const referee = referees.find(ref => ref._id === refereeId);
                                             return (
-                                                <div key={`selectedReferee-${refereeId}-${index}`} style={{ margin: '5px 0', padding: '5px', border: '1px solid #ccc', borderRadius: '4px' }}>
+                                                <div key={`selectedReferee-${refereeId}-${index}`}>
                                                     {referee && referee.fullname}
                                                 </div>
                                             );
                                         })}
-                                        <p>Drop the Referee</p>
+                                        <p>drop the Referee</p>
                                         {provided.placeholder}
                                     </div>
                                 )}
                             </Droppable>
-                        </DragDropContext>
-                    </div>
-                    <div style={{ width: '100%', marginTop: '10px' }}>
-                        <h3 style={{color:"#FDCA40",paddingLeft:"27%" }}>Select Stadiums</h3>
-                        <DragDropContext onDragEnd={onStadiumDragEnd}>
-                            <Droppable droppableId="stadiums">
-                                {(provided, snapshot) => (
-                                    <div ref={provided.innerRef} {...provided.droppableProps} style={{ width: '100%', minHeight: '200px', border: '1px dashed #ccc', borderRadius: '4px', padding: '10px' }}>
-                                        {stadiums.map((stadium, index) => (
-                                            <Draggable key={stadium._id} draggableId={stadium._id} index={index}>
-                                                {(provided) => (
-                                                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={{ margin: '5px 0', padding: '5px', border: '1px solid #ccc', borderRadius: '4px' }}>
-                                                        {stadium.name}
-                                                    </div>
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
+                        </div>
+                        <br></br>
+
+                    </DragDropContext>
+                    <DragDropContext onDragEnd={onStadiumDragEnd}>
+                        <Droppable ClassName="" droppableId="stadiums">
+                            {(provided, snapshot) => (
+                                <div ref={provided.innerRef} {...provided.droppableProps}>
+                                    <h2  style={{paddingLeft:"50px"}}>Select Stadiums</h2>
+                                    <br></br>
+
+                                    {stadiums.map((stadium, index) => (
+                                        <Draggable key={stadium._id} draggableId={stadium._id} index={index}>
+                                            {(provided) => (
+                                                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                    {stadium.name}
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                        <br></br>
+
+                        <div style={{ marginRight: '20px',width:"100%" }}>
                             <Droppable droppableId="selectedStadiums">
                                 {(provided) => (
-                                    <div ref={provided.innerRef} {...provided.droppableProps} style={{ width: '100%', minHeight: '100px', border: '1px dashed #ccc', borderRadius: '4px', padding: '10px', marginTop: '20px' }}>
+                                    <div ref={provided.innerRef} {...provided.droppableProps} style={{ minHeight: '100px', border: '1px dashed #ccc', borderRadius: '4px', padding: '10px' }}>
                                         {selectedStadiums.map((stadiumId, index) => {
                                             const stadium = stadiums.find(std => std._id === stadiumId);
                                             return (
-                                                <div key={`selectedStadium-${index}`} style={{ margin: '5px 0', padding: '5px', border: '1px solid #ccc', borderRadius: '4px' }}>
+                                                <div key={`selectedStadium-${index}`}>
                                                     {stadium && stadium.name}
                                                 </div>
                                             );
                                         })}
-                                        <p>Drop the Stadium</p>
+                                        <p>drop the stadium</p>
                                         {provided.placeholder}
                                     </div>
                                 )}
                             </Droppable>
-                        </DragDropContext>
-                    </div>
-                    <Button className='btn' onClick={handleDataCollection} style={{ marginTop: '20px' }}>Confirm</Button>
+                        </div>
+                    </DragDropContext><br/>
+                    <Button className='btn' style={{backgroundColor:"#FDCA40",color:"black",width:"100%"}}  onClick={handleDataCollection}>Confirm</Button>
                 </div>
             </div>
         </Modal>
@@ -219,15 +237,7 @@ const Popup = ({
 Popup.propTypes = {
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    fetchReferees: PropTypes.func.isRequired,
-    fetchStadiums: PropTypes.func.isRequired,
-    referees: PropTypes.array.isRequired,
-    selectedStadiums: PropTypes.array.isRequired,
-    stadiums: PropTypes.array.isRequired,
-    setSelectedRefs: PropTypes.func.isRequired,
-    selectedRefs: PropTypes.array.isRequired,
-    setSelectedStadiums: PropTypes.func.isRequired,
-    tournamentId: PropTypes.string,
+
 };
 
 export default Popup;

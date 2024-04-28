@@ -33,10 +33,11 @@ const checkTeam_manager = async (coachId) => {
   
   const AddPlayer = () => {
     const {USER} = useAuthContext();
-    const [activeTab, setActiveTab] = useState('profile');
+    const [activeTab, setActiveTab] = useState('basic');
     const [coachHasTeam, setCoachHasTeam] = useState(false);
     const { width } = useWindowSize();
-  
+    const value = sessionStorage.getItem('playerName');
+
     useEffect(() => {
       async function fetchData() {
         const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
@@ -46,7 +47,7 @@ const checkTeam_manager = async (coachId) => {
         console.log(hasTeam)
       }
       fetchData();
-    }, []);
+    }, [value]);
   
     return (
       <Spring className="card d-flex flex-column card-padded">
@@ -63,15 +64,16 @@ const checkTeam_manager = async (coachId) => {
             {coachHasTeam && (
               <>
                 <TabButton
-                  title={width >= 375 ? "Add Coach": 'addCoach'}
-                  onClick={() => setActiveTab('addCoach')}
-                  active={activeTab === 'addCoach'}
-                />
-                <TabButton
                   title={width >= 375 ? 'Add Players' : 'Basic'}
                   onClick={() => setActiveTab('basic')}
                   active={activeTab === 'basic'}
                 />
+                <TabButton
+                  title={width >= 375 ? "Add Coach": 'addCoach'}
+                  onClick={() => setActiveTab('addCoach')}
+                  active={activeTab === 'addCoach'}
+                />
+                
               </>
             )}
           </TabsList>

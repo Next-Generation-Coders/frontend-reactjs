@@ -11,9 +11,9 @@ import RefereeMatches from "@widgets/RefereeMatches/RefereeMatches";
 const widgets = {
     league_rating: <RefreeRating />,
     matches_overview: <RefereeMatches />,
-    team_pulse: <RefPulse />,
+   // team_pulse: <RefPulse />,
     calendar: <GamesCalendar />,
-    StandingsRef: <StandingsRef />,
+    //StandingsRef: <StandingsRef />,
 }
 
 const MatchList = () => {

@@ -19,7 +19,8 @@ const Congrats = () => {
     <p>in the moment, you can start adding the teams !</p>
 
     <div style={{margin :"15px"}}>
-    <button className='btn' onClick={() => navigate("/")}>Home</button>
+    <button className='btn' style={{backgroundColor :"#FDCA40",color:"black",width:"100%",marginBottom:"20px"}} onClick={() => navigate("/")}>Home</button><br></br>
+        <button className='btn'  style={{backgroundColor :"#FDCA40",color:"black",width:"100%"}} onClick={() => navigate("/tournament-list")}>Pay</button>
 
 </div>
         </div>

@@ -66,6 +66,24 @@
 }
 
 .blurred {
-    filter: blur(2px);
+    filter: blur(1px);
     pointer-events: none;
+}
+.centeredImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+
+.centeredImage img {
+    padding-bottom: 90px;
+    max-width: 80%;
+    max-height: 80vh;
 }

@@ -66,6 +66,15 @@
 }
 
 .blurred {
-    filter: blur(2px);
+    filter: blur(1px);
     pointer-events: none;
+}
+.centeredImage {
+    float: right;
+
+}
+
+.centeredImage img {
+    float: right;
+
 }

@@ -10,6 +10,7 @@ import TournamentFORCSelector from './comOrfriendselector';
 import useSubmenu from '@hooks/useSubmenu';
 import LazyImage from '@components/LazyImage';
 import Submenu from '@ui/Submenu';
+import { RiVerifiedBadgeFill } from "react-icons/ri";
 
 const DetailsForm = ({ standalone = true, formData, setFormData, onSubmit }) => {
     const { register, formState: { errors }, handleSubmit } = useForm({
@@ -95,9 +96,15 @@ const DetailsForm = ({ standalone = true, formData, setFormData, onSubmit }) => 
 
     return (
         <div className={classNames("container", { [styles.blurred]: formSubmitted })}>
+
+
             <Wrapper {...wrapperProps}>
                 <div className="d-flex flex-column g-4">
-                    <h2 style={{ paddingLeft: "40px" }}>Tournament Details</h2>
+                    <h2 style={{ paddingLeft: "40px" }}>Tournament Details
+                    {formSubmitted ? (
+                        <RiVerifiedBadgeFill style={{marginLeft:"20px",color:"green"}} />
+                    ) : null}
+                    </h2>
                     <p className="text-12">Fill out the form below to create a new Tournament</p>
                 </div>
 

@@ -30,7 +30,7 @@ const PlayerDiscipline1 = ({clubID = 'realmadrid', firstName = 'Manuel', lastNam
     return (
         <div className="card h-1 d-flex flex-column g-20">
             <div className="card_header d-flex flex-column g-16 flex-1">
-                <LazyImage className="club-logo club-logo--md" src={logo || team1?.logo} alt={team1?.name} />
+                <LazyImage className="club-logo club-logo--md" src={ team1?.logo} alt={team1?.name} />
                 <h3>
                    {team1?.name}
                 </h3>

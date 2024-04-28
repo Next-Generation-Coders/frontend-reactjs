@@ -21,30 +21,93 @@ const Chatbot = () => {
     const { USER } = useAuthContext();
     const [userData, setUserData] = useState(null);
     const location = useLocation(); // Get the current URL using useLocation hook
-let userData2 ;
+    const [hasTeam, setHasTeam] = useState(false);
+    let userData2 ;
+    const [lineup, setLineup] = useState([]);
+    const [lineupFetched, setLineupFetched] = useState(false);
+
+
+
+    const menuOptions = hasTeam
+    ? [
+        { value: 'Add_Player', label: 'Add Player', trigger: 'redirectToPlayerAddingName' },
+        { value: 'Team_Profile', label: 'Team Profile', trigger: 'redirectToTeamProfile' },
+        { value: 'Back', label: 'Back', trigger: 'prompt' }
+        ]
+    : [
+        { value: 'Create_Team', label: 'Create Team', trigger: 'redirectToTeamCreation' },
+        { value: 'Team_Profile', label: 'Team Profile', trigger: 'redirectToTeamProfile' },
+        { value: 'Back', label: 'Back', trigger: 'prompt' }
+        ];
 
     const handleRedirectToTournaments = () => {
         window.location.href = '/my-tournaments'; // Change the URL directly
       };
     
-      const handleRedirectToLineup = () => {
+    const handleRedirectToLineup = () => {
         window.location.href = '/TeamLineupF'; // Change the URL directly
-      };
+    };
+
+    const handleRedirectToAddTeamPlayer = () => {
+        window.location.href = `/add-new-player`; // Change the URL directly
+        
+    };
+
+    const handleRedirectToAddTeamPlayerName = (playerName) => {
+        sessionStorage.setItem('playerName', playerName);
+        //window.location.href = `/add-new-player`; // Change the URL directly
+        
+    };
+
+    const handleRedirectToAddTeamPlayerAge = (playerAge) => {
+        sessionStorage.setItem('playerAge', playerAge);
+        //window.location.href = `/add-new-player`; // Change the URL directly
+        
+    };
+
+    const handleRedirectToTeamProfile = () => {
+        window.location.href = '/team-Profile'; // Change the URL directly
+    };
+
+    
 
       
-      useEffect(() => {
-        async function fetchTeamData() {
+    useEffect(() => {
+        async function fetchData() {
           try {
             const response = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
             const userdata = response.data.roles;
-            console.log("Response data:", response.data); // Log the entire response data
+            console.log("Response data:", response.data);
             setUserData(userdata);
             console.log("user:", userdata);
+      
+            if (userdata.includes(21)) {
+              const UserId = response.data._id;
+              const responseTeam = await axios.get(`http://localhost:3000/Team/checkTeam_manager/${UserId}`);
+      
+              if (responseTeam) {
+                setHasTeam(true);
+              } else {
+                setHasTeam(false);
+              }
+            }
+      
+            const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+            const userId = userResponse.data.currentTeam;
+            const lineupResponse = await fetch(`http://localhost:3000/Team/getLineup/${userId}`);
+            const lineupData = await lineupResponse.json();
+            console.log('Lineup Data:', lineupData.lineup.playerNames);
+      
+            setLineup(lineupData.lineup.playerNames);
+
+            console.log("lllllllllllllll : ", lineup);
           } catch (error) {
             console.error(error);
           }
         }
-        fetchTeamData();
+      
+        fetchData();
+        console.log('Lineup:', lineup);
       }, []);
       
 
@@ -156,7 +219,39 @@ let userData2 ;
                             id: 'redirectToLineup',
                             message: 'Here as a coach you can select your team lineup',
                             waitAction: true,
-                            trigger: 'redirectingLineup',
+                            trigger: 'LineupDetails',
+                        },
+                        {
+                            id: 'LineupDetails',
+                            
+                            component: (
+                                <>
+                                    {lineup.length > 0 ? (
+                                        <div>
+                                        <p>This is the List of players on the lineup:</p>
+                                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                          <thead>
+                                            <tr>
+                                              <th style={{ border: '1px solid #dddddd', padding: '8px', textAlign: 'left' }}>Name</th>
+                                              <th style={{ border: '1px solid #dddddd', padding: '8px', textAlign: 'left' }}>Position</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {lineup.map((player, index) => (
+                                              <tr key={index}>
+                                                <td style={{ border: '1px solid #dddddd', padding: '8px', textAlign: 'left' }}>{player.fullname}</td>
+                                                <td style={{ border: '1px solid #dddddd', padding: '8px', textAlign: 'left' }}>{player.position}</td>
+                                              </tr>
+                                            ))}
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                                                        
+                                    ) : (
+                                        <div>Loading lineup...</div>
+                                    )}
+                                </>
+                            ),
                         },
                         {
                             id: 'redirectingLineup',
@@ -223,6 +318,30 @@ let userData2 ;
                     ];
                     break;
                 case userData.includes(21): // Team Manager
+                    /* if (location.pathname.includes('/team-Profile') && userData.includes(21)) {
+                        // Add additional steps for coach on the '/TeamLineupF' page
+                        steps.push(
+                            {
+                                id: 'infoTM', // Unique id for the first step
+                                message: 'This page will give you access to view your team details',
+                                trigger: 'infomenuTM',
+                            },
+                            {
+                                id:'infomenuTM' ,
+                                options: [
+                                    { value: 'info', label: 'Info on page', trigger: 'additionalStep' }, // Trigger should point to the id of the next step
+                                    { value: 'back', label: 'Back', trigger: '2' }, // Trigger should point to the id of the next step
+
+                                ],
+                            },
+                            {
+                                id: 'additionalStep', // Unique id for the second step
+                                message: 'The players of the team are shown in a slider. You can add them to the field by clicking on "Add to Lineup". Also, don\'t forget to save the lineup when you finished :)',
+                                trigger:'2' // End the conversation after displaying this message
+                            }
+                        );
+                        
+                    } */
                     steps = [
                         {
                             id: '1',
@@ -232,9 +351,96 @@ let userData2 ;
                         {
                             id: 'prompt',
                             options: [
-                            { value: 'yes', label: 'Yes Tea', end: true  },
+                            { value: 'yes', label: 'Yes', trigger: 'introduction'  },
                             { value: 'no', label: 'No', end: true },
                             ],
+                        },
+                        {
+                            id: 'introduction',
+                            message: "Welcome to Link Up Tournament! We are a platform for organizing tournaments between teams. As a team manager , you can create your own team, add players, and compete in exciting tournaments. Get ready to showcase your skills and connect with other teams!\n",
+                            trigger: 'optionsTM',
+                        },
+                        {
+                            id: 'optionsTM',
+                            message: 'Please choose an option:',
+                            //user:true ,
+                            trigger: 'menuTM',
+                        },
+                        {
+                            id: 'menuTM',
+                            options :menuOptions
+                        },
+                        {
+                            id: 'redirectToTeamCreation',
+                            message: "Welcome! Here you can create your own team.\n",                       
+                            waitAction: true,
+                            trigger: 'rederictingcreateTeamAddPlayerName',
+                        },
+                        {
+                            id: 'redirectToPlayerAddingName',
+                            message: "You want to add a Player. What is he's full name ?\n",  
+                            waitAction: true,
+                            trigger: 'rederictingcreateTeamAddPlayerName',
+                        },
+                        {
+                            id: 'rederictingcreateTeamAddPlayerName',
+                            message:  'Player name is {previousValue}',
+                            delay: 3000,
+                            user: true,
+                            trigger: ({value}) => {
+                                const playerName = value; // Get the captured player name
+                                handleRedirectToAddTeamPlayerName(playerName); // Redirect with the captured player name
+                                return 'redirectToPlayerAddingAge'
+                            },                            
+                        },
+                        {
+                            id: 'redirectToPlayerAddingAge',
+                            message: "Player name is {previousValue}. How old is he ?\n",  
+                            waitAction: true,
+                            trigger: 'rederictingcreateTeamAddPlayersAge',
+                        },
+                        {
+                            id: 'rederictingcreateTeamAddPlayersAge',
+                            message:  'Player age is {previousValue}',
+                            delay: 3000,
+                            user: true,
+                            trigger: ({value}) => {
+                                const playerAge = value; // Get the captured player name
+                                handleRedirectToAddTeamPlayerAge(playerAge); // Redirect with the captured player name
+                                return 'redirectToPlayerAdding'
+                            },                            
+                        },
+                        {
+                            id: 'redirectToPlayerAdding',
+                            message: "Player age is {previousValue}. Ok now redirecting to finish filling the fields!\n",  
+                            waitAction: true,
+                            trigger: 'rederictingcreateTeamAddPlayer',
+                        },
+                        {
+                            id: 'rederictingcreateTeamAddPlayer',
+                            message:  'Player age is {previousValue}',
+                            delay: 3000,
+                            user: true,
+                            trigger: () => {
+                                handleRedirectToAddTeamPlayer(); // Redirect with the captured player name
+                                return 'rederictingcreateTeamAddPlayer'
+                            },                            
+                        },
+                        {
+                            id: 'redirectToTeamProfile',
+                            //message: 'Here you can find more information on your team, list of the players , tournaments that your team is a prat of and a calender to always stay tuned for upcoming matches.\n',
+                            message: "Welcome to your team profile! Here, you can find all the important details about your team. Explore the list of players, discover the tournaments your team is a part of, and stay up-to-date with our calendar for upcoming matches. We're here to help you stay connected and informed!\n",
+                            waitAction: true,
+                            trigger: 'redirectToProfileOfTeam',
+                        },
+                        {
+                            id: 'redirectToProfileOfTeam',
+                            message:  'Redirecting you to the attempted page...',
+                            delay: 15000,
+                            trigger: () => {
+                                handleRedirectToTeamProfile();
+                                return 'redirectToProfileOfTeam';
+                            },
                         },
                     ];
                     break;
@@ -264,8 +470,9 @@ let userData2 ;
     // Return the ChatBot component with dynamically adjusted steps
     return (
         <ThemeProvider theme={theme}>
-            {userData != null ? (
+            {userData != null && lineup.length > 0 ? (
                 <ChatBot
+                recognitionEnable={true}
                 steps={steps}
                 floating={true}
                 />

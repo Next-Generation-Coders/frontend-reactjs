@@ -180,7 +180,7 @@ const Index = () => {
                     >
                       PAID
                     </Button>
-                    <button style={{ color: 'black' }} className="btnnn"><Link to="/">SEE MORE</Link></button>
+                    <button style={{ color: 'black' }} className="btnnn"><Link to="/LeaguesBackOffice">SEE MORE</Link></button>
                   </div>
                 </>
             ) : (

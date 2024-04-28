@@ -90,7 +90,7 @@ const GamesCalendar = ({teamId}) => {
 
     //console.log(matches)
     if (matches.length===0){
-        return <div>Loading...</div>;
+        return <div></div>;
     }
     const dateEvents = (date) => {
         //console.log('Selected Date:', date);

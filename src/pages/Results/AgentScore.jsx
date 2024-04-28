@@ -8,6 +8,7 @@ import io from 'socket.io-client';
 import axios from "axios";
 import PageHeader from '@layout/PageHeader';
 import { DragAndDrop } from '@components/Refree/DragAndDrop';
+import { LineupTeams } from '@components/Refree/LineupTeams';
 import AppGrid from '@layout/AppGrid';
 import TeamsLineups from '@widgets/TeamsLineups';
 import MatchEventsLarge from '@widgets/MatchEventsLarge';
@@ -205,8 +206,8 @@ const AgentScore = () => {
   
   
   <DragAndDrop id={id} />
-
-    </>
+{/*   <LineupTeams id={id} />
+ */}    </>
    
   );
 };
