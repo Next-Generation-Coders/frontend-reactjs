@@ -47,7 +47,8 @@ const MatchResult = () => {
         const fetchResult = async () => {
           try {
             const response = await axios.get(`http://localhost:3000/result/result/${MatchIdfromLeaguesDisplay}`); // Assuming you have an endpoint to get the current result
-            console.log(response.data);
+            console.log("aaaa",response.data);
+
             setResult(response.data);
             const teamsResponse = await axios.get(`http://localhost:3000/result/teams/${MatchIdfromLeaguesDisplay}`);
             setTeams(teamsResponse.data);

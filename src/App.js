@@ -235,7 +235,8 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/addTeams" element={<AddTeams/>}/>
                                                     <Route path='/TournamentReview' element={<TournamentReview/>}/>
                                                     <Route path='/LeaguesDisplay' element={<LeaguesDisplay/>}/>
-                                                    <Route path='/TournamentAdmin' element={<TournamentList/>} />
+                                                    <Route path='/Tournament-Admin' element={<TournamentList/>} />
+                                                    <Route path="/Fantasy" element={<FantasyHome/>}/>
 
 
                                                     // Admin Tournament Routes
@@ -267,6 +268,8 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/complaint-list" element={<Complaints/>}/>
                                                     <Route path="/user-management" element={<UserManagement/>}/>
                                                     <Route path="/role-requests" element={<RoleRequests/>}/>
+                                                        <Route path='/TournamentAdmin' element={<TournamentList/>} />
+
 
                                                     </Route>
 
@@ -302,7 +305,6 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     // User routes
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/>}>
                                                     <Route path="/profile" element={<Profile/>}/>
-                                                    <Route path="/Fantasy" element={<FantasyHome/>}/>
                                                     </Route>
                                                     <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
 

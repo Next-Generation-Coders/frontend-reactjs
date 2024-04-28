@@ -28,7 +28,7 @@ const LeagueInformationsBackOffice = () => {
 
     return (
         <>
-            <PageHeader title="English Premier League" />
+            <PageHeader title="Manage Your Tournaments" />
 
             
           <AppGrid id="championships" widgets={widgets} />

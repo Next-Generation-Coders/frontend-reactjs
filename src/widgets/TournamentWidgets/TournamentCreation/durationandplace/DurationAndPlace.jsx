@@ -5,9 +5,11 @@ import { useForm} from 'react-hook-form';
 import {toast} from 'react-toastify';
 import CountryCitySelector from './tournamentplaceSelector';
 // hooks
-import {useState} from 'react';
+import React, {useState} from 'react';
 import classNames from 'classnames';
 import styles from './styles.module.scss';
+import verfied from '@assets/icons/q.png';
+import {RiVerifiedBadgeFill} from "react-icons/ri";
 
 const DurationAndPlace = ({standalone,onSubmit}) => {
     const [open, setOpen] = useState(false);
@@ -114,9 +116,15 @@ const handleEndDateChange = (e) => {
 
     return (
         <div className={classNames("container", { [styles.blurred]: formSubmitted })}>
-        <Wrapper {...wrapperProps}>
+
+
+            <Wrapper {...wrapperProps}>
             <div className="d-flex flex-column g-4">
-                        <h2 style={{paddingLeft:"40px"}}>Duration and Place</h2>
+                        <h2 style={{paddingLeft:"40px"}}>Duration and Place
+                            {formSubmitted ? (
+                                <RiVerifiedBadgeFill style={{marginLeft:"20px",color:"green"}} />
+                            ) : null}
+                        </h2>
                         <p className="text-12">Fill out the form below to create a new Tournament</p>
                     </div>
             <bR></bR>

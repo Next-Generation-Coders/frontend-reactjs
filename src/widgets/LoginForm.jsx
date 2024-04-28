@@ -78,8 +78,8 @@ const LoginForm = () => {
                 }}>{error}</div>}
                 <br/>
                 <div className="d-flex justify-content-between align-items-center">
-                    <button disabled={isLoading} className="btn btn--sm" type="submit">
-                        Submit
+                    <button style={{backgroundColor:"#FDCA40",color:"black",width:"40%"}} disabled={isLoading} className="btn btn--sm" type="submit">
+                       Login
                     </button>
                     <button disabled={isLoading} className="text-button text-button--sm" onClick={handleResetPassword}>
                         Reset password

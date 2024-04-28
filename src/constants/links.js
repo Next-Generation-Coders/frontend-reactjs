@@ -432,6 +432,10 @@ export const REFEREE_LINKS = [
                 title: 'Match',
                 path: '/match'
             },
+            {
+                title: 'Match List',
+                path: '/match-list'
+            },
         ]
     },
     {

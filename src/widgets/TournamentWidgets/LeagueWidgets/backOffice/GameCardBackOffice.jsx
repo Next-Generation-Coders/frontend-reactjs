@@ -42,7 +42,7 @@ try{
 
         const StaduimsAndRefs = await fetch(`http://localhost:3000/Tournament/getRefereesAndStadiumsForTournament/${selectedTournamentId}`);
         if (!StaduimsAndRefs.ok) {
-        throw new Error('Failed to fetch  details');
+       toast.error('Failed to fetch  details');
          }
         else{
             const data =await StaduimsAndRefs.json();
@@ -66,7 +66,7 @@ useEffect(() => {
                 const stadiumPromises = stadiums.map(async (stadiumId) => {
                     const response = await fetch(`http://localhost:3000/Stadium/getbyid/${stadiumId}`);
                     if (!response.ok) {
-                        throw new Error(`Failed to fetch stadium details for ID ${stadiumId}`);
+                       toast.error(`Failed to fetch stadium details for ID ${stadiumId}`);
                     }
                     return response.json();
                 });
@@ -79,7 +79,7 @@ useEffect(() => {
                 const refereePromises = referees.map(async (refereeId) => {
                     const response = await fetch(`http://localhost:3000/User/getbyid/${refereeId}`);
                     if (!response.ok) {
-                        toast.rror(`Failed to fetch referee details for ID ${refereeId}`);
+                        toast.error(`Failed to fetch referee details for ID ${refereeId}`);
                     }
                     return response.json();
                 });
@@ -227,9 +227,9 @@ const handleFormSubmit = (e) => {
     _ref: selectedRefereeId,
   };
 
-console.log(formDataToSend);
   onSubmit(formDataToSend);
 
+    toast.success("Match Details Updated Successfully");
 
 };
 
@@ -269,7 +269,7 @@ console.log(formDataToSend);
                           <label>
                             Referee:
                             <select  className={classNames('field', { 'field--error': errors.referee })}
-                                     style={{backgroundColor : 'transparent'}}
+                                     style={{backgroundColor : 'transparent',color:"#A1A3A6"}}
                             onChange={(e) => setSelectedRefereeId(e.target.value)}>
                               {refereeInfo && refereeInfo.map(referee => (
                                 <option key={referee._id} value={referee._id}>
@@ -284,7 +284,7 @@ console.log(formDataToSend);
                           <label>
                             Stadium:
                             <select className={classNames('field', { 'field--error': errors.stadium })}
-                                    style={{backgroundColor : "transparent"}}
+                                    style={{backgroundColor : "transparent",color:"#A1A3A6"}}
                               onChange={(e) => setSelectedstadiumId(e.target.value)}>
                               {StadiumInfo && StadiumInfo.map(stadium => (
                                 <option key={stadium._id} value={stadium._id}>

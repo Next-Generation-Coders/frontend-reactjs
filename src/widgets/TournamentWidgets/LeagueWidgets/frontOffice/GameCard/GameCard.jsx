@@ -18,8 +18,10 @@ import {useWindowSize} from 'react-use';
 import PropTypes from 'prop-types';
 
 import RefNStaduim from './RefNStaduim';
+import ScoreMatch from "@ui/ScoreMatch";
+import axios from "axios";
 
-const GameCard = ({match, index, variant = 'basic',selectedDay ,onClick }) => {
+const GameCard = ({score,match, index, variant = 'basic',selectedDay ,onClick }) => {
     const {width} = useWindowSize();
     const {theme} = useThemeProvider();
     const defaultLogos = [defaultLogo1, defaultLogo2, defaultLogo3, defaultLogo4];
@@ -70,7 +72,10 @@ const GameCard = ({match, index, variant = 'basic',selectedDay ,onClick }) => {
     if (match.startDay !== selectedDay ) {
         return null; 
       }
-      
+
+
+
+
 
 
     return (
@@ -82,7 +87,8 @@ const GameCard = ({match, index, variant = 'basic',selectedDay ,onClick }) => {
                     
                 
                     <img className="club-logo" src={team1Logo } alt={team1Logo}/>
-                    <Score team1={match.startHour} team2={match.startMinutes} variant="alt"/>
+                    <Score team1={score.scoreTeam1}  team2={score.scoreTeam2}   />
+
                     <img className="club-logo" src={team2Logo } alt={team2Logo}/>
                 </div>
                 {
