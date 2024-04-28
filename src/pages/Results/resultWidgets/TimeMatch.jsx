@@ -103,7 +103,7 @@ const TimeMatch = ({matchID,matchStart, setMatchStart }) => {
           default:
               throw new Error('Invalid tournament type');
       }
-console.log(tournament.GPended)
+
       const response = await fetch(endpoint, {
           method: 'PUT',
           headers: {

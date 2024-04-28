@@ -258,9 +258,9 @@ useEffect(() => {
             <div className="d-flex justify-content-between align-items-center">
     
                 {highlights.map((highlight, index) => (
-                    <div key={index} style={{ marginBottom: '20px' , marginRight : '200px'  , marginLeft : '20px',justifyContent: 'center'}}>
+                    <div key={index} style={{ marginBottom: '20px' , marginRight : '1200px'  , marginLeft : '85px',justifyContent: 'center'}}>
                         <h4>{highlight.title}</h4>
-                        <div style={{ height: '400px', width: '800px' }} dangerouslySetInnerHTML={{ __html: highlight.embed }} />
+                        <div style={{ height: '400px', width: '1000px' }} dangerouslySetInnerHTML={{ __html: highlight.embed }} />
                     </div>
                 ))}
     

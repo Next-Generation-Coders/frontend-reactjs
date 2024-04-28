@@ -85,26 +85,8 @@ if (!leagues){
     
     <Spring className="card d-flex flex-column g-16 card-padded">
       <div style={{ display: 'flex' ,justifyContent: 'space-between'}}>
-      <h2>Tournaments</h2>
-      <Form>
-          <InputGroup className='my-3'>
-
-            
-          
-              <Form.Control
-                ref={inputRef}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder='Press / to search'
-                style={{
-                  padding: '10px',
-                  borderRadius: '5px',
-                  border: '1px solid #ccc',
-                  boxShadow: 'none',
-                }}
-              />
-          
-          </InputGroup>
-        </Form></div>
+      <h2>Highlights</h2>
+      </div>
     <div className="tournament-selector-container">
     {leagues.map((league, index) => (
   <div key={index} className="tournament-item" onClick={() => handleTournamentClick(league.competition.id, league.title)}>
@@ -113,7 +95,7 @@ if (!leagues){
      {league.title}
      </p>
      
-     {console.log(league)}
+     
   </div>
 ))}
     </div>

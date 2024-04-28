@@ -75,7 +75,7 @@ const [tournamentrates ,settournamentrates] = useState();
         {tournament && (
     <LeagueHeader img={tournament.logo} title={tournament.title} subtitle={tournament.TournamentType} />
   )}
-  <div style={{ marginLeft: '50px' ,alignItems: 'center'}}>
+  <div style={{ marginLeft: '26px' ,alignItems: 'center'}}>
     <FollowButton  selectedTournamentId={tournament._id} />
     <BasicRating  selectedTournamentId={tournament._id}/>
   </div>

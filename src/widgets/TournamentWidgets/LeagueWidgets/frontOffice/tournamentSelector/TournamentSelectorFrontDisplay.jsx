@@ -16,7 +16,7 @@ const TournamentSelectorFrontDisplay = ({ onSelectTournament }) => {
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
-        const response = await fetch('http://localhost:3000/Tournament/getall');
+        const response = await fetch('http://localhost:3000/Tournament/getPublicAndActiveTournaments');
         const data = await response.json();
         setTournaments(data);
       } catch (error) {

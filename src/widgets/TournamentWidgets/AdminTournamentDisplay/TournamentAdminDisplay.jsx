@@ -213,12 +213,13 @@ const TournamentAdminDisplay = () => {
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{tournament.TournamentStatus ? tournament.TournamentStatus.toString() : ''}</td>
 
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
-                                        <Button
-                                            onClick={() => handleSetActiveTournament(tournament._id, tournament.TournamentStatus)}
-                                            style={{ backgroundColor: tournament.TournamentStatus === 'Active' ? '#f50606' : '#0D51A3' }}
-                                        >
-                                            <b style={{ color: 'white' }}>{tournament.TournamentStatus === 'Active' ? 'Set Inactive' : 'Set Active'}</b>
-                                        </Button>
+                                    <Button
+    onClick={() => handleSetActiveTournament(tournament._id, tournament.TournamentStatus)}
+    style={{ backgroundColor: tournament.TournamentStatus === 'Active' ? '#f50606' : '#0D51A3' }}
+    disabled={tournament.TournamentStatus !== 'Pending'} // Disable the button if status is not 'Pending'
+>
+    <b style={{ color: 'white' }}>{tournament.TournamentStatus === 'Active' ? 'Set Inactive' : 'Set Active'}</b>
+</Button>
                                     </td>
 
                                     <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>

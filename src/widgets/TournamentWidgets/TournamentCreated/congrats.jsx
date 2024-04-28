@@ -13,10 +13,10 @@ const Congrats = () => {
           <h2>Congratulations!</h2>
           <br></br><br></br>
           <p>Your tournament has been successfully created under the status of pending </p>
-    <p> An admin's response to your quest will be sent to your mail </p>
+    <p> An admin's response to your request will be sent to your mail </p>
 
     <br></br>
-    <p>in the moment, you can start adding the teams !</p>
+    <p>in the moment, you can enjoy our features !</p>
 
     <div style={{margin :"15px"}}>
     <button className='btn' style={{backgroundColor :"#FDCA40",color:"black",width:"100%",marginBottom:"20px"}} onClick={() => navigate("/")}>Home</button><br></br>
