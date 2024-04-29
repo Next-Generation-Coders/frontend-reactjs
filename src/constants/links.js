@@ -437,6 +437,10 @@ export const ORGANIZER_LINKS = [
                 title: 'Tournament List',
                 path: '/tournament-list'
             },
+            {
+                title:'Go Live',
+                path: '/live'
+            }
         ]
     },
     {

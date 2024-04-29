@@ -578,7 +578,7 @@ const layouts = {
             {i: 'live_report', x: 2, y: 0, w: 1, h: 2},
             {i: 'team_full_info', x: 0, y: 2, w: 2, h: 2},
             {i: 'team_results', x: 0, y: 4, w: 2, h: 2},
-            {i: 'league_standings', x: 3, y: 2, w: 1, h: 3},
+            {i: 'league_standings', x: 2, y: 2, w: 1, h: 2},
         ],
         md: [
             {i: 'team_stats', x: 0, y: 0, w: 1, h: 1},
@@ -587,7 +587,7 @@ const layouts = {
             {i: 'live_report', x: 1, y: 6, w: 1, h: 2},
             {i: 'team_full_info', x: 0, y: 4, w: 2, h: 2},
             {i: 'team_results', x: 0, y: 2, w: 2, h: 2},
-            {i: 'league_standings', x: 3, y: 2, w: 1, h: 3},
+            {i: 'league_standings', x: 0, y: 6, w: 1, h: 2},
         ]
     },
     Test: {
@@ -695,6 +695,18 @@ const layouts = {
         ]
 
     },
+    live_stream: {
+        xl: [
+            {i: 'live', x: 1, y: 0, w: 2, h: 3},
+        ],
+        lg: [
+            {i: 'live', x: 1, y: 0, w: 2, h: 2},
+        ],
+        md: [
+            {i: 'live', x: 0, y: 0, w: 2, h: 2},
+        ]
+    },
+
 
 
 

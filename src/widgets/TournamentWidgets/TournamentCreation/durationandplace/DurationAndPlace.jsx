@@ -8,7 +8,6 @@ import CountryCitySelector from './tournamentplaceSelector';
 import React, {useState} from 'react';
 import classNames from 'classnames';
 import styles from './styles.module.scss';
-import verfied from '@assets/icons/q.png';
 import {RiVerifiedBadgeFill} from "react-icons/ri";
 
 const DurationAndPlace = ({standalone,onSubmit}) => {

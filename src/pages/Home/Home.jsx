@@ -4,7 +4,7 @@ import AppGrid from '@layout/AppGrid';
 import MatchLiveReport from '@widgets/MatchLiveReport';
 import LiveMatches from '@widgets/LiveMatches';
 import MatchesOverview from '@widgets/MatchesOverview';
-import HomeGamesCalendar from "@pages/Home/GamesCalendar";
+import TournamentSlider from '@widgets/TournamentWidgets/TopRatedTournaments/TournamentsSlider';
 import PlayerTour from "@widgets/PlayerTournaments/PlayerTour";
 import {useFindUserTour} from "@hooks/useFindUserTour";
 import {useEffect} from "react";
@@ -28,14 +28,13 @@ const Home = () => {
         })
     }, [length]);
 
-    const widgets = {
-        league_standings: <PlayerTour tournaments={tournaments} />,
-        live_report: <MatchLiveReport/>,
-        matches_overview: <MatchesOverview />,
-        live_matches: <LiveMatches variant="small" />,
 
-    }
-
+const widgets = {
+    live_report: <MatchLiveReport/>,
+    matches_overview: <MatchesOverview />,
+    live_matches: <LiveMatches variant="small" />,
+    tournamentslider : <TournamentSlider/>
+}
 
     return (
         <>

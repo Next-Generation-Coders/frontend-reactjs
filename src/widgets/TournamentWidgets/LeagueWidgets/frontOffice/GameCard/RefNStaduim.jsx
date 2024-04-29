@@ -8,47 +8,12 @@ import ScoreMatch from "@ui/ScoreMatch";
 
 const RefNStaduim = ({variant = 'main', match}) => {
     const [active, setActive] = useState('lineups');
-    const[referee , setReferee ] = useState();
-    const[stadium , setStadium ] = useState();
+ 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchStadium = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/Stadium/getbyid/${match.stadium}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch Stadium');
-                }
-                const data = await response.json();
-                console.log(data)
-                setStadium(data);
-                
-            } catch (error) {
-                console.error('Error fetching Stadium:', error);
-            }
-        };
-
-        fetchStadium();
-    }, [match]);
+  
    
-    useEffect(() => {
-        const fetchreferee = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/User/getbyid/${match._ref}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch referee');
-                }
-                const data = await response.json();
-                console.log(data)
-                setReferee(data);
-          
-            } catch (error) {
-                console.error('Error fetching referee:', error);
-            }
-        };
-
-        fetchreferee();
-    }, [match]);
+   
 
     
     const GoToMatchDetails = async (matchId) =>{
@@ -56,10 +21,7 @@ const RefNStaduim = ({variant = 'main', match}) => {
     }
 
 
-    if (!stadium || !referee) {
-        // If stadium or referee is not defined, return null to prevent rendering
-        return null;
-    }
+    
     return (
         
         <div className="d-grid col-2">

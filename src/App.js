@@ -59,6 +59,8 @@
     import MyTournaments from "@pages/Player/MyTournaments";
     import RoleRequests from "@pages/Admin/RoleRequests";
     import ChatBot from '@components/Chatbot/Chatbot';
+    import LiveStream from "@pages/LiveStreaming/LiveStreaming";
+    import WatchStream from "@pages/LiveStreaming/WatchLiveStream";
     // import MyTournamentsSelectorFrontDisplay from "@pages/Player/MyTournaments";
 
     // pages
@@ -328,11 +330,12 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
 
                                                     <Route element={<RequireAuth allowedRoles={[Role.COACH]}/>}>
                                                         <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
-
                                                     </Route>
-
-
-
+                                                    //Live Streaming
+                                                    <Route element={<RequireAuth allowedRoles={[Role.USER]}/> }>
+                                                        <Route path="/live" element={<LiveStream/>}/>
+                                                        <Route path="/watch" element={<WatchStream/>}/>
+                                                    </Route>
                                                 </Routes>
                                         </Suspense>
                                     </div>
