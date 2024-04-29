@@ -568,7 +568,7 @@ const layouts = {
             {i: 'matches_overview', x: 1, y: 3, w: 2, h: 4},
             // {i: 'match_result', x: 1, y: 1, w: 1, h: 2},
             {i: 'live_matches', x: 0, y: 0, w: 1, h: 2},
-            {i: 'league_standings', x: 3, y: 2, w: 1, h: 3},
+            {i: 'tournamentslider', x: 1, y: 2, w: 2, h: 1},
 
         ],
         lg: [
