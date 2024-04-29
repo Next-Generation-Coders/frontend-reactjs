@@ -91,7 +91,7 @@ const teamId = state ? state.teamId : null;
                 <div className={styles.media} >
                     <LazyImage style={styles.img} src={teamData.logo ? teamData.logo : "https://static.vecteezy.com/system/resources/previews/027/385/965/original/blank-e-sport-shield-badge-png.png"} alt="https://clipart-library.com/img/1094138.jpg" />
                 </div>
-                <div className="d-flex flex-column justify-content-between" style={{ width: '100%' }}>
+                <div className="d-flex flex-column justify-content-between"  style={{ width: '100%',marginLeft:"30px" }}>
                     <div className={`${styles.main_info} d-flex flex-column g-14`}>
                         <div className="d-flex flex-column g-4">
                             <h1 className="text-20 text-overflow">{teamData.name}</h1>

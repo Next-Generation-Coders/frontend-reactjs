@@ -39,3 +39,34 @@
         margin-top: -8px;
     }
 }
+
+
+.control {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text);
+    position: relative;
+
+    i {
+        color: var(--highlight);
+        font-size: 16px;
+    }
+
+    &.ltr .control_indicator {
+        left: 10px;
+    }
+
+    &.rtl .control_indicator {
+        right: 10px;
+    }
+
+    &_indicator {
+        position: absolute;
+        background: var(--highlight-invert);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        top: 10px;
+    }
+}

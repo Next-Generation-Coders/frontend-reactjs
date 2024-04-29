@@ -11,7 +11,7 @@ const theme = {
   headerFontColor: '#fff',
   headerFontSize: '15px',
   botBubbleColor: '#FDCA40',
-  botFontColor: '#fff',
+  botFontColor: 'black',
   userBubbleColor: '#fff',
   userFontColor: '#4a4a4a',
 };
@@ -470,7 +470,7 @@ const Chatbot = () => {
     // Return the ChatBot component with dynamically adjusted steps
     return (
         <ThemeProvider theme={theme}>
-            {userData != null && lineup.length > 0 ? (
+            {userData != null || lineup.length > 0 ? (
                 <ChatBot
                 recognitionEnable={true}
                 steps={steps}

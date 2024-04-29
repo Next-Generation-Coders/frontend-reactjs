@@ -259,8 +259,7 @@ useEffect(() => {
     
                 {highlights.map((highlight, index) => (
                     <div key={index} style={{ marginBottom: '20px' , marginRight : '200px'  , marginLeft : '20px',justifyContent: 'center'}}>
-                        <h4>{highlight.title}</h4>
-                        <div style={{ height: '400px', width: '800px' }} dangerouslySetInnerHTML={{ __html: highlight.embed }} />
+                        <div style={{ height: '600px', width: '1000px' }} dangerouslySetInnerHTML={{ __html: highlight.embed }} />
                     </div>
                 ))}
     

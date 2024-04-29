@@ -8,14 +8,6 @@ export const LINKS = [
                 path: '/'
             },
             {
-                title: 'Game summary',
-                path: '/game-summary'
-            },
-            {
-                title: 'Championships',
-                path: '/championships'
-            },
-            {
                 title: 'League overview',
                 path: '/league-overview'
             },
@@ -198,42 +190,6 @@ export const ADMIN_LINKS = [
                 path: '/'
             },
             {
-                title: 'Game summary',
-                path: '/game-summary'
-            },
-            {
-                title: 'Championships',
-                path: '/championships'
-            },
-            {
-                title: 'League overview',
-                path: '/league-overview'
-            },
-
-            {
-                title: 'Statistics',
-                path: '/statistics'
-            },
-
-        ]
-    },
-    {
-        title: 'Browse',
-        icon: 'table',
-        pages: [
-            {
-                title: 'Club summary',
-                path: '/'
-            },
-            {
-                title: 'Game summary',
-                path: '/game-summary'
-            },
-            {
-                title: 'Championships',
-                path: '/championships'
-            },
-            {
                 title: 'League overview',
                 path: '/league-overview'
             },
@@ -254,22 +210,6 @@ export const ADMIN_LINKS = [
                 path: '/TournamentAdmin'
             },
             {
-                title: 'Coach List',
-                path: '/coach-list'
-            },
-            {
-                title: 'Referee List',
-                path: '/refree-list'
-            },
-            {
-                title: 'Player List',
-                path: '/player-list'
-            },
-            {
-                title: 'Team List',
-                path: '/team-list'
-            },
-            {
                 title: 'Complaint List',
                 path: '/complaint-list'
             },
@@ -285,6 +225,8 @@ export const ADMIN_LINKS = [
                 title: 'Payment List',
                 path: '/payment-list'
             },
+
+
         ]
     },
     {
@@ -311,14 +253,6 @@ export const USER_LINKS = [
                 path: '/'
             },
             {
-                title: 'Game summary',
-                path: '/game-summary'
-            },
-            {
-                title: 'Championships',
-                path: '/championships'
-            },
-            {
                 title: 'League overview',
                 path: '/league-overview'
             },
@@ -327,10 +261,10 @@ export const USER_LINKS = [
                 title: 'Statistics',
                 path: '/statistics'
             },
-            {
-                title: 'Fantasy',
-                path: '/Fantasy'
-            },
+           // {
+             //   title: 'Fantasy',
+               // path: '/Fantasy'
+            //},
             {
                 title: 'World Wide',
                 path: '/WorldWide'
@@ -389,14 +323,6 @@ export const REFEREE_LINKS = [
                 path: '/'
             },
             {
-                title: 'Game summary',
-                path: '/game-summary'
-            },
-            {
-                title: 'Championships',
-                path: '/championships'
-            },
-            {
                 title: 'League overview',
                 path: '/league-overview'
             },
@@ -428,10 +354,10 @@ export const REFEREE_LINKS = [
                 title: 'Agent',
                 path: '/agent/:id'
             },
-            {
-                title: 'Match',
-                path: '/match'
-            },
+           // {
+             //   title: 'Match',
+               // path: '/match'
+           // },
             {
                 title: 'Match List',
                 path: '/match-list'
@@ -464,14 +390,6 @@ export const ORGANIZER_LINKS = [
                 path: '/'
             },
             {
-                title: 'Game summary',
-                path: '/game-summary'
-            },
-            {
-                title: 'Championships',
-                path: '/championships'
-            },
-            {
                 title: 'League overview',
                 path: '/league-overview'
             },
@@ -479,10 +397,6 @@ export const ORGANIZER_LINKS = [
             {
                 title: 'Statistics',
                 path: '/statistics'
-            },
-            {
-                title: 'Fantasy',
-                path: '/Fantasy'
             },
             {
                 title: 'World Wide',
@@ -522,28 +436,6 @@ export const ORGANIZER_LINKS = [
             {
                 title: 'Tournament List',
                 path: '/tournament-list'
-            },
-        ]
-    },
-    {
-        title: 'Matches',
-        icon: 'calendar',
-        pages: [
-            {
-                title: 'Match summary',
-                path: '/match-summary'
-            },
-            {
-                title: 'Match overview',
-                path: '/match-overview'
-            },
-            {
-                title: 'Create Match',
-                path: '/match-overview'
-            },
-            {
-                title: 'Schedule',
-                path: '/schedule'
             },
         ]
     },
@@ -590,14 +482,6 @@ export const TM_LINKS = [
                 path: '/'
             },
             {
-                title: 'Game summary',
-                path: '/game-summary'
-            },
-            {
-                title: 'Championships',
-                path: '/championships'
-            },
-            {
                 title: 'League overview',
                 path: '/league-overview'
             },
@@ -634,7 +518,7 @@ export const TM_LINKS = [
                 path: '/team-list'
             }, */
             {
-                title: 'Add New player / coach',
+                title: 'Add New player & coach',
                 path: '/add-new-player'
             },
             {
@@ -684,14 +568,6 @@ export const COACH_LINKS = [
                 path: '/'
             },
             {
-                title: 'Game summary',
-                path: '/game-summary'
-            },
-            {
-                title: 'Championships',
-                path: '/championships'
-            },
-            {
                 title: 'League overview',
                 path: '/league-overview'
             },
@@ -726,11 +602,11 @@ export const COACH_LINKS = [
             /* {
                 title: 'Lineup',
                 path: '/lineup'
-            },
+            },*/
             {
-                title: 'Player profile',
+                title: 'Your profile as coach',
                 path: '/coach-profile'
-            }, */
+            },
 
 
         ]
@@ -769,14 +645,6 @@ export const PLAYER_LINKS = [
             {
                 title: 'Club summary',
                 path: '/'
-            },
-            {
-                title: 'Game summary',
-                path: '/game-summary'
-            },
-            {
-                title: 'Championships',
-                path: '/championships'
             },
             {
                 title: 'League overview',
@@ -848,14 +716,6 @@ export const GUEST_LINKS = [
             {
                 title: 'Club summary',
                 path: '/'
-            },
-            {
-                title: 'Game summary',
-                path: '/game-summary'
-            },
-            {
-                title: 'Championships',
-                path: '/championships'
             },
             {
                 title: 'League overview',

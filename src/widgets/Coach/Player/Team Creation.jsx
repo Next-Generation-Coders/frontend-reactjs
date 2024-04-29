@@ -86,7 +86,7 @@ const Team = () => {
   const onSubmit = async (data) => {
     const newTeamData = {
       name: data.fullname,
-      logo: file, // Assuming file is the selected file object
+      logo: file,
     };
   
     const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
@@ -96,24 +96,18 @@ const Team = () => {
       //const formData = new FormData();
       formData.append('name', newTeamData.name);
       //formData.append('team', file);
-      
+
       const response = await fetch(`http://localhost:3000/Team/add/${userId}`, {
-        method: 'POST',
-        body: formData,
-      });
-  
-      if (response.ok) {
-        const teamData = await response.json();
-        setTeams([...teams, teamData]);
-        reset();
-        toast.success('Your team has been successfully saved!');
-        navigate.go(0);
-      } else {
-        toast.error('Failed to save team. Please try again.');
-      }
+      method: 'POST',
+          body: formData,
+    });
+
+      toast.success('Your team has been successfully saved!');
+      navigate('/team-Profile');
+
     } catch (error) {
-      console.error('Error submitting form:', error);
-    }
+      toast.error('Failed to save team. Please try again.');
+   }
   }
   
 
@@ -152,12 +146,9 @@ const Team = () => {
         {errors.fullname && <span className="error-message">Team name is required</span>}
       </div>
       <div className={styles.footer}>
-        <button className="btn" type="submit">Save Team</button>
+        <button className="btn" type="submit"  style={{backgroundColor: '#FDCA40',color:"black"}}>Save Team</button>
         <button className="btn btn--outlined" type="button" onClick={reset}>Cancel</button>
-        {/* <Link to={`/add-new-player/`}>    // f button clicked save team or cancel it will redirect to add new player so it can do the check of the 
-                                                  team manager if he has a team or not   
-                                            <Button style={{ backgroundColor: 'red' }} ><b style={{ color: 'white' }}>View Profile</b></Button>
-                                        </Link> */}
+
       </div>
     </form>
   );

@@ -98,7 +98,7 @@ const Profile = () => {
           const userdata = response.data._id;
           return userdata ;
         } catch (error) {
-          console.error(error);
+          toast.error(error);
         }
     }
     
@@ -109,7 +109,6 @@ const Profile = () => {
         
         const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
-        console.log(data+".......................000000")
         const userData = await getUser(data.email);
         if (userData) {
             /* const userConfirmation =  prompt("Email exists. Do you want to update the user data? \nPlease enter 'yes' or 'no':");
@@ -322,7 +321,7 @@ const Profile = () => {
 
                     </div>
                     <div className={styles.footer}>
-                        <button className="btn" type="submit">Save Player</button>
+                        <button className="btn" type="submit" style={{marginRight:"30px" ,width:"30%",backgroundColor:"#FDCA40",color:"black"}}>Save Player</button>
                         <button className="btn btn--outlined" type="reset" onClick={reset}>Cancel</button>
                     </div>
                 </>

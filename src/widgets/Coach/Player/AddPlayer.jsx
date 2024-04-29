@@ -33,7 +33,7 @@ const checkTeam_manager = async (coachId) => {
   
   const AddPlayer = () => {
     const {USER} = useAuthContext();
-    const [activeTab, setActiveTab] = useState('basic');
+    const [activeTab, setActiveTab] = useState('profile');
     const [coachHasTeam, setCoachHasTeam] = useState(false);
     const { width } = useWindowSize();
     const value = sessionStorage.getItem('playerName');
@@ -67,8 +67,10 @@ const checkTeam_manager = async (coachId) => {
                   title={width >= 375 ? 'Add Players' : 'Basic'}
                   onClick={() => setActiveTab('basic')}
                   active={activeTab === 'basic'}
+                  style={{backgroundColor: '#FDCA40'}}
                 />
                 <TabButton
+
                   title={width >= 375 ? "Add Coach": 'addCoach'}
                   onClick={() => setActiveTab('addCoach')}
                   active={activeTab === 'addCoach'}
@@ -92,12 +94,7 @@ const checkTeam_manager = async (coachId) => {
               <TabPanel value="profile">
                 <Fade in={activeTab === 'profile'} timeout={400}>
                   <div>
-                    <TeamProfile />
-                    <Link to={`/team-Profile/`}>
-                    <div className={styles.footer}>
-                      <button className="btn" >Go to Team Profile</button>
-                    </div>
-                    </Link>
+                    <Profile />
                   </div>
                 </Fade>
               </TabPanel>

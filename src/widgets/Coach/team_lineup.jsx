@@ -51,16 +51,15 @@ export const TeamLineupManager = () => {
           "LW": 17
         };
 
-        // Sort players based on the custom order of positions
-        const sortedPlayers = team.playerNames.sort((a, b) => {
-          return positionOrder[a.position] - positionOrder[b.position];
-        });
 
-        setPlayers(sortedPlayers);
-        /* correct one if needed
-          if (team) {
-          setPlayers(team.playerNames);
-        } */
+        if (team && team.playerNames) {
+          const sortedPlayers = team.playerNames.sort((a, b) => {
+            return positionOrder[a.position] - positionOrder[b.position];
+          });
+          setPlayers(sortedPlayers);
+        } else {
+          console.log('Team or playerNames is undefined or null');
+        }
       }
       
       getLineup(); // Fetch the lineup after the team data is fetched
@@ -296,10 +295,11 @@ export const TeamLineupManager = () => {
   return (
     <>
     <div className={styles.container}>
+
       <div className={styles.pitchContainer}>
-        <h2>Field</h2>
-        <div className={styles.pitch}>
-          <SoccerLineup homeTeam={homeTeam} 
+
+        <div style={{ marginLeft: "40%", maxWidth: "100%" }}>
+          <SoccerLineup homeTeam={homeTeam}
           pattern="lines"
           />
         </div>
@@ -336,7 +336,7 @@ export const TeamLineupManager = () => {
     <br />
     <ProductRowCardList isSlider players={players} addPlayer={addPlayer} homeTeam={homeTeam} />
     <br />
-    <button onClick={() => saveLineup(players)}>Save Lineup</button>
+    <button  className="btn" onClick={() => saveLineup(players)} style={{backgroundColor:"#FDCA40",color:"black"}}>Save Lineup</button>
 
     </>
   );

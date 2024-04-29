@@ -14,14 +14,14 @@ import WidgetGroup from '@components/WidgetGroup';
 const widgets = {
     league_rating: <LeagueRating />,
     matches_overview: <MatchesOverview />,
-    team_stats: <WidgetGroup>
-                    <TeamStatsCard id="manunited" value={14} />
-                    <TeamStatsCard id="chelsea" value={12} />
-                </WidgetGroup>,
-    team_pulse: <TeamPulse />,
+    //team_stats: <WidgetGroup>
+// <TeamStatsCard id="manunited" value={14} />
+//  <TeamStatsCard id="chelsea" value={12} />
+    //  </WidgetGroup>,
+    //team_pulse: <TeamPulse />,
     calendar: <GamesCalendar />,
     standings: <Standings />,
-    ball_possession: <BallPossessionAreaChart />,
+   // ball_possession: <BallPossessionAreaChart />,
     dots_chart: <LineDotsChart />
 }
 

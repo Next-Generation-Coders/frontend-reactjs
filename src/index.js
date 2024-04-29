@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import store from './app/store';
 import './index.css';
 import { AuthContextProvider } from "@contexts/authContext";
-import { DragDropContext } from 'react-beautiful-dnd'; // Import DragDropContext
+import { DragDropContext } from 'react-beautiful-dnd';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

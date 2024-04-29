@@ -565,10 +565,10 @@ const layouts = {
     home: {
         xl: [
             {i: 'live_report', x: 0, y: 2, w: 1, h: 2},
-            {i: 'matches_overview', x: 1, y: 3, w: 2, h: 3},
+            {i: 'matches_overview', x: 1, y: 3, w: 2, h: 4},
             // {i: 'match_result', x: 1, y: 1, w: 1, h: 2},
             {i: 'live_matches', x: 0, y: 0, w: 1, h: 2},
-            {i: 'calendar', x: 3, y: 2, w: 1, h: 2},
+            {i: 'league_standings', x: 3, y: 2, w: 1, h: 3},
 
         ],
         lg: [
@@ -578,7 +578,7 @@ const layouts = {
             {i: 'live_report', x: 2, y: 0, w: 1, h: 2},
             {i: 'team_full_info', x: 0, y: 2, w: 2, h: 2},
             {i: 'team_results', x: 0, y: 4, w: 2, h: 2},
-            {i: 'league_standings', x: 2, y: 2, w: 1, h: 2},
+            {i: 'league_standings', x: 3, y: 2, w: 1, h: 3},
         ],
         md: [
             {i: 'team_stats', x: 0, y: 0, w: 1, h: 1},
@@ -587,7 +587,7 @@ const layouts = {
             {i: 'live_report', x: 1, y: 6, w: 1, h: 2},
             {i: 'team_full_info', x: 0, y: 4, w: 2, h: 2},
             {i: 'team_results', x: 0, y: 2, w: 2, h: 2},
-            {i: 'league_standings', x: 0, y: 6, w: 1, h: 2},
+            {i: 'league_standings', x: 3, y: 2, w: 1, h: 3},
         ]
     },
     Test: {
@@ -617,32 +617,32 @@ const layouts = {
     },
     Team_Managment: {
         xl: [
-            {i: 'profile_card', x: 0, y: 0, w: 4, h: 1},
+            {i: 'profile_card', x: 0, y: 0, w: 3, h: 1},
             {i: 'training_pace', x: 1, y: 0, w: 2, h: 1},
             {i: 'calendar', x: 3, y: 0, w: 1, h: 2},
-            {i: 'listplayers', x: 0, y: 1, w: 2, h: 2},
+            {i: 'listplayers', x: 0, y: 1, w: 3, h: 1},
             {i: 'planner', x: 1, y: 1, w: 2, h: 2},
-            {i: 'messages', x: 2, y: 0, w: 1, h: 2},
+            {i: 'messages', x: 3, y: 0, w: 1, h: 2},
             {i: 'field', x: 0, y: 3, w: 1, h: 1},
             {i: 'champions', x: 1, y: 3, w: 2, h: 1},
         ],
         lg: [
-            {i: 'profile_card', x: 0, y: 0, w: 4, h: 1},
+            {i: 'profile_card', x: 0, y: 0, w: 3, h: 1},
             {i: 'training_pace', x: 1, y: 0, w: 2, h: 1},
-            {i: 'calendar', x: 0, y: 1, w: 1, h: 2},
-            {i: 'listplayers', x: 1, y: 1, w: 2, h: 2},
+            {i: 'calendar', x: 3, y: 0, w: 1, h: 2},
+            {i: 'listplayers', x: 1, y: 1, w: 3, h: 1},
             {i: 'planner', x: 1, y: 3, w: 2, h: 2},
-            {i: 'messages', x: 2, y: 1, w: 1, h: 2},
+            {i: 'messages', x: 3, y: 0, w: 1, h: 2},
             {i: 'field', x: 0, y: 3, w: 1, h: 1},
             {i: 'champions', x: 0, y: 4, w: 1, h: 1},
         ],
         md: [
-            {i: 'profile_card', x: 0, y: 0, w: 4, h: 1},
+            {i: 'profile_card', x: 0, y: 0, w: 3, h: 1},
             {i: 'training_pace', x: 0, y: 2, w: 2, h: 1},
-            {i: 'calendar', x: 0, y: 3, w: 1, h: 2},
-            {i: 'listplayers', x: 1, y: 0, w: 2, h: 2},
+            {i: 'calendar', x: 3, y: 0, w: 1, h: 2},
+            {i: 'listplayers', x: 1, y: 0, w: 3, h: 1},
             {i: 'planner', x: 0, y: 6, w: 2, h: 2},
-            {i: 'messages', x: 1, y: 3, w: 1, h: 2},
+            {i: 'messages', x: 3, y: 0, w: 1, h: 2},
             {i: 'field', x: 0, y: 1, w: 1, h: 1},
             {i: 'champions', x: 0, y: 5, w: 2, h: 1},
         ]

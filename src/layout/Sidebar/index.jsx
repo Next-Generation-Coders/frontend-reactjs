@@ -110,9 +110,9 @@ const Sidebar = () => {
                     ))
                 }
             </nav>
-            <SingleLink className={pathname === '/settings' ? 'pinned active' : 'pinned'} as="div">
-                <NavLink to="/settings">
-                    <Link className={`${pathname === '/settings' ? 'active' : ''} h4`}>
+            <SingleLink className={pathname === '/profile' ? 'pinned active' : 'pinned'} as="div">
+                <NavLink to="/profile">
+                    <Link className={`${pathname === '/profile' ? 'active' : ''} h4`}>
                         <i className="icon icon-sliders"/> Settings
                     </Link>
                 </NavLink>

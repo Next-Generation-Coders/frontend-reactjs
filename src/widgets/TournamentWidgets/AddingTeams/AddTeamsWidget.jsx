@@ -9,7 +9,7 @@ import defaultLogo4 from "../../../assets/Def4.png";
 import styles from './AddTeamsWidget.module.css';
 import { useNavigate } from 'react-router-dom';
 
-const AddTeamsWidget = ({ tournamentId }) => {
+const   AddTeamsWidget = ({ tournamentId }) => {
   const [teams, setTeams] = useState([]);
   const [selectedTeams, setSelectedTeams] = useState([]);
   const [tournament, setTournament] = useState(null);

@@ -213,7 +213,17 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/login" element={<Login/>}/>
                                                     <Route path="/sign-up" element={<SignUp/>}/>
                                                     <Route path="/settings" element={<Settings/>}/>
-                                                
+
+
+
+
+
+
+
+
+
+
+
                                                     <Route path="/addTeams" element={<AddTeams/>}/>
                                                     <Route path="/realtime" element={<RealTime/>}/>
                                                     <Route path="/match-list" element={<MatchList/>}/>
@@ -284,16 +294,22 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
 
 
                                                     // Team Routes
+                                                    <Route element={<RequireAuth allowedRoles={[Role.TEAM_MANAGER]}/> }>
+
                                                     <Route path="/create-team" element={<CreateTeam/>}/>
                                                     <Route path="/team-list" element={<TeamList/>}/>
                                                     <Route path="/add-new-player" element={<AddNewPlayer/>}/>
                                                     <Route path="/team-Profile" element={<TeamProfile/>}/>
                                                     <Route path="/player-profile/:playerId" element={<PlayerProfile />} />
 
+                                                    </Route>
+
+
+                                                    <Route path="/coach-profile" element={<CoachProfile />} />
+
                                                     // Coach
                                                     <Route path="/lineup" element={<LineUp/>}/>
                                                     <Route path="/lineupTeam" element={<LineupTeam/>}/>
-                                                    <Route path="/coach-profile" element={<CoachProfile />} />
 
                                                     // Complaint Routes
                                                     <Route path="/complaint" element={<Complaint/>}/>
@@ -308,9 +324,15 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/>}>
                                                     <Route path="/profile" element={<Profile/>}/>
                                                     </Route>
+
+
                                                     <Route element={<RequireAuth allowedRoles={[Role.COACH]}/>}>
                                                         <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
-                                                    </Route>  
+
+                                                    </Route>
+
+
+
                                                 </Routes>
                                         </Suspense>
                                     </div>

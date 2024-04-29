@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 
 import {useAuthContext} from "@hooks/useAuthContext";
 import axios from 'axios';
+import {GiNextButton, GiPreviousButton} from "react-icons/gi";
 
 const CoachListWithNoTeam = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -35,13 +36,13 @@ const CoachListWithNoTeam = () => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(newPlayerData)
-                
-            });console.log(JSON.stringify(newPlayerData))
-            const data = await response.json();
-            console.log("New player added:", data);
+
+            }
+            );
             toast.success('New player added successfully!');
+
+            const data = await response.json();
         } catch (error) {
-            console.error(error);
             toast.error('Failed to add new player');
         }
     };
@@ -91,13 +92,13 @@ const CoachListWithNoTeam = () => {
     return (
         <div className="card h-fit card-padded" >
             {/* Header */}
-            <div style={{ display: 'flex', alignItems: 'center', width: '30%' }}>
+            <div style={{ display: 'flex', alignItems: 'center', width: '30%'}}>
                 <input
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Search..."
-                    style={{ flex: '1', fontSize: '15px', padding: '5px',  alignItems: 'center' }}
+                    style={{ flex: '1', fontSize: '15px', padding: '5px', borderBottom: '2px solid #ddd', alignItems: 'center' }}
                 />
             </div>
 
@@ -125,8 +126,8 @@ const CoachListWithNoTeam = () => {
                             <td style={{ padding: '10px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>{player.age}</td>
                             <td style={{ padding: '10px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>{player.value}</td>
                             <td style={{ padding: '10px', borderBottom: '1px solid #ddd', textAlign: 'center' }}>
-                                <Button style={{ backgroundColor: '#24292B', textTransform: 'none' }} onClick={() => AddPlayerToTeam({ email: player.email })} >
-                                    <b style={{ color: 'white', fontSize: "12px" }}>Add Coach</b>
+                                <Button style={{backgroundColor:"#FDCA40", textTransform: 'none' }} onClick={() => AddPlayerToTeam({ email: player.email })} >
+                                    <b style={{ color: 'black', fontSize: "12px" }}>Add Coach</b>
                                 </Button>
                             </td>
                         </tr>
@@ -139,8 +140,8 @@ const CoachListWithNoTeam = () => {
 
             {/* Pagination */}
             <div style={{ marginTop: '10px', textAlign: 'center' }}>
-                <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} style={{  color: 'white' }}>Previous</Button>
-                <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastPlayer >= playerData.length} style={{  color: 'white' }} >Next</Button>
+                <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} style={{ marginRight: '10px', backgroundColor: '#4285f4', color: 'white' }}> <GiPreviousButton /></Button>
+                <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastPlayer >= playerData.length} style={{ marginLeft: '10px', backgroundColor: '#4285f4', color: 'white' }}> <GiNextButton /></Button>
             </div>
         </div>
     );

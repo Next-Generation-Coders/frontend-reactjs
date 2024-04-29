@@ -134,57 +134,57 @@ const teamId = state ? state.teamId : null;
                         <div key={category} style={{ marginBottom: '20px' }}>
                             <h4>{category}</h4>
                             <hr /><br />
+
+
                             <div style={{ textAlign: 'left', display: 'inline-flex', justifyContent: 'space-between', padding: '10px' }}>
                                 {categorizedPlayers[category]?.map((player, index) => (
-                                    <>
-                                    {!teamId && (
-                                        <Button onClick={() => removePlayerFromTeam(player.id, player.fullname)}>Remove</Button>
-                                    )}
-                                    <Link key={index} to={"/player-profile"} state={{ playerId: player.id }} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                        <Card sx={{ width: 160, height: 180, marginBottom: '100px', backgroundColor: "#FCC93F", margin: '0 6px' }}>
-                                            <CardActionArea>
-                                                <br />
-                                            <CardMedia 
-                                                component="img"
-                                                height="50"
-                                                image= {player.avatar ? player.avatar : images[index]}
-                                                /* image={player.fullname} */
-                                                alt="avatar"
+                                    <div key={index} style={{ marginBottom: '100px', margin: '0 6px', textAlign: 'center' }}>
+                                        {!teamId && (
+                                            <Button onClick={() => removePlayerFromTeam(player.id, player.fullname)} style={{color:"white",backgroundColor:"#021b79",marginBottom:"10px"}} >Remove</Button>
+                                        )}
 
-                                                style={{
-                                                    borderRadius: "50%",
-                                                    width: 70,
-                                                    height: 70,
-                                                    background: "white",
-                                                    display: "block",
-                                                    marginLeft:"auto" ,
-                                                    marginRight:"auto" ,
-                                                }}
-                                            />
-                                                <Typography variant="body2" color="text.secondary" style={{
-                                                    position: 'absolute',
-                                                    bottom: 0,
-                                                    right: 0,
-                                                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                                                    padding: '8px 12px',
-                                                    borderRadius: '4px',
-                                                }}>
-                                                    {player.jersyNumber}
-                                                </Typography>
-                                                <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                                                    <Typography gutterBottom variant="h5" component="div" style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                                        {player.fullname.length > 7 ? `${player.fullname.substring(0, 7)}...` : player.fullname} {/* truncate */}
+                                        <Link to={"/player-profile"} state={{ playerId: player.id }} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            <Card sx={{ width: 160, height: 180, backgroundColor: "#FCC93F" }}>
+                                                <CardActionArea>
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="50"
+                                                        image={player.avatar ? player.avatar : images[index]}
+                                                        alt="avatar"
+                                                        style={{
+                                                            borderRadius: "50%",
+                                                            width: 70,
+                                                            height: 70,
+                                                            background: "white",
+                                                            display: "block",
+                                                            margin: "0 auto",
+                                                        }}
+                                                    />
+                                                    <Typography variant="body2" color="text.secondary" style={{
+                                                        position: 'absolute',
+                                                        bottom: 0,
+                                                        right: 0,
+                                                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                                                        padding: '8px 12px',
+                                                        borderRadius: '4px',
+                                                    }}>
+                                                        {player.jersyNumber}
                                                     </Typography>
-                                                    <Typography variant="body2" color="text.secondary">
-                                                        <strong>{player.position}</strong>
-                                                    </Typography>
-                                                </CardContent>
-                                            </CardActionArea>
-                                        </Card>
-                                    </Link>
-                                    </>
+                                                    <CardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                                                        <Typography gutterBottom variant="h5" component="div" style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                            {player.fullname.length > 7 ? `${player.fullname.substring(0, 7)}...` : player.fullname}
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            <strong>{player.position}</strong>
+                                                        </Typography>
+                                                    </CardContent>
+                                                </CardActionArea>
+                                            </Card>
+                                        </Link>
+                                    </div>
                                 ))}
                             </div>
+
                         </div>
                     ))}
                 </Spring>
