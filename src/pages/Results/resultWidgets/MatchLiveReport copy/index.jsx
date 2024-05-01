@@ -6,8 +6,11 @@ import Spring from '@components/Spring';
 
 // assets
 import match from '@assets/match.mp4';
+import matchout from '@assets/match_out.webm';
 
-const MatchLiveReportScan = () => {
+const MatchLiveReportScan = ({loading}) => {
+
+    console.log(match)
     return (
         <Spring className="card">
             <div className={styles.main}>
@@ -16,12 +19,15 @@ const MatchLiveReportScan = () => {
                         <h2 className="h1">Total passes</h2>
                     </div>
                 </div>
-                <video className={`${styles.main_media} border-4`}  controls  muted playsInline disablePictureInPicture>
-                    <source src={match} type="video/mp4" />
-                </video>
-                <div className={styles.main_buttons}>
-                    <button className="btn">Upload</button>
-                </div>
+                <video className={`${styles.main_media} border-4`}   poster='https://static.vecteezy.com/system/resources/thumbnails/001/826/199/small_2x/progress-loading-bar-buffering-download-upload-and-loading-icon-vector.jpg'controls  muted playsInline disablePictureInPicture>
+
+                    
+<source src={matchout} type="video/webm" />
+</video>
+
+                 {loading && <h2 className="h1">Video loading ...   </h2>}
+
+
             </div>
         </Spring>
     )
