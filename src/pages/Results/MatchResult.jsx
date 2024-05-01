@@ -94,7 +94,25 @@ const MatchResult = () => {
           socket.disconnect(); // Disconnect socket when component unmounts
         };
       }, []); 
+      const[loading,setLoading]=useState(false)
 
+      const[video,setVideo]=useState(false)
+    
+        const scan =()=>{
+    
+            setLoading(true)
+    
+            axios.post("http://127.0.0.1:5000/run").then((res)=> {return res.data ; }).catch((error) => {
+                // Handle error if needed
+                console.log(error)
+               
+            }) .finally(() => {
+    
+                setVideo(true)
+                setLoading(false); // Set loading to false when scan is completed
+            });
+    
+        }
 
       const score ={
         scoreTeam1 : result.team1Goals,
@@ -117,20 +135,21 @@ const MatchResult = () => {
           }
       const widgets = {
         //teamA_lineups: <TeamsLineups1 team1={team1}/>,
-        matchLive:<MatchLiveReport/>,
+        matchLive:<MatchLiveReport  loading={loading}  scan={scan}/>,
         teamA_stats_progress: <TeamStatsProgress1 score={score} corners={corners} offsides={offsides} team2={team2}/>,
     
         passes_polar_chart: <PassesPolarChartt  offsides={offsides} corners={corners} score={score} red1={red.redTeam1} red2={red.redTeam2} yellow1={yellow.yellowTeam1} yellow2={yellow.yellowTeam2} team1={team1} team2={team2}/>,
         //teamB_lineups: <TeamsLineups2 team2={team2} />,
-        matchLiveScan:<MatchLiveReportScan/>,
+        matchLiveScan:<MatchLiveReportScan  loading={loading}/>,
 
         teamB_stats_progress: <TeamStatsProgress2 score={score} corners={corners} offsides={offsides} team1={team1}/>,
         player_cards: <WidgetGroup>
-                         <PlayerDiscipline2 red2={red.redTeam2} yellow2={yellow.yellowTeam2} team2={team2}/>
 
             <PlayerDiscipline1 red1={red.redTeam1} yellow1={yellow.yellowTeam1}  team1={team1} />
+            <PlayerDiscipline2 red2={red.redTeam2} yellow2={yellow.yellowTeam2} team2={team2}/>
+
              </WidgetGroup>,
-        match_events: <MatchScoreWidget score={score}  team1={team1} team2={team2}/>,
+        match_events: <MatchScoreWidget score={score}  team1={team1} team2={team2} />,
     }
     return (
         <>
