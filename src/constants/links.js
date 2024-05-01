@@ -350,10 +350,10 @@ export const REFEREE_LINKS = [
         title: 'Referee',
         icon: 'ball',
         pages: [
-            {
-                title: 'Agent',
-                path: '/agent/:id'
-            },
+           // {
+             //   title: 'Agent',
+               // path: '/agent/:id'
+            //},
            // {
              //   title: 'Match',
                // path: '/match'
@@ -680,7 +680,7 @@ export const PLAYER_LINKS = [
         pages: [
             {
                 title: 'Player Profile',
-                path: '/player-profile/:playerId'
+                path: '/player-profile'
             },
 
 

@@ -27,6 +27,7 @@ const LoginForm = () => {
     const onSubmit = async (data) => {
         await login(data.email,data.password);
     };
+// Update the useEffect cleanup function as shown below
     useEffect(() => {
         const handleKeyPress = (event) => {
             if (event.key === 'Enter') {
@@ -35,15 +36,17 @@ const LoginForm = () => {
             }
         };
 
-        // Add event listener to the form
-        document.querySelector('form').addEventListener('keypress', handleKeyPress);
+        const formElement = document.querySelector('form');
+        if (formElement) {
+            formElement.addEventListener('keypress', handleKeyPress);
+        }
 
         return () => {
-            // Cleanup: remove event listener when component unmounts
-            document.querySelector('form').removeEventListener('keypress', handleKeyPress);
+            if (formElement) {
+                formElement.removeEventListener('keypress', handleKeyPress);
+            }
         };
     }, [handleSubmit, onSubmit]);
-
 
     const handleResetPassword = e => {
         e.preventDefault();

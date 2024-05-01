@@ -13,8 +13,6 @@ import {useEffect} from "react";
 
 
 const Home = () => {
-
-
     const {findTours,tournaments,isLoading} = useFindUserTour();
     let length = tournaments.length;
     useEffect(() => {
@@ -33,7 +31,9 @@ const widgets = {
     live_report: <MatchLiveReport/>,
     matches_overview: <MatchesOverview />,
     live_matches: <LiveMatches variant="small" />,
-    tournamentslider : <TournamentSlider/>
+    tournamentslider : <TournamentSlider/>,
+   league_standings: <PlayerTour tournaments={tournaments}/>,
+
 }
 
     return (

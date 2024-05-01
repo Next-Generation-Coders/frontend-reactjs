@@ -35,54 +35,47 @@ const MyMatchItem = ({isLeader, withLogo, team, variant,isTeamOne,tournament}) =
             {tournament && <div>
                 {isTeamOne && "Tournament :"}<p className="text-700 h3">{isTeamOne && tournament.title}</p>
                 {!isTeamOne && <img style={logoStyles} src={tournament.logo} alt={team.name}/>}
-            </div>}
+            </div>
+            }
         </div>
     )
 }
 
-const MatchItemDetails = ({ match, variant = 'card', withLogo }) => {
+const MatchItemDetails = ({match, variant = 'card', withLogo}) => {
     const getLeader = () => {
-        if (match && match.team1 && match.team2) {
-            if (match.team1.score > match.team2.score) {
-                return match.team1.id;
-            } else if (match.team1.score < match.team2.score) {
-                return match.team2.id;
-            }
+        if (match.team1.score > match.team2.score) {
+            return match.team1.id;
+        } else if (match.team1.score < match.team2.score) {
+            return match.team2.id;
+        } else {
+            return null;
         }
-        return null; // Handle case where data is incomplete or undefined
-    };
-
-    // Ensure match and its properties are defined before rendering
-    if (!match || !match.team1 || !match.team2) {
-        return null; // Render nothing if data is incomplete
     }
 
     return (
         <div className={`d-flex flex-column ${variant === 'card' ? 'g-6' : 'g-8'}`}>
-            <MyMatchItem
-                isLeader={getLeader() === match.team1.id}
-                withLogo={withLogo}
-                variant={variant}
-                team={match.team1}
-                isTeamOne={true}
-                tournament={match.tournament}
+            <MyMatchItem isLeader={getLeader() === match.team1.id}
+                         withLogo={withLogo}
+                         variant={variant}
+                         team={match.team1}
+                         isTeamOne={true}
+                         tournament={match.tournament}
             />
-            <MyMatchItem
-                isLeader={getLeader() === match.team2.id}
-                withLogo={withLogo}
-                variant={variant}
-                team={match.team2}
-                isTeamOne={false}
-                tournament={match.tournament}
+            <MyMatchItem isLeader={getLeader() === match.team2.id}
+                         withLogo={withLogo}
+                         variant={variant}
+                         team={match.team2}
+                         isTeamOne={false}
+                         tournament={match.tournament}
             />
         </div>
-    );
-};
+    )
+}
 
 MatchItemDetails.propTypes = {
     match: PropTypes.object.isRequired,
     variant: PropTypes.oneOf(['card', 'thumb']),
     withLogo: PropTypes.bool
-};
+}
 
-export default MatchItemDetails;
+export default MatchItemDetails

@@ -40,14 +40,14 @@ const TimeMatch = ({matchID,matchStart, setMatchStart }) => {
       const seconds = newElapsedTime % 60;
       setMatchTime({ minutes, seconds });
     }, 1000);
-    try {
-      const response = await axios.post('http://localhost:3000/result/results', {
-        matchId: matchID // Replace with actual match ID if available
-      });
-      console.log('Result state initiated:', response.data);
-    } catch (error) {
-      console.error('Error initiating result state:', error);
-    }
+    //try {
+      //const response = await axios.post('http://localhost:3000/result/results', {
+        //matchId: matchID
+      //});
+      //console.log('Result state initiated:', response.data);
+    //} catch (error) {
+      //console.error('Error initiating result state:', error);
+   // }
 
   };
 

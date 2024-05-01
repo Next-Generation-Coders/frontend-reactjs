@@ -271,56 +271,71 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/users" element={<UserManagement/>}/>
 
                                                     
-                                                    <Route element={<RequireAuth allowedRoles={[Role.ADMIN]} />}>
 
-                                                    // Admin Routes
-                                                    <Route path="/organizer-list" element={<Organizer/>}/>
-                                                        <Route path="/coach-list" element={<Coach/>}/>
-                                                    <Route path="/refree-list" element={<Referee/>}/>
-                                                    <Route path="/player-list" element={<Player/>}/>
-                                                    <Route path="/team-list" element={<Team/>}/>
-                                                    <Route path="/complaint-list" element={<Complaints/>}/>
-                                                    <Route path="/user-management" element={<UserManagement/>}/>
-                                                    <Route path="/role-requests" element={<RoleRequests/>}/>
-                                                        <Route path='/TournamentAdmin' element={<TournamentList/>} />
-
-
-                                                    </Route>
 
                                                     // Payment Routes
+                                                    <Route element={<RequireAuth allowedRoles={[Role.ORGANIZER]}/> }>
+
                                                     <Route path="/payment-list" element={<PaymentAdmin/>}/>
                                                     <Route path="/payment-stripe" element={<PaymentOrganizer/>}/>
                                                     <Route path="/payment-coin" element={<PaymentWithCoin/>}/>
                                                     <Route path="/payment/checkout-success" element={<PaymentSucess/>}/>
                                                     <Route path="/payment/checkout-cancel" element={<CancelPayment/>}/>
+                                                    </Route>
 
 
                                                     // Team Routes
                                                     <Route element={<RequireAuth allowedRoles={[Role.TEAM_MANAGER]}/> }>
-
                                                     <Route path="/create-team" element={<CreateTeam/>}/>
                                                     <Route path="/team-list" element={<TeamList/>}/>
                                                     <Route path="/add-new-player" element={<AddNewPlayer/>}/>
                                                     <Route path="/team-Profile" element={<TeamProfile/>}/>
                                                     <Route path="/player-profile/:playerId" element={<PlayerProfile />} />
-
                                                     </Route>
 
 
                                                     <Route path="/coach-profile" element={<CoachProfile />} />
 
                                                     // Coach
-                                                    <Route path="/lineup" element={<LineUp/>}/>
-                                                    <Route path="/lineupTeam" element={<LineupTeam/>}/>
 
                                                     // Complaint Routes
-                                                    <Route path="/complaint" element={<Complaint/>}/>
-                                                    <Route path="/about-us" element={<AboutUs/>}/>
+
+
+                                                    <Route element={<RequireAuth allowedRoles={[Role.ADMIN]} />}>
+
+                                                        // Admin Routes
+                                                        <Route path="/organizer-list" element={<Organizer/>}/>
+                                                        <Route path="/coach-list" element={<Coach/>}/>
+                                                        <Route path="/refree-list" element={<Referee/>}/>
+                                                        <Route path="/player-list" element={<Player/>}/>
+                                                        <Route path="/team-list" element={<Team/>}/>
+                                                        <Route path="/complaint-list" element={<Complaints/>}/>
+                                                        <Route path="/user-management" element={<UserManagement/>}/>
+                                                        <Route path="/role-requests" element={<RoleRequests/>}/>
+                                                        <Route path='/TournamentAdmin' element={<TournamentList/>} />
+
+
+                                                    </Route>
+
 
                                                     //Player routes
-                                                    <Route element={<RequireAuth allowedRoles={[Role.PLAYER,Role.TEAM_MANAGER,Role.COACH]}/> }>
-                                                        <Route path="/my-tournaments" element={<MyTournaments/>}/>
+                                                    <Route element={<RequireAuth allowedRoles={[Role.PLAYER,Role.TEAM_MANAGER,Role.COACH,Role.USER,Role.ORGANIZER]}/> }>
+                                                        <Route path="/complaint" element={<Complaint/>}/>
+                                                        <Route path="/about-us" element={<AboutUs/>}/>
                                                     </Route>
+
+                                                    <Route element={<RequireAuth allowedRoles={[Role.ORGANIZER]}/> }>
+                                                    </Route>
+
+
+
+                                                    <Route element={<RequireAuth allowedRoles={[Role.PLAYER]}/> }>
+                                                    </Route>
+
+                                                    <Route element={<RequireAuth allowedRoles={[Role.TEAM_MANAGER]}/> }>
+                                                    </Route>
+
+                                                    <Route path="/my-tournaments" element={<MyTournaments/>}/>
 
                                                     // User routes
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/>}>
@@ -330,7 +345,12 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
 
                                                     <Route element={<RequireAuth allowedRoles={[Role.COACH]}/>}>
                                                         <Route path="/TeamLineupF" element={<TeamLineupF/>}/>
+                                                        <Route path="/lineup" element={<LineUp/>}/>
+                                                        <Route path="/lineupTeam" element={<LineupTeam/>}/>
+
+
                                                     </Route>
+
                                                     //Live Streaming
                                                     <Route element={<RequireAuth allowedRoles={[Role.USER]}/> }>
                                                         <Route path="/live" element={<LiveStream/>}/>

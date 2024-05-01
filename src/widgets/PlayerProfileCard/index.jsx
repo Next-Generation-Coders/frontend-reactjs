@@ -13,14 +13,16 @@ import React, { useState, useEffect } from 'react';
 import { useLocation   } from 'react-router-dom';
 import {useAuthContext} from "@hooks/useAuthContext";
 import axios from 'axios';
-const PlayerProfileCard = () => {
+const PlayerProfileCard = ({userId}) => {
     const {USER} = useAuthContext() ;
     const location = useLocation();
     //console.log(location)
-  const { playerId } = location.state || {}; // Set a default value for playerId if it's undefined
-//console.log(playerId)
+    let { playerId } = location.state  || {};
+    if (!playerId) {
+        playerId=userId;
+        console.log("error player id ",userId)
+    }
   if (!playerId) {
-    // Redirect to a fallback page if the playerId is not available
     console.log("error player id ")
   }
     const [teamData, setTeamData] = useState([]);

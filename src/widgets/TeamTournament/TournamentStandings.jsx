@@ -71,7 +71,7 @@ const MyTournament = ({tournament}) => {
     return (
         <Spring className="card d-flex flex-column g-20 card-padded">
             <div className={styles.myTournamentWidget} onClick={handleClick}>
-            <LeagueHeader title={<><span className="d-block">{tournament.title}</span></>}
+            <LeagueHeader title={<><span style={{backgroundColor:"traspa"}}>{tournament.title}</span></>}
                           img={tournament.logo}
                           variant="compact"/>
             <div className="d-flex flex-column g-4 justify-content-center">

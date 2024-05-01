@@ -6,13 +6,14 @@ import SimpleLineChart from '@components/SimpleLineChart';
 import styles from './styles.module.scss';
 import { useLocation   } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-const TeamPlayerOverview = () => {
+const TeamPlayerOverview = ({userId}) => {
 
     const location = useLocation();
     console.log(location)
-    const { playerId } = location.state || {}; // Set a default value for playerId if it's undefined
+    let { playerId } = location.state || {}; // Set a default value for playerId if it's undefined
     console.log(playerId)
     if (!playerId) {
+        playerId=userId;
         // Redirect to a fallback page if the playerId is not available
         console.log("error player id ")
     }

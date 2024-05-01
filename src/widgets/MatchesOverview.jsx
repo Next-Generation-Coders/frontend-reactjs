@@ -52,6 +52,7 @@ const MatchesOverview = () => {
         trackRef.current && trackRef.current.scrollTo(0, 0);
     }, [activeTab]);
 
+
     return (
         <Spring className="card h-3">
             <Tabs className="h-100" value={activeTab}>
@@ -72,7 +73,7 @@ const MatchesOverview = () => {
                             <div className="d-flex flex-column g-24" style={{paddingBottom: 24}}>
                                 {
                                     matchesLive.map((match, index) => (
-                                        <MatchesWidgets key={index} score={match} />
+                                        <MatchesWidgets key={index}  score={match} />
                                     ))
                                 }
                             </div>
