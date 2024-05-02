@@ -22,7 +22,6 @@ const Home = () => {
 
         fetchData().then(()=>{
             length = tournaments.length;
-            console.log(length," Tournaments, data :",tournaments);
         })
     }, [length]);
 

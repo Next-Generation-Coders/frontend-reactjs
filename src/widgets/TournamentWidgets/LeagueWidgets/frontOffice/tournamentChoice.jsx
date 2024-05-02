@@ -125,10 +125,8 @@ const TournamentChoice = ({ selectedTournamentId }) => {
                         throw new Error('Failed to fetch matches for Knockout');
                     }
                     const data = await response.json();
-                    console.log("ddddd", data.fixtures);
 
                     const fixtureIds = data.fixtures.map(fixture => fixture._id);
-                    console.log("aaaaaaaa", fixtureIds);
 
                     setRounds(data.fixtures);
 
@@ -145,7 +143,6 @@ const TournamentChoice = ({ selectedTournamentId }) => {
         const fetchMatchResult = async (matchId) => {
             try {
                 const response = await axios.get(`http://localhost:3000/result/resultMatch/${matchId}`);
-                console.log("youssef", response.data);
                 setMatchResult(response.data);
             } catch (error) {
                 console.error('Error fetching match result:', error);
@@ -185,7 +182,6 @@ const TournamentChoice = ({ selectedTournamentId }) => {
                         throw new Error('Failed to fetch fixtures');
                     }
                     const data = await response.json();
-                    console.log(data.fixtures)
                     setFixtures(data.fixtures);
                 }
             } catch (error) {

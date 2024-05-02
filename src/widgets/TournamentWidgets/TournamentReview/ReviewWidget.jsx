@@ -7,7 +7,7 @@ import {useThemeProvider} from '@contexts/themeContext';
 import { useEffect , useState } from 'react';
 import BasicRating from './RatingStars';
 import FollowButton from './FollowButton';
-
+import defaultLogo from "../../../../src/assets/uefa.png";
 const ReviewWidget = ({selectedTournamentId}) => {
     const {theme} = useThemeProvider();
     
@@ -73,8 +73,7 @@ const [tournamentrates ,settournamentrates] = useState();
         <div style={{ display: 'flex', alignItems: 'center' }}>
   
         {tournament && (
-    <LeagueHeader img={tournament.logo} title={tournament.title} subtitle={tournament.TournamentType} />
-  )}
+            <LeagueHeader img={tournament.logo || defaultLogo} title={tournament.title} subtitle={tournament.TournamentType} />  )}
   <div style={{ marginLeft: '26px' ,alignItems: 'center'}}>
     <FollowButton  selectedTournamentId={tournament._id} />
     <BasicRating  selectedTournamentId={tournament._id}/>

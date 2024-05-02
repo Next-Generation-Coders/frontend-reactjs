@@ -16,46 +16,47 @@ import ItemInfo from './TournamentInfo';
 const TournamentSlider = () => {
     const {direction} = useThemeProvider();
     const [swiper, setSwiper] = useState(null);
- 
+
     const [teams, setTeams] = useState([]);
     const [DataTeams, setDataTeams] = useState([]);
     const [stop, setstop] = useState(false);
-    
-      
-    
-    
-      useEffect(() => {
+
+
+
+
+    useEffect(() => {
         const fetchTeams = async () => {
-          try {
-            const response = await axios.get(`http://localhost:3000/Tournament/getTopFollowedTournaments`);
+            try {
+                const response = await axios.get(`http://localhost:3000/Tournament/getTopFollowedTournaments`);
+                await setTeams(response.data);
 
-          } catch (error) {
-            console.error('Error fetching teams:', error);
-          }
+            } catch (error) {
+                console.error('Error fetching teams:', error);
+            }
         };
-   
+
         fetchTeams();
-      }, []);
+    }, []);
 
-      useEffect(() => {
+    useEffect(() => {
         const buildData = async () => {
-            
-                const dataOfTeams = await teams.map(team => ({
-                    id: team._id,
-                    value: team.numberOfFollowers 
-                }));
-                setDataTeams(dataOfTeams);
-                setstop(true);
-                
-            
+
+            const dataOfTeams = await teams.map(team => ({
+                id: team._id,
+                value: team.numberOfFollowers
+            }));
+            setDataTeams(dataOfTeams);
+            setstop(true);
+
+
         };
-  
+
         buildData();
-    
+
     }, [teams]);
 
 
-    
+
     useEffect(() => {
         if (swiper) {
             swiper.changeLanguageDirection(direction);
@@ -88,9 +89,9 @@ const TournamentSlider = () => {
                                          width: 175,
                                          margin: direction === 'ltr' ? '0 24px 0 0' : '0 0 0 24px'
                                      }}>
-                            
-                                <ItemInfo {...item}/>
-                          
+
+                            <ItemInfo {...item}/>
+
                         </SwiperSlide>
                     ))
                 }

@@ -402,6 +402,10 @@ export const ORGANIZER_LINKS = [
                 title: 'World Wide',
                 path: '/WorldWide'
             },
+            {
+                title: 'Fantasy',
+                path: '/Fantasy'
+            },
             
         ]
     },
