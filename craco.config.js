@@ -5,6 +5,9 @@ module.exports = {
         port: 3001,
     },
     webpack: {
+        eslint: {
+            enable: false,
+        },
         alias: {
             '@components': path.resolve(__dirname, 'src/components'),
             '@ui': path.resolve(__dirname, 'src/ui'),
@@ -21,5 +24,18 @@ module.exports = {
             '@constants': path.resolve(__dirname, 'src/constants'),
             '@features': path.resolve(__dirname, 'src/features'),
         },
-    }
+        configure: (webpackConfig, { env, paths }) => {
+            webpackConfig.stats = {
+                warnings: false,
+            };
+
+            return webpackConfig;
+        },
+        optimization: {
+            minimize: true,
+            splitChunks: {
+                chunks: 'all',
+            },
+        },
+    },
 };
