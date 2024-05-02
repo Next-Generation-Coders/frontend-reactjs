@@ -5,3 +5,14 @@
 .scoreNumber.changed {
   color: rgb(157, 255, 0); /* Example: Change color to red */
 }
+
+.predicted-winner {
+  margin-top: 10px; /* Adjust top margin as needed */
+  font-size: 16px; /* Set font size for predicted winner text */
+  color: #333; /* Set text color */
+}
+
+.predicted-winner p {
+  font-weight: bold; /* Make the predicted winner text bold */
+  margin: 0; /* Remove any default margins on the paragraph element */
+}

@@ -21,14 +21,24 @@ const Chatbot = () => {
     const { USER } = useAuthContext();
     const [userData, setUserData] = useState(null);
     const location = useLocation(); // Get the current URL using useLocation hook
-    const [hasTeam, setHasTeam] = useState(null);
+    const [hasTeam, setHasTeam] = useState(false);
     let userData2 ;
     const [lineup, setLineup] = useState([]);
     const [lineupFetched, setLineupFetched] = useState(false);
 
 
 
-
+    const menuOptions = hasTeam
+        ? [
+            { value: 'Add_Player', label: 'Add Player', trigger: 'redirectToPlayerAddingName' },
+            { value: 'Team_Profile', label: 'Team Profile', trigger: 'redirectToTeamProfile' },
+            { value: 'Back', label: 'Back', trigger: 'prompt' }
+        ]
+        : [
+            { value: 'Create_Team', label: 'Create Team', trigger: 'redirectToTeamCreation' },
+            { value: 'Team_Profile', label: 'Team Profile', trigger: 'redirectToTeamProfile' },
+            { value: 'Back', label: 'Back', trigger: 'prompt' }
+        ];
 
     const handleRedirectToTournaments = () => {
         window.location.href = '/my-tournaments'; // Change the URL directly
@@ -100,17 +110,6 @@ const Chatbot = () => {
         console.log('Lineup:', lineup);
     }, []);
 
-    const menuOptions = hasTeam
-        ? [
-            { value: 'Add_Player', label: 'Add Player', trigger: 'redirectToPlayerAddingName' },
-            { value: 'Team_Profile', label: 'Team Profile', trigger: 'redirectToTeamProfile' },
-            { value: 'Back', label: 'Back', trigger: 'prompt' }
-        ]
-        : [
-            { value: 'Create_Team', label: 'Create Team', trigger: 'redirectToTeamCreation' },
-            { value: 'Team_Profile', label: 'Team Profile', trigger: 'redirectToTeamProfile' },
-            { value: 'Back', label: 'Back', trigger: 'prompt' }
-        ];
 
     // Define the steps based on the user's role
     let steps = [];
@@ -141,7 +140,7 @@ const Chatbot = () => {
                         },
                         {
                             id: 'additionalStep', // Unique id for the second step
-                            message: 'The players of the team are shown in a slider. You can add them to the field by clicking on "Add to Lineup". Also, don\'t forget to save the lineup when you finished :)',
+                            message: 'The players of the team are shown in a slider. You can add them to the field by clicking on "Add to Lineup". Also, don\'t forget to save the lineup when you finish :)',
                             trigger:'2' // End the conversation after displaying this message
                         }
                     );
@@ -253,11 +252,24 @@ const Chatbot = () => {
                                 )}
                             </>
                         ),
+                        trigger: 'MoreInfoMenu'
+                    },
+                    {
+                        id: 'MoreInfoMenu',
+                        options: [
+                            { value: 'More_Info', label: 'More Info', trigger: 'ShowMoreInfo' },
+                            { value: 'Back', label: 'Back', trigger: 'prompt' }
+                        ]
+                    },
+                    {
+                        id: 'ShowMoreInfo',
+                        message: 'Here you can display more information about the lineup',
+                        trigger: 'redirectingLineup'
                     },
                     {
                         id: 'redirectingLineup',
                         message: 'Redirecting you to the team lineup...',
-                        delay: 5000,
+                        delay: 3000,
                         trigger: () => {
                             handleRedirectToLineup();
                             return 'redirectingLineup';
@@ -271,20 +283,21 @@ const Chatbot = () => {
                     },
                 );
                 /* if (location.pathname.includes('/TeamLineupF')) {
-                    // Add additional steps for coach on the '/TeamLineupF' page
-                    steps.push(
-                        {
-                            id:'info' ,
-                            options: [
-                                { value: 'info', label: 'Info on page', trigger: 'redirecting' },
-                                ],
-                        },
-                        {
-                        id: 'additionalStep',
-                        message: 'This page will give you access to select your team lineup',
-                        trigger: 'info',
-                    });
-                } */
+                   // Add additional steps for coach on the '/TeamLineupF' page
+                   steps.push(
+                       {
+                           id:'info' ,
+                           options: [
+                               { value: 'info', label: 'Info on page', trigger: 'additionalStep' },
+                               { value: 'Back', label: 'Back', trigger: 'prompt' }
+                               ],
+                       },
+                       {
+                       id: 'additionalStep',
+                       message: 'This page will give you access to select your team lineup',
+                       trigger: 'info',
+                   });
+               } */
                 break;
             case userData.includes(11): // Player
                 steps = [
@@ -471,7 +484,7 @@ const Chatbot = () => {
     // Return the ChatBot component with dynamically adjusted steps
     return (
         <ThemeProvider theme={theme}>
-            {userData != null && lineup.length > 0 || hasTeam!=null? (
+            {userData != null && lineup.length > 0 ? (
                 <ChatBot
                     recognitionEnable={true}
                     steps={steps}

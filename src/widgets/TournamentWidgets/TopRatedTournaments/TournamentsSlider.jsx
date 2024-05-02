@@ -28,8 +28,7 @@ const TournamentSlider = () => {
         const fetchTeams = async () => {
           try {
             const response = await axios.get(`http://localhost:3000/Tournament/getTopFollowedTournaments`);
-            await setTeams(response.data);
-            
+
           } catch (error) {
             console.error('Error fetching teams:', error);
           }

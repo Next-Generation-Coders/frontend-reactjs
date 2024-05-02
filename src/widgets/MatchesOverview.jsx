@@ -38,8 +38,7 @@ const MatchesOverview = () => {
             setMatchesLive(upcomingResults); // Assuming upcoming matches are considered live
             setMatchesFinished(finishedResults);
 
-            console.log(response.data);
-  
+
           } catch (error) {
             console.error('Error fetching current result:', error);
           }
@@ -73,7 +72,7 @@ const MatchesOverview = () => {
                             <div className="d-flex flex-column g-24" style={{paddingBottom: 24}}>
                                 {
                                     matchesLive.map((match, index) => (
-                                        <MatchesWidgets key={index}  score={match} />
+                                        <MatchesWidgets key={index} upcoming={true} score={match} />
                                     ))
                                 }
                             </div>
@@ -82,7 +81,7 @@ const MatchesOverview = () => {
                             <div className="d-flex flex-column g-24" style={{paddingBottom: 24}}>
                                 {
                                     matchesFinished.map((match, index) => (
-                                        <MatchesWidgets key={index} score={match}/>
+                                        <MatchesWidgets key={index} upcoming={false} score={match}/>
                                     ))
                                 }
                             </div>

@@ -64,8 +64,7 @@ const MyTournament = ({tournament}) => {
 
         fetchData().then(()=>{
             length = teams.length;
-            console.log(length," Teams, data :",teams);
-            console.log(userTeam)
+
         })
     }, [length]);
     return (

@@ -13,10 +13,9 @@ const PlayerMultiProgress = () => {
     const {direction} = useThemeProvider();
     const [ref, {width}] = useMeasure();
     const data = [
-        {value: 80, color: 'azure'},
-        {value: 34, color: 'purple'},
-        {value: 40, color: 'grass'},
-        {value: 10, color: 'accent'},
+        {value: 80, color: 'red'},
+
+        {value: 20, color: 'blue'},
     ];
     const sortedBars = [...data].sort((a, b) => b.value - a.value);
 
@@ -28,19 +27,8 @@ const PlayerMultiProgress = () => {
 
     return (
         <Spring className="card d-flex flex-column">
-            <PlayerInfo wrapperClass="card-padded"
-                        title="Gareth Bale"
-                        subtitle="Technical and tactical actions"
-                        number={11}/>
-            <div className="card_footer d-flex flex-column justify-content-end flex-1 g-24 border-top card-padded"
-                 style={{paddingTop: 20}}>
-                <div className={`${styles.info} d-flex g-12 h2`}>
-                    <span>457</span>
-                    <span className={styles.info_separator}/>
-                    <span className={`${styles.info_progress} d-flex align-items-center g-12`}>
-                        6 <i className="icon-chevron-up"/>
-                    </span>
-                </div>
+
+            <div className="card_footer d-flex flex-column justify-content-end flex-1 g-24 border-top card-padded">
                 <div className={styles.track} ref={ref}>
                     {
                         sortedBars.map((item, index) => (
