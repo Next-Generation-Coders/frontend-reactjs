@@ -94,7 +94,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "cross-env CI=false craco build",
     "gzip": "craco build && compress-cra",
     "eject": "react-scripts eject"
   },
