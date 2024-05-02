@@ -52,7 +52,7 @@ pipeline {
                 }
             }
         }
-        stage('Run application') {
+        stage('Pull and Run application') {
             steps {
                 script {
                     docker.withRegistry("http://" + registry, registryCredentials) {
@@ -62,17 +62,17 @@ pipeline {
                 }
             }
         }
-        stage('Run application') {
+        stage('Start Prometheus') {
             steps {
                 script {
-                        sh 'docker start prometheus'
+                    sh 'docker start prometheus'
                 }
             }
         }
-        stage('Run application') {
+        stage('Start Grafana') {
             steps {
                 script {
-                        sh 'docker start grafana'
+                    sh 'docker start grafana'
                 }
             }
         }
