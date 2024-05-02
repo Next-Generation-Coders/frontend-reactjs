@@ -36,8 +36,8 @@ const Chat = ({data, variant}) => {
         const dateB = dayjs(b[0].timestamp, 'DD.MM.YY');
         return dateB - dateA;
     });
-    const latestMessage = data.messages[data.messages.length-1]
-    const timestamp = data.messages ? data.messages[data.messages.length-1].timestamp : moment().set({date: 17, month: 3, year: 2022, hour: 12, minute: 20}).valueOf();
+    const latestMessage = data.messages > 0 ? data.messages[data.messages.length-1] : null
+    const timestamp = data && data.messages > 0 ? data.messages[data.messages.length-1].timestamp : moment().set({date: 17, month: 3, year: 2022, hour: 12, minute: 20}).valueOf();
     const dispatch = useDispatch();
     const checkboxColor = CHAT_LEGEND.find(item => item.text.toLowerCase() === type.toLowerCase()).color;
     const handleClick = (_id)=>{
@@ -59,7 +59,7 @@ const Chat = ({data, variant}) => {
                                            onChange={() => dispatch(toggleCollapse({id:_id}))}/>
                             <div className="d-flex flex-column g-2 flex-1">
                                 <input className={`${styles.label} text-overflow`} type="text" defaultValue={label} readOnly={true}/>
-                                <input className={`${styles.sender} text-overflow`} type="text" defaultValue={latestMessage.senderEmail} readOnly={true}/>
+                                <input className={`${styles.sender} text-overflow`} type="text" defaultValue={latestMessage ? latestMessage.senderEmail : "Start sending messages"} readOnly={true}/>
                                 <span className="label h6">
                                     {dayjs(timestamp).format('DD MMM YYYY / HH:mm')}
                                 </span>
