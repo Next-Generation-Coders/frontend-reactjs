@@ -5,20 +5,21 @@ pipeline {
         registry = "197.26.204.208:8083"
     }
     stages {
-//         stage('Install dependencies') {
-//             steps {
-//                 script {
-//                     sh 'npm install --force'
-//                 }
-//             }
-//         }
-//         stage('Unit Test') {
-//             steps {
-//                 script {
-//                     sh 'echo test should go here'
-//                 }
-//             }
-//         }
+        stage('Install dependencies') {
+            steps {
+                script {
+                    sh 'rm -rf node_modules'
+                    sh 'npm install --force'
+                }
+            }
+        }
+        stage('Unit Test') {
+            steps {
+                script {
+                    sh 'echo test should go here'
+                }
+            }
+        }
         stage('Build application') {
             steps {
                 script {
