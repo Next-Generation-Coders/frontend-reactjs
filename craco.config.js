@@ -26,7 +26,7 @@ module.exports = {
         },
         configure: (webpackConfig, { env, paths }) => {
             webpackConfig.stats = {
-                warnings: false,
+                warnings: true,
             };
 
             return webpackConfig;
