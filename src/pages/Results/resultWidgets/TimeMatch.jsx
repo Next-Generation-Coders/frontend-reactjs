@@ -126,7 +126,7 @@ const TimeMatch = ({matchID,matchStart, setMatchStart }) => {
   return (
     <div>
       {!matchStarted && !matchEnded ? (
-        <button className='btn' onClick={startMatch}>Start Match</button>
+        <button className='btn' style={{background:"#FDCA40",color:"black"}} onClick={startMatch}>Start Match</button>
       ) : null}
 
       {matchStarted && !matchEnded ? (

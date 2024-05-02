@@ -34,7 +34,6 @@ const Header = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 30%;
   }
 
   .predicted-goals {
@@ -101,10 +100,10 @@ const MatchesWidgets = ({ score, upcoming }) => {
                     <>
                         <p style={{ color: 'white' }}>Predicted Winner: {matchData.predicted_winner}</p>
                         <div className="progress-bar">
-                            <div className="progress" style={{ width: `${matchData.percentage_team1_win}%`, backgroundColor: '#34e73b' }}>
+                            <div className="progress" style={{ width: `${matchData.percentage_team1_win}%`,color:"black",borderRadius:"10px 10px 10px 10px", backgroundColor: '#08F26E' }}>
                                 {matchData.team1_name} ({matchData.percentage_team1_win}%)
                             </div>
-                            <div className="progress" style={{ width: `${matchData.percentage_team2_win}%`, backgroundColor: '#ea1b0b' }}>
+                            <div className="progress" style={{ width: `${matchData.percentage_team2_win}%`,color:"white",borderRadius:"10px 10px 10px 10px", backgroundColor: '#C21807' }}>
                                 {matchData.team2_name} ({matchData.percentage_team2_win}%)
                             </div>
                         </div>

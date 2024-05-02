@@ -106,7 +106,7 @@ const User = () => {
             </div>
             :
             <div>
-        <span><button className='btn btn--sm' onClick={goToLogin}>Login</button>
+        <span><button className='btn btn--sm' onClick={goToLogin} style={{backgroundColor: '#FDCA40',color:"black"}}>Login</button>
         <button className='btn btn--outlined btn--sm' onClick={goToSignUp}>Sign up</button></span>
             </div>
     )

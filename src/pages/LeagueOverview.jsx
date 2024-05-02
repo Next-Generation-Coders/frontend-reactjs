@@ -20,15 +20,15 @@ const widgets = {
     //  </WidgetGroup>,
     //team_pulse: <TeamPulse />,
     calendar: <GamesCalendar />,
-    standings: <Standings />,
+   // standings: <Standings />,
    // ball_possession: <BallPossessionAreaChart />,
-    dots_chart: <LineDotsChart />
+    //dots_chart: <LineDotsChart />
 }
 
 const LeagueOverview = () => {
     return (
         <>
-            <PageHeader title="English Premier League" />
+            <PageHeader title="Arabic League" />
             <AppGrid id="league_overview" widgets={widgets}/>
         </>
     )
