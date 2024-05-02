@@ -1,7 +1,14 @@
-FROM node:16.14.2
+FROM node:16
 WORKDIR ./frontpi
-COPY package*.json ./frontpi
-COPY . .
-RUN npm install --legacy-peer-deps
+COPY package*.json .
+COPY src ./src
+COPY craco.config.js .
+COPY babel-plugin-macros.config.js .
+COPY public ./public
+COPY service ./service
+COPY jsconfig.json .
+COPY .env .
+RUN npm cache clean --force
+RUN npm install --force
 EXPOSE 3001
 CMD ["npm","run","start"]
