@@ -10,7 +10,7 @@ const TournamentList = () => {
   useEffect(() => {
       const fetchTournamentDetails = async () => {
           try {
-              const response = await fetch(`http://localhost:3000/Tournament/getbyid/65fd1d5fa662c44a0912a23c`);
+              const response = await fetch(`http://197.26.204.208:3000/Tournament/getbyid/65fd1d5fa662c44a0912a23c`);
               if (!response.ok) {
                   throw new Error('Failed to fetch tournament details');
               }

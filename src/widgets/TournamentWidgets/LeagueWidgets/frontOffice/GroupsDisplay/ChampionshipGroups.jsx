@@ -32,7 +32,7 @@ const [Standings , setStandings] = useState();
           try {
             
             if (selectedTournamentId) {
-              const response = await fetch(`http://localhost:3000/Tournament/getbyid/${tID}`);
+              const response = await fetch(`http://197.26.204.208:3000/Tournament/getbyid/${tID}`);
               if (!response.ok) {
                 throw new Error('Failed to fetch tournament details');
               }
@@ -53,7 +53,7 @@ const [Standings , setStandings] = useState();
         const fetchStandingsIds = async () => {
         try {
             if (tID) {
-                const response = await fetch(`http://localhost:3000/Tournament/GetGroupsAndStandings/${tID}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/GetGroupsAndStandings/${tID}`);
                 if (!response.ok) {
                   throw new Error('Failed to fetch tournament details');
                 }

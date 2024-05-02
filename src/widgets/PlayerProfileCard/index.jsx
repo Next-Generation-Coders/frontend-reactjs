@@ -33,11 +33,11 @@ const PlayerProfileCard = ({userId}) => {
 
     useEffect(() => {
         async function fetchTeamData() {
-                /* const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                /* const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
                 const userId = userResponse.data._id;
                 setUserData(userId)
 
-                const CheckResponse = await fetch(`http://localhost:3000/User/checkLiked/${playerId}/${userId}`, {
+                const CheckResponse = await fetch(`http://197.26.204.208:3000/User/checkLiked/${playerId}/${userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ const PlayerProfileCard = ({userId}) => {
                 setCheckData(data); */
 
             try {
-                const response = await fetch(`http://localhost:3000/Team/getbyid/${playerData.currentTeam}`);
+                const response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${playerData.currentTeam}`);
                 const data = await response.json();
                 setTeamData(data);
                 //console.log(data)
@@ -62,7 +62,7 @@ const PlayerProfileCard = ({userId}) => {
 
         async function fetchplayerData() {
             try {
-                const response = await fetch(`http://localhost:3000/User/getbyid/${playerId}`); // team manger id 
+                const response = await fetch(`http://197.26.204.208:3000/User/getbyid/${playerId}`); // team manger id
                 const data = await response.json();
 
                 console.log("DDDD",data)
@@ -75,9 +75,9 @@ const PlayerProfileCard = ({userId}) => {
 
         async function fetchLikes() {
             try {
-                const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
                 const userId = userResponse.data._id;
-                const CheckResponse = await fetch(`http://localhost:3000/User/checkLiked/${playerId}/${userId}`, {
+                const CheckResponse = await fetch(`http://197.26.204.208:3000/User/checkLiked/${playerId}/${userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

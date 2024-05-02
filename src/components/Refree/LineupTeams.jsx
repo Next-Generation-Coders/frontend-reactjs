@@ -29,12 +29,12 @@ export const LineupTeams = ({ id }) => {
   useEffect(() => {
     const fetchTeamsData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/Team/getTeamsByMatch/${id}`);
+        const response = await axios.get(`http://197.26.204.208:3000/Team/getTeamsByMatch/${id}`);
         const data = response.data;
         const teamID1 = data.team1Lineup.team;
         const teamID2 = data.team2Lineup.team;
 
-        const team1Response = await axios.get(`http://localhost:3000/Team/getbyid/${teamID1}`);
+        const team1Response = await axios.get(`http://197.26.204.208:3000/Team/getbyid/${teamID1}`);
         const team1Data = team1Response.data;
         const team1 = {
           id: data.team1Lineup._id,
@@ -42,7 +42,7 @@ export const LineupTeams = ({ id }) => {
           lineup: data.team1Lineup.playerNames
         };
 
-        const team2Response = await axios.get(`http://localhost:3000/Team/getbyid/${teamID2}`);
+        const team2Response = await axios.get(`http://197.26.204.208:3000/Team/getbyid/${teamID2}`);
         const team2Data = team2Response.data;
         const team2 = {
           id: data.team2Lineup._id,
@@ -150,7 +150,7 @@ export const LineupTeams = ({ id }) => {
 
 
             if(data && data.team1Lineup && data.team2Lineup){
-            const responseTeam1 = await fetch('http://localhost:3000/Team/addLineup/', {
+            const responseTeam1 = await fetch('http://197.26.204.208:3000/Team/addLineup/', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
@@ -167,7 +167,7 @@ export const LineupTeams = ({ id }) => {
             console.log('Lineup added Team 1:',dataTeam1); 
 
 
-            const responseTeam2 = await fetch('http://localhost:3000/Team/addLineup/', {
+            const responseTeam2 = await fetch('http://197.26.204.208:3000/Team/addLineup/', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'

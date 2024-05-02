@@ -9,7 +9,7 @@ const Lineup = () => {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await fetch("http://localhost:3000/User/getallPlayers", {
+        const response = await fetch("http://197.26.204.208:3000/User/getallPlayers", {
           method: "GET",
         });
         if (!response.ok) {

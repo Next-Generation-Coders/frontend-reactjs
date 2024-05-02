@@ -22,7 +22,7 @@ import {useWindowSize} from 'react-use';
 
 const checkTeam_manager = async (coachId) => {
     try {
-      const response = await fetch(`http://localhost:3000/Team/checkTeam_manager/${coachId}`);
+      const response = await fetch(`http://197.26.204.208:3000/Team/checkTeam_manager/${coachId}`);
       const data = await response.json();
       return data.exists;
     } catch (error) {
@@ -40,7 +40,7 @@ const checkTeam_manager = async (coachId) => {
 
     useEffect(() => {
       async function fetchData() {
-        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
         const hasTeam = await checkTeam_manager(userId);
         setCoachHasTeam(hasTeam);

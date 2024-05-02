@@ -38,7 +38,7 @@ const SuccessPayment = () => {
 
     const sendSMS = async () => {
         try {
-            const response = await fetch('http://localhost:3000/Payment/checkout-success', {
+            const response = await fetch('http://197.26.204.208:3000/Payment/checkout-success', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

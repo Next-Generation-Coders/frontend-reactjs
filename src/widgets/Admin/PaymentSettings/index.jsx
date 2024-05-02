@@ -39,11 +39,11 @@ const App = () => {
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
-        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
         console.log(userId);
 
-        const response = await axios.get(`http://localhost:3000/Tournament/getByUserId/${userId}`);
+        const response = await axios.get(`http://197.26.204.208:3000/Tournament/getByUserId/${userId}`);
 
         const data = response.data && response.data.tournaments ? response.data.tournaments : [];
         console.log(data);
@@ -64,11 +64,11 @@ const App = () => {
 
   const handleCheckout = async () => {
     try {
-      const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+      const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
       const userIdentif = userResponse.data._id;
       console.log(userIdentif);
 
-      const response = await fetch("http://localhost:3000/payment/create-checkout-session", {
+      const response = await fetch("http://197.26.204.208:3000/payment/create-checkout-session", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

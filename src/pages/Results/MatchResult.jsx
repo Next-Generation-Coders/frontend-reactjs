@@ -32,7 +32,7 @@ import MatchLiveReportScan from './resultWidgets/MatchLiveReport copy';
 
 const matchID = "65fb89764297d5d1df8c8858"
 
-const socket = io('http://localhost:3000', { transports : ['websocket'] });
+const socket = io('http://197.26.204.208:3000', { transports : ['websocket'] });
 const MatchResult = () => {
   const { state } = useLocation();
   const MatchIdfromLeaguesDisplay = state.matchId;
@@ -46,11 +46,11 @@ const MatchResult = () => {
         // Fetch current result when component mounts
         const fetchResult = async () => {
           try {
-            const response = await axios.get(`http://localhost:3000/result/result/${MatchIdfromLeaguesDisplay}`); // Assuming you have an endpoint to get the current result
+            const response = await axios.get(`http://197.26.204.208:3000/result/result/${MatchIdfromLeaguesDisplay}`); // Assuming you have an endpoint to get the current result
             console.log("aaaa",response.data);
 
             setResult(response.data);
-            const teamsResponse = await axios.get(`http://localhost:3000/result/teams/${MatchIdfromLeaguesDisplay}`);
+            const teamsResponse = await axios.get(`http://197.26.204.208:3000/result/teams/${MatchIdfromLeaguesDisplay}`);
             setTeams(teamsResponse.data);
 
           } catch (error) {

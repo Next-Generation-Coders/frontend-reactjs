@@ -40,7 +40,7 @@ const Profile = () => {
     // Function to add a new player
     const addNewPlayer = async (coachId, newPlayerData) => {
         try {
-            const response = await fetch(`http://localhost:3000/Team/addPlayer/${coachId}`, {
+            const response = await fetch(`http://197.26.204.208:3000/Team/addPlayer/${coachId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -63,7 +63,7 @@ const Profile = () => {
 
     const updatePlayer = async (coachId, newPlayerData) => {
         try {
-            const response = await fetch(`http://localhost:3000/User/update/${coachId}`, {
+            const response = await fetch(`http://197.26.204.208:3000/User/update/${coachId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -94,7 +94,7 @@ const Profile = () => {
 
     async function getUser(email) {
         try {
-          const response = await axios.get(`http://localhost:3000/User/getbyemail?email=${email}`);
+          const response = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${email}`);
           const userdata = response.data._id;
           return userdata ;
         } catch (error) {
@@ -107,7 +107,7 @@ const Profile = () => {
     const onSubmit = async (data) => {
         let newPlayerData = {};
         
-        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
         const userData = await getUser(data.email);
         if (userData) {

@@ -40,7 +40,7 @@ useEffect(() => {
   const fetchStaduimsAndRefs = async () => {
 try{
 
-        const StaduimsAndRefs = await fetch(`http://localhost:3000/Tournament/getRefereesAndStadiumsForTournament/${selectedTournamentId}`);
+        const StaduimsAndRefs = await fetch(`http://197.26.204.208:3000/Tournament/getRefereesAndStadiumsForTournament/${selectedTournamentId}`);
         if (!StaduimsAndRefs.ok) {
        toast.error('Failed to fetch  details');
          }
@@ -64,7 +64,7 @@ useEffect(() => {
 
             if (stadiums && stadiums.length > 0) {
                 const stadiumPromises = stadiums.map(async (stadiumId) => {
-                    const response = await fetch(`http://localhost:3000/Stadium/getbyid/${stadiumId}`);
+                    const response = await fetch(`http://197.26.204.208:3000/Stadium/getbyid/${stadiumId}`);
                     if (!response.ok) {
                        toast.error(`Failed to fetch stadium details for ID ${stadiumId}`);
                     }
@@ -77,7 +77,7 @@ useEffect(() => {
 
             if (referees && referees.length > 0) {
                 const refereePromises = referees.map(async (refereeId) => {
-                    const response = await fetch(`http://localhost:3000/User/getbyid/${refereeId}`);
+                    const response = await fetch(`http://197.26.204.208:3000/User/getbyid/${refereeId}`);
                     if (!response.ok) {
                         toast.error(`Failed to fetch referee details for ID ${refereeId}`);
                     }
@@ -110,13 +110,13 @@ const handleStartDateChange = (e) => {
          const fetchMatchDetails = async () => {
         try {
 
-          const team1Response = await fetch(`http://localhost:3000/Match/getbyid/${matchId}`);
+          const team1Response = await fetch(`http://197.26.204.208:3000/Match/getbyid/${matchId}`);
           if (!team1Response.ok) {
             throw new Error('Failed to fetch team details');
           }
           const MatchData = await team1Response.json();
           setMatch(MatchData);
-          const teamResponse = await fetch(`http://localhost:3000/Team/getbyid/${MatchData.team1}`);
+          const teamResponse = await fetch(`http://197.26.204.208:3000/Team/getbyid/${MatchData.team1}`);
           if (!team1Response.ok) {
             throw new Error('Failed to fetch team details');
           }
@@ -124,7 +124,7 @@ const handleStartDateChange = (e) => {
           setTeam1Name(team1Data.name);
           setteam1Logo(team1Data.logo || getRandomDefaultLogo(team1Data.logo))
 
-          const team2Response = await fetch(`http://localhost:3000/Team/getbyid/${MatchData.team2}`);
+          const team2Response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${MatchData.team2}`);
           if (!team2Response.ok) {
             throw new Error('Failed to fetch team details');
           }
@@ -166,7 +166,7 @@ const handleStartDateChange = (e) => {
       const fetchTeamDetails = async () => {
         try {
           console.log(match);
-          const team1Response = await fetch(`http://localhost:3000/Team/getbyid/${match.team1}`);
+          const team1Response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${match.team1}`);
           if (!team1Response.ok) {
             throw new Error('Failed to fetch team details');
           }
@@ -174,7 +174,7 @@ const handleStartDateChange = (e) => {
           setTeam1Name(team1Data.name);
           setteam1Logo(team1Data.logo || getRandomDefaultLogo(team1Data.logo));
           // Fetch team details for team2
-          const team2Response = await fetch(`http://localhost:3000/Team/getbyid/${match.team2}`);
+          const team2Response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${match.team2}`);
           if (!team2Response.ok) {
             throw new Error('Failed to fetch team details');
           }
@@ -195,7 +195,7 @@ const handleStartDateChange = (e) => {
 
 const onSubmit = async (formDataToSend) => {
   try {
-    const response = await fetch(`http://localhost:3000/Match/update/${match._id}`, {
+    const response = await fetch(`http://197.26.204.208:3000/Match/update/${match._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -23,7 +23,7 @@ const Lineups = ({data = data.players, wrapperClass, withField, isCompact}) => {
                 setPlayers(playersData); */
 
 
-                const CheckResponse = await fetch(`http://localhost:3000/User/getPlayersByIds/${playerIds}`, {
+                const CheckResponse = await fetch(`http://197.26.204.208:3000/User/getPlayersByIds/${playerIds}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

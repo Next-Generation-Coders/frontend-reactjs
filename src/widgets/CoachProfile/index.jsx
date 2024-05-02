@@ -28,7 +28,7 @@ console.log(playerId)
     useEffect(() => {
         async function fetchTeamData() {
             try {
-                const response = await fetch(`http://localhost:3000/Team/getbyid/${userData.currentTeam}`);
+                const response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${userData.currentTeam}`);
                 const data = await response.json();
                 setTeamData(data);
                 console.log(data)
@@ -39,7 +39,7 @@ console.log(playerId)
 
         async function fetchUserData() {
             try {
-                const response = await fetch(`http://localhost:3000/User/getbyid/${playerId}`); // team manger id 
+                const response = await fetch(`http://197.26.204.208:3000/User/getbyid/${playerId}`); // team manger id
                 const data = await response.json();
                 setUserData(data);
                 console.log(userData)

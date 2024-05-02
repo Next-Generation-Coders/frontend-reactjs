@@ -24,7 +24,7 @@ const   AddTeamsWidget = ({ tournamentId }) => {
   useEffect(() => {
     const fetchTournamentDetails = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/Tournament/getbyid/${tournamentIdString}`);
+            const response = await fetch(`http://197.26.204.208:3000/Tournament/getbyid/${tournamentIdString}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch tournament details');
             }
@@ -42,7 +42,7 @@ const   AddTeamsWidget = ({ tournamentId }) => {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/Team/getall');
+        const response = await axios.get('http://197.26.204.208:3000/Team/getall');
         setTeams(response.data);
       } catch (error) {
         console.error('Error fetching teams:', error);
@@ -58,7 +58,7 @@ console.log(tournamentId)
     /*useEffect(() => {
         const fetchMatches = async () => {
             try {
-                const response = await fetch('http://localhost:3000/Tournament/fixtures/65eb22e0767105013a8eaa41');
+                const response = await fetch('http://197.26.204.208:3000/Tournament/fixtures/65eb22e0767105013a8eaa41');
                 if (!response.ok) {
                     throw new Error('Failed to fetch matches');
                 }
@@ -89,7 +89,7 @@ console.log(tournamentId)
 
       try {
 
-        const addTeamsResponse = await fetch(`http://localhost:3000/Tournament/addteams/${tournament._id}`, {
+        const addTeamsResponse = await fetch(`http://197.26.204.208:3000/Tournament/addteams/${tournament._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -107,8 +107,8 @@ console.log(tournamentId)
         if (tournament.TournamentType === 'League') {
           try {
             const [generateScheduleResponse, standingsResponse] = await Promise.all([
-              fetch(`http://localhost:3000/Tournament/generateRoundRobinSchedule/${tournament._id}`),
-              fetch(`http://localhost:3000/Standings/CreateStandings/${tournament._id}`)
+              fetch(`http://197.26.204.208:3000/Tournament/generateRoundRobinSchedule/${tournament._id}`),
+              fetch(`http://197.26.204.208:3000/Standings/CreateStandings/${tournament._id}`)
             ]);
 
             if (!generateScheduleResponse.ok) {
@@ -123,13 +123,13 @@ console.log(tournamentId)
             console.error('Error during schedule or standings generation:', error);
           }
       } else if (tournament.TournamentType === 'Knockout') {
-          const generateScheduleResponse = await fetch(`http://localhost:3000/Tournament/KnockoutTournamentBuild/${tournament._id}`);
+          const generateScheduleResponse = await fetch(`http://197.26.204.208:3000/Tournament/KnockoutTournamentBuild/${tournament._id}`);
           if (!generateScheduleResponse.ok) {
               throw new Error('Failed to generate Knockout rounds');
           }
           console.log('Knockout rounds generated successfully.');
       } else if (tournament.TournamentType === 'Championship') {
-        const generateScheduleResponse = await fetch(`http://localhost:3000/Tournament/ChampionshipGroupsAndMatches/${tournament._id}`);
+        const generateScheduleResponse = await fetch(`http://197.26.204.208:3000/Tournament/ChampionshipGroupsAndMatches/${tournament._id}`);
         if (!generateScheduleResponse.ok) {
             throw new Error('Failed to generate championship tournament');
         }

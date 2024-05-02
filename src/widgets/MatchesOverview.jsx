@@ -33,7 +33,7 @@ const MatchesOverview = () => {
         // Fetch current result when component mounts
         const fetchResult = async () => {
           try {
-            const response = await axios.get('http://localhost:3000/result/resultsSorted'); // Assuming you have an endpoint to get the current result
+            const response = await axios.get('http://197.26.204.208:3000/result/resultsSorted'); // Assuming you have an endpoint to get the current result
             const { finishedResults, upcomingResults } = response.data;
             setMatchesLive(upcomingResults); // Assuming upcoming matches are considered live
             setMatchesFinished(finishedResults);

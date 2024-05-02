@@ -10,7 +10,7 @@ const RoundsDisplay = ({ selectedTournamentId }) => {
         const fetchTournamentDetails = async () => {
             try {
                 if (selectedTournamentId) {
-                    const response = await fetch(`http://localhost:3000/Tournament/getbyid/${selectedTournamentId}`);
+                    const response = await fetch(`http://197.26.204.208:3000/Tournament/getbyid/${selectedTournamentId}`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch tournament details');
                     }
@@ -29,7 +29,7 @@ const RoundsDisplay = ({ selectedTournamentId }) => {
         const fetchFirstRoundMatches = async () => {
             try {
                 if (tournament._id) {
-                    const response = await fetch(`http://localhost:3000/Tournament/KnockoutTournament/${tournament._id}`);
+                    const response = await fetch(`http://197.26.204.208:3000/Tournament/KnockoutTournament/${tournament._id}`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch first round matches');
                     }
@@ -46,7 +46,7 @@ const RoundsDisplay = ({ selectedTournamentId }) => {
 
     const fetchTeamDetails = async (teamId) => {
         try {
-            const response = await fetch(`http://localhost:3000/Team/getbyid/${teamId}`);
+            const response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${teamId}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch team details');
             }
@@ -60,7 +60,7 @@ const RoundsDisplay = ({ selectedTournamentId }) => {
 
     const fetchMatchDetails = async (matchId) => {
         try {
-            const response = await fetch(`http://localhost:3000/Match/getbyid/${matchId}`);
+            const response = await fetch(`http://197.26.204.208:3000/Match/getbyid/${matchId}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch match details');
             }

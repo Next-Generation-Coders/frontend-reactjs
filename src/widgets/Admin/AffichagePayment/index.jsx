@@ -40,7 +40,7 @@ const AffichageCrud = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/Payment');
+                const response = await fetch('http://197.26.204.208:3000/Payment');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -59,7 +59,7 @@ const AffichageCrud = () => {
     useEffect(() => {
         const fetchTournaments = async () => {
             try {
-                const response = await fetch("http://localhost:3000/Tournament/getall");
+                const response = await fetch("http://197.26.204.208:3000/Tournament/getall");
 
                 if (!response.ok) {
                     console.error("Server error:", response.statusText);
@@ -125,7 +125,7 @@ const AffichageCrud = () => {
         try {
             const newStatus = currentStatus === 'unpaid' ? 'paid' : 'unpaid';
 
-            const response = await fetch(`http://localhost:3000/Payment/${paymentId}`, {
+            const response = await fetch(`http://197.26.204.208:3000/Payment/${paymentId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

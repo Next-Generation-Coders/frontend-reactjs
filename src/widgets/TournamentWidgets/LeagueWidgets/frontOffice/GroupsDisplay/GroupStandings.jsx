@@ -14,7 +14,7 @@ const GroupStandingsDisplay = ({ StandingsId }) => {
     const fetchStandings = async () => {
       try {
         if (StandingsId) {
-          const response = await fetch(`http://localhost:3000/Standings/GetbyID/${StandingsId}`);
+          const response = await fetch(`http://197.26.204.208:3000/Standings/GetbyID/${StandingsId}`);
           if (!response.ok) {
             throw new Error('Failed to fetch standings data');
           }
@@ -45,7 +45,7 @@ const GroupStandingsDisplay = ({ StandingsId }) => {
   // Function to fetch team data
   const fetchTeamData = async (teamId) => {
     try {
-      const response = await fetch(`http://localhost:3000/Team/getbyid/${teamId}`);
+      const response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${teamId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch team data');
       }

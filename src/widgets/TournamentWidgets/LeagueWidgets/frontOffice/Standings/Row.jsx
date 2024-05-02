@@ -83,7 +83,7 @@ const TeamScoreRow = ({data, index, variant = 'minimal'}) => {
         const fetchTeamDetails = async () => {
           try {
             // Fetch team details for team1
-            const team1Response = await fetch(`http://localhost:3000/Team/getbyid/${data.team}`);
+            const team1Response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${data.team}`);
             if (!team1Response.ok) {
               throw new Error('Failed to fetch team details');
             }

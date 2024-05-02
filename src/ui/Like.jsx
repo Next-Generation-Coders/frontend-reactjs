@@ -14,10 +14,10 @@ const Like = ({ playerId, isLiked, withText, readonly, qty, color = 'red', isCar
       if (!readonly) {
         setLiked(!liked);
   
-        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
         
-        await fetch(`http://localhost:3000/User/likedBy/${playerId}`, {
+        await fetch(`http://197.26.204.208:3000/User/likedBy/${playerId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -34,9 +34,9 @@ const Like = ({ playerId, isLiked, withText, readonly, qty, color = 'red', isCar
     useEffect(() => {
       async function fetchLikes() {
         try {
-          const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+          const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
           const userId = userResponse.data._id;
-          const CheckResponse = await fetch(`http://localhost:3000/User/checkLiked/${playerId}/${userId}`, {
+          const CheckResponse = await fetch(`http://197.26.204.208:3000/User/checkLiked/${playerId}/${userId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

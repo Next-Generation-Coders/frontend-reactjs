@@ -68,7 +68,7 @@ const GamesCalendar = ({teamId}) => {
         // Function to fetch matches based on teamId
         const fetchMatchesByTeam = async (teamId) => {
             try {
-                const response = await axios.get(`http://localhost:3000/Team/getTournaments?teamId=${teamId}`);
+                const response = await axios.get(`http://197.26.204.208:3000/Team/getTournaments?teamId=${teamId}`);
                 const data = response.data
                 setMatches(response.data); 
             } catch (error) {

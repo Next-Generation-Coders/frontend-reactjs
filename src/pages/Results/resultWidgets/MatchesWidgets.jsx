@@ -61,7 +61,7 @@ const MatchesWidgets = ({ score, upcoming }) => {
         const fetchMatchData = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get('http://localhost:5000/upcoming');
+                const response = await axios.get('http://197.26.204.208:5000/upcoming');
                 const upcomingMatches = response.data;
                 const matchId = score?.match?._id;
 

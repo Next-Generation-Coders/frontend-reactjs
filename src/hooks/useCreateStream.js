@@ -14,7 +14,7 @@ export const useCreateStream = () => {
         setIsLoading(true)
         setError('')
 
-        const response = await fetch('http://localhost:3000/stream', {
+        const response = await fetch('http://197.26.204.208:3000/stream', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ export const useCreateStream = () => {
                     roomName,
                     roomUrl : room.url
                 }
-                const createStreamResponse = await fetch('http://localhost:3000/stream',{
+                const createStreamResponse = await fetch('http://197.26.204.208:3000/stream',{
                     method:'POST',
                     headers:{
                         'authorization': `Bearer ${organizerToken}`,

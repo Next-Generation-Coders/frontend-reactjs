@@ -21,7 +21,7 @@ const MatchDetails = ({ matchId }) => {
     const fetchMatch = async () => {
       try {
 
-        const response = await fetch(`http://localhost:3000/Match/getbyid/${matchId}`);
+        const response = await fetch(`http://197.26.204.208:3000/Match/getbyid/${matchId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch match details');
         }
@@ -29,7 +29,7 @@ const MatchDetails = ({ matchId }) => {
         setMatch(data);
 
 
-        const team1Response = await fetch(`http://localhost:3000/Team/getbyid/${data.team1}`);
+        const team1Response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${data.team1}`);
         if (!team1Response.ok) {
           throw new Error('Failed to fetch team details');
         }
@@ -37,7 +37,7 @@ const MatchDetails = ({ matchId }) => {
         setTeam1Name(team1Data.name);
 
 
-        const team2Response = await fetch(`http://localhost:3000/Team/getbyid/${data.team2}`);
+        const team2Response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${data.team2}`);
         if (!team2Response.ok) {
           throw new Error('Failed to fetch team details');
         }
@@ -86,7 +86,7 @@ const MatchDetails = ({ matchId }) => {
 
   const onSubmit = async (formDataToSend) => {
     try {
-      const response = await fetch(`http://localhost:3000/Match/update/${match._id}`, {
+      const response = await fetch(`http://197.26.204.208:3000/Match/update/${match._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -16,7 +16,7 @@ export const useWatchStream = () => {
         try{
             setIsLoading(true);
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:3000/stream/playing',{
+            const response = await fetch('http://197.26.204.208:3000/stream/playing',{
                 method:'GET',
                 headers:{
                     'Content-Type':'application/json',
@@ -50,7 +50,7 @@ export const useWatchStream = () => {
         try{
             setIsLoading(true)
             setError('')
-            const tokenResp = await fetch('http://localhost:3000/stream', {
+            const tokenResp = await fetch('http://197.26.204.208:3000/stream', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

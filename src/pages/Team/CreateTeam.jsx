@@ -33,12 +33,12 @@ const CreateTeam = () => {
         const fetchTeamsData = async () => {
           try {
             // Fetch teams data from API
-            const response = await fetch('http://localhost:3000/Team/getTeamsByMatch/66056a2895be3305f204a6d8');
+            const response = await fetch('http://197.26.204.208:3000/Team/getTeamsByMatch/66056a2895be3305f204a6d8');
             const data = await response.json();
             const teamID1 = data.team1Lineup.team;
             const teamID2 = data.team2Lineup.team;
       
-            const responses = await fetch(`http://localhost:3000/Team/getbyid/${teamID1}`);
+            const responses = await fetch(`http://197.26.204.208:3000/Team/getbyid/${teamID1}`);
             const Team1 = await responses.json();
             const team1 = {
               id: data.team1Lineup._id,
@@ -46,7 +46,7 @@ const CreateTeam = () => {
               lineup: data.team1Lineup.playerNames
             };
       
-            const responses2 = await fetch(`http://localhost:3000/Team/getbyid/${teamID2}`);
+            const responses2 = await fetch(`http://197.26.204.208:3000/Team/getbyid/${teamID2}`);
             const Team2 = await responses2.json();
             const team2 = {
               id: data.team2Lineup._id,

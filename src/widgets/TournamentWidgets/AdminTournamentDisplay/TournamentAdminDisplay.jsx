@@ -44,7 +44,7 @@ const TournamentAdminDisplay = () => {
     useEffect(() => {
         const fetchTournaments = async () => {
             try {
-                const response = await fetch('http://localhost:3000/Tournament/getall');
+                const response = await fetch('http://197.26.204.208:3000/Tournament/getall');
                 if (!response.ok) {
                     throw new Error('Failed to fetch tournaments');
                 }
@@ -60,7 +60,7 @@ const TournamentAdminDisplay = () => {
 
     const fetchReferees = async () => {
         try {
-            const response = await fetch('http://localhost:3000/User/getAllReferees');
+            const response = await fetch('http://197.26.204.208:3000/User/getAllReferees');
             if (!response.ok) {
                 throw new Error('Failed to fetch referees');
             }
@@ -73,7 +73,7 @@ const TournamentAdminDisplay = () => {
 
     const fetchStadiums = async () => {
         try {
-            const response = await fetch('http://localhost:3000/Stadium/getall');
+            const response = await fetch('http://197.26.204.208:3000/Stadium/getall');
             if (!response.ok) {
                 throw new Error('Failed to fetch stadiums');
             }
@@ -86,7 +86,7 @@ const TournamentAdminDisplay = () => {
 
     const handleDeleteTournament = async (tournamentId) => {
         try {
-            const response = await fetch(`http://localhost:3000/Tournament/delete/${tournamentId}`, {
+            const response = await fetch(`http://197.26.204.208:3000/Tournament/delete/${tournamentId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
@@ -104,7 +104,7 @@ const TournamentAdminDisplay = () => {
     const handleSetActiveTournament = async (tournamentId, currentStatus) => {
         try {
             const newStatus = currentStatus === 'Active' ? 'Inactive' : 'Active';
-            const response = await fetch(`http://localhost:3000/Tournament/StartTournament/${tournamentId}`, {
+            const response = await fetch(`http://197.26.204.208:3000/Tournament/StartTournament/${tournamentId}`, {
                 method: 'PUT',
                 body: JSON.stringify({ status: newStatus }), // Envoyer le nouveau statut dans le corps de la requête
                 headers: {

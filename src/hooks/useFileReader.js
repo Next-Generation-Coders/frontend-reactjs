@@ -42,7 +42,7 @@ const useFileReader = () => {
 
         reader.onloadend = async () => {
             try {
-                const resp = await fetch('http://localhost:3000/User/avatar', {
+                const resp = await fetch('http://197.26.204.208:3000/User/avatar', {
                     method: 'PUT',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,

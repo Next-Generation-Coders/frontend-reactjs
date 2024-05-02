@@ -33,7 +33,7 @@ const CreateTournament = () => {
                 return;
             }
 
-            const response = await fetch('http://localhost:3000/Tournament/add', {
+            const response = await fetch('http://197.26.204.208:3000/Tournament/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

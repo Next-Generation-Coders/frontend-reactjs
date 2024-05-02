@@ -28,10 +28,10 @@ const PlayerListWithNoTeam = () => {
 
     const addNewPlayer = async ( newPlayerData) => {
         //console.log(newPlayerData+"-----------")
-        const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+        const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
         const userId = userResponse.data._id;
         try {
-            const response = await fetch(`http://localhost:3000/Team/addPlayer/${userId}`, {
+            const response = await fetch(`http://197.26.204.208:3000/Team/addPlayer/${userId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -51,7 +51,7 @@ const PlayerListWithNoTeam = () => {
     useEffect(() => {
         async function fetchPlayerData() {
             try {
-                const response = await fetch(`http://localhost:3000/User/getallPlayersWithNoTeam`);
+                const response = await fetch(`http://197.26.204.208:3000/User/getallPlayersWithNoTeam`);
                 const data = await response.json();
                 setPlayerData(data);
             } catch (error) {

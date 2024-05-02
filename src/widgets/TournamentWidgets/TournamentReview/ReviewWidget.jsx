@@ -19,7 +19,7 @@ const [tournamentrates ,settournamentrates] = useState();
     useEffect(() => {
         const fetchTournament = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/Tournament/getbyid/${selectedTournamentId}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/getbyid/${selectedTournamentId}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch tournaments');
                 }

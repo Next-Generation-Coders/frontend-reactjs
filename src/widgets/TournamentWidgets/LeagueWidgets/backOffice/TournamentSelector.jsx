@@ -24,7 +24,7 @@ const TournamentSelector = ({  onTournamentSelect }) => {
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/Tournament/UserTournaments`,{
+        const response = await fetch(`http://197.26.204.208:3000/Tournament/UserTournaments`,{
           method: 'GET',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,

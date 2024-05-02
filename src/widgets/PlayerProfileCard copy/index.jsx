@@ -32,11 +32,11 @@ const teamId = state ? state.teamId : null;
             try {
                 let teamDataResponse;
                 if (!teamId) {
-                    const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                    const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
                     const userId = userResponse.data._id;
-                    teamDataResponse = await fetch(`http://localhost:3000/Team/getTeambyTeamManger/${userId}`);
+                    teamDataResponse = await fetch(`http://197.26.204.208:3000/Team/getTeambyTeamManger/${userId}`);
                 } else {
-                    teamDataResponse = await fetch(`http://localhost:3000/Team/getbyid/${teamId}`);
+                    teamDataResponse = await fetch(`http://197.26.204.208:3000/Team/getbyid/${teamId}`);
                 }
     
                 const teamData = await teamDataResponse.json();
@@ -49,9 +49,9 @@ const teamId = state ? state.teamId : null;
 
         /* async function fetchUserData() {
             try {
-                const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
                 const userId = userResponse.data._id;
-                const response = await fetch(`http://localhost:3000/User/getbyid/${userId}`);
+                const response = await fetch(`http://197.26.204.208:3000/User/getbyid/${userId}`);
                 const data = await response.json();
                 setUserData(data);
             } catch (error) {
@@ -62,7 +62,7 @@ const teamId = state ? state.teamId : null;
         // Function to fetch team rating
         const fetchTeamRating = async (teamId) => {
             try {
-                const response = await fetch(`http://localhost:3000/Team/getTeamRating/${teamId}`);
+                const response = await fetch(`http://197.26.204.208:3000/Team/getTeamRating/${teamId}`);
                 const ratingData = await response.json();
                 //console.log(ratingData.rating+"......")
                 const rate =ratingData.rating

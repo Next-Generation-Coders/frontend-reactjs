@@ -22,12 +22,12 @@ const TeamsLineups1 = ({team1}) => {
         const fetchTeamsData = async () => {
             try {
                 // Replace 'your-api-url' with the actual API endpoint
-                const response = await fetch('http://localhost:3000/Team/getTeamsByMatch/66056a2895be3305f204a6d8');
+                const response = await fetch('http://197.26.204.208:3000/Team/getTeamsByMatch/66056a2895be3305f204a6d8');
                 const data = await response.json();
                 const teamID1 =data.team1Lineup.team ;
                 const teamID2 =data.team2Lineup.team;
 
-                const responses = await fetch(`http://localhost:3000/Team/getbyid/${teamID1}`);
+                const responses = await fetch(`http://197.26.204.208:3000/Team/getbyid/${teamID1}`);
                 const Team1 = await responses.json();
                 // Assuming the response contains team1Lineup and team2Lineup
                 const team1 = {
@@ -36,7 +36,7 @@ const TeamsLineups1 = ({team1}) => {
                     lineup: data.team1Lineup.playerNames // Assuming team1Lineup contains players data
                 };
 
-                const responses2 = await fetch(`http://localhost:3000/Team/getbyid/${teamID2}`);
+                const responses2 = await fetch(`http://197.26.204.208:3000/Team/getbyid/${teamID2}`);
                 const Team2 = await responses2.json();
                 const team2 = {
                     id: data.team2Lineup._id,

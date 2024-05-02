@@ -11,15 +11,15 @@ export const DragAndDrop = ({id}) => {
     useEffect(() => {
         const fetchTeamsData = async () => {
             try {
-                // const response = await axios.get('http://localhost:3000/Team/getTeamsByMatch/66056a2895be3305f204a6d8');
-                const response = await axios.get(`http://localhost:3000/Team/getTeamsByMatch/${id}`);
+                // const response = await axios.get('http://197.26.204.208:3000/Team/getTeamsByMatch/66056a2895be3305f204a6d8');
+                const response = await axios.get(`http://197.26.204.208:3000/Team/getTeamsByMatch/${id}`);
 
                 const data = response.data;
                 const teamID1 = data.team1Lineup.team;
                 const teamID2 = data.team2Lineup.team;
                 console.log(data)
 
-                const team1Response = await axios.get(`http://localhost:3000/Team/getbyid/${teamID1}`);
+                const team1Response = await axios.get(`http://197.26.204.208:3000/Team/getbyid/${teamID1}`);
                 const team1Data = team1Response.data;
                 const team1 = {
                     id: data.team1Lineup._id,
@@ -27,7 +27,7 @@ export const DragAndDrop = ({id}) => {
                     lineup: data.team1Lineup.playerNames
                 };
 
-                const team2Response = await axios.get(`http://localhost:3000/Team/getbyid/${teamID2}`);
+                const team2Response = await axios.get(`http://197.26.204.208:3000/Team/getbyid/${teamID2}`);
                 const team2Data = team2Response.data;
                 const team2 = {
                     id: data.team2Lineup._id,

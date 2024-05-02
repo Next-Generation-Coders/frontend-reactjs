@@ -10,7 +10,7 @@ export const useCreateChat = () => {
         setIsLoading(true)
         setError('')
 
-        const response = await fetch('http://localhost:3000/Chat/create', {
+        const response = await fetch('http://197.26.204.208:3000/Chat/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

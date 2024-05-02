@@ -25,7 +25,7 @@ const Team = () => {
 
   const checkTeam_manager = async (coachId) => {
     try {
-      const response = await fetch(`http://localhost:3000/Team/checkTeam_manager/${coachId}`);
+      const response = await fetch(`http://197.26.204.208:3000/Team/checkTeam_manager/${coachId}`);
       const data = await response.json();
       return data.exists;
     } catch (error) {
@@ -36,7 +36,7 @@ const Team = () => {
 
   async function updateTeam(coachId) {
     try {
-      const response = await fetch(`http://localhost:3000/Team/updateXTeam/${coachId}`, {
+      const response = await fetch(`http://197.26.204.208:3000/Team/updateXTeam/${coachId}`, {
         method: 'PUT',
       });
       return true; 
@@ -50,9 +50,9 @@ const Team = () => {
 
   const addNewTeam = async (newTeamData) => {
     try {
-      const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+      const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
       const userId = userResponse.data._id;
-      const response = await fetch(`http://localhost:3000/Team/add/${userId}`, {
+      const response = await fetch(`http://197.26.204.208:3000/Team/add/${userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -89,7 +89,7 @@ const Team = () => {
       logo: file,
     };
   
-    const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+    const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
     const userId = userResponse.data._id;
   
     try {
@@ -97,7 +97,7 @@ const Team = () => {
       formData.append('name', newTeamData.name);
       //formData.append('team', file);
 
-      const response = await fetch(`http://localhost:3000/Team/add/${userId}`, {
+      const response = await fetch(`http://197.26.204.208:3000/Team/add/${userId}`, {
       method: 'POST',
           body: formData,
     });
@@ -113,7 +113,7 @@ const Team = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+      const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
       const userId = userResponse.data._id;
       setUserId(userId)
     }

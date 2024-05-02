@@ -27,7 +27,7 @@ const TournamentSlider = () => {
       useEffect(() => {
         const fetchTeams = async () => {
           try {
-            const response = await axios.get(`http://localhost:3000/Tournament/getTopFollowedTournaments`);
+            const response = await axios.get(`http://197.26.204.208:3000/Tournament/getTopFollowedTournaments`);
 
           } catch (error) {
             console.error('Error fetching teams:', error);

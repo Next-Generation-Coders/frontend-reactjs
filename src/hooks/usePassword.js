@@ -9,7 +9,7 @@ export const usePassword = () => {
         setIsLoading(true)
         setError('')
         const data={currentPassword,newPassword}
-        const response = await fetch('http://localhost:3000/User/change-password', {
+        const response = await fetch('http://197.26.204.208:3000/User/change-password', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

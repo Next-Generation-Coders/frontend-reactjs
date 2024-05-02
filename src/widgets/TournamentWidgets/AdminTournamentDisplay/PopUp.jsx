@@ -25,7 +25,7 @@ const Popup = ({
     const fetchRefsAndStadiums = async (tournamentId, selectedRefs, selectedStadiums) => {
         try {
             console.log(selectedRefs);
-            const response = await fetch(`http://localhost:3000/Tournament/addRefereesAndStadiumsToTournament/${tournamentId}`, {
+            const response = await fetch(`http://197.26.204.208:3000/Tournament/addRefereesAndStadiumsToTournament/${tournamentId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

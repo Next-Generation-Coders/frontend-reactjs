@@ -13,7 +13,7 @@ const MatchesPanel = ( { selectedTournamentId }) => {
     useEffect(() => {
         const fetchTournament = async () => {
             try {
-                const tournamentData = await fetch(`http://localhost:3000/Tournament/getbyid/${selectedTournamentId}`);
+                const tournamentData = await fetch(`http://197.26.204.208:3000/Tournament/getbyid/${selectedTournamentId}`);
                 if (!tournamentData.ok) {
                     throw new Error('Failed to fetch Tournament');
                 }
@@ -29,11 +29,11 @@ const MatchesPanel = ( { selectedTournamentId }) => {
             fetchTournament();
         }
     }, [selectedTournamentId]);
-    //http://localhost:3000/Tournament/getMatchesFromGroupsWithMatches
+    //http://197.26.204.208:3000/Tournament/getMatchesFromGroupsWithMatches
     useEffect(() => {
         const fetchMatchesForLeague = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/Tournament/fixtures/${tournament._id}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/fixtures/${tournament._id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch matches for League');
                 }
@@ -46,7 +46,7 @@ const MatchesPanel = ( { selectedTournamentId }) => {
 
         const fetchMatchesForKnockout = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/Tournament/getFixturesKnockout/${tournament._id}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/getFixturesKnockout/${tournament._id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch matches for Knockout');
                 }
@@ -58,7 +58,7 @@ const MatchesPanel = ( { selectedTournamentId }) => {
         };
         const fetchMatchesForChampionship = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/Tournament/getMatchesFromGroupsWithMatches/${tournament._id}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/getMatchesFromGroupsWithMatches/${tournament._id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch matches for Knockout');
                 }

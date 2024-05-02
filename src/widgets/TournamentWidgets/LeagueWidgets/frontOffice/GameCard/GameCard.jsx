@@ -46,7 +46,7 @@ const GameCard = ({score,match, index, variant = 'basic',selectedDay ,onClick })
       const fetchTeamDetails = async () => {
         try {
           // Fetch team details for team1
-          const team1Response = await fetch(`http://localhost:3000/Team/getbyid/${match.team1}`);
+          const team1Response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${match.team1}`);
           if (!team1Response.ok) {
             throw new Error('Failed to fetch team details');
           }
@@ -54,7 +54,7 @@ const GameCard = ({score,match, index, variant = 'basic',selectedDay ,onClick })
           setTeam1Name(team1Data.name);
           setteam1Logo(team1Data.logo || getRandomDefaultLogo(team1Data.logo));
           // Fetch team details for team2
-          const team2Response = await fetch(`http://localhost:3000/Team/getbyid/${match.team2}`);
+          const team2Response = await fetch(`http://197.26.204.208:3000/Team/getbyid/${match.team2}`);
           if (!team2Response.ok) {
             throw new Error('Failed to fetch team details');
           }

@@ -9,7 +9,7 @@ export const usePasswordReset = () => {
         setIsLoading(true)
         setError('')
 
-        const response = await fetch('http://localhost:3000/User/reset', {
+        const response = await fetch('http://197.26.204.208:3000/User/reset', {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ email })

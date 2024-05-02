@@ -116,7 +116,7 @@ const VideoDisplay = ({ selectedTournamentId,title }) => {
         
             try {
                 if (selectedTournamentId){
-                const response = await fetch(`http://localhost:3000/Tournament/getbyid/${selectedTournamentId}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/getbyid/${selectedTournamentId}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch tournament details');
                 }
@@ -139,7 +139,7 @@ const VideoDisplay = ({ selectedTournamentId,title }) => {
     const fetchMatchesForLeague = async () => {
         try {
             if (tournament._id) {
-                const response = await fetch(`http://localhost:3000/Tournament/fixturesByDay/${tournament._id}/${selectedDay}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/fixturesByDay/${tournament._id}/${selectedDay}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch fixtures');
                 }
@@ -159,7 +159,7 @@ useEffect(() => {
     const fetchMatchesForKnockout = async () => {
         try {
             if (tournament._id) {
-                const response = await fetch(`http://localhost:3000/Tournament/FixturesByDayKnockout/${tournament._id}/${selectedDay}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/FixturesByDayKnockout/${tournament._id}/${selectedDay}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch matches for Knockout');
                 }
@@ -180,7 +180,7 @@ useEffect(() => {
     const fetchMatchesForChampionship = async () => {
         try {
             if (tournament._id) {
-                const response = await fetch(`http://localhost:3000/Tournament/MatcheGroupsByday/${tournament._id}/${selectedDay}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/MatcheGroupsByday/${tournament._id}/${selectedDay}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch matches for Knockout');
                 }
@@ -200,7 +200,7 @@ useEffect(() => {
             try {
                 
                 if (tournament._id) { // Check if selectedTournamentId is not undefined
-                  const response = await fetch(`http://localhost:3000/Tournament/fixturesByDay/${tournament._id}/${selectedDay}`);
+                  const response = await fetch(`http://197.26.204.208:3000/Tournament/fixturesByDay/${tournament._id}/${selectedDay}`);
                   if (!response.ok) {
                     throw new Error('Failed to fetch fixtures');
                   }
@@ -215,7 +215,7 @@ useEffect(() => {
 
         const fetchMatchesForKnockout = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/Tournament/FixturesByDayKnockout/${tournament._id}/${selectedDay}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/FixturesByDayKnockout/${tournament._id}/${selectedDay}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch matches for Knockout');
                 }
@@ -228,7 +228,7 @@ useEffect(() => {
         };
         const fetchMatchesForChampionship = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/Tournament/getMatchesFromGroupsWithMatches/${tournament._id}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/getMatchesFromGroupsWithMatches/${tournament._id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch matches for Knockout');
                 }

@@ -8,7 +8,7 @@ const FollowButton = ({selectedTournamentId}) => {
     useEffect(() => {
         const fetchTournamentDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/Tournament/getbyid/${selectedTournamentId}`);
+                const response = await fetch(`http://197.26.204.208:3000/Tournament/getbyid/${selectedTournamentId}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch tournament details');
                 }
@@ -27,7 +27,7 @@ const FollowButton = ({selectedTournamentId}) => {
         if(selectedTournamentId){
         try {
            
-            const response = await fetch(`http://localhost:3000/Tournament/follow/${selectedTournamentId}`, {
+            const response = await fetch(`http://197.26.204.208:3000/Tournament/follow/${selectedTournamentId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

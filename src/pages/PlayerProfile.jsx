@@ -25,7 +25,7 @@ const Tickets = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+            const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
             const userId = userResponse.data._id;
             setUserId(userId);
             const { playerId } = location.state || {} ;
@@ -33,7 +33,7 @@ const Tickets = () => {
                 console.log("data not fetched !!")
             } else {
                 try {
-                    const response = await fetch(`http://localhost:3000/User/getbyid/${playerId}`);
+                    const response = await fetch(`http://197.26.204.208:3000/User/getbyid/${playerId}`);
                     const data = await response.json();
                     setTeamId(data?.currentTeam);
                     setIsLoading(false);

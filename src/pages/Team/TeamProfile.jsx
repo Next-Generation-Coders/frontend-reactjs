@@ -35,7 +35,7 @@ const TeamProfile = () => {
         async function fetchData() {
             
             if(!teamId){
-                const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
                 userId = userResponse.data.currentTeam;
                 console.log("userId :" +userId+"....")
                 setTeamId(userId)
@@ -45,7 +45,7 @@ const TeamProfile = () => {
             else{
                 setTeamId(teamId)
                 try {
-                    const teamDataResponse = await fetch(`http://localhost:3000/Team/getbyid/${teamId}`);
+                    const teamDataResponse = await fetch(`http://197.26.204.208:3000/Team/getbyid/${teamId}`);
                     const teamData = await teamDataResponse.json();
                     const firstTeamManagerId = teamData.teamManagerName[0].id;
                     await findTours(firstTeamManagerId);

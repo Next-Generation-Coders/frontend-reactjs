@@ -19,10 +19,10 @@ const PreviousTeams = () => {
     useEffect(() => {
         async function fetchPreviousTeams() {
             try {
-                const userResponse = await fetch(`http://localhost:3000/User/getbyid/${playerId}`);
+                const userResponse = await fetch(`http://197.26.204.208:3000/User/getbyid/${playerId}`);
                 const userData = await userResponse.json();
                 const teamsData = await Promise.all(userData.teams.map(async (teamId) => {
-                    const teamResponse = await fetch(`http://localhost:3000/Team/getbyid/${teamId}`);
+                    const teamResponse = await fetch(`http://197.26.204.208:3000/Team/getbyid/${teamId}`);
                     return teamResponse.json();
                 }));
                 setPreviousTeams(teamsData);

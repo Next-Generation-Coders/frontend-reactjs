@@ -29,7 +29,7 @@ const AgentScore = () => {
   //const matchID = "65fb89764297d5d1df8c8858"
   const {id} = useParams()
 
-  const socket = io('http://localhost:3000', { transports : ['websocket'] });
+  const socket = io('http://197.26.204.208:3000', { transports : ['websocket'] });
 
 
     const [result, setResult] = useState([]);
@@ -111,9 +111,9 @@ const AgentScore = () => {
       // Fetch current result when component mounts
       const fetchResult = async () => { 
         try {
-          const response = await axios.get(`http://localhost:3000/result/result/${id}`); // Assuming you have an endpoint to get the current result
+          const response = await axios.get(`http://197.26.204.208:3000/result/result/${id}`); // Assuming you have an endpoint to get the current result
           setResult(response.data);
-          const teamsResponse = await axios.get(`http://localhost:3000/result/teams/${id}`);
+          const teamsResponse = await axios.get(`http://197.26.204.208:3000/result/teams/${id}`);
         setTeams(teamsResponse.data);
 
         } catch (error) {

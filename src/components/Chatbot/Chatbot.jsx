@@ -75,7 +75,7 @@ const Chatbot = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                const response = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
                 const userdata = response.data.roles;
                 console.log("Response data:", response.data);
                 setUserData(userdata);
@@ -83,7 +83,7 @@ const Chatbot = () => {
 
                 if (userdata.includes(21)) {
                     const UserId = response.data._id;
-                    const responseTeam = await axios.get(`http://localhost:3000/Team/checkTeam_manager/${UserId}`);
+                    const responseTeam = await axios.get(`http://197.26.204.208:3000/Team/checkTeam_manager/${UserId}`);
 
                     if (responseTeam) {
                         setHasTeam(true);
@@ -92,9 +92,9 @@ const Chatbot = () => {
                     }
                 }
 
-                const userResponse = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
+                const userResponse = await axios.get(`http://197.26.204.208:3000/User/getbyemail?email=${USER.email}`);
                 const userId = userResponse.data.currentTeam;
-                const lineupResponse = await fetch(`http://localhost:3000/Team/getLineup/${userId}`);
+                const lineupResponse = await fetch(`http://197.26.204.208:3000/Team/getLineup/${userId}`);
                 const lineupData = await lineupResponse.json();
                 console.log('Lineup Data:', lineupData.lineup.playerNames);
 
