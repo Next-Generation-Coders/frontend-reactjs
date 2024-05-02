@@ -26,6 +26,7 @@ import {addChat, toggleCollapse} from '@features/chats/chatSlice';
 import {CHAT_LEGEND, CHAT_OPTIONS} from '@constants/chat';
 import {useAuthContext} from "@hooks/useAuthContext";
 import CustomMultiSelect from "@ui/CustomMultiSelect";
+import {useCreateChat} from "@hooks/useCreateChat";
 
 const ChatList = ({userChats,isLoading,selected}) => {
 
@@ -41,18 +42,18 @@ const ChatList = ({userChats,isLoading,selected}) => {
     const [headerRef, {height: headerHeight}] = useMeasure();
     const [footerRef, {height: footerHeight}] = useMeasure();
     const trackRef = useRef(null);
-
+    const {createNewChat} = useCreateChat();
     const chats = useSelector(state => state['chats'].chats);
     const dispatch = useDispatch();
 
-    const onSubmit = data => {
+    const onSubmit = async data => {
         const id = nanoid(5);
         dispatch(addChat({
             type: data.type.value,
             label: data.label,
             expanded: false
         }));
-        let participants = [{}];
+        let participants = [];
         data.participants.forEach(user=>{
             const participant = user.value
             participants.push(participant);
@@ -66,10 +67,12 @@ const ChatList = ({userChats,isLoading,selected}) => {
             messages: [],
         }
         console.log(Chat);
+        await createNewChat(Chat);
         setFormVisible(false);
         setTimeout(() => dispatch(toggleCollapse({id})), 300);
         data.participants=null;
         reset();
+        setFetchingUsers(true);
     }
     const [users, setUsers] = useState([]);
     const [fetchingUsers,setFetchingUsers]=useState(true);
