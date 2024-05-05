@@ -12,7 +12,7 @@ const widgets = {
     league_rating: <RefreeRating />,
     matches_overview: <RefereeMatches />,
    // team_pulse: <RefPulse />,
-    calendar: <GamesCalendar />,
+    //calendar: <GamesCalendar />,
     //StandingsRef: <StandingsRef />,
 }
 

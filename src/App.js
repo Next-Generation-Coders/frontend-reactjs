@@ -267,7 +267,6 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
 
                                                     <Route path="/match" element={<MatchResult/>}/>
                                                     <Route path="/agent/:id" element={<AgentScore/>}/>
-
                                                     <Route path="/users" element={<UserManagement/>}/>
 
                                                     
@@ -275,8 +274,6 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
 
                                                     // Payment Routes
                                                     <Route element={<RequireAuth allowedRoles={[Role.ORGANIZER]}/> }>
-
-                                                    <Route path="/payment-list" element={<PaymentAdmin/>}/>
                                                     <Route path="/payment-stripe" element={<PaymentOrganizer/>}/>
                                                     <Route path="/payment-coin" element={<PaymentWithCoin/>}/>
                                                     <Route path="/payment/checkout-success" element={<PaymentSucess/>}/>
@@ -313,6 +310,8 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                         <Route path="/user-management" element={<UserManagement/>}/>
                                                         <Route path="/role-requests" element={<RoleRequests/>}/>
                                                         <Route path='/TournamentAdmin' element={<TournamentList/>} />
+                                                        <Route path="/payment-list" element={<PaymentAdmin/>}/>
+
 
 
                                                     </Route>

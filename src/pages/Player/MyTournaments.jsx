@@ -34,7 +34,7 @@ const MyTournaments = () => {
     }
     return (
         <>
-            <PageHeader title="Home"/>
+            <PageHeader title="Tournaments"/>
             {isLoading ? <LoadingScreen/> :  <AppGrid id="my_tournaments" widgets={widgets}/>}
 
         </>

@@ -302,6 +302,28 @@ margin-left: 0.5rem;
 // styles.module.scss
 
 
+.responsivePitch {
+  margin-left: 40%;
+  max-width: 100%;
+}
+
+/* Media queries pour rendre le pitch plus adaptatif en fonction de la largeur de l'écran */
+@media (max-width: 768px) {
+  .responsivePitch {
+
+   // transform: rotate(-90deg); /* Fait pivoter le contenu de -90 degrés (pour le rendre vertical) */
+    margin-left: 10%; /* Ajustez la marge pour une plus petite largeur d'écran */
+    max-width: 80%; /* Réduisez la largeur maximale du pitch */
+  }
+}
+
+@media (max-width: 480px) {
+  .responsivePitch {
+   // transform: rotate(-90deg); /* Fait pivoter le contenu de -90 degrés (pour le rendre vertical) */
+    margin-left: 5%; /* Ajustez encore la marge pour les écrans très petits */
+    max-width: 90%; /* Réduisez davantage la largeur maximale du pitch */
+  }
+}
 
 .container {
   display: grid;

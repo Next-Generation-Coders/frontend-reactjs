@@ -298,8 +298,9 @@ export const TeamLineupManager = () => {
 
       <div className={styles.pitchContainer}>
 
-        <div style={{ marginLeft: "40%", maxWidth: "100%" }}>
-          <SoccerLineup homeTeam={homeTeam}
+        <div className={styles.responsivePitch}>
+          <SoccerLineup
+              homeTeam={homeTeam}
           pattern="lines"
           />
         </div>

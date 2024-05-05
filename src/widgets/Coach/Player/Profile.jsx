@@ -321,7 +321,7 @@ const Profile = () => {
 
                     </div>
                     <div className={styles.footer}>
-                        <button className="btn" type="submit" style={{marginRight:"30px" ,width:"30%",backgroundColor:"#FDCA40",color:"black"}}>Save Player</button>
+                        <button className="btn btn--outlined" type="submit" style={{backgroundColor:"#FDCA40",color:"black"}}>Save Player</button>
                         <button className="btn btn--outlined" type="reset" onClick={reset}>Cancel</button>
                     </div>
                 </>

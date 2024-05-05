@@ -29,6 +29,7 @@ import {
 } from '@constants/links';
 import {useAuthContext} from "@hooks/useAuthContext";
 import Role from "@utils/Role";
+import {useLogout} from "@hooks/useLogout";
 
 const Sidebar = () => {
 
@@ -53,6 +54,7 @@ const Sidebar = () => {
 
 
     const {open, setOpen} = useSidebar();
+    const {logout} = useLogout();
 
     const [expanded, setExpanded] = useState(undefined);
     const {pathname} = useLocation();
@@ -68,6 +70,11 @@ const Sidebar = () => {
         width < 1280 && setExpanded(undefined);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname]);
+
+
+    const onClickLogout=()=>{
+        logout()
+    }
 
     return (
         <StyledDrawer
@@ -110,13 +117,13 @@ const Sidebar = () => {
                     ))
                 }
             </nav>
-            <SingleLink className={pathname === '/profile' ? 'pinned active' : 'pinned'} as="div">
-                <NavLink to="/profile">
-                    <Link className={`${pathname === '/profile' ? 'active' : ''} h4`}>
-                        <i className="icon icon-sliders"/> Settings
-                    </Link>
-                </NavLink>
-            </SingleLink>
+            {USER && (
+                <SingleLink style={{ backgroundColor: '#FDCA40', color: 'black', width: "100%" }} className={pathname === '/profile' ? 'pinned active' : 'pinned'} as="div">
+                    <button style={{ width: "100%" }} onClick={onClickLogout}>
+                        <i className="icon icon-exit" /> Logout
+                    </button>
+                </SingleLink>
+            )}
         </StyledDrawer>
     );
 }

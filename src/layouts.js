@@ -678,9 +678,9 @@ const layouts = {
 
         ],
         lg: [
-            {i: 'avatar', x: 0, y: 4, w: 1, h: 2.3},
+            {i: 'avatar', x: 0, y: 4, w: 3, h: 2.3},
             {i: 'payments', x: 1, y: 0, w: 2, h: 2},
-            {i: 'password', x: 3, y: 0, w: 1, h: 2}
+            {i: 'password', x: 1, y: 0, w: 3, h: 2}
 
         ],
         md: [

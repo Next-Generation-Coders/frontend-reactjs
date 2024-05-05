@@ -38,8 +38,8 @@ const SignUpForm = ({standalone = true}) => {
     return (
         <Wrapper {...wrapperProps}>
             <div className="d-flex flex-column g-4">
-                <h3>Create new account</h3>
-                <p className="text-12">Fill out the form below to create a new account</p>
+                <h2 style={{textAlign:"center"}}>Create new account</h2>
+                <p style={{textAlign:"center"}}  className="text-12">Fill out the form below to create a new account</p>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="d-flex flex-column g-20" style={{margin: '20px 0 30px'}}>
@@ -96,7 +96,7 @@ const SignUpForm = ({standalone = true}) => {
                         textAlign:"center",
                         alignContent:"center",
                     }}>
-                        <button disabled={isLoading} type="submit" className="btn w-100">Create account</button>
+                        <button disabled={isLoading} type="submit" className="btn w-100" style={{backgroundColor :"#FDCA40",color:"black"}}>Create Account</button>
                     </div>
                     {error && <div className="__progress-bar--error" >{error}</div>}
                     <br/><br/>

@@ -93,7 +93,7 @@ const OnGoing = ({ standalone = true, formData, setFormData,onSubmit }) => {
 
                 <Wrapper {...wrapperProps}>
                     <div className="d-flex flex-column g-4">
-                        <h2 style={{paddingLeft:"220px"}}>Tournament Ongoing
+                        <h2 style={{textAlign:"center"}}>Tournament Ongoing
                             {formSubmitted ? (
                                 <RiVerifiedBadgeFill style={{marginLeft:"20px",color:"green"}} />
                             ) : null}

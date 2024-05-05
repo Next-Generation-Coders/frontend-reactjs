@@ -55,7 +55,7 @@ const LoginForm = () => {
 
     return (
         <>
-            <h1>Account login</h1>
+            <h2 style={{textAlign:"center"}}>Account login</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="d-flex flex-column g-10" style={{margin: '20px 0 30px'}}>
                     <div className="d-flex flex-column g-20">
@@ -113,7 +113,7 @@ const LoginForm = () => {
             <div >
                 <form className="d-flex justify-content-center align-items-end" action="http://localhost:3000/auth/google" >
                     <button className="btn justify-content-between">
-                        <p>Sign in with</p> <span><FcGoogle /></span>
+                        <p>Sign in with</p> <span style={{marginLeft:"10px"}}><FcGoogle /></span>
                     </button></form>
                 <br/>
                 <div style={{

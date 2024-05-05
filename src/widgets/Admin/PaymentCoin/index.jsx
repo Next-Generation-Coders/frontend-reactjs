@@ -321,7 +321,7 @@ const App = () => {
             <Tabs
                 style={{ width: '100%', backgroundColor: '#FDCA40', color: 'black', justifyContent: 'center' }}
             >
-              <h3 style={{ paddingTop: '10px', marginLeft: '250px', color: 'black' }}>Payment with GSCoin</h3>
+              <h3  style={{ width: '100%', backgroundColor: '#FDCA40', color: 'black', justifyContent: 'center' ,textAlign:"center", paddingTop: '10px', color: 'black' }}>Payment with GSCoin</h3>
             </Tabs>
 
             <br></br>

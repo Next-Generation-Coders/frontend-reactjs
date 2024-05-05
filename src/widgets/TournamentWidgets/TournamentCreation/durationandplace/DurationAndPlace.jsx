@@ -119,7 +119,7 @@ const handleEndDateChange = (e) => {
 
             <Wrapper {...wrapperProps}>
             <div className="d-flex flex-column g-4">
-                        <h2 style={{paddingLeft:"40px"}}>Duration and Place
+                        <h2 style={{textAlign:"center"}}>Duration and Place
                             {formSubmitted ? (
                                 <RiVerifiedBadgeFill style={{marginLeft:"20px",color:"green"}} />
                             ) : null}

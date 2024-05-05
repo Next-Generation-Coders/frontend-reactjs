@@ -10,6 +10,7 @@ import {useThemeProvider} from '@contexts/themeContext';
 // assets
 import english_premier from '@assets/clubs/english_premier.webp';
 import selmi from '@assets/refree/selmi.jpg';
+import {useAuthContext} from "@hooks/useAuthContext";
 
 
 const RefreeRating = () => {
@@ -33,10 +34,18 @@ const RefreeRating = () => {
         }
         return result;
     }
+    const {USER} = useAuthContext()
+
+    const defaultImage = selmi;
+    const defaultSubtitle = "Selmi Malki";
 
     return (
         <Spring className="card d-flex flex-column justify-content-between g-20 card-padded">
-            <LeagueHeader img={selmi} title="Refree Raiting" subtitle="SELMI Sadok" />
+            <LeagueHeader
+                img={USER ? USER.avatar : defaultImage}
+                title="Referee Rating"
+                subtitle={USER ? USER.fullname : defaultSubtitle}
+            />
             <AnimatedCount className="h1 large" count={3.4} decimals={1} />
             <div className="d-flex flex-column g-24">
                 {

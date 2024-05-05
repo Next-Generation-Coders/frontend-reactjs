@@ -100,7 +100,7 @@ const DetailsForm = ({ standalone = true, formData, setFormData, onSubmit }) => 
 
             <Wrapper {...wrapperProps}>
                 <div className="d-flex flex-column g-4">
-                    <h2 style={{ paddingLeft: "40px" }}>Tournament Details
+                    <h2 style={{textAlign:"center"}}>Tournament Details
                     {formSubmitted ? (
                         <RiVerifiedBadgeFill style={{marginLeft:"20px",color:"green"}} />
                     ) : null}

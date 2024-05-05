@@ -146,7 +146,7 @@ const Team = () => {
         {errors.fullname && <span className="error-message">Team name is required</span>}
       </div>
       <div className={styles.footer}>
-        <button className="btn" type="submit"  style={{backgroundColor: '#FDCA40',color:"black"}}>Save Team</button>
+        <button className="btn " type="submit"  style={{backgroundColor: '#FDCA40',color:"black"}}>Save Team</button>
         <button className="btn btn--outlined" type="button" onClick={reset}>Cancel</button>
 
       </div>
