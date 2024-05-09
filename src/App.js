@@ -226,31 +226,32 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
 
 
 
-                                                    <Route path="/addTeams" element={<AddTeams/>}/>
                                                     <Route path="/realtime" element={<RealTime/>}/>
-                                                    <Route path="/match-list" element={<MatchList/>}/>
-                                                    <Route path="/complaint" element={<Complaint/>}/>
                                                     <Route path="/test" element={<Test/>}/>
-
-                                                    //Tournaments Routes
-                                                    <Route path="/tournament-list" element={<Tournaments/>}/>
-                                                    <Route path="/create-tournament" element={<CreateTournament/>}/>
-                                                    <Route path="/LeaguesBackOffice" element={<LeagueInformationsBackOffice/>}/>
-
                                                     //Fantasy Routes
                                                     <Route path='/WorldWide' element={<WorldWide/>}/>
+                                                    //Tournaments Routes
+
+
+                                                    <Route path="/tournament-list" element={<Tournaments/>}/>
+                                                    <Route path="/create-tournament" element={<CreateTournament/>}/>
+
+
 
                                                     //page affichier lors de la creation du tournoi
+                                                    <Route element={<RequireAuth allowedRoles={[Role.ORGANIZER]}/> }>
+
                                                     <Route path="/TournamentCreated" element={<TournamentCreated/>}/>
 
                                                     //page vide
                                                     <Route path="/KnockoutTournamentBuild" element={<KnockTournamentBuild/>}/>
 
-                                                    <Route path="/addTeams" element={<AddTeams/>}/>
                                                     <Route path='/TournamentReview' element={<TournamentReview/>}/>
                                                     <Route path='/LeaguesDisplay' element={<LeaguesDisplay/>}/>
                                                     <Route path='/Tournament-Admin' element={<TournamentList/>} />
                                                     <Route path="/Fantasy" element={<FantasyHome/>}/>
+
+                                                    </Route>
 
 
                                                     // Admin Tournament Routes
@@ -266,7 +267,14 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     <Route path="/agent/:id" element={<AgentScore/>}/> */}
 
                                                     <Route path="/match" element={<MatchResult/>}/>
+
+                                                    <Route element={<RequireAuth allowedRoles={[Role.REFEREE]}/> }>
+
                                                     <Route path="/agent/:id" element={<AgentScore/>}/>
+                                                        <Route path="/match-list" element={<MatchList/>}/>
+
+                                                    </Route>
+
                                                     <Route path="/users" element={<UserManagement/>}/>
 
                                                     
@@ -324,6 +332,9 @@ const CoachProfile = lazy(() => import('@pages/CoachProfile'));
                                                     </Route>
 
                                                     <Route element={<RequireAuth allowedRoles={[Role.ORGANIZER]}/> }>
+                                                        <Route path="/LeaguesBackOffice" element={<LeagueInformationsBackOffice/>}/>
+                                                        <Route path="/addTeams" element={<AddTeams/>}/>
+
                                                     </Route>
 
 

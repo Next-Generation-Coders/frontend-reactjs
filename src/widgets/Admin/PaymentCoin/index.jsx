@@ -98,23 +98,6 @@ const App = () => {
     setStep(step - 1);
   };
 
-  {/*useEffect(() => {
-    if (addressesMatch) {
-      setIsMatch(true);
-      setShowAnimation(true);
-      setTimeout(() => {
-        setShowAnimation(false);
-      }, 2000);
-    } else {
-      setIsMatch(false);
-    }
-  }, [addressesMatch]);
-*/}
-  useEffect(() => {
-    if (walletAddress && adminAddressWallet) {
-      setAddressesMatch(walletAddress === adminAddressWallet);
-    }
-  }, [walletAddress, adminAddressWallet]);
   const handleChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -157,29 +140,23 @@ const App = () => {
 
       console.log('Sender Address:', senderAddress);
       console.log('USER Address:', USER.addressWallet);
-
-      console.log('admin Address:', adminAddressWallet);
+      console.log('Admin Address:', adminAddressWallet);
       console.log('Receiver Address:', receiverAddress);
-
       console.log('Transaction Amount:', transactionAmount);
 
       setWalletAddress(senderAddress);
       setAmount(transactionAmount);
-      const modifiedAddress = "O" + USER.addressWallet.slice(1);
-      console.log('modified Address :', modifiedAddress);
 
-      if (receiverAddress === adminAddressWallet && senderAddress === modifiedAddress) {
-        console.log("match",addressesMatch)
+      const modifiedAddress = "0x" + USER.addressWallet.slice(3); // Modifying USER address
+      console.log('Modified Address:', modifiedAddress);
 
+      if (receiverAddress === adminAddressWallet && senderAddress === USER.addressWallet) {
         setAddressesMatch(true);
-        console.log("matchhh",addressesMatch)
-
+        console.log("Match: true");
       } else {
-
         setAddressesMatch(false);
-        console.log("match no  ",addressesMatch)
+        console.log("Match: false");
       }
-
 
     }).catch(error => {
       console.error('Error during OCR:', error);
@@ -214,7 +191,7 @@ const App = () => {
     try {
 
       const selectedTournamentData = tournaments.find(tournament => tournament._id === tournamentId);
-      const TournamentType = selectedTournamentData ? selectedTournamentData.tournamentType : null;
+      const TournamentType = selectedTournamentData ? selectedTournamentData.TournamentType : null;
 
 
       console.log("tournament Type :",TournamentType)
@@ -321,7 +298,7 @@ const App = () => {
             <Tabs
                 style={{ width: '100%', backgroundColor: '#FDCA40', color: 'black', justifyContent: 'center' }}
             >
-              <h3  style={{ width: '100%', backgroundColor: '#FDCA40', color: 'black', justifyContent: 'center' ,textAlign:"center", paddingTop: '10px', color: 'black' }}>Payment with GSCoin</h3>
+              <h3  style={{ width: '100%', backgroundColor: '#FDCA40', color: 'black', justifyContent: 'center' ,textAlign:"center", paddingTop: '10px' }}>Payment with GSCoin</h3>
             </Tabs>
 
             <br></br>

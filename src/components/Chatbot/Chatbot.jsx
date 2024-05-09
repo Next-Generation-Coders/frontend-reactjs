@@ -77,9 +77,7 @@ const Chatbot = () => {
             try {
                 const response = await axios.get(`http://localhost:3000/User/getbyemail?email=${USER.email}`);
                 const userdata = response.data.roles;
-                console.log("Response data:", response.data);
                 setUserData(userdata);
-                console.log("user:", userdata);
 
                 if (userdata.includes(21)) {
                     const UserId = response.data._id;
@@ -96,18 +94,15 @@ const Chatbot = () => {
                 const userId = userResponse.data.currentTeam;
                 const lineupResponse = await fetch(`http://localhost:3000/Team/getLineup/${userId}`);
                 const lineupData = await lineupResponse.json();
-                console.log('Lineup Data:', lineupData.lineup.playerNames);
 
                 setLineup(lineupData.lineup.playerNames);
 
-                console.log("lllllllllllllll : ", lineup);
             } catch (error) {
                 console.error(error);
             }
         }
 
         fetchData();
-        console.log('Lineup:', lineup);
     }, []);
 
 
@@ -116,10 +111,8 @@ const Chatbot = () => {
     /* if (userData === null) {
         return <div>Loading...</div>;
     } */
-    console.log("thisis the switch data"+userData)
     const role = userData;
     if (userData !== null && userData !== undefined) {
-        console.log("this is in and the adata is   "+location)
         switch (true) {
             case userData.includes(12): // Coach
                 if (location.pathname.includes('/TeamLineupF') && userData.includes(12)) {

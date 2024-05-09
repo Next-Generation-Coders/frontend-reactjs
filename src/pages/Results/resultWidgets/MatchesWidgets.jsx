@@ -50,17 +50,17 @@ const Header = styled.div`
     overflow: hidden;
   }
 `;
-
 const MatchesWidgets = ({ score, upcoming }) => {
     const navigate = useNavigate();
     const [matchData, setMatchData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [showPrediction, setShowPrediction] = useState(false);
 
     useEffect(() => {
         const fetchMatchData = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get('http://localhost:5000/upcoming');
+                const response = await axios.get('https://prediction-ai.azurewebsites.net/upcoming');
                 const upcomingMatches = response.data;
                 const matchId = score?.match?._id;
 
@@ -79,6 +79,9 @@ const MatchesWidgets = ({ score, upcoming }) => {
         }
     }, [score, upcoming]);
 
+    const handlePredictionClick = () => {
+        setShowPrediction(!showPrediction);
+    };
     const GoToMatchDetails = async (matchId) => {
         navigate('/match', { state: { matchId } });
     };
@@ -98,24 +101,41 @@ const MatchesWidgets = ({ score, upcoming }) => {
             <div className="predicted-winner">
                 {matchData && upcoming && (
                     <>
-                        <p style={{ color: 'white' }}>Predicted Winner: {matchData.predicted_winner}</p>
-                        <div className="progress-bar">
-                            <div className="progress" style={{ width: `${matchData.percentage_team1_win}%`,color:"black",borderRadius:"10px 10px 10px 10px", backgroundColor: '#08F26E' }}>
-                                {matchData.team1_name} ({matchData.percentage_team1_win}%)
-                            </div>
-                            <div className="progress" style={{ width: `${matchData.percentage_team2_win}%`,color:"white",borderRadius:"10px 10px 10px 10px", backgroundColor: '#C21807' }}>
-                                {matchData.team2_name} ({matchData.percentage_team2_win}%)
-                            </div>
-                        </div>
+                        {/* Utilisation de la balise <a> pour afficher la prédiction */}
+                        <a href="#" onClick={handlePredictionClick} style={{color: '#FDCA40', textDecoration: 'none',textAlign:"right",paddingLeft:"23px"} }>
+                            {showPrediction ? 'Hide Prediction' : 'Show Prediction'}
+                        </a>
+                        {showPrediction && (
+                            <>
+                                <div className="progress-bar">
+                                    <div className="progress" style={{
+                                        width: `${matchData.percentage_team1_win}%`,
+                                        color: "black",
+                                        borderRadius: "10px 10px 10px 10px",
+                                        backgroundColor: '#08F26E'
+                                    }}>
+                                        {matchData.team1_name} ({matchData.percentage_team1_win}%)
+                                    </div>
+                                    <div className="progress" style={{
+                                        width: `${matchData.percentage_team2_win}%`,
+                                        color: "white",
+                                        borderRadius: "10px 10px 10px 10px",
+                                        backgroundColor: '#C21807'
+                                    }}>
+                                        {matchData.team2_name} ({matchData.percentage_team2_win}%)
+                                    </div>
+                                </div>
 
-                        <div className="predicted-goals">
-                            <div className="progress" style={{ color: 'white' }} >
-                                Predicted Goals for {matchData.team1_name}: {matchData.predicted_goals_team1}
-                            </div>
-                            <div className="progress" style={{ color: 'white' }}>
-                                Predicted Goals for {matchData.team2_name}: {matchData.predicted_goals_team2}
-                            </div>
-                        </div>
+                                <div className="predicted-goals">
+                                    <div className="progress" style={{color: 'white'}}>
+                                        Predicted Goals for {matchData.team1_name}: {matchData.predicted_goals_team1}
+                                    </div>
+                                    <div className="progress" style={{color: 'white'}}>
+                                        Predicted Goals for {matchData.team2_name}: {matchData.predicted_goals_team2}
+                                    </div>
+                                </div>
+                            </>
+                        )}
                     </>
                 )}
             </div>
