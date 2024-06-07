@@ -34,3 +34,9 @@
 .tournament.button:hover {
   background-color: #FBBF24;
 }
+
+
+.tournament-selector-container {
+  
+  overflow-y: auto;
+}

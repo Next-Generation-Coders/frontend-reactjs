@@ -118,7 +118,7 @@ if (!leagues){
                       </InputGroup>
                   </Form>
               ) : (
-                  <h2>Tournaments</h2>
+                  <h2>Games</h2>
               )}
               <InputGroup.Text onClick={handleIconClick} style={{ cursor: 'pointer' }}>
                   <FaSearch style={{ color: "#FBCB40" }} />

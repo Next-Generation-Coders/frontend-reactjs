@@ -34,3 +34,39 @@
 .tournament.button:hover {
     background-color: #FBBF24;
 }
+
+
+.tournament-selector-container {
+
+    overflow-y: auto;
+  }
+
+
+
+.unpaidMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 570px; 
+    background: url('../../../../assets/SorryPicture.webp') no-repeat center center;
+    background-size: cover;
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.congrats-container {
+    max-width: 800px; /* Adjust max-width as needed */
+    padding: 40px;
+    border: 1px solid rgba(26, 23, 23, 0.35);
+    border-radius: 12px;
+    background: rgba(12, 11, 11, 0.55); /* Semi-transparent white background */
+    -webkit-backdrop-filter: blur(2px); /* Blur effect for WebKit browsers */
+    backdrop-filter: blur(2px); /* Blur effect for other browsers */
+    text-align: center;
+    height : 400px;
+    line-height: 1.1;
+   
+  }
